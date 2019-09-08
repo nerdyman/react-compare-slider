@@ -1,6 +1,12 @@
 {
   "name": "react-compare-slider",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "email": "averynerdyman@gmail.com",
+    "name": "nerdyman",
+    "url": "https://github.com/nerdyman"
+  },
   "main": "dist/index.js",
   "module": "dist/react-compare-slider.esm.js",
   "typings": "dist/index.d.ts",
