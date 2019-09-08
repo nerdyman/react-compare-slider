@@ -155,7 +155,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
     if (!CLIENT_SUPPORTS_CSS_CLIP_PATH) {
       setPositions(positions => {
         const { width, height } = containerRef.current.getBoundingClientRect();
-        console.log({ width, height });
+
         return {
           ...positions,
           positionPx: portrait

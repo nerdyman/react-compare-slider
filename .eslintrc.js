@@ -29,6 +29,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'lines-around-comment': 0,
     'no-confusing-arrow': 0,
+    'no-console': ['error', { allow: ['warn'] }],
 
     'react/jsx-indent': 0,
     'react/jsx-indent-props': 0,
