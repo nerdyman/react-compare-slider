@@ -1,30 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+/**
+ * Whether the client supports CSS `clip-path`
+ */
 export const CLIENT_SUPPORTS_CSS_CLIP_PATH =
   typeof CSS !== 'undefined' &&
   CSS.supports &&
   CSS.supports('clip-path', 'inset(0 0 0 0)');
 
 /**
- * Permitted props for `styleFitContainer`
- */
-interface StyleFitContainerProps {
-  objectFit?: React.CSSProperties['objectFit'];
-}
-
-/**
  * Style CSS util to fit container
  */
 export const styleFitContainer = ({
   objectFit = 'cover',
-}: StyleFitContainerProps = {}): Partial<React.CSSProperties> => ({
+  ...props
+}: React.CSSProperties = {}): Partial<React.CSSProperties> => ({
   display: 'block',
   width: '100%',
   height: '100%',
   maxWidth: '100%',
-  userSelect: 'none',
-  msUserSelect: 'none',
   objectFit,
+  ...props,
 });
 
 type ReactCompareSliderPropPosition = number;
@@ -112,6 +108,9 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderItemProps> = ({
   return <div {...props} style={style} />;
 };
 
+/**
+ * Props for main component
+ */
 export interface ReactCompareSliderProps {
   /** Handle component for dragging between comparisons */
   handle?: React.ReactNode;
@@ -125,6 +124,9 @@ export interface ReactCompareSliderProps {
   position?: ReactCompareSliderPropPosition;
 }
 
+/**
+ * Internal state for positons
+ */
 interface ReactCompareSliderStatePositions {
   /** Position percentage */
   position: number;
@@ -153,22 +155,32 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
   // Set initial position for legacy browsers
   useEffect((): void => {
     if (!CLIENT_SUPPORTS_CSS_CLIP_PATH) {
-      setPositions(positions => {
-        const { width, height } = containerRef.current.getBoundingClientRect();
+      setPositions(
+        (positions): ReactCompareSliderStatePositions => {
+          const {
+            width,
+            height,
+          } = containerRef.current.getBoundingClientRect();
 
-        return {
-          ...positions,
-          positionPx: portrait
-            ? (height * position) / 100
-            : (width * position) / 100,
-        };
-      });
+          return {
+            ...positions,
+            positionPx: portrait
+              ? (height * position) / 100
+              : (width * position) / 100,
+          };
+        }
+      );
     }
   }, []);
 
   // Update internal position if position prop changes
   useEffect((): void => {
-    setPositions(positions => ({ ...positions, position }));
+    setPositions(
+      (positions): ReactCompareSliderStatePositions => ({
+        ...positions,
+        position,
+      })
+    );
   }, [position]);
 
   // Bind and handle events
@@ -176,11 +188,13 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
     const updatePosition = (x: number, y: number): void => {
       const { width, height } = containerRef.current.getBoundingClientRect();
 
-      setPositions(positions => ({
-        ...positions,
-        positionPx: portrait ? y : x,
-        position: portrait ? (y / height) * 100 : (x / width) * 100,
-      }));
+      setPositions(
+        (positions): ReactCompareSliderStatePositions => ({
+          ...positions,
+          positionPx: portrait ? y : x,
+          position: portrait ? (y / height) * 100 : (x / width) * 100,
+        })
+      );
     };
 
     const handleMouseDown = (ev: MouseEvent): void => {

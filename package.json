@@ -11,6 +11,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
+    "test:watch": "yarn test --coverage --watch",
     "lint": "tsdx lint",
     "lint-staged": "lint-staged"
   },
