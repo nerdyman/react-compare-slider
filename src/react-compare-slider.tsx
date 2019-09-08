@@ -23,6 +23,7 @@ export const styleFitContainer = ({
   height: '100%',
   maxWidth: '100%',
   userSelect: 'none',
+  msUserSelect: 'none',
   objectFit,
 });
 
