@@ -20,14 +20,14 @@ const App = () => {
       >
         <ReactCompareSlider
           portrait
-          itemFirst={
+          itemOne={
             <Img
-              src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+              src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
               style={{ filter: 'blur(25px)' }}
               alt="one"
             />
           }
-          itemSecond={
+          itemTwo={
             <Img
               src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
               alt="two"
@@ -44,16 +44,16 @@ const App = () => {
         }}
       >
         <ReactCompareSlider
-          itemFirst={
+          itemOne={
             <Img
               src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
               style={{ filter: 'blur(25px)' }}
               alt="one"
             />
           }
-          itemSecond={
+          itemTwo={
             <Img
-              src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+              src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
               alt="two"
             />
           }
