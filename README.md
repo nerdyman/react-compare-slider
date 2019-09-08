@@ -1,10 +1,12 @@
+[![Build Status](https://github.com/nerdyman/react-compare-slider/workflows/node-ci/badge.svg)](https://github.com/nerdyman/react-compare-slider/workflows/node-ci)
+
 # React Compare Slider
 
 Compare two components, side-by-side or top-to-toe.
 
 ## Features
 
-- Supports responsive images, videos, any React component
+- Supports responsive images, videos, any React components
 - Supports landscape and portrait orientations
 - Simple API
 - Responsive, fluid
@@ -50,14 +52,13 @@ const App = () => (
             <Img
                 alt="Campsite at night"
                 src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
-                style={{ objectPosition: 'bottom', filter: 'blur(20px)' }}
+                style={{ filter: 'blur(20px)' }}
             />
         }
         itemTwo={
             <Img
                 alt="Campsite at night blurred"
                 src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
-                style={{ objectPosition: 'bottom', }}
             />
         }
     >
@@ -73,23 +74,23 @@ const App = () => (
 | `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
-| `position`  | `number`    |   | `50` | Initial percentageposition of divide (`0-100`) |
+| `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
 | `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
 
 ### `styleFitContainer`
 
-The `styleFitContainer` utility returns a React `style` object, it accepts any
-CSS `object-fit` property as an argument, its default is `cover`.
+The `styleFitContainer` utility returns a React `style` object. It accepts a
+CSS object as an argument and defaults to `object-fit` to `cover`.
 
 Example:
 
 ```jsx
 <video 
-    style={{ ...styleFitContainer('contain') }} 
+    style={{ ...styleFitContainer({ objectFit: 'contain' }) }} 
     src="..."
 />
 ```
 
 ## Notes
 
-This project was bootstrapped with [TSDX](<https://github.com/palmerhq/tsdx>).
+Bootstrapped with [TSDX](<https://github.com/palmerhq/tsdx>).
