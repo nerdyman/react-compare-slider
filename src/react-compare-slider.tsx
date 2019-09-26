@@ -96,6 +96,9 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderItemProps> = ({
     clipPath: portrait
       ? `inset(${position}% 0 0 0`
       : `inset(0 0 0 ${position}%`,
+    userSelect: 'none',
+    MozUserSelect: 'none',
+    WebkitUserSelect: 'none',
   };
 
   // Use `clip` if `clip-path` is not supported
@@ -287,6 +290,9 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
+    userSelect: 'none',
+    MozUserSelect: 'none',
+    WebkitUserSelect: 'none',
   };
 
   return (
