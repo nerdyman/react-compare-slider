@@ -1,0 +1,39 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "jest"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest/globals": true
+  },
+  "settings": {
+    "react": { "version": "detect" }
+  },
+  "rules": {
+    "linebreak-style": ["error", "unix"],
+    "lines-around-comment": 0,
+    "no-confusing-arrow": 0,
+    "no-console": ["error", { "allow": ["warn"] }],
+
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": 0,
+    "react/prop-types": 0,
+
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
