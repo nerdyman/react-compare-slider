@@ -3,13 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 /**
  * Whether the client supports CSS `clip-path`
  */
-export const CLIENT_SUPPORTS_CSS_CLIP_PATH =
+export const CLIENT_SUPPORTS_CSS_CLIP_PATH: boolean =
   typeof CSS !== 'undefined' &&
   CSS.supports &&
   CSS.supports('clip-path', 'inset(0 0 0 0)');
 
 /**
- * Style CSS util to fit container
+ * CSS style util for child to fit container
  */
 export const styleFitContainer = ({
   objectFit = 'cover',
@@ -155,7 +155,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
     positionPx: 0,
   });
 
-  // Set initial position for legacy browsers
+  // Set position for legacy browsers
   useEffect((): void => {
     if (!CLIENT_SUPPORTS_CSS_CLIP_PATH) {
       setPositions(
@@ -174,7 +174,9 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
         }
       );
     }
-  }, []);
+    // @NOTE Disabling exhaustive-deps, only want this to run on mount,
+    //       subsequent position changes are handled in hook below
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update internal position if position prop changes
   useEffect((): void => {
@@ -188,8 +190,10 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
 
   // Bind and handle events
   useEffect((): (() => void) => {
+    const containerRefCurrent = containerRef.current;
+
     const updatePosition = (x: number, y: number): void => {
-      const { width, height } = containerRef.current.getBoundingClientRect();
+      const { width, height } = containerRefCurrent.getBoundingClientRect();
 
       setPositions(
         (positions): ReactCompareSliderStatePositions => ({
@@ -233,55 +237,55 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
     };
 
     // Mouse event bindings
-    containerRef.current.addEventListener('mousedown', handleMouseDown, {
+    containerRefCurrent.addEventListener('mousedown', handleMouseDown, {
       capture: false,
       passive: true,
     });
 
-    containerRef.current.addEventListener('mouseleave', handleFinish, {
+    containerRefCurrent.addEventListener('mouseleave', handleFinish, {
       capture: false,
       passive: true,
     });
 
-    containerRef.current.addEventListener('mousemove', handleMouseMove);
+    containerRefCurrent.addEventListener('mousemove', handleMouseMove);
 
-    containerRef.current.addEventListener('mouseup', handleFinish, {
+    containerRefCurrent.addEventListener('mouseup', handleFinish, {
       capture: false,
       passive: true,
     });
 
     // Touch event bindings
-    containerRef.current.addEventListener('touchstart', handleTouchStart, {
+    containerRefCurrent.addEventListener('touchstart', handleTouchStart, {
       capture: false,
       passive: true,
     });
 
-    containerRef.current.addEventListener('touchend', handleFinish, {
+    containerRefCurrent.addEventListener('touchend', handleFinish, {
       capture: false,
       passive: true,
     });
 
-    containerRef.current.addEventListener('touchmove', handleTouchMove);
+    containerRefCurrent.addEventListener('touchmove', handleTouchMove);
 
-    containerRef.current.addEventListener('touchcancel', handleFinish, {
+    containerRefCurrent.addEventListener('touchcancel', handleFinish, {
       capture: false,
       passive: true,
     });
 
     return (): void => {
       // Mouse event bindings
-      containerRef.current.removeEventListener('mousedown', handleMouseDown);
-      containerRef.current.removeEventListener('mouseleave', handleFinish);
-      containerRef.current.removeEventListener('mousemove', handleMouseMove);
-      containerRef.current.removeEventListener('mouseup', handleFinish);
+      containerRefCurrent.removeEventListener('mousedown', handleMouseDown);
+      containerRefCurrent.removeEventListener('mouseleave', handleFinish);
+      containerRefCurrent.removeEventListener('mousemove', handleMouseMove);
+      containerRefCurrent.removeEventListener('mouseup', handleFinish);
 
       // Touch events bindings
-      containerRef.current.removeEventListener('touchstart', handleTouchStart);
-      containerRef.current.removeEventListener('touchend', handleFinish);
-      containerRef.current.removeEventListener('touchmove', handleTouchMove);
-      containerRef.current.removeEventListener('touchcancel', handleFinish);
+      containerRefCurrent.removeEventListener('touchstart', handleTouchStart);
+      containerRefCurrent.removeEventListener('touchend', handleFinish);
+      containerRefCurrent.removeEventListener('touchmove', handleTouchMove);
+      containerRefCurrent.removeEventListener('touchcancel', handleFinish);
     };
-  }, [isDragging]);
+  }, [isDragging, portrait]);
 
   // Use custom handle if requested
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
