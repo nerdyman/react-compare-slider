@@ -50,7 +50,11 @@ const ReactCompareSliderHandleContainer: React.FC<
       : `translateX(${position}%)`,
   };
 
-  return <div style={style}>{children}</div>;
+  return (
+    <div style={style} data-rcs-main-handle-container>
+      {children}
+    </div>
+  );
 };
 
 /**
@@ -71,7 +75,7 @@ export const ReactCompareSliderHandle: React.FC<
     pointerEvents: 'all',
   };
 
-  return <div {...props} style={style} />;
+  return <div {...props} style={style} data-rcs-main-handle-inner />;
 };
 
 interface ReactCompareSliderItemProps extends ReactCompareSliderCommonProps {
@@ -108,7 +112,7 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderItemProps> = ({
       : `rect(auto,${positionPx}px,auto,auto)`;
   }
 
-  return <div {...props} style={style} />;
+  return <div {...props} style={style} data-rcs-main-item />;
 };
 
 /**
@@ -142,7 +146,9 @@ interface ReactCompareSliderStatePositions {
 /**
  * Root component
  */
-export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
+export const ReactCompareSlider: React.FC<
+  ReactCompareSliderProps & React.HtmlHTMLAttributes<HTMLDivElement>
+> = ({
   handle,
   itemOne,
   itemTwo,
@@ -312,7 +318,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
   };
 
   return (
-    <div {...props} ref={containerRef} style={style}>
+    <div {...props} ref={containerRef} style={style} data-rcs-main-container>
       {itemOne}
       <ReactCompareSliderItem
         positionPx={positions.positionPx}
