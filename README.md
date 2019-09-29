@@ -31,38 +31,13 @@ npm install react-compare-slider
 
 ### Use it!
 
-Pass two components, you _may_ want the components
-to fill the container. To do this you can use the `styleFitContainer` utility which returns a CSS style object, it accepts any `object-fit` property.
-
 ```jsx
-import { ReactComareSlider, styleFitContainer } from 'react-compare-slider';
+import { ReactCompareSlider } from 'react-compare-slider';
 
-// Standard image to fill container and maintain aspect ratio
-const Img = ({ style, ...props }) => (
-    <img
-        style={{ ...styleFitContainer(), ...style }}
-        {...props}
-    />
-);
-
-// Render the component
-const App = () => (
-    <ReactCompareImage
-        itemOne={
-            <Img
-                alt="Campsite at night"
-                src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
-                style={{ filter: 'blur(20px)' }}
-            />
-        }
-        itemTwo={
-            <Img
-                alt="Campsite at night blurred"
-                src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
-            />
-        }
-    >
-);
+<ReactCompareSlider
+    itemOne={<img src="..." alt="Image one" />}
+    itemTwo={<img src="..." alt="Image two" />}
+/>
 ```
 
 ## Props & docs
@@ -74,21 +49,72 @@ const App = () => (
 | `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
+| `onChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
 | `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
 
-### `styleFitContainer`
+### `ReactCompareSliderImage`
 
-The `styleFitContainer` utility returns a React `style` object. It accepts a
-CSS object as an argument and defaults to `object-fit` to `cover`.
+`ReactCompareSliderImage` is a standalone image component that detects whether the browser supports the `object-fit` CSS property, if not it will apply a background image to achieve the same effect. It calls `styleFitContainer` internally and will set `background-size`, `background-position` and `background-image` if they have not already been defined in a passed `style` prop.
 
-Example:
+#### Props
+
+`ReactCompareSliderImage` supports all attributes assignable to an `img` component, in addition to the following:
+
+| Prop | Type | Required | Default value | Description |
+|------|------|:--------:|---------------|-------------|
+| `fallbackEnable`    | `boolean` |   | `true` | Whether to enable fallback background |
+
+#### Example
+
+Standalone:
 
 ```jsx
-<video 
-    style={{ ...styleFitContainer({ objectFit: 'contain' }) }} 
-    src="..."
+import { ReactCompareSliderImage } from 'react-compare-slider';
+
+// `src` will be used as background image on unsupported browsers
+<ReactCompareSliderImage src="..." />
+
+// `backgroundImage` will be used as background image on unsupported browsers
+<ReactCompareSliderImage src="..." style={{ backgroundImage: 'url(...)' }} />
+```
+
+Within slider:
+
+```jsx
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+<ReactCompareSlider
+    itemOne={<ReactCompareSliderImage src="..." alt="Image one" />}
+    itemTwo={<ReactCompareSliderImage src="..." alt="Image two" />}
 />
+```
+
+### `styleFitContainer`
+
+The `styleFitContainer` utility makes any child media component (`img`, `picture`, `video`, etc.) fill its parent and maintain the correct aspect ratio. It returns a React `style` object and accepts a
+CSS object as an argument and defaults to `object-fit` to `cover`.
+
+#### Example
+
+Fill a full width/height container:
+
+```jsx
+import { styleFitContainer } from 'react-compare-slider';
+
+// ...
+
+<div style={{ width: '100vw', height: '100vh' }}>
+    <video 
+        style={{ 
+            ...styleFitContainer({
+                objectFit: 'contain', 
+                objectPosition: 'center',
+            }) 
+        }} 
+        // ...
+    />
+</div>
 ```
 
 ## Notes
