@@ -27,8 +27,7 @@
     "react-dom": ">=16.8"
   },
   "np": {
-    "yarn": true,
-    "contents": "dist"
+    "yarn": true
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
