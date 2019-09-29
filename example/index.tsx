@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -19,7 +21,6 @@ const App = () => {
         }}
       >
         <ReactCompareSlider
-          portrait
           itemOne={
             <Img
               src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg"
@@ -33,6 +34,8 @@ const App = () => {
               alt="two"
             />
           }
+          onChange={position => console.log(`Portrait position: ${position}`)}
+          portrait
         />
       </div>
       <div
@@ -57,6 +60,7 @@ const App = () => {
               alt="two"
             />
           }
+          onChange={position => console.log(`Landscape position: ${position}`)}
         />
       </div>
     </>

@@ -121,6 +121,8 @@ export interface ReactCompareSliderProps {
   itemOne: React.ReactNode;
   /** Second item to show */
   itemTwo: React.ReactNode;
+  /** Callback on position change */
+  onChange?: (position: ReactCompareSliderPropPosition) => void;
   /** Orientation */
   portrait?: boolean;
   /** Percentage position of divide */
@@ -132,7 +134,7 @@ export interface ReactCompareSliderProps {
  */
 interface ReactCompareSliderStatePositions {
   /** Position percentage */
-  position: number;
+  position: ReactCompareSliderPropPosition;
   /** Position in px for legacy browsers */
   positionPx: number;
 }
@@ -144,6 +146,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
   handle,
   itemOne,
   itemTwo,
+  onChange,
   portrait,
   position = 50,
   ...props
@@ -194,14 +197,17 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
 
     const updatePosition = (x: number, y: number): void => {
       const { width, height } = containerRefCurrent.getBoundingClientRect();
+      const position = portrait ? (y / height) * 100 : (x / width) * 100;
 
       setPositions(
         (positions): ReactCompareSliderStatePositions => ({
           ...positions,
           positionPx: portrait ? y : x,
-          position: portrait ? (y / height) * 100 : (x / width) * 100,
+          position,
         })
       );
+
+      if (onChange) onChange(position);
     };
 
     const handleMouseDown = (ev: MouseEvent): void => {
@@ -265,7 +271,10 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
       passive: true,
     });
 
-    containerRefCurrent.addEventListener('touchmove', handleTouchMove);
+    containerRefCurrent.addEventListener('touchmove', handleTouchMove, {
+      capture: true,
+      passive: true,
+    });
 
     containerRefCurrent.addEventListener('touchcancel', handleFinish, {
       capture: false,
@@ -285,7 +294,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps> = ({
       containerRefCurrent.removeEventListener('touchmove', handleTouchMove);
       containerRefCurrent.removeEventListener('touchcancel', handleFinish);
     };
-  }, [isDragging, portrait]);
+  }, [isDragging, onChange, portrait]);
 
   // Use custom handle if requested
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
