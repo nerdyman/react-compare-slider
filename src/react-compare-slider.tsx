@@ -44,15 +44,24 @@ const ReactCompareSliderHandleContainer: React.FC<
     top: 0,
     width: '100%',
     height: '100%',
-    pointerEvents: 'none',
     transform: portrait
       ? `translateY(${position}%)`
       : `translateX(${position}%)`,
+    // Only want inner handle to be selectable
+    pointerEvents: 'none',
+  };
+
+  const innerStyle: React.CSSProperties = {
+    position: 'absolute',
+    width: portrait ? '100%' : undefined,
+    height: portrait ? undefined : '100%',
+    transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
+    pointerEvents: 'all',
   };
 
   return (
     <div style={style} data-rcs-main-handle-container>
-      {children}
+      <div style={innerStyle}>{children}</div>
     </div>
   );
 };
@@ -64,15 +73,11 @@ export const ReactCompareSliderHandle: React.FC<
   Pick<ReactCompareSliderCommonProps, 'portrait'>
 > = ({ portrait, ...props }): React.ReactElement => {
   const style: React.CSSProperties = {
-    position: 'absolute',
-    top: 0,
     height: portrait ? 3 : '100%',
     width: portrait ? '100%' : 3,
-    transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
     backgroundColor: '#ffffff',
     boxShadow: '0 0 .2rem #000000',
     cursor: portrait ? 'ns-resize' : 'ew-resize',
-    pointerEvents: 'all',
   };
 
   return <div {...props} style={style} data-rcs-main-handle-inner />;
@@ -134,7 +139,7 @@ export interface ReactCompareSliderProps {
 }
 
 /**
- * Internal state for positons
+ * Internal state for positions
  */
 interface ReactCompareSliderStatePositions {
   /** Position percentage */
@@ -261,7 +266,7 @@ export const ReactCompareSlider: React.FC<
 
     containerRefCurrent.addEventListener('mousemove', handleMouseMove, {
       capture: false,
-      passive: true,
+      passive: false,
     });
 
     containerRefCurrent.addEventListener('mouseup', handleFinish, {
