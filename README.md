@@ -18,6 +18,8 @@ Compare two components, side-by-side or top-to-toe.
 
 ## Demo
 
+- CodeSandbox
+  - [Fluid, Landscape, Portrait with custom handle](<https://9si6l.codesandbox.io/>) 
 - [Storybook](<https://festive-darwin-fab443.netlify.com/>)
 
 ## Usage
