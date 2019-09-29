@@ -1,3 +1,4 @@
+![NPM](https://img.shields.io/npm/l/react-compare-slider) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-compare-slider)
 [![Build Status](https://github.com/nerdyman/react-compare-slider/workflows/node-ci/badge.svg)](https://github.com/nerdyman/react-compare-slider/workflows/node-ci)
 
 # React Compare Slider
