@@ -9,6 +9,8 @@ import {
   styleFitContainer,
 } from '../.';
 
+import { DemoSection } from './demo-blocks';
+
 /**
  * Example custom image using `styleFitContainer`
  */
@@ -19,13 +21,9 @@ const Img: React.FC<any> = ({ style, ...props }) => (
 const App = () => {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          width: '100%',
-          height: '50vh',
-          overflow: 'hidden',
-        }}
+      <DemoSection
+        title="Using <code>ReactCompareSliderImage</code>"
+        description="In <code>portrait</code> mode, using <code>ReactCompareSliderImage</code> to fit parent container and provide a fallback for browsers that don't support CSS <code>object-fit</code>."
       >
         <ReactCompareSlider
           itemOne={
@@ -44,30 +42,16 @@ const App = () => {
           onChange={position => console.log(`Portrait position: ${position}`)}
           portrait
         />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          width: '100%',
-          height: '50vh',
-          overflow: 'hidden',
-        }}
+      </DemoSection>
+      <DemoSection
+        title="Using <code>styleFitContainer()</code>"
+        description="Using <code>styleFitContainer</code> to fit parent container, <em>does not</em> provide fallback image."
       >
         <ReactCompareSlider
-          handle={
-            <div
-              style={{
-                backgroundImage: `url(https://images.pexels.com/photos/2208836/pexels-photo-2208836.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260)`,
-                backgroundPosition: 'center',
-                width: '2rem',
-                height: '100%',
-              }}
-            />
-          }
           itemOne={
             <Img
               src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-              style={{ filter: 'blur(25px)' }}
+              style={{ filter: 'blur(0.75rem)' }}
               alt="one"
             />
           }
@@ -79,7 +63,7 @@ const App = () => {
           }
           onChange={position => console.log(`Landscape position: ${position}`)}
         />
-      </div>
+      </DemoSection>
     </>
   );
 };

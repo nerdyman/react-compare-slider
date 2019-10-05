@@ -207,8 +207,16 @@ export const ReactCompareSlider: React.FC<
     const containerRefCurrent = containerRef.current;
 
     const updatePosition = (x: number, y: number): void => {
-      const { width, height } = containerRefCurrent.getBoundingClientRect();
-      const position = portrait ? (y / height) * 100 : (x / width) * 100;
+      const {
+        top,
+        left,
+        width,
+        height,
+      } = containerRefCurrent.getBoundingClientRect();
+
+      const position = portrait
+        ? ((y - top - window.scrollY) / height) * 100
+        : ((x - left - window.scrollX) / width) * 100;
 
       setPositions(
         (positions): ReactCompareSliderStatePositions => ({
@@ -323,7 +331,7 @@ export const ReactCompareSlider: React.FC<
   };
 
   return (
-    <div {...props} ref={containerRef} style={style} data-rcs-main-container>
+    <div {...props} ref={containerRef} style={style} data-rcs-root>
       {itemOne}
       <ReactCompareSliderItem
         positionPx={positions.positionPx}
