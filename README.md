@@ -1,4 +1,4 @@
-![NPM](https://img.shields.io/npm/l/react-compare-slider) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-compare-slider)
+![License](https://img.shields.io/npm/l/react-compare-slider) ![npm](https://img.shields.io/npm/v/react-compare-slider) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-compare-slider)
 [![Build Status](https://github.com/nerdyman/react-compare-slider/workflows/node-ci/badge.svg)](https://github.com/nerdyman/react-compare-slider/workflows/node-ci)
 
 # React Compare Slider
@@ -13,7 +13,7 @@ Compare two components, side-by-side or top-to-toe.
 - Responsive, fluid
 - Fully customisable
 - Works in IE11+
-- Teeny-tiny, no dependencies
+- Teeny-tiny, only one ponyfill dependency
 - Type safe
 
 ## Demo

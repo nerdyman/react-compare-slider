@@ -11,13 +11,6 @@ import {
 
 import { DemoSection } from './demo-blocks';
 
-/**
- * Example custom image using `styleFitContainer`
- */
-const Img: React.FC<any> = ({ style, ...props }) => (
-  <img {...props} style={{ ...styleFitContainer(), ...style }} />
-);
-
 const App = () => {
   return (
     <>
@@ -49,14 +42,15 @@ const App = () => {
       >
         <ReactCompareSlider
           itemOne={
-            <Img
+            <img
+              style={{ ...styleFitContainer(), filter: 'blur(0.75rem)' }}
               src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-              style={{ filter: 'blur(0.75rem)' }}
               alt="one"
             />
           }
           itemTwo={
-            <Img
+            <img
+              style={{ ...styleFitContainer() }}
               src="https://images.pexels.com/photos/2040626/pexels-photo-2040626.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
               alt="two"
             />
