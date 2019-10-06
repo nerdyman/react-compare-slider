@@ -50,8 +50,8 @@ export const ReactCompareSliderImage: React.FC<
   }
 
   return (
-    <div className={className} style={containerStyle} data-rcs-image-root>
-      <img {...props} style={innerStyle} data-rcs-image-inner />
+    <div className={className} style={containerStyle} data-rcs="image-root">
+      <img {...props} style={innerStyle} data-rcs="image-inner" />
     </div>
   );
 };

@@ -1,12 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-
-/**
- * Whether the client supports CSS `clip-path`
- */
-export const CLIENT_SUPPORTS_CSS_CLIP_PATH: boolean =
-  typeof CSS !== 'undefined' &&
-  CSS.supports &&
-  CSS.supports('clip-path', 'inset(0 0 0 0)');
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { ResizeObserver } from 'resize-observer';
 
 /**
  * CSS style util for child to fit container
@@ -45,8 +38,8 @@ const ReactCompareSliderHandleContainer: React.FC<
     width: '100%',
     height: '100%',
     transform: portrait
-      ? `translateY(${position}%)`
-      : `translateX(${position}%)`,
+      ? `translateY(${position}px)`
+      : `translateX(${position}px)`,
     // Only want inner handle to be selectable
     pointerEvents: 'none',
   };
@@ -60,7 +53,7 @@ const ReactCompareSliderHandleContainer: React.FC<
   };
 
   return (
-    <div style={style} data-rcs-main-handle-container>
+    <div style={style} data-rcs="main-handle-container">
       <div style={innerStyle}>{children}</div>
     </div>
   );
@@ -80,18 +73,13 @@ export const ReactCompareSliderHandle: React.FC<
     cursor: portrait ? 'ns-resize' : 'ew-resize',
   };
 
-  return <div {...props} style={style} data-rcs-main-handle-inner />;
+  return <div {...props} style={style} data-rcs="main-handle-inner" />;
 };
-
-interface ReactCompareSliderItemProps extends ReactCompareSliderCommonProps {
-  positionPx: number;
-}
 
 /**
  * Container for items passed to main component
  */
-const ReactCompareSliderItem: React.FC<ReactCompareSliderItemProps> = ({
-  positionPx,
+const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
   portrait,
   position,
   ...props
@@ -102,22 +90,17 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderItemProps> = ({
     left: 0,
     width: '100%',
     height: '100%',
-    clipPath: portrait
-      ? `inset(${position}% 0 0 0`
-      : `inset(0 0 0 ${position}%`,
+    clip: portrait
+      ? `rect(auto,auto,${position}px,auto)`
+      : `rect(auto,${position}px,auto,auto)`,
+    willChange: 'clip',
     userSelect: 'none',
+    KhtmlUserSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
   };
 
-  // Use `clip` if `clip-path` is not supported
-  if (!CLIENT_SUPPORTS_CSS_CLIP_PATH) {
-    style.clip = portrait
-      ? `rect(auto,auto,${positionPx}px,auto)`
-      : `rect(auto,${positionPx}px,auto,auto)`;
-  }
-
-  return <div {...props} style={style} data-rcs-main-item />;
+  return <div {...props} style={style} data-rcs="clip-item" />;
 };
 
 /**
@@ -139,13 +122,15 @@ export interface ReactCompareSliderProps {
 }
 
 /**
- * Internal state for positions
+ * Props for `updateInternalPosition` util
  */
-interface ReactCompareSliderStatePositions {
-  /** Position percentage */
-  position: ReactCompareSliderPropPosition;
-  /** Position in px for legacy browsers */
-  positionPx: number;
+interface UpdateInternalPositionProps {
+  /** Percentage to calculate position from */
+  percentage?: number;
+  /** Pointer X to calculate position from (landscape mode) */
+  pointerX?: number;
+  /** Pointer Y to calculate position from (portrait mode) */
+  pointerY?: number;
 }
 
 /**
@@ -164,95 +149,119 @@ export const ReactCompareSlider: React.FC<
 }): React.ReactElement => {
   const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
   const [isDragging, setIsDragging] = useState(false);
-  const [positions, setPositions] = useState<ReactCompareSliderStatePositions>({
-    position,
-    positionPx: 0,
+  // const [containerDimensions, setContainerDimensions] = useState({
+  //   width: 0,
+  //   height: 0,
+  // });
+  const [internalPosition, setInternalPosition] = useState({
+    pc: position,
+    px: 0,
   });
 
-  // Set position for legacy browsers
-  useEffect((): void => {
-    if (!CLIENT_SUPPORTS_CSS_CLIP_PATH) {
-      setPositions(
-        (positions): ReactCompareSliderStatePositions => {
-          const {
-            width,
-            height,
-          } = containerRef.current.getBoundingClientRect();
-
-          return {
-            ...positions,
-            positionPx: portrait
-              ? (height * position) / 100
-              : (width * position) / 100,
-          };
-        }
-      );
-    }
-    // @NOTE Disabling exhaustive-deps, only want this to run on mount,
-    //       subsequent position changes are handled in hook below
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Update internal position if position prop changes
-  useEffect((): void => {
-    setPositions(
-      (positions): ReactCompareSliderStatePositions => ({
-        ...positions,
-        position,
-      })
-    );
-  }, [position]);
-
-  // Bind and handle events
-  useEffect((): (() => void) => {
-    const containerRefCurrent = containerRef.current;
-
-    const updatePosition = (x: number, y: number): void => {
+  /**
+   * Update internal position state from `x` and `y` coordinate *or* a
+   * `percentage` value
+   */
+  const updateInternalPosition = useCallback(
+    ({ percentage, pointerX, pointerY }: UpdateInternalPositionProps): void => {
       const {
         top,
         left,
         width,
         height,
-      } = containerRefCurrent.getBoundingClientRect();
+      } = containerRef.current.getBoundingClientRect();
 
-      const position = portrait
-        ? ((y - top - window.scrollY) / height) * 100
-        : ((x - left - window.scrollX) / width) * 100;
+      let x = 0;
+      let y = 0;
 
-      setPositions(
-        (positions): ReactCompareSliderStatePositions => ({
-          ...positions,
-          positionPx: portrait ? y : x,
-          position,
-        })
-      );
+      // Use pointer positions if defined
+      if (pointerX && pointerY) {
+        x = pointerX - left - window.scrollX;
+        y = pointerY - top - window.scrollY;
+        // Use percentage if defined
+      } else if (percentage) {
+        x = (width / 100) * percentage;
+        y = (height / 100) * percentage;
+      }
 
-      if (onChange) onChange(position);
-    };
+      const px = portrait ? y : x;
+      const pc = portrait ? (y / height) * 100 : (x / width) * 100;
+
+      setInternalPosition({ pc, px });
+
+      if (onChange) {
+        onChange(pc);
+      }
+    },
+
+    [onChange, portrait]
+  );
+
+  // Update internal position if position prop changes
+  useEffect((): void => {
+    updateInternalPosition({ percentage: position });
+  }, [position, updateInternalPosition]);
+
+  /**
+   * Handle element resize event
+   */
+  const handleResize = useCallback(() => {
+    const { width, height } = containerRef.current.getBoundingClientRect();
+    setInternalPosition(state => {
+      return {
+        ...state,
+        px: portrait ? (height / 100) * state.pc : (width / 100) * state.pc,
+      };
+    });
+  }, [portrait]);
+
+  // Update internal position on resize
+  useEffect(() => {
+    const ro = new ResizeObserver((): void => {
+      handleResize();
+    });
+
+    // Bind observer
+    const el = containerRef.current;
+    ro.observe(el);
+
+    return (): void => ro.unobserve(el);
+  }, [handleResize]);
+
+  // Bind and handle events
+  useEffect((): (() => void) => {
+    const containerRefCurrent = containerRef.current;
 
     const handleMouseDown = (ev: MouseEvent): void => {
+      ev.preventDefault();
       if (!isDragging) setIsDragging(true);
-      updatePosition(ev.pageX, ev.pageY);
+      updateInternalPosition({ pointerX: ev.pageX, pointerY: ev.pageY });
     };
 
     const handleMouseMove = (ev: MouseEvent): void => {
-      ev.preventDefault();
       if (isDragging) {
         requestAnimationFrame((): void => {
-          updatePosition(ev.pageX, ev.pageY);
+          updateInternalPosition({ pointerX: ev.pageX, pointerY: ev.pageY });
         });
       }
     };
 
     const handleTouchStart = (ev: TouchEvent): void => {
+      ev.preventDefault();
       if (!isDragging) setIsDragging(true);
-      updatePosition(ev.touches[0].pageX, ev.touches[0].pageY);
+      updateInternalPosition({
+        pointerX: ev.touches[0].pageX,
+        pointerY: ev.touches[0].pageY,
+      });
     };
 
     const handleTouchMove = (ev: TouchEvent): void => {
-      ev.preventDefault();
       if (isDragging) {
         requestAnimationFrame((): void => {
-          updatePosition(ev.touches[0].pageX, ev.touches[0].pageY);
+          updateInternalPosition({
+            pointerX: ev.touches[0].pageX,
+            pointerY: ev.touches[0].pageY,
+          });
         });
       }
     };
@@ -264,7 +273,7 @@ export const ReactCompareSlider: React.FC<
     // Mouse event bindings
     containerRefCurrent.addEventListener('mousedown', handleMouseDown, {
       capture: false,
-      passive: true,
+      passive: false,
     });
 
     containerRefCurrent.addEventListener('mouseleave', handleFinish, {
@@ -274,7 +283,7 @@ export const ReactCompareSlider: React.FC<
 
     containerRefCurrent.addEventListener('mousemove', handleMouseMove, {
       capture: false,
-      passive: false,
+      passive: true,
     });
 
     containerRefCurrent.addEventListener('mouseup', handleFinish, {
@@ -285,7 +294,7 @@ export const ReactCompareSlider: React.FC<
     // Touch event bindings
     containerRefCurrent.addEventListener('touchstart', handleTouchStart, {
       capture: false,
-      passive: true,
+      passive: false,
     });
 
     containerRefCurrent.addEventListener('touchend', handleFinish, {
@@ -294,7 +303,7 @@ export const ReactCompareSlider: React.FC<
     });
 
     containerRefCurrent.addEventListener('touchmove', handleTouchMove, {
-      capture: true,
+      capture: false,
       passive: true,
     });
 
@@ -316,32 +325,35 @@ export const ReactCompareSlider: React.FC<
       containerRefCurrent.removeEventListener('touchmove', handleTouchMove);
       containerRefCurrent.removeEventListener('touchcancel', handleFinish);
     };
-  }, [isDragging, onChange, portrait]);
+  }, [isDragging, portrait, updateInternalPosition]);
 
   // Use custom handle if requested
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
 
   const style: React.CSSProperties = {
+    // @NOTE using `flex` to ensure Firefox will calculate the correct width
+    //       of bounding box, it will return `0` otherwise
+    flex: 1,
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
     userSelect: 'none',
+    KhtmlUserSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
   };
 
   return (
-    <div {...props} ref={containerRef} style={style} data-rcs-root>
-      {itemOne}
+    <div {...props} ref={containerRef} style={style} data-rcs="root">
+      {itemTwo}
       <ReactCompareSliderItem
-        positionPx={positions.positionPx}
-        position={positions.position}
+        position={internalPosition.px}
         portrait={portrait}
       >
-        {itemTwo}
+        {itemOne}
       </ReactCompareSliderItem>
       <ReactCompareSliderHandleContainer
-        position={positions.position}
+        position={internalPosition.px}
         portrait={portrait}
       >
         {Handle}
