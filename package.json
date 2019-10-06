@@ -12,6 +12,17 @@
     "name": "nerdyman",
     "url": "https://github.com/nerdyman"
   },
+  "keywords": [
+    "react",
+    "slider",
+    "comparison",
+    "compare",
+    "image",
+    "video",
+    "image comparison",
+    "portrait",
+    "typescript"
+  ],
   "main": "dist/index.js",
   "module": "dist/react-compare-slider.esm.js",
   "typings": "dist/index.d.ts",
