@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/npm/l/react-compare-slider)](./README.md) [![npm](https://img.shields.io/npm/v/react-compare-slider)](https://npmjs.com/package/react-compare-slider) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-compare-slider)](https://bundlephobia.com/result?p=react-compare-slider)
-[![Build Status](https://github.com/nerdyman/react-compare-slider/workflows/node-ci/badge.svg)](https://github.com/nerdyman/react-compare-slider/workflows/node-ci)
+[![Build Status](https://github.com/nerdyman/react-compare-slider/workflows/build/badge.svg)](https://github.com/nerdyman/react-compare-slider/workflows/build)
 
 # React Compare Slider
 
