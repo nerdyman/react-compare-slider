@@ -1,27 +1,27 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { ReactCompareSlider, ReactCompareSliderImage } from '../../src';
 
 <Meta title="Docs|Images" />
 
 # Using Images
 
----
+<Preview>
+  <Story name="hi">
+    <ReactCompareSlider
+      itemOne={
+        <ReactCompareSliderImage src="https://via.placeholder.com/1920x080" />
+      }
+      itemTwo={
+        <ReactCompareSliderImage src="https://via.placeholder.com/1920x080" />
+      }
+    />
+  </Story>
+</Preview>
 
-<br />
-<Story id="demos-images--basic" />
-<br />
+<Preview>
+  <Story id="demos-images--default" />
+</Preview>
 
-## Quick Start
-
-Pass `ReactCompareSliderImage` as `itemOne` and `itemTwo` props with your desired
-image props.
-
-```jsx
-// @TODO
-```
-
-## API
-
-### [ReactCompareSlider](https://github.com/nerdyman/react-compare-slider/blob/master/src/react-compare-slider.tsx)
-
-<Props of={ReactCompareSlider} />
+<Preview withSource="none">
+  <h1>Hello world</h1>
+</Preview>
