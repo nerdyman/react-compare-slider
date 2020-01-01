@@ -39,7 +39,7 @@
     "lint": "tsdx lint",
     "lint-staged": "lint-staged",
     "storybook": "start-storybook -p 6006 --ci",
-    "build-storybook": "build-storybook"
+    "storybook:build": "build-storybook"
   },
   "peerDependencies": {
     "react": ">=16.8",
