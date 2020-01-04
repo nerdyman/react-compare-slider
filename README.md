@@ -1,9 +1,25 @@
-[![License](https://img.shields.io/npm/l/react-compare-slider)](./README.md) [![npm](https://img.shields.io/npm/v/react-compare-slider)](https://npmjs.com/package/react-compare-slider) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-compare-slider)](https://bundlephobia.com/result?p=react-compare-slider)
-[![Build Status](https://github.com/nerdyman/react-compare-slider/workflows/build/badge.svg)](https://github.com/nerdyman/react-compare-slider/workflows/build)
+<div align="center">
+    <h1>React Compare Slider</h1>
+    <p>Compare two components, side-by-side or top-to-toe.</p>
 
-# React Compare Slider
+<a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT">
+</a>
+<a href="https://npmjs.com/package/react-compare-slider">
+    <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package">
+</a>
+<a href="https://bundlephobia.com/result?p=react-compare-slider">
+    <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size">
+</a>
+<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
+    <img src="https://github.com/nerdyman/react-compare-slider/workflows/build/badge.svg" alt="Build Status">
+</a>
+<a href="https://festive-darwin-fab443.netlify.com/">
+    <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
+</a>
+</div>
 
-Compare two components, side-by-side or top-to-toe.
+---
 
 ## Features
 
@@ -11,7 +27,7 @@ Compare two components, side-by-side or top-to-toe.
 - Supports landscape and portrait orientations
 - Simple API
 - Responsive, fluid
-- Fully customisable
+- Fully customizable
 - Works in IE11+
 - [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider), only one ponyfill dependency
 - Type safe
@@ -60,7 +76,7 @@ import { ReactCompareSlider } from 'react-compare-slider';
 | `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
-| `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
+| `onPositionPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
 | `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
 
