@@ -1,37 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ResizeObserver } from 'resize-observer';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 
-/**
- * CSS style util for child to fit container
- */
-export const styleFitContainer = ({
-  objectFit = 'cover',
-  ...props
-}: React.CSSProperties = {}): Partial<React.CSSProperties> => ({
-  display: 'block',
-  width: '100%',
-  height: '100%',
-  maxWidth: '100%',
-  objectFit,
-  ...props,
-});
+import {
+  useEventListener,
+  UseResizeObserverHandlerParams,
+  useResizeObserver,
+} from './utils';
 
+/** Slider position prop */
 type ReactCompareSliderPropPosition = number;
 
-/**
- * Common props shared between child components
- */
+/** Common props shared between child components */
 interface ReactCompareSliderCommonProps {
   portrait?: boolean;
   position: ReactCompareSliderPropPosition;
 }
 
-/**
- * Handle container to control position
- */
-const ReactCompareSliderHandleContainer: React.FC<
-  ReactCompareSliderCommonProps
-> = ({ children, position, portrait }): React.ReactElement => {
+/** Handle container to control position */
+const ReactCompareSliderHandleContainer: React.FC<ReactCompareSliderCommonProps> = ({
+  children,
+  position,
+  portrait,
+}): React.ReactElement => {
   const style: React.CSSProperties = {
     position: 'absolute',
     top: 0,
@@ -59,12 +48,11 @@ const ReactCompareSliderHandleContainer: React.FC<
   );
 };
 
-/**
- * Overridable handle
- */
-export const ReactCompareSliderHandle: React.FC<
-  Pick<ReactCompareSliderCommonProps, 'portrait'>
-> = ({ portrait, ...props }): React.ReactElement => {
+/** Overridable handle */
+export const ReactCompareSliderHandle: React.FC<Pick<
+  ReactCompareSliderCommonProps,
+  'portrait'
+>> = ({ portrait, ...props }): React.ReactElement => {
   const style: React.CSSProperties = {
     height: portrait ? 3 : '100%',
     width: portrait ? '100%' : 3,
@@ -76,9 +64,7 @@ export const ReactCompareSliderHandle: React.FC<
   return <div {...props} style={style} data-rcs="main-handle-inner" />;
 };
 
-/**
- * Container for items passed to main component
- */
+/** Container for items passed to main component */
 const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
   portrait,
   position,
@@ -103,237 +89,172 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
   return <div {...props} style={style} data-rcs="clip-item" />;
 };
 
-/**
- * Props for main component
- */
+/** Comparison slider props */
 export interface ReactCompareSliderProps {
-  /** Handle component for dragging between comparisons */
+  /** Custom handle component */
   handle?: React.ReactNode;
   /** First item to show */
   itemOne: React.ReactNode;
   /** Second item to show */
   itemTwo: React.ReactNode;
   /** Callback on position change */
-  onChange?: (position: ReactCompareSliderPropPosition) => void;
+  onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
   /** Orientation */
   portrait?: boolean;
   /** Percentage position of divide */
   position?: ReactCompareSliderPropPosition;
 }
 
-/**
- * Props for `updateInternalPosition` util
- */
-interface UpdateInternalPositionProps {
-  /** Percentage to calculate position from */
-  percentage?: number;
-  /** Pointer X to calculate position from (landscape mode) */
-  pointerX?: number;
-  /** Pointer Y to calculate position from (portrait mode) */
-  pointerY?: number;
-}
-
-/**
- * Root component
- */
-export const ReactCompareSlider: React.FC<
-  ReactCompareSliderProps & React.HtmlHTMLAttributes<HTMLDivElement>
-> = ({
+/** Comparison slider */
+export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
+  React.HtmlHTMLAttributes<HTMLDivElement>> = ({
   handle,
   itemOne,
   itemTwo,
-  onChange,
+  onPositionChange,
   portrait,
   position = 50,
+  style,
   ...props
 }): React.ReactElement => {
-  const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
-  const [isDragging, setIsDragging] = useState(false);
-  // const [containerDimensions, setContainerDimensions] = useState({
-  //   width: 0,
-  //   height: 0,
-  // });
-  const [internalPosition, setInternalPosition] = useState({
-    pc: position,
-    px: 0,
+  const [containerBounds, setContainerBounds] = useState({
+    width: 0,
+    height: 0,
   });
+  const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
+  const internalPositionPc = useRef(position);
+  const [internalPositionPx, setInternalPositionPx] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
-  /**
-   * Update internal position state from `x` and `y` coordinate *or* a
-   * `percentage` value
-   */
   const updateInternalPosition = useCallback(
-    ({ percentage, pointerX, pointerY }: UpdateInternalPositionProps): void => {
-      const {
-        top,
-        left,
-        width,
-        height,
-      } = containerRef.current.getBoundingClientRect();
+    ({ x, y }: { x: number; y: number }) => {
+      const { top, left } = containerRef.current.getBoundingClientRect();
 
-      let x = 0;
-      let y = 0;
+      const positionPx = portrait
+        ? y - top - window.pageYOffset
+        : x - left - window.pageXOffset;
 
-      // Use pointer positions if defined
-      if (pointerX && pointerY) {
-        x = pointerX - left - window.scrollX;
-        y = pointerY - top - window.scrollY;
-        // Use percentage if defined
-      } else if (percentage) {
-        x = (width / 100) * percentage;
-        y = (height / 100) * percentage;
-      }
+      setInternalPositionPx(positionPx);
 
-      const px = portrait ? y : x;
-      const pc = portrait ? (y / height) * 100 : (x / width) * 100;
+      internalPositionPc.current =
+        (positionPx /
+          (portrait ? containerBounds.height : containerBounds.width)) *
+        100;
 
-      setInternalPosition({ pc, px });
-
-      if (onChange) {
-        onChange(pc);
-      }
+      if (onPositionChange) onPositionChange(positionPx);
     },
-
-    [onChange, portrait]
+    [containerBounds.height, containerBounds.width, onPositionChange, portrait]
   );
 
-  // Update internal position if position prop changes
-  useEffect((): void => {
-    updateInternalPosition({ percentage: position });
+  // Update internal position if `position` prop changes
+  useEffect(() => {
+    const {
+      top,
+      left,
+      width,
+      height,
+    } = containerRef.current.getBoundingClientRect();
+
+    updateInternalPosition({
+      x: (width / 100) * position + left,
+      y: (height / 100) * position + top,
+    });
   }, [position, updateInternalPosition]);
 
-  /**
-   * Handle element resize event
-   */
-  const handleResize = useCallback(() => {
-    const { width, height } = containerRef.current.getBoundingClientRect();
-    setInternalPosition(state => {
-      return {
-        ...state,
-        px: portrait ? (height / 100) * state.pc : (width / 100) * state.pc,
-      };
-    });
-  }, [portrait]);
-
-  // Update internal position on resize
-  useEffect(() => {
-    const ro = new ResizeObserver((): void => {
-      handleResize();
-    });
-
-    // Bind observer
-    const el = containerRef.current;
-    ro.observe(el);
-
-    return (): void => ro.unobserve(el);
-  }, [handleResize]);
-
-  // Bind and handle events
-  useEffect((): (() => void) => {
-    const containerRefCurrent = containerRef.current;
-
-    const handleMouseDown = (ev: MouseEvent): void => {
+  const handlePointerDown = useCallback(
+    (ev: MouseEvent | TouchEvent) => {
       ev.preventDefault();
-      if (!isDragging) setIsDragging(true);
-      updateInternalPosition({ pointerX: ev.pageX, pointerY: ev.pageY });
-    };
 
-    const handleMouseMove = (ev: MouseEvent): void => {
-      if (isDragging) {
-        requestAnimationFrame((): void => {
-          updateInternalPosition({ pointerX: ev.pageX, pointerY: ev.pageY });
-        });
-      }
-    };
-
-    const handleTouchStart = (ev: TouchEvent): void => {
-      ev.preventDefault();
-      if (!isDragging) setIsDragging(true);
       updateInternalPosition({
-        pointerX: ev.touches[0].pageX,
-        pointerY: ev.touches[0].pageY,
+        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
+        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
-    };
 
-    const handleTouchMove = (ev: TouchEvent): void => {
-      if (isDragging) {
-        requestAnimationFrame((): void => {
-          updateInternalPosition({
-            pointerX: ev.touches[0].pageX,
-            pointerY: ev.touches[0].pageY,
-          });
+      setIsDragging(true);
+    },
+    [updateInternalPosition]
+  );
+
+  const handlePointerMove = useCallback(
+    (ev: MouseEvent | TouchEvent) => {
+      if (!isDragging) return;
+
+      requestAnimationFrame((): void => {
+        updateInternalPosition({
+          x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
+          y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
         });
-      }
-    };
+      });
+    },
+    [isDragging, updateInternalPosition]
+  );
 
-    const handleFinish = (): void => {
-      if (isDragging) setIsDragging(false);
-    };
+  const handlePointerUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
 
-    // Mouse event bindings
-    containerRefCurrent.addEventListener('mousedown', handleMouseDown, {
-      capture: false,
-      passive: false,
-    });
+  const handleResize = useCallback(
+    ({ width, height }: UseResizeObserverHandlerParams) => {
+      setContainerBounds({
+        width,
+        height,
+      });
 
-    containerRefCurrent.addEventListener('mouseleave', handleFinish, {
-      capture: false,
-      passive: true,
-    });
+      setInternalPositionPx(
+        ((portrait ? height : width) / 100) * internalPositionPc.current
+      );
+    },
+    [portrait]
+  );
 
-    containerRefCurrent.addEventListener('mousemove', handleMouseMove, {
-      capture: false,
-      passive: true,
-    });
+  // Bind hooks to container
+  useResizeObserver(containerRef, handleResize);
+  // Mouse down
+  // - bind window event to handle mouse leave
+  // Mouse leave
+  //   - do nothing if isDragging
+  // Touch down
+  // Touch drag
+  // Touch leave
+  // useEventListener('mousedown', handleMouseDown, containerRef.current, {
+  //   capture: false,
+  //   passive: true,
+  // });
 
-    containerRefCurrent.addEventListener('mouseup', handleFinish, {
-      capture: false,
-      passive: true,
-    });
+  useEventListener('mousedown', handlePointerDown, containerRef.current, {
+    capture: true,
+    passive: false,
+  });
 
-    // Touch event bindings
-    containerRefCurrent.addEventListener('touchstart', handleTouchStart, {
-      capture: false,
-      passive: false,
-    });
+  useEventListener('mousemove', handlePointerMove, containerRef.current, {
+    capture: false,
+    passive: false,
+  });
 
-    containerRefCurrent.addEventListener('touchend', handleFinish, {
-      capture: false,
-      passive: true,
-    });
+  useEventListener('mouseup', handlePointerUp, containerRef.current, {
+    capture: false,
+    passive: true,
+  });
 
-    containerRefCurrent.addEventListener('touchmove', handleTouchMove, {
-      capture: false,
-      passive: true,
-    });
+  useEventListener('touchmove', handlePointerMove, containerRef.current, {
+    capture: false,
+    passive: true,
+  });
 
-    containerRefCurrent.addEventListener('touchcancel', handleFinish, {
-      capture: false,
-      passive: true,
-    });
+  useEventListener('touchend', handlePointerUp, containerRef.current, {
+    capture: false,
+    passive: true,
+  });
 
-    return (): void => {
-      // Mouse event bindings
-      containerRefCurrent.removeEventListener('mousedown', handleMouseDown);
-      containerRefCurrent.removeEventListener('mouseleave', handleFinish);
-      containerRefCurrent.removeEventListener('mousemove', handleMouseMove);
-      containerRefCurrent.removeEventListener('mouseup', handleFinish);
-
-      // Touch events bindings
-      containerRefCurrent.removeEventListener('touchstart', handleTouchStart);
-      containerRefCurrent.removeEventListener('touchend', handleFinish);
-      containerRefCurrent.removeEventListener('touchmove', handleTouchMove);
-      containerRefCurrent.removeEventListener('touchcancel', handleFinish);
-    };
-  }, [isDragging, portrait, updateInternalPosition]);
+  useEventListener('touchstart', handlePointerDown, containerRef.current, {
+    capture: true,
+    passive: false,
+  });
 
   // Use custom handle if requested
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
 
-  const style: React.CSSProperties = {
-    // @NOTE using `flex` to ensure Firefox will calculate the correct width
-    //       of bounding box, it will return `0` otherwise
-    flex: 1,
+  const rootStyle: React.CSSProperties = {
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
@@ -341,19 +262,17 @@ export const ReactCompareSlider: React.FC<
     KhtmlUserSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+    ...style,
   };
 
   return (
-    <div {...props} ref={containerRef} style={style} data-rcs="root">
+    <div {...props} ref={containerRef} style={rootStyle} data-rcs="root">
       {itemTwo}
-      <ReactCompareSliderItem
-        position={internalPosition.px}
-        portrait={portrait}
-      >
+      <ReactCompareSliderItem position={internalPositionPx} portrait={portrait}>
         {itemOne}
       </ReactCompareSliderItem>
       <ReactCompareSliderHandleContainer
-        position={internalPosition.px}
+        position={internalPositionPx}
         portrait={portrait}
       >
         {Handle}
