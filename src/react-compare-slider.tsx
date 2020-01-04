@@ -214,7 +214,16 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       window.addEventListener('mousemove', handlePointerMove, {
         passive: true,
       });
+
       window.addEventListener('mouseup', handlePointerUp, {
+        passive: true,
+      });
+
+      window.addEventListener('touchmove', handlePointerMove, {
+        passive: true,
+      });
+
+      window.addEventListener('touchend', handlePointerUp, {
         passive: true,
       });
       hasWindowBinding.current = true;
