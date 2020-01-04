@@ -125,6 +125,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   const internalPositionPc = useRef(position);
   const [internalPositionPx, setInternalPositionPx] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const hasWindowBinding = useRef(false);
 
   const updateInternalPosition = useCallback(
     ({ x, y }: { x: number; y: number }) => {
@@ -207,19 +208,29 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     [portrait]
   );
 
-  // Bind hooks to container
+  // Allow drag outside of container while pointer is still down
+  useEffect(() => {
+    if (isDragging && !hasWindowBinding.current) {
+      window.addEventListener('mousemove', handlePointerMove, {
+        passive: true,
+      });
+      window.addEventListener('mouseup', handlePointerUp, {
+        passive: true,
+      });
+      hasWindowBinding.current = true;
+    }
+
+    return (): void => {
+      if (hasWindowBinding.current) {
+        window.removeEventListener('mousemove', handlePointerMove);
+        window.removeEventListener('mouseup', handlePointerUp);
+        hasWindowBinding.current = false;
+      }
+    };
+  }, [handlePointerMove, handlePointerUp, isDragging]);
+
+  // Bind resize observer to container
   useResizeObserver(containerRef, handleResize);
-  // Mouse down
-  // - bind window event to handle mouse leave
-  // Mouse leave
-  //   - do nothing if isDragging
-  // Touch down
-  // Touch drag
-  // Touch leave
-  // useEventListener('mousedown', handleMouseDown, containerRef.current, {
-  //   capture: false,
-  //   passive: true,
-  // });
 
   useEventListener('mousedown', handlePointerDown, containerRef.current, {
     capture: true,
