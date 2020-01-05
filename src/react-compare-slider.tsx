@@ -246,11 +246,6 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     passive: false,
   });
 
-  useEventListener('mousemove', handlePointerMove, containerRef.current, {
-    capture: false,
-    passive: false,
-  });
-
   useEventListener('mouseup', handlePointerUp, containerRef.current, {
     capture: false,
     passive: true,
