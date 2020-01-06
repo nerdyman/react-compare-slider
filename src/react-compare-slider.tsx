@@ -137,12 +137,18 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
 
       setInternalPositionPx(positionPx);
 
-      internalPositionPc.current =
-        (positionPx /
-          (portrait ? containerBounds.height : containerBounds.width)) *
-        100;
+      // Calculate percentage with bounds checking
+      internalPositionPc.current = Math.min(
+        Math.max(
+          (positionPx /
+            (portrait ? containerBounds.height : containerBounds.width)) *
+            100,
+          0
+        ),
+        100
+      );
 
-      if (onPositionChange) onPositionChange(positionPx);
+      if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
     [containerBounds.height, containerBounds.width, onPositionChange, portrait]
   );
