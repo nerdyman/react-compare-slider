@@ -32,7 +32,9 @@ const App = () => {
               alt="two"
             />
           }
-          onChange={position => console.log(`Portrait position: ${position}`)}
+          onPositionChange={position =>
+            console.log(`Portrait position: ${position}`)
+          }
           portrait
         />
       </DemoSection>
@@ -55,7 +57,9 @@ const App = () => {
               alt="two"
             />
           }
-          onChange={position => console.log(`Landscape position: ${position}`)}
+          onPositionChange={position =>
+            console.log(`Landscape position: ${position}`)
+          }
         />
       </DemoSection>
     </>

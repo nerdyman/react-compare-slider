@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { styleFitContainer } from './react-compare-slider';
+import { styleFitContainer } from './utils';
 
 /**
  * Whether client supports the CSS `object-fit` property
@@ -22,9 +22,10 @@ export interface ReactCompareSliderImageProps {
  * Image with fallback background for browsers that don't support the
  * `object-fit` CSS property
  */
-export const ReactCompareSliderImage: React.FC<
-  React.ImgHTMLAttributes<HTMLImageElement> & ReactCompareSliderImageProps
-> = ({
+export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
+  HTMLImageElement
+> &
+  ReactCompareSliderImageProps> = ({
   className,
   fallbackEnable = true,
   style,
