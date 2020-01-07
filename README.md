@@ -26,25 +26,15 @@
 - Supports responsive images, videos, any React components
 - Supports landscape and portrait orientations
 - Simple API
+- Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive, fluid
-- Fully customizable
 - Works in IE11+
 - [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider), only one ponyfill dependency
 - Type safe
 
-## Requirements
-
-- React 16.8+
-
 ## Demo
 
-### CodeSandbox
-
-**Note**: The CodeSandbox code view degrades performance slightly, see _Demo_ links for real-world performance.
-
-- Landscape, Portrait with custom handle
-    - [Demo](<https://9si6l.codesandbox.io/>)
-    - [Code](<https://codesandbox.io/s/react-compare-slider-simple-example-9si6l>)
+See Storybook for [documentation](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-intro--page) and [demos](https://festive-darwin-fab443.netlify.com/?path=/docs/demos-images--default).
 
 ## Usage
 
@@ -56,35 +46,44 @@ yarn add react-compare-slider
 npm install react-compare-slider
 ```
 
-### Use it!
+### Basic Image Usage
+
+You *may* use `ReactCompareSliderImage` to render images or use your own custom
+components.
 
 ```jsx
-import { ReactCompareSlider } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 <ReactCompareSlider
-    itemOne={<img src="..." alt="Image one" />}
-    itemTwo={<img src="..." alt="Image two" />}
+    itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
+    itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
 />
 ```
 
-## Props & docs
+### Advanced Usage
 
-### Props
+See the [docs](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-intro--page) for advanced examples.
+
+## Props
 
 | Prop | Type | Required | Default value | Description |
 |------|------|:--------:|---------------|-------------|
 | `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
-| `onPositionPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
+| `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
 | `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
 
+See the [API docs](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-api--page) for detailed information.
+
+## Extending
+
 ### `ReactCompareSliderImage`
 
-`ReactCompareSliderImage` is a standalone image component that detects whether the browser supports the `object-fit` CSS property, if not it will apply a background image to achieve the same effect. It calls `styleFitContainer` internally and will set `background-size`, `background-position` and `background-image` if they have not already been defined in a passed `style` prop.
+`ReactCompareSliderImage` is a standalone image component that detects whether the browser supports the `object-fit` CSS property, if not it will apply a background image to achieve the same effect. It will set `background-size`, `background-position` and `background-image` if they have not already been defined in a passed `style` prop.
 
-#### Props
+#### `ReactCompareSliderImage` Props
 
 `ReactCompareSliderImage` supports all attributes assignable to an `img` component, in addition to the following:
 
@@ -106,17 +105,6 @@ import { ReactCompareSliderImage } from 'react-compare-slider';
 <ReactCompareSliderImage src="..." style={{ backgroundImage: 'url(...)' }} />
 ```
 
-Within slider:
-
-```jsx
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
-
-<ReactCompareSlider
-    itemOne={<ReactCompareSliderImage src="..." alt="Image one" />}
-    itemTwo={<ReactCompareSliderImage src="..." alt="Image two" />}
-/>
-```
-
 ### `styleFitContainer`
 
 The `styleFitContainer` utility makes any child media component (`img`, `picture`, `video`, etc.) fill its parent and maintain the correct aspect ratio. It returns a React `style` object and accepts a
@@ -129,8 +117,6 @@ Fill a full width/height container:
 ```jsx
 import { styleFitContainer } from 'react-compare-slider';
 
-// ...
-
 <div style={{ width: '100vw', height: '100vh' }}>
     <video 
         style={{ 
@@ -139,10 +125,13 @@ import { styleFitContainer } from 'react-compare-slider';
                 objectPosition: 'center',
             }) 
         }} 
-        // ...
     />
 </div>
 ```
+
+## Requirements
+
+- React 16.8+
 
 ## Notes
 
