@@ -221,7 +221,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
         passive: true,
       });
 
-      window.addEventListener('mouseup', handlePointerUp, {
+      document.addEventListener('mouseup', handlePointerUp, {
         passive: true,
       });
 
@@ -232,6 +232,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       window.addEventListener('touchend', handlePointerUp, {
         passive: true,
       });
+
       hasWindowBinding.current = true;
     }
 
@@ -250,11 +251,6 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   useEventListener('mousedown', handlePointerDown, containerRef.current, {
     capture: true,
     passive: false,
-  });
-
-  useEventListener('mouseup', handlePointerUp, containerRef.current, {
-    capture: false,
-    passive: true,
   });
 
   useEventListener('touchmove', handlePointerMove, containerRef.current, {
