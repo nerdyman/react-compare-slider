@@ -12,6 +12,7 @@
     "name": "nerdyman",
     "url": "https://github.com/nerdyman"
   },
+  "description": "Comparison slider for React components. Supports images, videos... and everything else.",
   "keywords": [
     "react",
     "slider",
