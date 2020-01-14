@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useRef, useState } from 'react';
 
 import {
   useEventListener,
+  usePrevious,
   UseResizeObserverHandlerParams,
   useResizeObserver,
 } from './utils';
@@ -11,7 +12,9 @@ type ReactCompareSliderPropPosition = number;
 
 /** Common props shared between child components */
 interface ReactCompareSliderCommonProps {
+  /** Orientation */
   portrait?: boolean;
+  /** Divider position in pixels */
   position: ReactCompareSliderPropPosition;
 }
 
@@ -100,8 +103,8 @@ export interface ReactCompareSliderProps {
   /** Callback on position change */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
   /** Orientation */
-  portrait?: boolean;
-  /** Percentage position of divide */
+  portrait?: ReactCompareSliderCommonProps['portrait'];
+  /** Percentage position of divide (`0-100`) */
   position?: ReactCompareSliderPropPosition;
 }
 
@@ -117,11 +120,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   style,
   ...props
 }): React.ReactElement => {
-  const [containerBounds, setContainerBounds] = useState({
-    width: 0,
-    height: 0,
-  });
   const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
+  const prevPropsPosition = usePrevious(position);
   const internalPositionPc = useRef(position);
   const [internalPositionPx, setInternalPositionPx] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -129,7 +129,12 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
 
   const updateInternalPosition = useCallback(
     ({ x, y }: { x: number; y: number }) => {
-      const { top, left } = containerRef.current.getBoundingClientRect();
+      const {
+        top,
+        left,
+        width,
+        height,
+      } = containerRef.current.getBoundingClientRect();
 
       const positionPx = portrait
         ? y - top - window.pageYOffset
@@ -139,22 +144,20 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
 
       // Calculate percentage with bounds checking
       internalPositionPc.current = Math.min(
-        Math.max(
-          (positionPx /
-            (portrait ? containerBounds.height : containerBounds.width)) *
-            100,
-          0
-        ),
+        Math.max((positionPx / (portrait ? height : width)) * 100, 0),
         100
       );
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
-    [containerBounds.height, containerBounds.width, onPositionChange, portrait]
+    [onPositionChange, portrait]
   );
 
   // Update internal position if `position` prop changes
   useEffect(() => {
+    // Early out if position hasn't changed
+    if (prevPropsPosition === position) return;
+
     const {
       top,
       left,
@@ -166,6 +169,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       x: (width / 100) * position + left,
       y: (height / 100) * position + top,
     });
+    // `prevPropsPosition` is a ref value so it shouldn't been in deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [position, updateInternalPosition]);
 
   const handlePointerDown = useCallback(
@@ -202,11 +207,6 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
 
   const handleResize = useCallback(
     ({ width, height }: UseResizeObserverHandlerParams) => {
-      setContainerBounds({
-        width,
-        height,
-      });
-
       setInternalPositionPx(
         ((portrait ? height : width) / 100) * internalPositionPc.current
       );
