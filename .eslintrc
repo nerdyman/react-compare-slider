@@ -28,6 +28,7 @@
     "lines-around-comment": 0,
     "no-confusing-arrow": 0,
     "no-console": ["warn", { "allow": ["warn"] }],
+    "no-debugger": 0,
     "no-shadow": "warn",
 
     "react/jsx-indent": 0,

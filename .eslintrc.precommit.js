@@ -3,6 +3,7 @@ module.exports = {
   rules: {
     'no-alert': 'error',
     'no-console': ['error', { allow: ['warn'] }],
+    'no-debugger': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
