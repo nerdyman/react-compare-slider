@@ -24,6 +24,7 @@
     "portrait",
     "typescript"
   ],
+  "sideEffects": false,
   "main": "dist/index.js",
   "module": "dist/react-compare-slider.esm.js",
   "typings": "dist/index.d.ts",
