@@ -11,8 +11,12 @@
 <a href="https://bundlephobia.com/result?p=react-compare-slider">
     <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size">
 </a>
+<br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
-    <img src="https://github.com/nerdyman/react-compare-slider/workflows/build/badge.svg" alt="Build Status">
+    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status">
+</a>
+<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
+    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Build Status">
 </a>
 <a href="https://festive-darwin-fab443.netlify.com/">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />

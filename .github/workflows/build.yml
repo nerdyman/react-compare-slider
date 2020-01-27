@@ -1,21 +1,16 @@
 name: build
-
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@master
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           version: 12.x
-      - name: install yarn
-        run: npm install -g yarn
-      - name: yarn install, build, and test
-        run: |
-          yarn install --frozen-lockfile
-          yarn build
-          yarn test
+      - name: install
+        run: yarn install --frozen-lockfile
+      - name: build
+        run: yarn build
