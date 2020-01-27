@@ -13,6 +13,7 @@ import { ContentRect } from 'resize-observer/lib/ContentRect';
  */
 export const styleFitContainer = ({
   objectFit = 'cover',
+  objectPosition = 'center',
   ...props
 }: React.CSSProperties = {}): React.CSSProperties => ({
   display: 'block',
