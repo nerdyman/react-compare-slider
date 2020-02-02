@@ -1,0 +1,58 @@
+import { Description, Meta, Props } from '@storybook/addon-docs/blocks';
+import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../src';
+
+<Meta title="Docs/API" />
+
+# API
+
+## `ReactCompareSlider`
+
+<Description of={ReactCompareSlider} />
+
+[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/react-compare-slider.tsx)
+
+### Props
+
+<Props of={ReactCompareSlider} />
+
+## `ReactCompareSliderImage` 
+
+<Description of={ReactCompareSliderImage} />
+
+[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/react-compare-slider-image.tsx)
+
+### Props
+
+<Props of={ReactCompareSliderImage} />
+
+## `styleFitContainer`
+
+<Description of={styleFitContainer} />
+
+[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/utils.ts#L11)
+
+The `styleFitContainer` utility makes any [replaced element](https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element)
+fill its parent while maintaining the correct aspect ratio. 
+
+It returns a React `style` object and accepts a CSS object as an argument and 
+defaults to `object-fit` to `cover`.
+
+### Example
+
+Fill a full width/height container:
+
+```jsx
+import { styleFitContainer } from 'react-compare-slider';
+
+<div style={{ width: '100vw', height: '100vh' }}>
+    <video 
+        style={{ 
+            ...styleFitContainer({
+                objectFit: 'contain', 
+                objectPosition: 'center',
+            }) 
+        }} 
+    />
+</div>
+```
+

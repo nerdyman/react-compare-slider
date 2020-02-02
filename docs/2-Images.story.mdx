@@ -1,0 +1,52 @@
+import { Meta, Props, Story } from '@storybook/addon-docs/blocks';
+import { ReactCompareSlider, ReactCompareSliderImage } from '../src';
+
+<Meta title="Docs/Images" component={ReactCompareSlider} />
+
+# Using Images
+
+<br />
+
+<Story id="demos-images--default" />
+
+Images can be rendered using the `ReactCompareSliderImage` component and/or 
+by using a custom image component, e.g. `picture` or `img`.
+
+Checkout the [Playground](?path=/story/demos-images--playground) demo to 
+experiment with images.
+
+<br />
+
+## `ReactCompareSliderImage`
+
+`ReactCompareSliderImage` is a standalone image component that detects whether 
+the browser supports the `object-fit` CSS property, if not it will apply a 
+background image to achieve the same effect. It will set `background-size`, 
+`background-position` and `background-image` if they have not already been 
+defined in a passed `style` prop.
+
+`ReactCompareSliderImage` uses the `styleFitContainer` utility to size and fit media.
+
+<br />
+
+### `ReactCompareSliderImage` Props
+
+<Props of={ReactCompareSliderImage} />
+
+### Usage
+
+```jsx
+import { ReactCompareSliderImage } from 'react-compare-slider';
+
+/**
+ * `src` will automatically be used as the background image for browsers that
+ * do not support `object-fit`.
+ */
+<ReactCompareSliderImage src="..." srcSet="..." />
+
+/**
+ * Pass an explicit `backgroundImage` property in a style object if you want to
+ * set your own custom background image (still only shown on unsupported browsers).
+ */
+<ReactCompareSliderImage src="..." srcSet="..." style={{ backgroundImage: 'url(...)' }} />
+```

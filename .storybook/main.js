@@ -46,9 +46,5 @@ module.exports = {
       },
     },
   ],
-  stories: [
-    '../docs/docs/Intro.story.mdx',
-    '../docs/docs/**/*.story.(mdx|tsx)',
-    '../docs/demos/**/*.story.(mdx|tsx)',
-  ],
+  stories: ['../docs/Intro.story.mdx', '../docs/**/*.story.(mdx|tsx)'],
 };

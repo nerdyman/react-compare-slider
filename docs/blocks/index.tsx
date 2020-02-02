@@ -1,16 +1,18 @@
 import React from 'react';
 
-export const StoryContainer: React.FC<any> = ({ style, ...props }) => (
+export const CustomStoryContainer: React.FC<any> = ({ style, ...props }) => (
   <div
+    data-custom-story="container"
     style={{
-      minHeight: '100vh',
+      flexGrow: 1,
+      minHeight: '100%',
       ...style,
     }}
     {...props}
   ></div>
 );
 
-export const StoryNote: React.FC<any> = ({ style, ...props }) => (
+export const CustomStoryNote: React.FC<any> = ({ style, ...props }) => (
   <p
     style={{
       fontFamily: 'sans-serif',

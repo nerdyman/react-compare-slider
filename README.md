@@ -3,22 +3,22 @@
     <p>Compare two components, side-by-side or top-to-toe.</p>
 
 <a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
-    <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT">
+    <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
 </a>
 <a href="https://npmjs.com/package/react-compare-slider">
-    <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package">
+    <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package" />
 </a>
 <a href="https://bundlephobia.com/result?p=react-compare-slider">
-    <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size">
+    <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size" />
 </a>
 <br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
-    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status">
+    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
-<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
-    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Build Status">
+<a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
+    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
 </a>
-<a href="https://festive-darwin-fab443.netlify.com/">
+<a href="https://react-compare-slider.netlify.com/">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
 </div>
@@ -38,7 +38,11 @@
 
 ## Demo
 
-See Storybook for [documentation](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-intro--page) and [demos](https://festive-darwin-fab443.netlify.com/?path=/docs/demos-images--default).
+See Storybook for [documentation](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--page) and [demos](https://react-compare-slider.netlify.com/?path=/docs/demos-images--default).
+
+See the [Image Playground](https://react-compare-slider.netlify.com/?path=/docs/demos-images--playground)
+to experiment with image props using the "Knobs" tab.
+
 
 ## Usage
 
@@ -59,14 +63,14 @@ components.
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 <ReactCompareSlider
-    itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
-    itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
+  itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
+  itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
 />
 ```
 
 ### Advanced Usage
 
-See the [docs](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-intro--page) for advanced examples.
+See the [docs](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--page) for advanced examples.
 
 ## Props
 
@@ -79,59 +83,19 @@ See the [docs](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-intro-
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
 | `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
 
-See the [API docs](https://festive-darwin-fab443.netlify.com/?path=/docs/docs-api--page) for detailed information.
+See the [API docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api--page) for more information.
 
 ## Extending
 
-### `ReactCompareSliderImage`
+### Custom Components
 
-`ReactCompareSliderImage` is a standalone image component that detects whether the browser supports the `object-fit` CSS property, if not it will apply a background image to achieve the same effect. It will set `background-size`, `background-position` and `background-image` if they have not already been defined in a passed `style` prop.
+Custom components can get the same base styles as `ReactCompareSliderImage` 
+by using the `styleFitContainer` CSS utility. See the [styleFitContainer docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api--page#stylefitcontainer)
+for more information.
 
-#### `ReactCompareSliderImage` Props
+### Images
 
-`ReactCompareSliderImage` supports all attributes assignable to an `img` component, in addition to the following:
-
-| Prop | Type | Required | Default value | Description |
-|------|------|:--------:|---------------|-------------|
-| `fallbackEnable`    | `boolean` |   | `true` | Whether to enable fallback background |
-
-#### Example
-
-Standalone:
-
-```jsx
-import { ReactCompareSliderImage } from 'react-compare-slider';
-
-// `src` will be used as background image on unsupported browsers
-<ReactCompareSliderImage src="..." />
-
-// `backgroundImage` will be used as background image on unsupported browsers
-<ReactCompareSliderImage src="..." style={{ backgroundImage: 'url(...)' }} />
-```
-
-### `styleFitContainer`
-
-The `styleFitContainer` utility makes any child media component (`img`, `picture`, `video`, etc.) fill its parent and maintain the correct aspect ratio. It returns a React `style` object and accepts a
-CSS object as an argument and defaults to `object-fit` to `cover`.
-
-#### Example
-
-Fill a full width/height container:
-
-```jsx
-import { styleFitContainer } from 'react-compare-slider';
-
-<div style={{ width: '100vw', height: '100vh' }}>
-    <video 
-        style={{ 
-            ...styleFitContainer({
-                objectFit: 'contain', 
-                objectPosition: 'center',
-            }) 
-        }} 
-    />
-</div>
-```
+See the [Images docs](https://react-compare-slider.netlify.com/?path=/docs/docs-images--page) for more information.
 
 ## Requirements
 
