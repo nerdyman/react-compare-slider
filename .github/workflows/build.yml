@@ -10,7 +10,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           version: 12.x
-      - name: install
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: build
+      - name: Build
         run: yarn build

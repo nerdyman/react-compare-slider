@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@master
       - name: Install
         run: yarn install --frozen-lockfile
-      - name: test
+      - name: Test
         run: yarn test --ci --coverage
       - name: Report
         run: |
