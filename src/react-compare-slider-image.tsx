@@ -3,7 +3,7 @@ import React from 'react';
 import { styleFitContainer } from './utils';
 
 /**
- * Whether client supports the CSS `object-fit` property
+ * Whether client supports the CSS `object-fit` property.
  */
 export const CLIENT_SUPPORTS_CSS_OBJECT_FIT: boolean =
   typeof CSS !== 'undefined' &&
@@ -11,7 +11,7 @@ export const CLIENT_SUPPORTS_CSS_OBJECT_FIT: boolean =
   CSS.supports('object-fit', 'cover');
 
 /**
- * Properties for `ReactCompareSliderImage`
+ * Properties for `ReactCompareSliderImage`.
  */
 export interface ReactCompareSliderImageProps {
   /** Whether to disable fallback background-image */
@@ -20,7 +20,7 @@ export interface ReactCompareSliderImageProps {
 
 /**
  * Image with fallback background for browsers that don't support the
- * `object-fit` CSS property
+ * `object-fit` CSS property.
  */
 export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
   HTMLImageElement
@@ -45,7 +45,6 @@ export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
     containerStyle.backgroundSize = innerStyle.backgroundSize || 'cover';
     containerStyle.backgroundPosition =
       innerStyle.backgroundPosition || 'center';
-
     // Hide inner image
     innerStyle.opacity = 0;
   }

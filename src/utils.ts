@@ -9,7 +9,8 @@ import { ResizeObserver } from 'resize-observer';
 import { ContentRect } from 'resize-observer/lib/ContentRect';
 
 /**
- * CSS style util for child to fit container
+ * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.)
+ * fit their container and maintain their aspect ratio.
  */
 export const styleFitContainer = ({
   objectFit = 'cover',
@@ -26,7 +27,7 @@ export const styleFitContainer = ({
 });
 
 /**
- * Use previous value
+ * Use previous value.
  * @see https://usehooks.com/usePrevious/
  */
 export const usePrevious = <T>(value: T): T | undefined => {
@@ -41,7 +42,7 @@ export const usePrevious = <T>(value: T): T | undefined => {
 };
 
 /**
- * Event listener binding hook
+ * Event listener binding hook.
  * @param eventName - Event to bind to
  * @param handler   - Callback handler
  * @param element   - Element to bind to
@@ -86,11 +87,11 @@ export const useEventListener = (
   );
 };
 
-/** Params passed to `useResizeObserver` `handler` function */
+/** Params passed to `useResizeObserver` `handler` function. */
 export type UseResizeObserverHandlerParams = ContentRect;
 
 /**
- * Bind resize observer to ref
+ * Bind resize observer to ref.
  * @param ref       - Ref to bind to
  * @param handler   - Callback for handling entry's bounding rect
  * @see https://tobbelindstrom.com/blog/resize-observer-hook/ https://codesandbox.io/s/zw8kylol8m

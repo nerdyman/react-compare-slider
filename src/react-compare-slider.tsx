@@ -7,10 +7,10 @@ import {
   useResizeObserver,
 } from './utils';
 
-/** Slider position prop */
+/** Slider position property. */
 type ReactCompareSliderPropPosition = number;
 
-/** Common props shared between child components */
+/** Common props shared between child components. */
 interface ReactCompareSliderCommonProps {
   /** Orientation */
   portrait?: boolean;
@@ -18,7 +18,7 @@ interface ReactCompareSliderCommonProps {
   position: ReactCompareSliderPropPosition;
 }
 
-/** Handle container to control position */
+/** Handle container to control position. */
 const ReactCompareSliderHandleContainer: React.FC<ReactCompareSliderCommonProps> = ({
   children,
   position,
@@ -51,7 +51,7 @@ const ReactCompareSliderHandleContainer: React.FC<ReactCompareSliderCommonProps>
   );
 };
 
-/** Overridable handle */
+/** Overridable handle. */
 export const ReactCompareSliderHandle: React.FC<Pick<
   ReactCompareSliderCommonProps,
   'portrait'
@@ -92,7 +92,7 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
   return <div {...props} style={style} data-rcs="clip-item" />;
 };
 
-/** Comparison slider props */
+/** Comparison slider properties. */
 export interface ReactCompareSliderProps {
   /** Custom handle component */
   handle?: React.ReactNode;
