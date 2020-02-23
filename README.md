@@ -40,10 +40,6 @@
 
 See Storybook for [documentation](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--page) and [demos](https://react-compare-slider.netlify.com/?path=/docs/demos-images--default).
 
-See the [Image Playground](https://react-compare-slider.netlify.com/?path=/docs/demos-images--playground)
-to experiment with image props using the "Knobs" tab.
-
-
 ## Usage
 
 ### Install
@@ -68,6 +64,9 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
+See the [Image Playground](https://react-compare-slider.netlify.com/?path=/docs/demos-images--playground)
+to experiment with images using the "Knobs" tab.
+
 ### Advanced Usage
 
 See the [docs](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--page) for advanced examples.
@@ -89,8 +88,10 @@ See the [API docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api
 
 ### Custom Components
 
-Custom components can get the same base styles as `ReactCompareSliderImage` 
-by using the `styleFitContainer` CSS utility. See the [styleFitContainer docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api--page#stylefitcontainer)
+Custom components can apply the same base styles as `ReactCompareSliderImage` 
+by using the `styleFitContainer` CSS utility. 
+
+See the [styleFitContainer docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api--page#stylefitcontainer)
 for more information.
 
 ### Images
