@@ -183,9 +183,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       x: (width / 100) * position,
       y: (height / 100) * position,
     });
-    // `prevPropsPosition` is a ref value so it shouldn't been in deps
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [position, updateInternalPosition]);
+  }, [position, prevPropsPosition, updateInternalPosition]);
 
   /** Handle mouse/touch down */
   const handlePointerDown = useCallback(
