@@ -108,7 +108,17 @@ export interface ReactCompareSliderProps {
   position?: ReactCompareSliderPropPosition;
 }
 
-/** Comparison slider */
+/** Properties for internal `updateInternalPosition` callback. */
+interface UpdateInternalPositionProps {
+  /** X coordinate to update to (landscape) */
+  x: number;
+  /** Y coordinate to update to (portrait) */
+  y: number;
+  /** Whether to calculate using page X and Y offsets (required for pointer events) */
+  isOffset?: boolean;
+}
+
+/** Root Comparison slider. */
 export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   React.HtmlHTMLAttributes<HTMLDivElement>> = ({
   handle,
@@ -127,8 +137,9 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   const [isDragging, setIsDragging] = useState(false);
   const hasWindowBinding = useRef(false);
 
+  /** Update internal px and pc */
   const updateInternalPosition = useCallback(
-    ({ x, y }: { x: number; y: number }) => {
+    ({ x, y, isOffset }: UpdateInternalPositionProps) => {
       const {
         top,
         left,
@@ -136,11 +147,18 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
         height,
       } = containerRef.current.getBoundingClientRect();
 
-      const positionPx = portrait
-        ? y - top - window.pageYOffset
-        : x - left - window.pageXOffset;
+      // Early out if width or height are zero, can't calculate values
+      // from zeros
+      if (width === 0 || height === 0) return;
 
-      setInternalPositionPx(positionPx);
+      /** Position in pixels with offsets *optionally* applied. */
+      const positionPx = portrait
+        ? isOffset
+          ? y - top - window.pageYOffset
+          : y
+        : isOffset
+        ? x - left - window.pageXOffset
+        : x;
 
       // Calculate percentage with bounds checking
       internalPositionPc.current = Math.min(
@@ -148,6 +166,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
         100
       );
 
+      setInternalPositionPx(positionPx);
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
     [onPositionChange, portrait]
@@ -158,26 +177,23 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     // Early out if position hasn't changed
     if (prevPropsPosition === position) return;
 
-    const {
-      top,
-      left,
-      width,
-      height,
-    } = containerRef.current.getBoundingClientRect();
+    const { width, height } = containerRef.current.getBoundingClientRect();
 
     updateInternalPosition({
-      x: (width / 100) * position + left,
-      y: (height / 100) * position + top,
+      x: (width / 100) * position,
+      y: (height / 100) * position,
     });
     // `prevPropsPosition` is a ref value so it shouldn't been in deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [position, updateInternalPosition]);
 
+  /** Handle mouse/touch down */
   const handlePointerDown = useCallback(
     (ev: MouseEvent | TouchEvent) => {
       ev.preventDefault();
 
       updateInternalPosition({
+        isOffset: true,
         x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
@@ -187,12 +203,14 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     [updateInternalPosition]
   );
 
+  /** Handle mouse/touch move */
   const handlePointerMove = useCallback(
     (ev: MouseEvent | TouchEvent) => {
       if (!isDragging) return;
 
       requestAnimationFrame((): void => {
         updateInternalPosition({
+          isOffset: true,
           x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
           y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
         });
@@ -201,17 +219,20 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     [isDragging, updateInternalPosition]
   );
 
+  /** Handle mouse/touch up */
   const handlePointerUp = useCallback(() => {
     setIsDragging(false);
   }, []);
 
+  /** Resync internal position on resize */
   const handleResize = useCallback(
     ({ width, height }: UseResizeObserverHandlerParams) => {
-      setInternalPositionPx(
-        ((portrait ? height : width) / 100) * internalPositionPc.current
-      );
+      updateInternalPosition({
+        x: (width / 100) * internalPositionPc.current,
+        y: (height / 100) * internalPositionPc.current,
+      });
     },
-    [portrait]
+    [updateInternalPosition]
   );
 
   // Allow drag outside of container while pointer is still down
@@ -275,6 +296,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
+    touchAction: portrait ? 'pan-x' : 'pan-y',
     userSelect: 'none',
     KhtmlUserSelect: 'none',
     MozUserSelect: 'none',
