@@ -130,11 +130,18 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   style,
   ...props
 }): React.ReactElement => {
+  /** Reference to root container. */
   const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
+  /** Previous props positon (tracks user-supplied `position`). */
   const prevPropsPosition = usePrevious(position);
+  /** Reference to current position as a percentage value. */
   const internalPositionPc = useRef(position);
+  /** Internal position in pixels. */
   const [internalPositionPx, setInternalPositionPx] = useState(0);
+  /** Reference to previous `internalPositionPx` value. */
+  /** Whether user is currently dragging. */
   const [isDragging, setIsDragging] = useState(false);
+  /** Whether component has a `window` event binding. */
   const hasWindowBinding = useRef(false);
 
   /** Update internal px and pc */
@@ -148,11 +155,11 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       } = containerRef.current.getBoundingClientRect();
 
       // Early out if width or height are zero, can't calculate values
-      // from zeros
+      // from zeros.
       if (width === 0 || height === 0) return;
 
       /** Position in pixels with offsets *optionally* applied. */
-      const positionPx = portrait
+      let positionPx = portrait
         ? isOffset
           ? y - top - window.pageYOffset
           : y
@@ -160,7 +167,16 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
         ? x - left - window.pageXOffset
         : x;
 
-      // Calculate percentage with bounds checking
+      // Snap `positionPx` to container extremity if it exceeds container bounds.
+      if (positionPx < 0) {
+        positionPx = 0;
+      } else if (portrait && positionPx > height) {
+        positionPx = height;
+      } else if (!portrait && positionPx > width) {
+        positionPx = width;
+      }
+
+      // Calculate percentage with bounds checking.
       internalPositionPc.current = Math.min(
         Math.max((positionPx / (portrait ? height : width)) * 100, 0),
         100
@@ -240,7 +256,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
         passive: true,
       });
 
-      document.addEventListener('mouseup', handlePointerUp, {
+      window.addEventListener('mouseup', handlePointerUp, {
         passive: true,
       });
 
