@@ -8,7 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "react-app-polyfill": "^1.0.5"
+    "react-app-polyfill": "^1.0.6"
   },
   "alias": {
     "react": "../node_modules/react",
@@ -16,9 +16,11 @@
     "scheduler/tracing": "../node_modules/scheduler/tracing-profiling"
   },
   "devDependencies": {
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "@welldone-software/why-did-you-render": "^4.0.5",
     "parcel": "^1.12.4",
-    "typescript": "^3.7.4"
+    "react-docgen-typescript-loader": "^3.7.1",
+    "typescript": "^3.8.3"
   }
 }
