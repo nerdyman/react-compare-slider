@@ -12,12 +12,20 @@ import {
 import { DemoSection } from './demo-blocks';
 
 const App = () => {
+  const [firstPortrait, setFirstPortrait] = React.useState(true);
+
+  const handleFirstClick = React.useCallback(
+    () => setFirstPortrait(portrait => !portrait),
+    []
+  );
+
   return (
     <>
       <DemoSection
         title="Using <code>ReactCompareSliderImage</code>"
         description="In <code>portrait</code> mode, using <code>ReactCompareSliderImage</code> to fit parent container and provide a fallback for browsers that don't support CSS <code>object-fit</code>."
       >
+        <button onClick={handleFirstClick}>Toggle Portrait</button>
         <ReactCompareSlider
           itemOne={
             <ReactCompareSliderImage
@@ -35,7 +43,7 @@ const App = () => {
           onPositionChange={position =>
             console.log(`Portrait position: ${position}`)
           }
-          portrait
+          portrait={firstPortrait}
         />
       </DemoSection>
       <DemoSection

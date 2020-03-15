@@ -51,20 +51,29 @@ const ReactCompareSliderHandleContainer: React.FC<ReactCompareSliderCommonProps>
   );
 };
 
+/** Props for `ReactCompareSliderHandle`. */
+export interface ReactCompareSliderHandleProps
+  extends Pick<ReactCompareSliderCommonProps, 'portrait'> {
+  /** Optional inline styles */
+  style?: React.CSSProperties;
+}
+
 /** Overridable handle. */
-export const ReactCompareSliderHandle: React.FC<Pick<
-  ReactCompareSliderCommonProps,
-  'portrait'
->> = ({ portrait, ...props }): React.ReactElement => {
-  const style: React.CSSProperties = {
+export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> = ({
+  portrait,
+  style,
+  ...props
+}): React.ReactElement => {
+  const rootStyle: React.CSSProperties = {
     height: portrait ? 3 : '100%',
     width: portrait ? '100%' : 3,
-    backgroundColor: '#ffffff',
-    boxShadow: '0 0 .2rem #000000',
+    backgroundColor: '#fff',
+    boxShadow: '0 0 .2rem #000',
     cursor: portrait ? 'ns-resize' : 'ew-resize',
+    ...style,
   };
 
-  return <div {...props} style={style} data-rcs="main-handle-inner" />;
+  return <div {...props} style={rootStyle} data-rcs="main-handle-inner" />;
 };
 
 /** Container for items passed to main component */
@@ -134,6 +143,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
   /** Previous props positon (tracks user-supplied `position`). */
   const prevPropsPosition = usePrevious(position);
+  /** Previous props positon (tracks user-supplied `portrait`). */
+  const prevPropsPortrait = usePrevious(portrait);
   /** Reference to current position as a percentage value. */
   const internalPositionPc = useRef(position);
   /** Internal position in pixels. */
@@ -191,15 +202,33 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   // Update internal position if `position` prop changes
   useEffect(() => {
     // Early out if position hasn't changed
-    if (prevPropsPosition === position) return;
+    if (prevPropsPosition === position || prevPropsPosition === portrait) {
+      return;
+    }
 
     const { width, height } = containerRef.current.getBoundingClientRect();
+
+    // Parse `portrait` changes before `position` ones.
+    if (prevPropsPortrait !== portrait) {
+      // Update using internal percentage when `portrait` changes.
+      updateInternalPosition({
+        x: (width / 100) * internalPositionPc.current,
+        y: (height / 100) * internalPositionPc.current,
+      });
+      return;
+    }
 
     updateInternalPosition({
       x: (width / 100) * position,
       y: (height / 100) * position,
     });
-  }, [position, prevPropsPosition, updateInternalPosition]);
+  }, [
+    portrait,
+    position,
+    prevPropsPortrait,
+    prevPropsPosition,
+    updateInternalPosition,
+  ]);
 
   /** Handle mouse/touch down */
   const handlePointerDown = useCallback(
