@@ -18,7 +18,7 @@
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
     <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
 </a>
-<a href="https://react-compare-slider.netlify.com/">
+<a href="https://react-compare-slider.netlify.app/">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
 </div>
@@ -38,7 +38,9 @@
 
 ## Demo
 
-See Storybook for [documentation](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--page) and [demos](https://react-compare-slider.netlify.com/?path=/docs/demos-images--default).
+See Storybook for [documentation](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images--default).
+
+Also see the local [example](./example) folder for standalone demos.
 
 ## Usage
 
@@ -64,12 +66,12 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
-See the [Image Playground](https://react-compare-slider.netlify.com/?path=/docs/demos-images--playground)
+See the [Image Playground](https://react-compare-slider.netlify.app/?path=/docs/demos-images--playground)
 to experiment with images using the "Knobs" tab.
 
 ### Advanced Usage
 
-See the [docs](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--page) for advanced examples.
+See the [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) for advanced examples.
 
 ## Props
 
@@ -82,7 +84,7 @@ See the [docs](https://react-compare-slider.netlify.com/?path=/docs/docs-intro--
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
 | `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
 
-See the [API docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api--page) for more information.
+See the [API docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page) for more information.
 
 ## Extending
 
@@ -91,12 +93,12 @@ See the [API docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api
 Custom components can apply the same base styles as `ReactCompareSliderImage` 
 by using the `styleFitContainer` CSS utility. 
 
-See the [styleFitContainer docs](https://react-compare-slider.netlify.com/?path=/docs/docs-api--page#stylefitcontainer)
+See the [styleFitContainer docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page#stylefitcontainer)
 for more information.
 
 ### Images
 
-See the [Images docs](https://react-compare-slider.netlify.com/?path=/docs/docs-images--page) for more information.
+See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information.
 
 ## Requirements
 
