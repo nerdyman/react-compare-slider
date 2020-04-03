@@ -140,7 +140,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   ...props
 }): React.ReactElement => {
   /** Reference to root container. */
-  const containerRef = useRef<HTMLDivElement>(document.createElement('div'));
+  const containerRef = useRef<HTMLDivElement>(null);
   /** Previous props positon (tracks user-supplied `position`). */
   const prevPropsPosition = usePrevious(position);
   /** Previous props positon (tracks user-supplied `portrait`). */
@@ -163,7 +163,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
         left,
         width,
         height,
-      } = containerRef.current.getBoundingClientRect();
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      } = containerRef.current!.getBoundingClientRect();
 
       // Early out if width or height are zero, can't calculate values
       // from zeros.
@@ -206,7 +207,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       return;
     }
 
-    const { width, height } = containerRef.current.getBoundingClientRect();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const { width, height } = containerRef.current!.getBoundingClientRect();
 
     // Parse `portrait` changes before `position` ones.
     if (prevPropsPortrait !== portrait) {
@@ -312,22 +314,26 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   // Bind resize observer to container
   useResizeObserver(containerRef, handleResize);
 
-  useEventListener('mousedown', handlePointerDown, containerRef.current, {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  useEventListener('mousedown', handlePointerDown, containerRef.current!, {
     capture: true,
     passive: false,
   });
 
-  useEventListener('touchmove', handlePointerMove, containerRef.current, {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  useEventListener('touchmove', handlePointerMove, containerRef.current!, {
     capture: false,
     passive: true,
   });
 
-  useEventListener('touchend', handlePointerUp, containerRef.current, {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  useEventListener('touchend', handlePointerUp, containerRef.current!, {
     capture: false,
     passive: true,
   });
 
-  useEventListener('touchstart', handlePointerDown, containerRef.current, {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  useEventListener('touchstart', handlePointerDown, containerRef.current!, {
     capture: true,
     passive: false,
   });

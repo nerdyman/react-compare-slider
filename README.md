@@ -66,7 +66,7 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
-See the [Image Playground](https://react-compare-slider.netlify.app/?path=/docs/demos-images--playground)
+See the [Image Playground](https://react-compare-slider.netlify.app/?path=/story/demos-images--playground)
 to experiment with images using the "Knobs" tab.
 
 ### Advanced Usage
