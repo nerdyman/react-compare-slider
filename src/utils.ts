@@ -57,7 +57,7 @@ export const usePrevious = <T>(value: T): T | undefined => {
 export const useEventListener = (
   eventName: EventListener['name'],
   handler: EventListener['caller'],
-  element: EventTarget = window,
+  element: EventTarget,
   handlerOptions: AddEventListenerOptions
 ): void => {
   // Create a ref that stores handler
