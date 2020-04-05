@@ -16,11 +16,10 @@
     "scheduler/tracing": "../node_modules/scheduler/tracing-profiling"
   },
   "devDependencies": {
-    "@types/react": "^16.9.23",
-    "@types/react-dom": "^16.9.5",
-    "@welldone-software/why-did-you-render": "^4.0.5",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "@welldone-software/why-did-you-render": "^4.0.6",
     "parcel": "^1.12.4",
-    "react-docgen-typescript-loader": "^3.7.1",
     "typescript": "^3.8.3"
   }
 }
