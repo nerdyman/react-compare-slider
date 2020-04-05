@@ -1,4 +1,4 @@
-import { Meta, Props, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks';
 import { ReactCompareSlider, ReactCompareSliderImage } from '../src';
 
 <Meta title="Docs/Images" component={ReactCompareSlider} />
@@ -7,7 +7,9 @@ import { ReactCompareSlider, ReactCompareSliderImage } from '../src';
 
 <br />
 
-<Story id="demos-images--default" />
+<Preview>
+    <Story id="demos-images--default" />
+</Preview>
 
 Images can be rendered using the `ReactCompareSliderImage` component and/or 
 by using a custom image component, e.g. `picture` or `img`.

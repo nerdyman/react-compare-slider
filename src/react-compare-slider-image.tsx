@@ -1,14 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
-import { styleFitContainer } from './utils';
-
-/**
- * Whether client supports the CSS `object-fit` property.
- */
-export const CLIENT_SUPPORTS_CSS_OBJECT_FIT: boolean =
-  typeof CSS !== 'undefined' &&
-  CSS.supports &&
-  CSS.supports('object-fit', 'cover');
+import { styleFitContainer, supportsCssObjectFit } from './utils';
 
 /**
  * Properties for `ReactCompareSliderImage`.
@@ -31,6 +23,8 @@ export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
   style,
   ...props
 }): React.ReactElement => {
+  /** Runtime support for `object-fit`. Ref based to allow updates after SSR. */
+  const objectFitIsSupported = useRef(supportsCssObjectFit());
   const innerStyle: React.CSSProperties = styleFitContainer({ ...style });
   const containerStyle: React.CSSProperties = {
     width: innerStyle.width,
@@ -38,7 +32,7 @@ export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
   };
 
   // Add fallback background props if requested
-  if (!CLIENT_SUPPORTS_CSS_OBJECT_FIT && fallbackEnable) {
+  if (!objectFitIsSupported && fallbackEnable) {
     // Set fallback CSS properties, use props from `innerStyle` if defined
     containerStyle.backgroundImage =
       innerStyle.backgroundImage || `url(${props.src})`;

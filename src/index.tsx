@@ -1,3 +1,13 @@
-export * from './react-compare-slider-image';
-export * from './react-compare-slider';
-export { styleFitContainer } from './utils';
+export {
+  ReactCompareSlider,
+  ReactCompareSliderProps,
+  ReactCompareSliderHandle,
+  ReactCompareSliderHandleProps,
+} from './react-compare-slider';
+
+export {
+  ReactCompareSliderImage,
+  ReactCompareSliderImageProps,
+} from './react-compare-slider-image';
+
+export { styleFitContainer, supportsCssObjectFit } from './utils';

@@ -9,6 +9,14 @@ import { ResizeObserver } from 'resize-observer';
 import { ContentRect } from 'resize-observer/lib/ContentRect';
 
 /**
+ * Whether client supports the CSS `object-fit` property.
+ */
+export const supportsCssObjectFit = (): boolean =>
+  typeof CSS !== 'undefined' &&
+  CSS.supports &&
+  CSS.supports('object-fit', 'cover');
+
+/**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.)
  * fit their container and maintain their aspect ratio.
  */
@@ -57,7 +65,7 @@ export const usePrevious = <T>(value: T): T | undefined => {
 export const useEventListener = (
   eventName: EventListener['name'],
   handler: EventListener['caller'],
-  element: EventTarget = window,
+  element: EventTarget,
   handlerOptions: AddEventListenerOptions
 ): void => {
   // Create a ref that stores handler
