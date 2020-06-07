@@ -306,6 +306,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
       if (hasWindowBinding.current) {
         window.removeEventListener('mousemove', handlePointerMove);
         window.removeEventListener('mouseup', handlePointerUp);
+        window.removeEventListener('touchmove', handlePointerMove);
+        window.removeEventListener('touchend', handlePointerUp);
         hasWindowBinding.current = false;
       }
     };
@@ -321,18 +323,6 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
   });
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  useEventListener('touchmove', handlePointerMove, containerRef.current!, {
-    capture: false,
-    passive: true,
-  });
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  useEventListener('touchend', handlePointerUp, containerRef.current!, {
-    capture: false,
-    passive: true,
-  });
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   useEventListener('touchstart', handlePointerDown, containerRef.current!, {
     capture: true,
     passive: false,
@@ -345,9 +335,9 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderProps &
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
-    touchAction: portrait ? 'pan-x' : 'pan-y',
     userSelect: 'none',
     KhtmlUserSelect: 'none',
+    msUserSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
     ...style,
