@@ -101,6 +101,17 @@ export const useEventListener = (
   );
 };
 
+/**
+ * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
+ * @see https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js
+ */
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' &&
+  typeof window.document !== 'undefined' &&
+  typeof window.document.createElement !== 'undefined'
+    ? useLayoutEffect
+    : useEffect;
+
 /** Params passed to `useResizeObserver` `handler` function. */
 export type UseResizeObserverHandlerParams = ContentRect;
 
@@ -129,7 +140,7 @@ export const useResizeObserver = (
     ref.current && observer.current.observe(ref.current);
   }, [ref]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     observe();
     return (): void => disconnect();
   }, [disconnect, observe]);
