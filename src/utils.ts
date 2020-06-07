@@ -57,10 +57,10 @@ export const usePrevious = <T>(value: T): T | undefined => {
 
 /**
  * Event listener binding hook.
- * @param eventName - Event to bind to
- * @param handler   - Callback handler
- * @param element   - Element to bind to
- * @see https://usehooks.com/useEventListener/
+ * @param eventName      - Event to bind to
+ * @param handler        - Callback handler
+ * @param element        - Element to bind to
+ * @param handlerOptions - Event handler options
  */
 export const useEventListener = (
   eventName: EventListener['name'],
