@@ -1,38 +1,49 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {
-  ReactCompareSlider,
-  // ReactCompareSliderProps,
-  styleFitContainer,
-} from '../src';
+import React from 'react';
+import { cleanup, render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
-describe('ReactCompareSlider', (): void => {
-  it('should render required props without crashing', (): void => {
-    const div = document.createElement('div');
-    ReactDOM.render(
-      <ReactCompareSlider itemOne={<div>Foo</div>} itemTwo={<div>Bar</div>} />,
-      div
+import { ReactCompareSlider, ReactCompareSliderHandle } from '../src';
+
+afterEach(cleanup);
+
+describe('ReactCompareSlider', () => {
+  it('Should render with required props.', () => {
+    const { container } = render(
+      <ReactCompareSlider
+        itemOne={<div test-id="rcs-one">Foo</div>}
+        itemTwo={<div test-id="rcs-two">Bar</div>}
+      />
     );
-    ReactDOM.unmountComponentAtNode(div);
+
+    expect(container.querySelector('[test-id="rcs-one"]')).toBeInTheDocument();
+    expect(container.querySelector('[test-id="rcs-two"]')).toBeInTheDocument();
   });
 
-  // should render with legacy 'clip'
-  // should render with custom handle
-  // should render with custom position
-});
-
-describe('styleFitContainer', (): void => {
-  it('should return object', (): void => {
-    expect(typeof styleFitContainer()).toBe('object');
-  });
-
-  it("should return 'contain' style", (): void => {
-    expect(styleFitContainer({ objectFit: 'contain' }).objectFit).toBe(
-      'contain'
+  it('Should render in portrait.', () => {
+    const { container } = render(
+      <ReactCompareSlider
+        itemOne={<div test-id="rcs-one">Foo</div>}
+        itemTwo={<div test-id="rcs-two">Bar</div>}
+        portrait
+      />
     );
+
+    expect(container.querySelector('[test-id="rcs-one"]')).toBeInTheDocument();
+    expect(container.querySelector('[test-id="rcs-two"]')).toBeInTheDocument();
   });
 
-  it('should return with custom props', (): void => {
-    expect(styleFitContainer({ color: 'green' }).color).toBe('green');
+  it('Should render custom handle.', () => {
+    const testId = 'youcanthandlethis';
+    const Handle = () => <ReactCompareSliderHandle test-id={testId} />;
+
+    const { container } = render(
+      <ReactCompareSlider
+        itemOne={<div test-id="rcs-one">Foo</div>}
+        itemTwo={<div test-id="rcs-two">Bar</div>}
+        handle={<Handle />}
+      />
+    );
+
+    expect(container.querySelector(`[test-id=${testId}]`)).toBeInTheDocument();
   });
 });

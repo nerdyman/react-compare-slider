@@ -8,13 +8,27 @@ import {
 import { ResizeObserver } from 'resize-observer';
 import { ContentRect } from 'resize-observer/lib/ContentRect';
 
+/** Whether runtime is client-side. */
+const isClient = !!(
+  typeof window !== 'undefined' &&
+  window.document &&
+  window.document.createElement
+);
+
 /**
  * Whether client supports the CSS `object-fit` property.
  */
-export const supportsCssObjectFit = (): boolean =>
-  typeof CSS !== 'undefined' &&
-  CSS.supports &&
-  CSS.supports('object-fit', 'cover');
+export const supportsCssObjectFit = (): boolean => {
+  // Assume object-fit is supported in SSR - it will be picked up again by the
+  // client anyway.
+  if (!isClient) return true;
+
+  return (
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('object-fit', 'cover')
+  );
+};
 
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.)
@@ -86,7 +100,7 @@ export const useEventListener = (
       if (!isSupported) return;
 
       // Create event listener that calls handler function stored in ref
-      const eventListener: EventListener = event =>
+      const eventListener: EventListener = (event) =>
         savedHandler.current && savedHandler.current(event);
 
       // Add event listener
@@ -105,12 +119,7 @@ export const useEventListener = (
  * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
  * @see https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js
  */
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' &&
-  typeof window.document !== 'undefined' &&
-  typeof window.document.createElement !== 'undefined'
-    ? useLayoutEffect
-    : useEffect;
+const useIsomorphicLayoutEffect = isClient ? useLayoutEffect : useEffect;
 
 /** Params passed to `useResizeObserver` `handler` function. */
 export type UseResizeObserverHandlerParams = ContentRect;
@@ -127,13 +136,13 @@ export const useResizeObserver = (
 ): void => {
   const observer = useRef(
     new ResizeObserver(([entry]) => {
-      handler && handler(entry.contentRect);
+      handler(entry.contentRect);
     })
   );
 
   const disconnect = useCallback(() => {
     const { current } = observer;
-    current && current.disconnect();
+    current.disconnect();
   }, []);
 
   const observe = useCallback(() => {

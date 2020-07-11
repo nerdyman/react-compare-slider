@@ -14,10 +14,9 @@ export interface ReactCompareSliderImageProps {
  * Image with fallback background for browsers that don't support the
  * `object-fit` CSS property.
  */
-export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
-  HTMLImageElement
-> &
-  ReactCompareSliderImageProps> = ({
+export const ReactCompareSliderImage: React.FC<
+  React.ImgHTMLAttributes<HTMLImageElement> & ReactCompareSliderImageProps
+> = ({
   className,
   fallbackEnable = true,
   style,
@@ -29,10 +28,11 @@ export const ReactCompareSliderImage: React.FC<React.ImgHTMLAttributes<
   const containerStyle: React.CSSProperties = {
     width: innerStyle.width,
     height: innerStyle.height,
+    boxSizing: 'border-box',
   };
 
   // Add fallback background props if requested
-  if (!objectFitIsSupported && fallbackEnable) {
+  if (!objectFitIsSupported.current && fallbackEnable) {
     // Set fallback CSS properties, use props from `innerStyle` if defined
     containerStyle.backgroundImage =
       innerStyle.backgroundImage || `url(${props.src})`;

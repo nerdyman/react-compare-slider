@@ -1,17 +1,42 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import { render, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+
 import { ReactCompareSliderImage } from '../src';
 
-describe('ReactCompareSlider', (): void => {
-  it('should render without crashing', (): void => {
-    const div = document.createElement('div');
-    ReactDOM.render(
-      <ReactCompareSliderImage src="https://via.placeholder.com/1280x720?text=Render" />,
-      div
+afterEach(cleanup);
+
+describe('ReactCompareSlider', () => {
+  it('Should render image.', () => {
+    const src = 'https://via.placeholder.com/1280x720';
+    const srcSet =
+      'https://via.placeholder.com/320x480?text=Small 320w, https://via.placeholder.com/320x480?text=Medium 768w, https://via.placeholder.com/1280x480?text=Large 1280w';
+    const alt = 'Testaroo';
+
+    const { container } = render(
+      <ReactCompareSliderImage alt={alt} src={src} srcSet={srcSet} />
     );
-    ReactDOM.unmountComponentAtNode(div);
+
+    expect(container.querySelector('img')?.getAttribute('alt')).toBe(alt);
+    expect(container.querySelector('img')?.getAttribute('src')).toBe(src);
+    expect(container.querySelector('img')?.getAttribute('srcset')).toBe(srcSet);
   });
 
-  // it('should render background image for unsupported browsers', (): void => {});
-  // it('should pass custom styles', (): void => {});
+  it('Should render background image for unsupported browsers.', () => {
+    const src = 'https://via.placeholder.com/1280x720';
+    const { container } = render(<ReactCompareSliderImage src={src} />);
+
+    expect(container.firstChild).toHaveStyle(`background-image: url(${src});`);
+  });
+
+  it('Should not render background image for unsupported browsers when fallback is disabled.', () => {
+    const src = 'https://via.placeholder.com/1280x720';
+    const { container } = render(
+      <ReactCompareSliderImage fallbackEnable={false} src={src} />
+    );
+
+    expect(container.firstChild).not.toHaveStyle(
+      `background-image: url(${src});`
+    );
+  });
 });

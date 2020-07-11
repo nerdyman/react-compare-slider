@@ -7,13 +7,22 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "react", "react-hooks", "jest"],
+  "plugins": [
+    "testing-library",
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "jest",
+    "jest-dom"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:testing-library/recommended",
+    "plugin:jest-dom/recommended"
   ],
   "env": {
     "browser": true,
