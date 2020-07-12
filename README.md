@@ -21,13 +21,17 @@
 <a href="https://react-compare-slider.netlify.app/">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
+
+[![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js)
+
+<small>[Edit on CodeSandbox](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js)</small>
 </div>
 
 ---
 
 ## Features
 
-- Supports responsive images, videos, any React components
+- Supports responsive images and any other React components ( `picture`, `canvas`, `iframe` etc.)
 - Supports landscape and portrait orientations
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
@@ -38,7 +42,8 @@
 
 ## Demo
 
-See Storybook for [documentation](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images--default).
+- Storybook: [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images)
+- CodeSandbox: [basic editable demo](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l)
 
 Also see the local [example](./example) folder for standalone demos.
 
@@ -71,7 +76,8 @@ to experiment with images using the "Knobs" tab.
 
 ### Advanced Usage
 
-See the [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) for advanced examples.
+See the [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) 
+for advanced examples.
 
 ## Props
 
@@ -90,15 +96,27 @@ See the [API docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api
 
 ### Custom Components
 
-Custom components can apply the same base styles as `ReactCompareSliderImage` 
-by using the `styleFitContainer` CSS utility. 
+The library supports all types of React components; custom components can apply 
+the same base styles as `ReactCompareSliderImage`  by using the 
+`styleFitContainer` CSS utility. 
 
 See the [styleFitContainer docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page#stylefitcontainer)
 for more information.
 
 ### Images
 
-See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information.
+See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images).
+
+### Custom Handles
+
+<details>
+<summary>Blurred Arrows</summary>
+
+[![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js)
+
+</details>
+
+See [CodeSandbox](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js) for an editable demo.
 
 ## Requirements
 
