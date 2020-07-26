@@ -37,7 +37,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "dedupe-types": "rm -rf node_modules && yarn remove @types/react && yarn && yarn add --dev @types/react && npx yarn-deduplicate --packages @types/react yarn.lock",
-    "release": "np",
+    "release": "yarn build && np --no-2fa",
     "test": "CI=true tsdx test --color",
     "test:watch": "tsdx test",
     "test:coverage": "CI=true tsdx test --color --coverage",
