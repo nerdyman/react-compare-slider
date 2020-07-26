@@ -51,6 +51,9 @@ module.exports = {
                   },
                 },
                 query: {
+                  view: 'preview',
+                  hidedevtools: 1,
+                  hidenavigation: 1,
                   fontsize: 14,
                 },
               },
