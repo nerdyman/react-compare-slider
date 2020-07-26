@@ -48,25 +48,14 @@ export const styleFitContainer = ({
   ...props,
 });
 
-/** Perform strict primitive equals. */
-const strictEquals = <T>(prev: T | undefined, next: T): boolean =>
-  prev === next;
+/** Store the previous supplied value. */
+export const usePrevious = <T>(value: T): T => {
+  const ref = useRef<T>(value);
+  useEffect(() => {
+    ref.current = value;
+  });
 
-/**
- * Use previous value.
- * @see https://github.com/streamich/react-use/blob/master/src/usePreviousDistinct.ts
- */
-export const usePrevious = <T>(value: T): T | undefined => {
-  const previousRef = useRef<T>();
-  const currentRef = useRef<T>();
-
-  if (!strictEquals(currentRef.current, value)) {
-    previousRef.current = currentRef.current;
-    currentRef.current = value;
-  }
-
-  // Return previous value (happens before update in useEffect above)
-  return previousRef.current;
+  return ref.current;
 };
 
 /**
