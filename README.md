@@ -2,6 +2,8 @@
     <h1>React Compare Slider</h1>
     <p>Compare two components, side-by-side or top-to-toe.</p>
 
+[![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
+
 <a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
     <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
 </a>
@@ -22,9 +24,6 @@
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
 
-[![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js)
-
-<small>[Edit on CodeSandbox](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js)</small>
 </div>
 
 ---
@@ -88,13 +87,13 @@ for advanced examples.
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
 | `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
-| `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
+| `portrait`  | `boolean`   |   | `false` | Whether to use portrait orientation |
 
 See the [API docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page) for more information.
 
 ## Extending
 
-### Custom Components
+### Custom Items
 
 The library supports all types of React components; custom components can apply 
 the same base styles as `ReactCompareSliderImage`  by using the 
@@ -112,11 +111,11 @@ See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-
 <details>
 <summary>Blurred Arrows</summary>
 
-[![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js)
+[![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
 </details>
 
-See [CodeSandbox](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/index.js) for an editable demo.
+[See here](https://react-compare-slider.netlify.app/?path=/story/docs-handles--page) for an editable demo.
 
 ## Requirements
 

@@ -1,0 +1,213 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Intro" />
+
+<div style={{ maxWidth: '600px', margin: '0 auto' }}>
+
+<div style={{ textAlign: 'center' }}>
+
+# React Compare Slider
+
+```js codesandbox=react-compare-slider?view=preview
+/** @jsx jsx */
+import { useCallback } from "react";
+import { jsx, css } from "@emotion/core";
+
+// -- demo start --
+
+/**
+ * @see https://github.com/nerdyman/react-compare-slider
+ */
+
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage
+} from "react-compare-slider";
+
+/** In `portrait` mode */
+const Portrait = props => {
+  const handlePositionChange = useCallback(
+    position => console.log("[CustomHandle]", position),
+    []
+  );
+
+  return (
+    <ReactCompareSlider
+      {...props}
+      itemOne={
+        <ReactCompareSliderImage
+          src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1500&q=80"
+          style={{ filter: "grayscale(1)" }}
+          alt="one"
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1500&q=80"
+          alt="two"
+        />
+      }
+      onPositionChange={handlePositionChange}
+      portrait
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "50vh"
+      }}
+    />
+  );
+};
+
+/** With Custom `handle` using Emotion's `css` prop */
+const CustomHandle = props => {
+  const handlePositionChange = useCallback(
+    position => console.log("[Portrait]", position),
+    []
+  );
+
+  return (
+    <ReactCompareSlider
+      {...props}
+      handle={
+        <div
+          css={css`
+            --rcs-handle-width: 0.1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--rcs-handle-width);
+            height: 100%;
+            box-shadow: none;
+            background-color: #ffffff;
+
+            &::before {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: calc(var(--rcs-handle-width) / 2);
+              width: 3.5rem;
+              height: 3.5rem;
+              border: var(--rcs-handle-width) solid #ffffff;
+              border-radius: 100%;
+              transform: translate(-50%, -50%);
+              backdrop-filter: blur(0.5rem);
+            }
+          `}
+        >
+          {/* Arrows */}
+          <div
+            css={css`
+              position: relative;
+              display: grid;
+              grid-auto-flow: column;
+              gap: 0.65rem;
+
+              &::before,
+              &::after {
+                content: "";
+                display: block;
+                width: 0;
+                height: 0;
+                top: 50%;
+                left: 0;
+                border-top: 0.5rem solid transparent;
+                border-bottom: 0.5rem solid transparent;
+              }
+
+              &::before {
+                border-right: 0.65rem solid #ffffff;
+              }
+
+              &::after {
+                border-left: 0.65rem solid #ffffff;
+              }
+            `}
+          />
+        </div>
+      }
+      itemOne={
+        <ReactCompareSliderImage
+          src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+          style={{ filter: "grayscale(1)" }}
+          alt="one"
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+          alt="two"
+        />
+      }
+      onPositionChange={handlePositionChange}
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "50vh"
+      }}
+    />
+  );
+};
+
+export const App = () => (
+  <div>
+    <Portrait />
+    <CustomHandle position={25} />
+  </div>
+);
+```
+
+<br/>
+<br/>
+
+<a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
+</a>
+&nbsp;
+<a href="https://npmjs.com/package/react-compare-slider">
+    <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package" />
+</a>
+&nbsp;
+<a href="https://bundlephobia.com/result?p=react-compare-slider">
+    <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size" />
+</a>
+
+<br/>
+
+<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
+    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
+</a>
+&nbsp;
+<a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
+    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
+</a>
+&nbsp;
+<a href="https://react-compare-slider.netlify.app/">
+    <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
+</a>
+
+
+A lightweight and extensible comparison slider for React components. Supports
+landscape/portrait mode, responsive images (`picture`, `img[srcset]`), videos&hellip; and everything else.
+
+</div>
+
+## Features
+
+- Supports responsive images and any React components ( `picture`, `canvas`, `iframe` etc.)
+- Supports landscape and portrait orientations
+- Simple API
+- Unopinionated & fully customizable
+- Optionally use your own components and styles
+- Responsive, fluid
+- Works in IE11+
+- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider), only one ponyfill dependency
+- Type safe
+
+## Requirements
+
+- React 16.8+
+
+<a target="_blank" rel="noopener noreferrer" style={{ display: 'block', margin: '0 auto', textAlign: 'center' }} href="https://github.com/nerdyman/react-compare-slider">View on GitHub</a>
+
+</div>

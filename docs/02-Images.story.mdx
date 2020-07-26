@@ -1,21 +1,24 @@
 import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks';
-import { ReactCompareSlider, ReactCompareSliderImage } from '../src';
 
-<Meta title="Docs/Images" component={ReactCompareSlider} />
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { Default } from './demos/01-Images.story';
+
+<Meta title="Docs/Images" component={ReactCompareSlider} argTypes={Default.args} />
 
 # Using Images
 
-<br />
+- [ReactCompareSliderImage](<#reactcomparesliderimage>)
+- [Live Examples](<#live-examples>)
 
 <Preview>
     <Story id="demos-images--default" />
 </Preview>
 
+<Props of={ReactCompareSlider} />
+
 Images can be rendered using the `ReactCompareSliderImage` component and/or 
 by using a custom image component, e.g. `picture` or `img`.
-
-Checkout the [Playground](?path=/story/demos-images--playground) demo to 
-experiment with images.
 
 <br />
 
@@ -52,3 +55,7 @@ import { ReactCompareSliderImage } from 'react-compare-slider';
  */
 <ReactCompareSliderImage src="..." srcSet="..." style={{ backgroundImage: 'url(...)' }} />
 ```
+
+## Live Examples
+
+Checkout the [Images demos](?path=/story/demos-images--default) to experiment with images.

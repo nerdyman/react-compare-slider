@@ -1,9 +1,17 @@
 import { Description, Meta, Props } from '@storybook/addon-docs/blocks';
-import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../src';
+
+import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, styleFitContainer } from 'react-compare-slider';
 
 <Meta title="Docs/API" />
 
 # API
+
+- [ReactCompareSlider](<#reactcompareslider>)
+- [ReactCompareSliderHandle](<#reactcomparesliderhandle>)
+- [ReactCompareSliderImage](<#reactcomparesliderimage>)
+- [styleFitContainer](<#stylefitcontainer>)
+
+<br />
 
 ## `ReactCompareSlider`
 
@@ -15,6 +23,18 @@ import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '
 
 <Props of={ReactCompareSlider} />
 
+
+## `ReactCompareSliderHandle` 
+
+<Description of={ReactCompareSliderHandle} />
+
+[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/react-compare-slider.tsx#L62)
+
+### Props
+
+<Props of={ReactCompareSliderHandle} />
+
+
 ## `ReactCompareSliderImage` 
 
 <Description of={ReactCompareSliderImage} />
@@ -25,11 +45,12 @@ import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '
 
 <Props of={ReactCompareSliderImage} />
 
+
 ## `styleFitContainer`
 
 <Description of={styleFitContainer} />
 
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/utils.ts#L11)
+[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/utils.ts#L37)
 
 The `styleFitContainer` utility makes any [replaced element](https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element)
 fill its parent while maintaining the correct aspect ratio. 

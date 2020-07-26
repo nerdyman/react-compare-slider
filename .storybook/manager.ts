@@ -5,7 +5,7 @@ import { create } from '@storybook/theming/create';
  * @see https://storybook.js.org/docs/configurations/options-parameter/
  */
 addons.setConfig({
-  showAddonsPanel: true,
+  showAddonsPanel: false,
   panelPosition: 'bottom',
   theme: create({
     base: 'dark',

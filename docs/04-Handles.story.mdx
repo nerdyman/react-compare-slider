@@ -1,0 +1,159 @@
+import { Meta, Props } from '@storybook/addon-docs/blocks';
+
+import { ReactCompareSliderHandle } from 'react-compare-slider';
+
+<Meta title="Docs/Handles" component={ReactCompareSliderHandle} />
+
+# Using Handles
+
+- [Props](#reactcomparesliderhandle-props)
+- [Custom Default Handle Usage](<#custom-default-handle-usage>)
+- [Custom Standalone Handle Usage](<#custom-standalone-handle-usage>)
+- [Live Examples](<#live-examples>)
+
+
+```js codesandbox=react-compare-slider?view=preview
+/** @jsx jsx */
+import { useCallback } from "react";
+import { jsx, css } from "@emotion/core";
+
+// Start demo
+
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage
+} from "react-compare-slider";
+
+/** With Custom `handle` using Emotion's `css` prop */
+export const App = props => {
+  const handlePositionChange = useCallback(
+    position => console.log("[Portrait]", position),
+    []
+  );
+
+  return (
+    <ReactCompareSlider
+      {...props}
+      handle={
+        <div
+          css={css`
+            --rcs-handle-width: 0.1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--rcs-handle-width);
+            height: 100%;
+            box-shadow: none;
+            background-color: #ffffff;
+
+            &::before {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: calc(var(--rcs-handle-width) / 2);
+              width: 3.5rem;
+              height: 3.5rem;
+              border: var(--rcs-handle-width) solid #ffffff;
+              border-radius: 100%;
+              transform: translate(-50%, -50%);
+              backdrop-filter: blur(0.5rem);
+            }
+          `}
+        >
+          {/* Arrows */}
+          <div
+            css={css`
+              position: relative;
+              display: grid;
+              grid-auto-flow: column;
+              gap: 0.65rem;
+
+              &::before,
+              &::after {
+                content: "";
+                display: block;
+                width: 0;
+                height: 0;
+                top: 50%;
+                left: 0;
+                border-top: 0.5rem solid transparent;
+                border-bottom: 0.5rem solid transparent;
+              }
+
+              &::before {
+                border-right: 0.65rem solid #ffffff;
+              }
+
+              &::after {
+                border-left: 0.65rem solid #ffffff;
+              }
+            `}
+          />
+        </div>
+      }
+      itemOne={
+        <ReactCompareSliderImage
+          src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+          style={{ filter: "grayscale(1)" }}
+          alt="one"
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+          alt="two"
+        />
+      }
+      onPositionChange={handlePositionChange}
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "100vh"
+      }}
+    />
+  );
+};
+```
+
+Custom Handles can be used via the `handle` prop on the main slider component.
+If a custom `handle` is not supplied `ReactCompareSliderHandle` will
+be used instead.
+
+<br />
+
+### `ReactCompareSliderHandle` Props
+
+`ReactCompareSliderHandle` supports the `portrait` prop to automatically flip
+itself to match the desired orientation. It also accepts any valid `div`
+component props so you can easily customize it to fit your requirements.
+
+<Props of={ReactCompareSliderHandle} />
+
+### Custom Default Handle Usage
+
+```jsx
+import { ReactCompareSlider, ReactCompareSliderHandle } from 'react-compare-slider';
+
+const MyCustomHandle = () => (
+  <ReactCompareSliderHandle style={{ width: '5px', height: '100%', backgroundColor: red }} />;
+)
+
+<ReactCompareSlider handle={<MyCustomHandle />} />
+```
+
+### Custom Standalone Handle Usage
+
+```jsx
+import { ReactCompareSlider } from 'react-compare-slider';
+
+const MyCustomHandle = () => (
+  <div style={{ width: '5px', height: '100%', backgroundColor: red }}></div>;
+)
+
+<ReactCompareSlider handle={<MyCustomHandle />} />
+```
+
+### Live Examples
+
+Check out the [handles demos](/?path=/story/demos-handles--blurred-arrows) to experiment with handles.
