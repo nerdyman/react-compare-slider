@@ -104,7 +104,7 @@ for more information.
 
 </details>
 
-See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information.
+See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-handles--page) for more information.
 
 ## Requirements
 
