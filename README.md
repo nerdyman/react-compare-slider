@@ -43,8 +43,7 @@
 
 - Storybook: [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images)
 - CodeSandbox: [basic editable demo](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l)
-
-Also see the local [example](./example) folder for standalone demos.
+- [Local example](./example)
 
 ## Usage
 
@@ -70,13 +69,7 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
-See the [Image Playground](https://react-compare-slider.netlify.app/?path=/story/demos-images--playground)
-to experiment with images using the "Knobs" tab.
-
-### Advanced Usage
-
-See the [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) 
-for advanced examples.
+See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images).
 
 ## Props
 
@@ -102,10 +95,6 @@ the same base styles as `ReactCompareSliderImage`  by using the
 See the [styleFitContainer docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page#stylefitcontainer)
 for more information.
 
-### Images
-
-See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images).
-
 ### Custom Handles
 
 <details>
@@ -115,7 +104,7 @@ See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-
 
 </details>
 
-[See here](https://react-compare-slider.netlify.app/?path=/story/docs-handles--page) for an editable demo.
+See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information.
 
 ## Requirements
 
