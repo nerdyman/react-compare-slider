@@ -11,7 +11,6 @@
     "testing-library",
     "@typescript-eslint",
     "react",
-    "react-hooks",
     "jest",
     "jest-dom"
   ],
@@ -19,6 +18,7 @@
     "eslint:recommended",
     "plugin:jest/recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:testing-library/recommended",
@@ -43,9 +43,6 @@
     "react/jsx-indent": 0,
     "react/jsx-indent-props": 0,
     "react/prop-types": 0,
-
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
 
     "@typescript-eslint/no-unused-vars": [
       "warn",
