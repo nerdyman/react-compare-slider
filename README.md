@@ -2,6 +2,8 @@
     <h1>React Compare Slider</h1>
     <p>Compare two components, side-by-side or top-to-toe.</p>
 
+[![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
+
 <a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
     <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
 </a>
@@ -21,13 +23,14 @@
 <a href="https://react-compare-slider.netlify.app/">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
+
 </div>
 
 ---
 
 ## Features
 
-- Supports responsive images, videos, any React components
+- Supports responsive images and any other React components ( `picture`, `canvas`, `iframe` etc.)
 - Supports landscape and portrait orientations
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
@@ -38,9 +41,9 @@
 
 ## Demo
 
-See Storybook for [documentation](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images--default).
-
-Also see the local [example](./example) folder for standalone demos.
+- Storybook: [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images)
+- CodeSandbox: [basic editable demo](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l)
+- [Local example](./example)
 
 ## Usage
 
@@ -66,12 +69,7 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
-See the [Image Playground](https://react-compare-slider.netlify.app/?path=/story/demos-images--playground)
-to experiment with images using the "Knobs" tab.
-
-### Advanced Usage
-
-See the [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page) for advanced examples.
+See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images).
 
 ## Props
 
@@ -82,23 +80,31 @@ See the [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
 | `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
 | `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
-| `portrait`  | `boolean`   |   | `undefined` | Whether to use portrait orientation |
+| `portrait`  | `boolean`   |   | `false` | Whether to use portrait orientation |
 
 See the [API docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page) for more information.
 
 ## Extending
 
-### Custom Components
+### Custom Items
 
-Custom components can apply the same base styles as `ReactCompareSliderImage` 
-by using the `styleFitContainer` CSS utility. 
+The library supports all types of React components; custom components can apply 
+the same base styles as `ReactCompareSliderImage`  by using the 
+`styleFitContainer` CSS utility. 
 
 See the [styleFitContainer docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page#stylefitcontainer)
 for more information.
 
-### Images
+### Custom Handles
 
-See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information.
+<details>
+<summary>Blurred Arrows</summary>
+
+[![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
+
+</details>
+
+See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information.
 
 ## Requirements
 

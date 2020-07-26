@@ -1,32 +1,96 @@
 <style type="text/css">
+  :root {
+    --sb-brand-outline-base: rgba(255, 255, 255, 0.1);
+    --sb-brand-contrast: #ffffff;
+    --sb-surface-top-base: rgb(39, 37, 39, 0.5);
+    --sb-surface-middle-base: rgb(39, 37, 39, 0.25);
+  }
+
   html,
   body {
-    height: 100%;
+    height: 100% !important;
   }
 
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .sidebar-item.selected {
+    color: var(--sb-brand-contrast) !important;
+  }
+
+  .sbdocs.sbdocs-wrapper {
+    padding-top: 2rem !important;
   }
 
   .sbdocs.sbdocs-h1 {
-    border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid var(--sb-brand-outline-base);
     padding-bottom: 0.25rem;
     margin-bottom: 1rem;
+  }
+
+  .sbdocs.sbdocs-h1 a,
+  .sbdocs.sbdocs-h2 a,
+  .sbdocs.sbdocs-h3 a,
+  .sbdocs.sbdocs-h4 a {
+    color: var(--sb-brand-contrast);
+  }
+
+  .sbdocs.sbdocs-h1 svg,
+  .sbdocs.sbdocs-h2 svg,
+  .sbdocs.sbdocs-h3 svg,
+  .sbdocs.sbdocs-h4 svg {
+    fill: currentColor;
   }
 
   .sbdocs.sbdocs-p {
     line-height: 1.85;
   }
 
+  .docblock-argstable-body code,
+  .sbdocs.sbdocs-p code {
+    border-color: var(--sb-brand-outline-base) !important;
+  }
+
   .sb-show-main > #root {
     display: flex;
     flex-grow: 1;
     width: 100%;
+    min-height: 100%;
     max-height: 100vh;
   }
 
+  .docblock-propstable-body tr td,
+  .docblock-argstable-body tr td {
+    background-color: var(--sb-surface-middle-base) !important;
+  }
+
   .docblock-source {
-    background: #272527 !important;
+    background: var(--sb-surface-top-base) !important;
+  }
+
+  .sb-custom-note {
+    display: block;
+    font-family: sans-serif;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+  }
+
+  /** @HACK Storybook adds a 100px height to this container for some reason.
+   *  Using custom styles to workaround it...ish.
+   */
+
+  .sbdocs-preview div[id^='story--'] {
+    display: flex;
+  }
+
+  .sbdocs-preview div[id^='story--'] > div {
+    height: 70vh !important;
+    max-height: 32rem;
+    flex-grow: 1;
   }
 </style>

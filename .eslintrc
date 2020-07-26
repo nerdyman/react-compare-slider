@@ -7,13 +7,22 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "react", "react-hooks", "jest"],
+  "plugins": [
+    "testing-library",
+    "@typescript-eslint",
+    "react",
+    "jest",
+    "jest-dom"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:testing-library/recommended",
+    "plugin:jest-dom/recommended"
   ],
   "env": {
     "browser": true,
@@ -34,9 +43,6 @@
     "react/jsx-indent": 0,
     "react/jsx-indent-props": 0,
     "react/prop-types": 0,
-
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
 
     "@typescript-eslint/no-unused-vars": [
       "warn",
