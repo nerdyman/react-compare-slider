@@ -104,7 +104,7 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps
   extends Omit<ReactCompareSliderCommonProps, 'position'> {
-  /** Padding to limit the slideable bounds in pixels on the X axis (landscape) or Y axis (portrait). */
+  /** Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). */
   boundsPadding?: number;
   /** Custom handle component. */
   handle?: React.ReactNode;

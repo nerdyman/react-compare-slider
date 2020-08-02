@@ -75,6 +75,7 @@ See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-
 
 | Prop | Type | Required | Default value | Description |
 |------|------|:--------:|---------------|-------------|
+| `boundsPadding`    | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
 | `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
@@ -97,12 +98,7 @@ for more information.
 
 ### Custom Handles
 
-<details>
-<summary>Blurred Arrows</summary>
-
 [![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
-
-</details>
 
 See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-handles--page) for more information.
 
