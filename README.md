@@ -18,7 +18,7 @@
     <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
+    <img src="https://github.com/nerdyman/react-compare-slider/workflows/test/badge.svg" alt="Coverage" />
 </a>
 <a href="https://react-compare-slider.netlify.app/">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
