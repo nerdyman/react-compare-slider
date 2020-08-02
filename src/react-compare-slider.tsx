@@ -104,7 +104,7 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps
   extends Omit<ReactCompareSliderCommonProps, 'position'> {
-  /** Padding to limit handle bounds in pixels on the X (landscape) or Y (portrait) axis. */
+  /** Padding to limit the slideable bounds in pixels on the X axis (landscape) or Y axis (portrait). */
   boundsPadding?: number;
   /** Custom handle component. */
   handle?: React.ReactNode;
@@ -179,28 +179,50 @@ export const ReactCompareSlider: React.FC<
       // from zeros.
       if (width === 0 || height === 0) return;
 
-      /** Position in pixels with offsets *optionally* applied. */
-      let positionPx = _portrait
-        ? isOffset
-          ? y - top - window.pageYOffset
-          : y
-        : isOffset
-        ? x - left - window.pageXOffset
-        : x;
+      // Clamp pixel position to always be within the container's bounds.
+      // This does *not* take `boundsPadding` into account because we need
+      // the real coords to correctly position the handle.
+      const positionPx = Math.min(
+        Math.max(
+          // Determine bounds based on orientation
+          _portrait
+            ? isOffset
+              ? y - top - window.pageYOffset
+              : y
+            : isOffset
+            ? x - left - window.pageXOffset
+            : x,
+          // Min value
+          0
+        ),
+        // Max value
+        _portrait ? height : width
+      );
 
-      // Snap `positionPx` to container extremity if it exceeds container bounds.
-      if (positionPx < 0) {
-        positionPx = 0;
-      } else if (_portrait && positionPx > height) {
-        positionPx = height;
-      } else if (!_portrait && positionPx > width) {
-        positionPx = width;
+      // Calculate internal position percentage *without* bounds - we always
+      // want to return 0-100 of the *slideable* bounds.
+      const nextInternalPositionPc =
+        (positionPx / (_portrait ? height : width)) * 100;
+
+      /** Determine if the current pixel position meets the min/max bounds. */
+      const positionMeetsBounds = _portrait
+        ? positionPx === 0 || positionPx === height
+        : positionPx === 0 || positionPx === width;
+
+      const canSkipPositionPc =
+        nextInternalPositionPc === internalPositionPc.current &&
+        (internalPositionPc.current === 0 ||
+          internalPositionPc.current === 100);
+
+      // Early out pixel and percentage positions are already at the min/max
+      // to preven update spamming when the user is sliding outside the
+      // container.
+      if (canSkipPositionPc && positionMeetsBounds) {
+        return;
       }
 
-      // Update internal position percentage *without* bounds - we always want
-      // to return 0-100.
-      internalPositionPc.current =
-        (positionPx / (_portrait ? height : width)) * 100;
+      // Set new internal position
+      internalPositionPc.current = nextInternalPositionPc;
 
       // Update internal pixel position capped to min/max bounds.
       setInternalPositionPx(
