@@ -214,20 +214,20 @@ export const ReactCompareSlider: React.FC<
         (internalPositionPc.current === 0 ||
           internalPositionPc.current === 100);
 
-      // Early out pixel and percentage positions are already at the min/max
-      // to preven update spamming when the user is sliding outside the
+      // Early out if pixel and percentage positions are already at the min/max
+      // to prevent update spamming when the user is sliding outside of the
       // container.
       if (canSkipPositionPc && positionMeetsBounds) {
         return;
       }
 
-      // Set new internal position
+      // Set new internal position.
       internalPositionPc.current = nextInternalPositionPc;
 
       // Update internal pixel position capped to min/max bounds.
       setInternalPositionPx(
         Math.min(
-          // Get largest from pixel position *or* bounds padding
+          // Get largest from pixel position *or* bounds padding.
           Math.max(positionPx, 0 + _boundsPadding),
           // Use height *or* width based on orientation.
           (_portrait ? height : width) - _boundsPadding

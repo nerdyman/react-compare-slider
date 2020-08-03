@@ -1,6 +1,6 @@
 <div align="center">
     <h1>React Compare Slider</h1>
-    <p>Compare two components, side-by-side or top-to-toe.</p>
+    <p>Compare two components side-by-side or top-to-toe.</p>
 
 [![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
@@ -18,9 +18,9 @@
     <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-    <img src="https://github.com/nerdyman/react-compare-slider/workflows/test/badge.svg" alt="Coverage" />
+    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/test?label=test" alt="Coverage" />
 </a>
-<a href="https://react-compare-slider.netlify.app/">
+<a href="https://react-compare-slider.netlify.app">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
 
