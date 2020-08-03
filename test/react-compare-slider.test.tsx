@@ -38,6 +38,8 @@ describe('ReactCompareSlider', () => {
 
     const { container } = render(
       <ReactCompareSlider
+        boundsPadding={100}
+        position={75}
         itemOne={<div test-id="rcs-one">Foo</div>}
         itemTwo={<div test-id="rcs-two">Bar</div>}
         handle={<Handle />}

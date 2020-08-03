@@ -104,6 +104,8 @@ const ReactCompareSliderItem: React.FC<ReactCompareSliderCommonProps> = ({
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps
   extends Omit<ReactCompareSliderCommonProps, 'position'> {
+  /** Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). */
+  boundsPadding?: number;
   /** Custom handle component. */
   handle?: React.ReactNode;
   /** First item to show. */
@@ -118,7 +120,9 @@ export interface ReactCompareSliderProps
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps
-  extends Required<Pick<ReactCompareSliderCommonProps, 'portrait'>> {
+  extends Required<
+    Pick<ReactCompareSliderProps, 'boundsPadding' | 'portrait'>
+  > {
   /** X coordinate to update to (landscape). */
   x: number;
   /** Y coordinate to update to (portrait). */
@@ -137,6 +141,7 @@ export const ReactCompareSlider: React.FC<
   onPositionChange,
   portrait = false,
   position = 50,
+  boundsPadding = 0,
   style,
   ...props
 }): React.ReactElement => {
@@ -144,8 +149,6 @@ export const ReactCompareSlider: React.FC<
   const containerRef = useRef<HTMLDivElement>(null);
   /** Reference to current position as a percentage value. */
   const internalPositionPc = useRef(position);
-  /** Previous `portrait` prop value. */
-  // const prevPropPortrait = usePrevious(portrait);
   /** Previous `position` prop value. */
   const prevPropPosition = usePrevious(position);
   /** Internal position in pixels. */
@@ -157,7 +160,13 @@ export const ReactCompareSlider: React.FC<
 
   /** Update internal px and pc */
   const updateInternalPosition = useCallback(
-    ({ x, y, isOffset, portrait: _portrait }: UpdateInternalPositionProps) => {
+    function updateInternalCall({
+      x,
+      y,
+      isOffset,
+      portrait: _portrait,
+      boundsPadding: _boundsPadding,
+    }: UpdateInternalPositionProps) {
       const {
         top,
         left,
@@ -170,31 +179,61 @@ export const ReactCompareSlider: React.FC<
       // from zeros.
       if (width === 0 || height === 0) return;
 
-      /** Position in pixels with offsets *optionally* applied. */
-      let positionPx = _portrait
-        ? isOffset
-          ? y - top - window.pageYOffset
-          : y
-        : isOffset
-        ? x - left - window.pageXOffset
-        : x;
+      // Clamp pixel position to always be within the container's bounds.
+      // This does *not* take `boundsPadding` into account because we need
+      // the real coords to correctly position the handle.
+      const positionPx = Math.min(
+        Math.max(
+          // Determine bounds based on orientation
+          _portrait
+            ? isOffset
+              ? y - top - window.pageYOffset
+              : y
+            : isOffset
+            ? x - left - window.pageXOffset
+            : x,
+          // Min value
+          0
+        ),
+        // Max value
+        _portrait ? height : width
+      );
 
-      // Snap `positionPx` to container extremity if it exceeds container bounds.
-      if (positionPx < 0) {
-        positionPx = 0;
-      } else if (_portrait && positionPx > height) {
-        positionPx = height;
-      } else if (!_portrait && positionPx > width) {
-        positionPx = width;
+      // Calculate internal position percentage *without* bounds - we always
+      // want to return 0-100 of the *slideable* bounds.
+      const nextInternalPositionPc =
+        (positionPx / (_portrait ? height : width)) * 100;
+
+      /** Determine if the current pixel position meets the min/max bounds. */
+      const positionMeetsBounds = _portrait
+        ? positionPx === 0 || positionPx === height
+        : positionPx === 0 || positionPx === width;
+
+      const canSkipPositionPc =
+        nextInternalPositionPc === internalPositionPc.current &&
+        (internalPositionPc.current === 0 ||
+          internalPositionPc.current === 100);
+
+      // Early out if pixel and percentage positions are already at the min/max
+      // to prevent update spamming when the user is sliding outside of the
+      // container.
+      if (canSkipPositionPc && positionMeetsBounds) {
+        return;
       }
 
-      // Calculate percentage with bounds checking.
-      (internalPositionPc.current =
-        (positionPx / (_portrait ? height : width)) * 100),
-        0,
-        100;
+      // Set new internal position.
+      internalPositionPc.current = nextInternalPositionPc;
 
-      setInternalPositionPx(positionPx);
+      // Update internal pixel position capped to min/max bounds.
+      setInternalPositionPx(
+        Math.min(
+          // Get largest from pixel position *or* bounds padding.
+          Math.max(positionPx, 0 + _boundsPadding),
+          // Use height *or* width based on orientation.
+          (_portrait ? height : width) - _boundsPadding
+        )
+      );
+
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
     [onPositionChange]
@@ -211,10 +250,17 @@ export const ReactCompareSlider: React.FC<
 
     updateInternalPosition({
       portrait,
+      boundsPadding,
       x: (width / 100) * nextPosition,
       y: (height / 100) * nextPosition,
     });
-  }, [portrait, position, prevPropPosition, updateInternalPosition]);
+  }, [
+    portrait,
+    position,
+    prevPropPosition,
+    boundsPadding,
+    updateInternalPosition,
+  ]);
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
@@ -223,6 +269,7 @@ export const ReactCompareSlider: React.FC<
 
       updateInternalPosition({
         portrait,
+        boundsPadding,
         isOffset: true,
         x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
@@ -230,22 +277,23 @@ export const ReactCompareSlider: React.FC<
 
       setIsDragging(true);
     },
-    [portrait, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition]
   );
 
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
-    (ev: MouseEvent | TouchEvent) => {
+    function moveCall(ev: MouseEvent | TouchEvent) {
       if (!isDragging) return;
 
       updateInternalPosition({
         portrait,
+        boundsPadding,
         isOffset: true,
         x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
     },
-    [portrait, isDragging, updateInternalPosition]
+    [portrait, isDragging, boundsPadding, updateInternalPosition]
   );
 
   /** Handle mouse/touch up. */
@@ -258,11 +306,12 @@ export const ReactCompareSlider: React.FC<
     ({ width, height }: UseResizeObserverHandlerParams) => {
       updateInternalPosition({
         portrait,
+        boundsPadding,
         x: (width / 100) * internalPositionPc.current,
         y: (height / 100) * internalPositionPc.current,
       });
     },
-    [portrait, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition]
   );
 
   // Allow drag outside of container while pointer is still down.

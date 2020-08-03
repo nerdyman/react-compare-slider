@@ -36,7 +36,7 @@ export const Default = (args) => (
   />
 );
 
-export const Portrait = ({ position, portrait }) => (
+export const Portrait = (args) => (
   <ReactCompareSlider
     itemOne={
       <ReactCompareSliderImage
@@ -51,8 +51,7 @@ export const Portrait = ({ position, portrait }) => (
         alt="Image two"
       />
     }
-    portrait={portrait}
-    position={position}
+    {...args}
     style={{ width: '100%', height: '100vh' }}
   />
 );
@@ -75,6 +74,31 @@ export const OnPositionChange = (args) => {
         {...args}
         onPositionChange={onPositionChange}
         portrait
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1580617971729-27c448892e5a?auto=format&fit=crop&w=1500&q=80"
+            alt="Image one"
+            style={{ filter: 'grayscale(1)' }}
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1580617971729-27c448892e5a?auto=format&fit=crop&w=1500&q=80"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+export const BoundsPadding = ({ boundsPadding = 80, ...args }) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...args}
+        boundsPadding={boundsPadding}
         itemOne={
           <ReactCompareSliderImage
             src="https://images.unsplash.com/photo-1580617971729-27c448892e5a?auto=format&fit=crop&w=1500&q=80"

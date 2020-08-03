@@ -1,6 +1,6 @@
 <div align="center">
     <h1>React Compare Slider</h1>
-    <p>Compare two components, side-by-side or top-to-toe.</p>
+    <p>Compare two components side-by-side or top-to-toe.</p>
 
 [![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
@@ -18,9 +18,9 @@
     <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
+    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/test?label=test" alt="Coverage" />
 </a>
-<a href="https://react-compare-slider.netlify.app/">
+<a href="https://react-compare-slider.netlify.app">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
 </a>
 
@@ -75,6 +75,7 @@ See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-
 
 | Prop | Type | Required | Default value | Description |
 |------|------|:--------:|---------------|-------------|
+| `boundsPadding`    | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
 | `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
@@ -97,12 +98,7 @@ for more information.
 
 ### Custom Handles
 
-<details>
-<summary>Blurred Arrows</summary>
-
 [![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
-
-</details>
 
 See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-handles--page) for more information.
 
