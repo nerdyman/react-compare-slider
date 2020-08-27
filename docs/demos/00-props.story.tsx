@@ -117,3 +117,30 @@ export const BoundsPadding = ({ boundsPadding = 80, ...args }) => {
     </div>
   );
 };
+
+export const OnlyHandleDraggable = ({
+  onlyHandleDraggable = true,
+  ...args
+}) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...args}
+        onlyHandleDraggable={onlyHandleDraggable}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1567533905227-039caf02237a?auto=format&fit=crop&w=1267&q=80"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1526182178-ecca0799acd8?auto=format&fit=crop&w=1267&q=80"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};

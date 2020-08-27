@@ -18,7 +18,7 @@
     <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/test?label=test" alt="Coverage" />
+    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
 </a>
 <a href="https://react-compare-slider.netlify.app">
     <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
@@ -76,12 +76,13 @@ See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-
 | Prop | Type | Required | Default value | Description |
 |------|------|:--------:|---------------|-------------|
 | `boundsPadding`    | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
-| `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
-| `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
-| `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
-| `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
-| `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
-| `portrait`  | `boolean`   |   | `false` | Whether to use portrait orientation |
+| `handle`    | `ReactNode` |   | `undefined` | Custom handle component. |
+| `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
+| `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
+| `onlyHandleDraggable`  | `boolean`  |   | `false` | Whether to only change position when handle is interacted with (useful for touch devices). |
+| `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
+| `portrait`  | `boolean`   |   | `false` | Whether to use portrait orientation. |
+| `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`). |
 
 See the [API docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page) for more information.
 
