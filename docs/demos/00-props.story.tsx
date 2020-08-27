@@ -7,7 +7,7 @@ import {
 } from 'react-compare-slider';
 
 export default {
-  title: 'Demos/Images',
+  title: 'Demos',
   component: ReactCompareSlider,
   argTypes: {
     handle: { control: { type: 'function' } },
@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const Default = (args) => (
+export const Images = (args) => (
   <ReactCompareSlider
     {...args}
     itemOne={

@@ -1,4 +1,4 @@
-import { Description, Meta, Props } from '@storybook/addon-docs/blocks';
+import { ArgsTable, Description, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, styleFitContainer } from 'react-compare-slider';
 
@@ -21,10 +21,10 @@ import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, 
 
 ### Props
 
-<Props of={ReactCompareSlider} />
+<ArgsTable of={ReactCompareSlider} />
 
 
-## `ReactCompareSliderHandle` 
+## `ReactCompareSliderHandle`
 
 <Description of={ReactCompareSliderHandle} />
 
@@ -32,10 +32,10 @@ import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, 
 
 ### Props
 
-<Props of={ReactCompareSliderHandle} />
+<ArgsTable of={ReactCompareSliderHandle} />
 
 
-## `ReactCompareSliderImage` 
+## `ReactCompareSliderImage`
 
 <Description of={ReactCompareSliderImage} />
 
@@ -43,7 +43,7 @@ import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, 
 
 ### Props
 
-<Props of={ReactCompareSliderImage} />
+<ArgsTable of={ReactCompareSliderImage} />
 
 
 ## `styleFitContainer`
@@ -53,9 +53,9 @@ import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, 
 [🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/master/src/utils.ts#L37)
 
 The `styleFitContainer` utility makes any [replaced element](https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element)
-fill its parent while maintaining the correct aspect ratio. 
+fill its parent while maintaining the correct aspect ratio.
 
-It returns a React `style` object and accepts a CSS object as an argument and 
+It returns a React `style` object and accepts a CSS object as an argument and
 defaults to `object-fit` to `cover`.
 
 ### Example
@@ -66,13 +66,13 @@ Fill a full width/height container:
 import { styleFitContainer } from 'react-compare-slider';
 
 <div style={{ width: '100vw', height: '100vh' }}>
-    <video 
-        style={{ 
+    <video
+        style={{
             ...styleFitContainer({
-                objectFit: 'contain', 
+                objectFit: 'contain',
                 objectPosition: 'center',
-            }) 
-        }} 
+            })
+        }}
     />
 </div>
 ```

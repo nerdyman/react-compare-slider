@@ -1,17 +1,17 @@
-import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-import { Default } from './demos/01-Images.story';
+import { Images } from './demos/00-props.story';
 
-<Meta title="Docs/Bounds Padding" component={ReactCompareSlider} argTypes={Default.args} />
+<Meta title="Docs/Bounds Padding" component={ReactCompareSlider} argTypes={Images.args} />
 
 # Using `BoundsPadding`
 
 - [Live Examples](<#live-examples>)
 
 The `boundsPadding` prop allows you to limit the slideable area on the Y-axis
-in `portrait` mode or on the X-axis in the default landscape mode. The default 
+in `portrait` mode or on the X-axis in the default landscape mode. The default
 `boundsPadding` value is `0`, negative values are treated the same as `0` and
 the value **MUST** be supplied as a number in pixels.
 
@@ -24,14 +24,14 @@ within range of pixels of the left or right of the slider specified by the `boun
 applied to the top/bottom or right/left depending on the orientation of the slider.
 
 ```JSX
-boundsPadding={100}
+boundsPadding={80}
 ```
 
-<Preview>
-    <Story id="demos-images--bounds-padding" />
-</Preview>
+<Canvas>
+    <Story id="demos--bounds-padding" />
+</Canvas>
 
-<Props of={ReactCompareSlider} />
+<ArgsTable of={ReactCompareSlider} />
 
 <br />
 

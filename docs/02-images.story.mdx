@@ -1,33 +1,33 @@
-import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-import { Default } from './demos/01-Images.story';
+import { Images } from './demos/00-props.story';
 
-<Meta title="Docs/Images" component={ReactCompareSlider} argTypes={Default.args} />
+<Meta title="Docs/Images" component={ReactCompareSlider} argTypes={Images.args} />
 
 # Using Images
 
 - [ReactCompareSliderImage](<#reactcomparesliderimage>)
 - [Live Examples](<#live-examples>)
 
-<Preview>
-    <Story id="demos-images--default" />
-</Preview>
+<Canvas>
+    <Story id="demos--images" />
+</Canvas>
 
-<Props of={ReactCompareSlider} />
+<ArgsTable of={ReactCompareSlider} />
 
-Images can be rendered using the `ReactCompareSliderImage` component and/or 
+Images can be rendered using the `ReactCompareSliderImage` component and/or
 by using a custom image component, e.g. `picture` or `img`.
 
 <br />
 
 ## `ReactCompareSliderImage`
 
-`ReactCompareSliderImage` is a standalone image component that detects whether 
-the browser supports the `object-fit` CSS property, if not it will apply a 
-background image to achieve the same effect. It will set `background-size`, 
-`background-position` and `background-image` if they have not already been 
+`ReactCompareSliderImage` is a standalone image component that detects whether
+the browser supports the `object-fit` CSS property, if not it will apply a
+background image to achieve the same effect. It will set `background-size`,
+`background-position` and `background-image` if they have not already been
 defined in a passed `style` prop.
 
 `ReactCompareSliderImage` uses the `styleFitContainer` utility to size and fit media.
@@ -36,7 +36,7 @@ defined in a passed `style` prop.
 
 ### `ReactCompareSliderImage` Props
 
-<Props of={ReactCompareSliderImage} />
+<ArgsTable of={ReactCompareSliderImage} />
 
 ### Usage
 
@@ -58,4 +58,4 @@ import { ReactCompareSliderImage } from 'react-compare-slider';
 
 ## Live Examples
 
-Checkout the [Images demos](?path=/story/demos-images--default) to experiment with images.
+Checkout the [Images demos](?path=/story/demos--images) to experiment with images.

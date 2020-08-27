@@ -1,0 +1,33 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { Images } from './demos/00-props.story';
+import { BlurredArrows } from './demos/02-handles.story';
+
+<Meta title="Docs/Only Handle Draggable" component={ReactCompareSlider} argTypes={Images.args} />
+
+# Using `onlyHandleDraggable`
+
+- [Live Examples](<#live-examples>)
+
+The `onlyHandleDraggable` prop moves click, touch and drag from the main slider
+container to the handle.
+
+`onlyHandleDraggable` is useful for full width/height sliders on touch devices
+where the user needs to touch the slider container to scroll past it
+without the slider container capturing the event, changing its position.
+`onlyHandleDraggable` is also useful when comparing interactive components which
+have their own pointer events, such as embedded maps.
+
+<Canvas>
+    <Story id="demos--bounds-padding" />
+</Canvas>
+
+<ArgsTable of={ReactCompareSlider} />
+
+<br />
+
+## Live Examples
+
+Checkout the [Bounds padding demos](?path=/story/demos-images--bounds-padding) to experiment with images.

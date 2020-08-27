@@ -5,6 +5,9 @@ import { themes } from '@storybook/theming';
 import '@storybook/addon-console';
 
 addParameters({
+  controls: {
+    hideNoControlsWarning: true,
+  },
   docs: {
     container: DocsContainer,
     page: DocsPage,
