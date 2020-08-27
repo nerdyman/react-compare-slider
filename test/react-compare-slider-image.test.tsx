@@ -8,18 +8,17 @@ afterEach(cleanup);
 
 describe('ReactCompareSlider', () => {
   it('Should render image.', () => {
+    const alt = 'Testaroo';
     const src = 'https://via.placeholder.com/1280x720';
     const srcSet =
-      'https://via.placeholder.com/320x480?text=Small 320w, https://via.placeholder.com/320x480?text=Medium 768w, https://via.placeholder.com/1280x480?text=Large 1280w';
-    const alt = 'Testaroo';
+      'https://via.placeholder.com/320x480?text=Small 320w, https://via.placeholder.com/320x480?text=Medium 768w';
 
-    const { container } = render(
+    const { getByAltText } = render(
       <ReactCompareSliderImage alt={alt} src={src} srcSet={srcSet} />
     );
 
-    expect(container.querySelector('img')?.getAttribute('alt')).toBe(alt);
-    expect(container.querySelector('img')?.getAttribute('src')).toBe(src);
-    expect(container.querySelector('img')?.getAttribute('srcset')).toBe(srcSet);
+    expect(getByAltText(alt)?.getAttribute('src')).toBe(src);
+    expect(getByAltText(alt)?.getAttribute('srcset')).toBe(srcSet);
   });
 
   it('Should render background image for unsupported browsers.', () => {
