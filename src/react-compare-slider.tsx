@@ -36,9 +36,7 @@ const ReactCompareSliderHandleContainer = forwardRef<
       top: 0,
       width: '100%',
       height: '100%',
-      // Only want inner handle to be selectable.
       pointerEvents: 'none',
-      willChange: 'transform',
     };
 
     const innerStyle: React.CSSProperties = {
@@ -265,8 +263,8 @@ export const ReactCompareSlider: React.FC<
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       handleContainerRef.current!.style.transform = _portrait
-        ? `translateY(${clampedPx}px)`
-        : `translateX(${clampedPx}px)`;
+        ? `translate3d(0,${clampedPx}px,0)`
+        : `translate3d(${clampedPx}px,0,0)`;
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
