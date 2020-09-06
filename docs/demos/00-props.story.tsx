@@ -6,15 +6,12 @@ import {
   ReactCompareSliderImage,
 } from 'react-compare-slider';
 
+import * as config from './config';
+
 export default {
   title: 'Demos',
   component: ReactCompareSlider,
-  argTypes: {
-    handle: { control: { type: 'function' } },
-    itemOne: { control: { type: 'function' } },
-    itemTwo: { control: { type: 'function' } },
-    position: { control: { type: 'range', min: 0, max: 100 } },
-  },
+  argTypes: config.argTypes,
 };
 
 export const Images = (args) => (
@@ -143,4 +140,8 @@ export const OnlyHandleDraggable = ({
       />
     </div>
   );
+};
+
+OnlyHandleDraggable.args = {
+  onlyHandleDraggable: true,
 };

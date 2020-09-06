@@ -1,8 +1,10 @@
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import { addParameters } from '@storybook/react';
+import { addDecorator, addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
-import '@storybook/addon-console';
+import { withConsole } from '@storybook/addon-console';
+
+addDecorator((storyFn, context) => withConsole()(storyFn)(context));
 
 addParameters({
   controls: {

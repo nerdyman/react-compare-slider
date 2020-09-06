@@ -3,9 +3,9 @@ const codesandbox = require('remark-codesandbox');
 
 module.exports = {
   addons: [
-    '@storybook/addon-storysource',
     '@storybook/addon-viewport',
-    '@storybook/addon-links',
+    '@storybook/addon-controls',
+    '@storybook/addon-storysource',
     {
       name: '@storybook/addon-docs',
       options: {
@@ -20,7 +20,6 @@ module.exports = {
         },
       },
     },
-    '@storybook/addon-controls',
     '@storybook/addon-actions/register',
   ],
   babel: (config) => ({
