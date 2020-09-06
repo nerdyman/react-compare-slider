@@ -72,8 +72,8 @@ export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> =
   ...props
 }): React.ReactElement => {
   const rootStyle: React.CSSProperties = {
-    height: portrait ? 3 : '100%',
-    width: portrait ? '100%' : 3,
+    height: portrait ? 4 : '100%',
+    width: portrait ? '100%' : 4,
     backgroundColor: '#fff',
     boxShadow: '0 0 .2rem #000',
     cursor: portrait ? 'ns-resize' : 'ew-resize',
