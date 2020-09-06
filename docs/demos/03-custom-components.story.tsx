@@ -29,7 +29,7 @@ const mapStyle = {
   height: '100vh',
 };
 
-export const GoogleMaps = (args) => {
+export const GoogleMaps = ({ onlyHandleDraggable = true, ...props }) => {
   const mapOne = React.useRef({
     zoom: 13,
     initialCenter: {
@@ -45,14 +45,13 @@ export const GoogleMaps = (args) => {
 
   return (
     <ReactCompareSlider
+      {...props}
       itemOne={<GoogleMap {...mapOne.current} />}
       itemTwo={<GoogleMap {...mapTwo.current} />}
+      onlyHandleDraggable={onlyHandleDraggable}
       style={mapStyle}
-      {...args}
     />
   );
 };
 
-GoogleMaps.args = {
-  onlyHandleDraggable: true,
-};
+GoogleMaps.args = { boundsPadding: 0, onlyHandleDraggable: true };

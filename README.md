@@ -41,7 +41,7 @@
 
 ## Demo
 
-- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos--images)
+- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos)
 - CodeSandbox: [basic editable demo](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l)
 - [Local example](./example)
 
@@ -69,7 +69,7 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
-See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.vercel.app/?path=/docs/demos-images).
+See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.vercel.app/?path=/story/demos--images).
 
 ## Props
 
@@ -80,9 +80,9 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
 | [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page) | `boolean`  |   | `false` | Whether to only change position when handle is interacted with (useful for touch devices). |
-| `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
-| `portrait`  | `boolean`   |   | `false` | Whether to use portrait orientation. |
-| `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`). |
+| [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
+| [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait) | `boolean`   |   | `false` | Whether to use portrait orientation. |
+| [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)  | `number`    |   | `50` | Initial percentage position of divide (`0-100`). |
 
 See the [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 
