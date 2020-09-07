@@ -1,0 +1,66 @@
+import { ArgsTable, Meta } from '@storybook/addon-docs/blocks';
+
+import { ReactCompareSliderHandle } from 'react-compare-slider';
+
+<Meta title="Docs/Handles" component={ReactCompareSliderHandle} />
+
+# Using Handles
+
+- [Props](#reactcomparesliderhandle-props)
+- [Custom Default Handle Usage](<#custom-default-handle-usage>)
+- [Custom Standalone Handle Usage](<#custom-standalone-handle-usage>)
+- [Live Examples](<#live-examples>)
+
+```js codesandbox=react-compare-slider-simple-example-9si6l?file=/src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles.css";
+
+import { CustomHandle } from "./App";
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<CustomHandle style={{ height: '100vh' }} />, rootElement);
+
+```
+
+Custom Handles can be used via the `handle` prop on the main slider component.
+If a custom `handle` is not supplied `ReactCompareSliderHandle` will
+be used instead.
+
+<br />
+
+### `ReactCompareSliderHandle` Props
+
+`ReactCompareSliderHandle` supports the `portrait` prop to automatically flip
+itself to match the desired orientation. It also accepts any valid `div`
+component props so you can easily customize it to fit your requirements.
+
+<ArgsTable of={ReactCompareSliderHandle} />
+
+### Custom Default Handle Usage
+
+```jsx
+import { ReactCompareSlider, ReactCompareSliderHandle } from 'react-compare-slider';
+
+const MyCustomHandle = () => (
+  <ReactCompareSliderHandle style={{ width: '5px', height: '100%', backgroundColor: red }} />;
+)
+
+<ReactCompareSlider handle={<MyCustomHandle />} />
+```
+
+### Custom Standalone Handle Usage
+
+```jsx
+import { ReactCompareSlider } from 'react-compare-slider';
+
+const MyCustomHandle = () => (
+  <div style={{ width: '5px', height: '100%', backgroundColor: red }}></div>;
+)
+
+<ReactCompareSlider handle={<MyCustomHandle />} />
+```
+
+### Live Examples
+
+Check out the [handles demos](/?path=/story/demos-handles--blurred-arrows) to experiment with handles.

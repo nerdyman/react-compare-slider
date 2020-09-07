@@ -17,7 +17,8 @@ export const BlurredArrows = () => (
     handle={
       <div
         css={css`
-          --rcs-handle-width: 0.1rem;
+          --rcs-handle-width: 2px;
+          --rcs-handle-box: 3.5rem;
           position: relative;
           display: flex;
           align-items: center;
@@ -26,28 +27,46 @@ export const BlurredArrows = () => (
           height: 100%;
           box-shadow: none;
           background-color: #ffffff;
-
-          &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: calc(var(--rcs-handle-width) / 2);
-            width: 3.5rem;
-            height: 3.5rem;
-            border: var(--rcs-handle-width) solid #ffffff;
-            border-radius: 100%;
-            transform: translate(-50%, -50%);
-            backdrop-filter: blur(0.5rem);
-          }
+          cursor: pointer;
         `}
       >
+        {/** Arrow Box @NOTE Using separate component to amplify blur */}
+        <div
+          css={css`
+            position: absolute;
+            width: var(--rcs-handle-box);
+            height: var(--rcs-handle-box);
+            border-radius: 100%;
+            overflow: hidden;
+
+            &::before,
+            &::after {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              width: inherit;
+              height: inherit;
+              backdrop-filter: blur(0.5rem);
+            }
+          `}
+        />
+
         {/* Arrows */}
         <div
           css={css`
-            position: relative;
+            position: absolute;
             display: grid;
+            align-items: center;
+            justify-content: center;
             grid-auto-flow: column;
+            width: var(--rcs-handle-box);
+            height: var(--rcs-handle-box);
+            border: var(--rcs-handle-width) solid #ffffff;
             gap: 0.65rem;
+            backdrop-filter: blur(0.5rem);
+            border-radius: 100%;
+            overflow: hidden;
 
             &::before,
             &::after {
@@ -74,15 +93,15 @@ export const BlurredArrows = () => (
     }
     itemOne={
       <ReactCompareSliderImage
-        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1500&q=80"
-        alt="Image one"
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
         style={{ filter: 'grayscale(1)' }}
+        alt="one"
       />
     }
     itemTwo={
       <ReactCompareSliderImage
-        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1500&q=80"
-        alt="Image two"
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        alt="two"
       />
     }
     style={{ width: '100%', height: '100vh' }}

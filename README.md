@@ -18,10 +18,10 @@
     <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/test?label=test" alt="Coverage" />
+    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
 </a>
-<a href="https://react-compare-slider.netlify.app">
-    <img src="https://img.shields.io/badge/demos-🚀-blue.svg" alt="Demos" />
+<a href="https://react-compare-slider.vercel.app">
+    <img src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" alt="Demos" />
 </a>
 
 </div>
@@ -30,7 +30,7 @@
 
 ## Features
 
-- Supports responsive images and any other React components ( `picture`, `canvas`, `iframe` etc.)
+- Supports responsive images and any other React components (`picture`, `video`, `canvas`, `iframe` etc.)
 - Supports landscape and portrait orientations
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
@@ -41,7 +41,7 @@
 
 ## Demo
 
-- Storybook: [docs](https://react-compare-slider.netlify.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images)
+- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos)
 - CodeSandbox: [basic editable demo](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l)
 - [Local example](./example)
 
@@ -69,38 +69,39 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 />
 ```
 
-See the [Images docs](https://react-compare-slider.netlify.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.netlify.app/?path=/docs/demos-images).
+See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.vercel.app/?path=/story/demos--images).
 
 ## Props
 
 | Prop | Type | Required | Default value | Description |
 |------|------|:--------:|---------------|-------------|
-| `boundsPadding`    | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
-| `handle`    | `ReactNode` |   | `undefined` | Custom handle component |
-| `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider |
-| `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider |
-| `onPositionChange`  | `function`  |   | `undefined` | Callback on position change, returns current position as argument `(position) => { ... }` |
-| `position`  | `number`    |   | `50` | Initial percentage position of divide (`0-100`) |
-| `portrait`  | `boolean`   |   | `false` | Whether to use portrait orientation |
+| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/docs-bounds-padding--page) | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
+| [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page) | `ReactNode` |   | `undefined` | Custom handle component. |
+| `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
+| `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
+| [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page) | `boolean`  |   | `false` | Whether to only change position when handle is interacted with (useful for touch devices). |
+| [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
+| [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait) | `boolean`   |   | `false` | Whether to use portrait orientation. |
+| [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)  | `number`    |   | `50` | Initial percentage position of divide (`0-100`). |
 
-See the [API docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page) for more information.
+See the [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 
 ## Extending
 
 ### Custom Items
 
-The library supports all types of React components; custom components can apply 
-the same base styles as `ReactCompareSliderImage`  by using the 
-`styleFitContainer` CSS utility. 
+The library supports all types of React components.
 
-See the [styleFitContainer docs](https://react-compare-slider.netlify.app/?path=/docs/docs-api--page#stylefitcontainer)
-for more information.
+- [Google Maps Demo](https://react-compare-slider.vercel.app/?path=/story/demos-custom-components--google-maps)
+
+Custom components can apply the same base styles as `ReactCompareSliderImage` 
+by using the [`styleFitContainer` CSS utility](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page#stylefitcontainer).
 
 ### Custom Handles
 
 [![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
-See the [Handles docs](https://react-compare-slider.netlify.app/?path=/docs/docs-handles--page) for more information.
+See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-handles--page) for more information.
 
 ## Requirements
 
