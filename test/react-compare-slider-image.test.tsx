@@ -20,22 +20,4 @@ describe('ReactCompareSlider', () => {
     expect(getByAltText(alt)?.getAttribute('src')).toBe(src);
     expect(getByAltText(alt)?.getAttribute('srcset')).toBe(srcSet);
   });
-
-  it('Should render background image for unsupported browsers.', () => {
-    const src = 'https://via.placeholder.com/1280x720';
-    const { container } = render(<ReactCompareSliderImage src={src} />);
-
-    expect(container.firstChild).toHaveStyle(`background-image: url(${src});`);
-  });
-
-  it('Should not render background image for unsupported browsers when fallback is disabled.', () => {
-    const src = 'https://via.placeholder.com/1280x720';
-    const { container } = render(
-      <ReactCompareSliderImage fallbackEnable={false} src={src} />
-    );
-
-    expect(container.firstChild).not.toHaveStyle(
-      `background-image: url(${src});`
-    );
-  });
 });

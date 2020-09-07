@@ -16,23 +16,8 @@ const isClient = !!(
 );
 
 /**
- * Whether client supports the CSS `object-fit` property.
- */
-export const supportsCssObjectFit = (): boolean => {
-  // Assume object-fit is supported in SSR - it will be picked up again by the
-  // client anyway.
-  if (!isClient) return true;
-
-  return (
-    typeof CSS !== 'undefined' &&
-    typeof CSS.supports === 'function' &&
-    CSS.supports('object-fit', 'cover')
-  );
-};
-
-/**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.)
- * fit their container and maintain their aspect ratio.
+ * fit their container.
  */
 export const styleFitContainer = ({
   objectFit = 'cover',

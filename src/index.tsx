@@ -10,4 +10,4 @@ export {
   ReactCompareSliderImageProps,
 } from './react-compare-slider-image';
 
-export { styleFitContainer, supportsCssObjectFit } from './utils';
+export { styleFitContainer } from './utils';
