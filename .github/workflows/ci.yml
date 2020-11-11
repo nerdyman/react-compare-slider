@@ -1,7 +1,11 @@
 on: [push, pull_request]
+
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+    with:
+      node_version: '14'
 
     steps:
       - uses: actions/checkout@v2
@@ -23,5 +27,26 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Test
-        run: yarn run test:coverage
+  size:
+    needs: [build]
+    name: Compressed Size
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+
+  coverage:
+    needs: [build]
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - run: yarn install --frozen-lockfile
+      - uses: paambaati/codeclimate-action@v2.2.4
+        env:
+          CC_TEST_REPORTER_ID: '${{ secrets.CC_TEST_REPORTER_ID }}'
+        with:
+          coverageCommand: yarn test --ci --coverage
