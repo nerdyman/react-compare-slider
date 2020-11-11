@@ -35,6 +35,7 @@ jobs:
 
   size:
     needs: [build]
+    runs-on: ubuntu-latest
     name: Compressed Size
     steps:
       - uses: actions/checkout@v2
