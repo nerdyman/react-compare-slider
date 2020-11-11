@@ -35,15 +35,3 @@ jobs:
         with:
           coverageCommand: yarn test --ci --coverage
           debug: true
-
-  size:
-    needs: [build]
-    runs-on: ubuntu-latest
-    name: Compressed Size
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-      - uses: preactjs/compressed-size-action@v2
-        with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
