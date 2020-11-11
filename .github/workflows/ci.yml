@@ -1,11 +1,16 @@
 on: [push, pull_request]
 
+env:
+  CI: true
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    with:
-      node_version: '14'
+
+    strategy:
+      matrix:
+        node_version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -16,10 +21,11 @@ jobs:
       - uses: actions/cache@v2
         id: yarn-cache
         with:
+          node-version: ${{ matrix.node_version }}
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ matrix.node_version }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ matrix.node_version }}-yarn-
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -49,4 +55,5 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: '${{ secrets.CC_TEST_REPORTER_ID }}'
         with:
+          node-version: ${{ matrix.node_version }}
           coverageCommand: yarn test --ci --coverage
