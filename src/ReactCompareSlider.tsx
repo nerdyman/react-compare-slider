@@ -1,10 +1,11 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useCallback,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
+
+import {
+  ReactCompareSliderHandle,
+  ReactCompareSliderHandleContainer,
+} from './ReactCompareSliderHandle';
+import { ReactCompareSliderClipContainer } from './ReactCompareSliderClipContainer';
+import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from './types';
 
 import {
   useEventListener,
@@ -13,104 +14,8 @@ import {
   useResizeObserver,
 } from './utils';
 
-/** Slider position property. */
-type ReactCompareSliderPropPosition = number;
-
-/** Common props shared between child components. */
-interface ReactCompareSliderCommonProps {
-  /** Orientation. */
-  portrait?: boolean;
-  /** Divider position. */
-  position: ReactCompareSliderPropPosition;
-}
-
-/** Handle container to control position. */
-const ReactCompareSliderHandleContainer = forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement> &
-    Pick<ReactCompareSliderCommonProps, 'portrait'>
->(
-  ({ children, portrait }, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none',
-    };
-
-    const innerStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: portrait ? '100%' : undefined,
-      height: portrait ? undefined : '100%',
-      transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
-      pointerEvents: 'all',
-    };
-
-    return (
-      <div style={style} data-rcs="handle-container" ref={ref}>
-        <div style={innerStyle}>{children}</div>
-      </div>
-    );
-  }
-);
-
-ReactCompareSliderHandleContainer.displayName =
-  'ReactCompareSliderHandleContainer';
-
-/** Props for `ReactCompareSliderHandle`. */
-export interface ReactCompareSliderHandleProps
-  extends Pick<ReactCompareSliderCommonProps, 'portrait'> {
-  /** Optional inline styles. */
-  style?: React.CSSProperties;
-}
-
-/** Overridable handle. */
-export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> = ({
-  portrait,
-  style,
-  ...props
-}): React.ReactElement => {
-  const rootStyle: React.CSSProperties = {
-    height: portrait ? 4 : '100%',
-    width: portrait ? '100%' : 4,
-    backgroundColor: '#fff',
-    boxShadow: '0 0 .2rem #000',
-    cursor: portrait ? 'ns-resize' : 'ew-resize',
-    ...style,
-  };
-
-  return <div {...props} style={rootStyle} data-rcs="handle-inner" />;
-};
-
-/** Container for items passed to main component. */
-const ReactCompareSliderClipContainer = forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement>
->(
-  (props, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      willChange: 'clip',
-      userSelect: 'none',
-      KhtmlUserSelect: 'none',
-      MozUserSelect: 'none',
-      WebkitUserSelect: 'none',
-    };
-
-    return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
-  }
-);
-
-ReactCompareSliderClipContainer.displayName = 'ReactCompareSliderClipContainer';
-
 /** Comparison slider properties. */
-export interface ReactCompareSliderProps
-  extends Partial<ReactCompareSliderCommonProps> {
+export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
   /** Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). */
   boundsPadding?: number;
   /** Custom handle component. */
@@ -127,9 +32,7 @@ export interface ReactCompareSliderProps
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps
-  extends Required<
-    Pick<ReactCompareSliderProps, 'boundsPadding' | 'portrait'>
-  > {
+  extends Required<Pick<ReactCompareSliderProps, 'boundsPadding' | 'portrait'>> {
   /** X coordinate to update to (landscape). */
   x: number;
   /** Y coordinate to update to (portrait). */
@@ -168,17 +71,12 @@ export const ReactCompareSlider: React.FC<
   /** Whether component has a `window` event binding. */
   const hasWindowBinding = useRef(false);
   /** Target container for pointer events. */
-  const [
-    interactiveTarget,
-    setInteractiveTarget,
-  ] = useState<HTMLDivElement | null>();
+  const [interactiveTarget, setInteractiveTarget] = useState<HTMLDivElement | null>();
 
   // Set target container for pointer events.
   useEffect(() => {
     setInteractiveTarget(
-      onlyHandleDraggable
-        ? handleContainerRef.current
-        : rootContainerRef.current
+      onlyHandleDraggable ? handleContainerRef.current : rootContainerRef.current
     );
   }, [onlyHandleDraggable]);
 
@@ -223,10 +121,12 @@ export const ReactCompareSlider: React.FC<
         _portrait ? height : width
       );
 
-      // Calculate internal position percentage *without* bounds - we always
-      // want to return 0-100 of the *slideable* bounds.
-      const nextInternalPositionPc =
-        (positionPx / (_portrait ? height : width)) * 100;
+      /**
+       * Internal position percentage *without* bounds.
+       * @NOTE This uses the entire container bounds **without** `boundsPadding`
+       *       to get the *real* bounds.
+       */
+      const nextInternalPositionPc = (positionPx / (_portrait ? height : width)) * 100;
 
       /** Determine if the current pixel position meets the min/max bounds. */
       const positionMeetsBounds = _portrait
@@ -235,8 +135,7 @@ export const ReactCompareSlider: React.FC<
 
       const canSkipPositionPc =
         nextInternalPositionPc === internalPositionPc.current &&
-        (internalPositionPc.current === 0 ||
-          internalPositionPc.current === 100);
+        (internalPositionPc.current === 0 || internalPositionPc.current === 100);
 
       // Early out if pixel and percentage positions are already at the min/max
       // to prevent update spamming when the user is sliding outside of the
@@ -286,13 +185,7 @@ export const ReactCompareSlider: React.FC<
       x: (width / 100) * nextPosition,
       y: (height / 100) * nextPosition,
     });
-  }, [
-    portrait,
-    position,
-    prevPropPosition,
-    boundsPadding,
-    updateInternalPosition,
-  ]);
+  }, [portrait, position, prevPropPosition, boundsPadding, updateInternalPosition]);
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
@@ -415,10 +308,7 @@ export const ReactCompareSlider: React.FC<
       <ReactCompareSliderClipContainer ref={clipContainerRef}>
         {itemOne}
       </ReactCompareSliderClipContainer>
-      <ReactCompareSliderHandleContainer
-        portrait={portrait}
-        ref={handleContainerRef}
-      >
+      <ReactCompareSliderHandleContainer portrait={portrait} ref={handleContainerRef}>
         {Handle}
       </ReactCompareSliderHandleContainer>
     </div>

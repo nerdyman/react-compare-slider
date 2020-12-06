@@ -1,12 +1,4 @@
-import {
-  RefObject,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
-import { ResizeObserver } from 'resize-observer';
-import { ContentRect } from 'resize-observer/lib/ContentRect';
+import { RefObject, useEffect, useRef, useLayoutEffect, useCallback } from 'react';
 
 /** Whether runtime is client-side. */
 const isClient = !!(
@@ -16,10 +8,11 @@ const isClient = !!(
 );
 
 /**
- * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.)
- * fit their container.
+ * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their
+ * container.
  */
 export const styleFitContainer = ({
+  boxSizing = 'border-box',
   objectFit = 'cover',
   objectPosition = 'center',
   ...props
@@ -28,6 +21,7 @@ export const styleFitContainer = ({
   width: '100%',
   height: '100%',
   maxWidth: '100%',
+  boxSizing,
   objectFit,
   objectPosition,
   ...props,
@@ -45,10 +39,10 @@ export const usePrevious = <T>(value: T): T => {
 
 /**
  * Event listener binding hook.
- * @param eventName      - Event to bind to
- * @param handler        - Callback handler
- * @param element        - Element to bind to
- * @param handlerOptions - Event handler options
+ * @param eventName      - Event to bind to.
+ * @param handler        - Callback handler.
+ * @param element        - Element to bind to.
+ * @param handlerOptions - Event handler options.
  */
 export const useEventListener = (
   eventName: EventListener['name'],
@@ -56,37 +50,26 @@ export const useEventListener = (
   element: EventTarget,
   handlerOptions: AddEventListenerOptions
 ): void => {
-  // Create a ref that stores handler
   const savedHandler = useRef<EventListener['caller']>();
 
-  // Update ref.current value if handler changes.
-  // This allows our effect below to always get latest handler ...
-  // ... without us needing to pass it in effect deps array ...
-  // ... and potentially cause effect to re-run every render.
   useEffect(() => {
     savedHandler.current = handler;
   }, [handler]);
 
-  useEffect(
-    () => {
-      // Make sure element supports addEventListener
-      const isSupported = element && element.addEventListener;
-      if (!isSupported) return;
+  useEffect(() => {
+    // Make sure element supports addEventListener.
+    if (!(element && element.addEventListener)) return;
 
-      // Create event listener that calls handler function stored in ref
-      const eventListener: EventListener = (event) =>
-        savedHandler.current && savedHandler.current(event);
+    // Create event listener that calls handler function stored in ref.
+    const eventListener: EventListener = (event) =>
+      savedHandler.current && savedHandler.current(event);
 
-      // Add event listener
-      element.addEventListener(eventName, eventListener, handlerOptions);
+    element.addEventListener(eventName, eventListener, handlerOptions);
 
-      // Remove event listener on cleanup
-      return (): void => {
-        element.removeEventListener(eventName, eventListener, handlerOptions);
-      };
-    },
-    [eventName, element, handlerOptions] // Re-run if eventName or element changes
-  );
+    return (): void => {
+      element.removeEventListener(eventName, eventListener, handlerOptions);
+    };
+  }, [eventName, element, handlerOptions]);
 };
 
 /**
@@ -96,12 +79,12 @@ export const useEventListener = (
 const useIsomorphicLayoutEffect = isClient ? useLayoutEffect : useEffect;
 
 /** Params passed to `useResizeObserver` `handler` function. */
-export type UseResizeObserverHandlerParams = ContentRect;
+export type UseResizeObserverHandlerParams = DOMRect;
 
 /**
  * Bind resize observer to ref.
- * @param ref       - Ref to bind to
- * @param handler   - Callback for handling entry's bounding rect
+ * @param ref       - Ref to bind to.
+ * @param handler   - Callback for handling entry's bounding rect.
  * @see https://tobbelindstrom.com/blog/resize-observer-hook/ https://codesandbox.io/s/zw8kylol8m
  */
 export const useResizeObserver = (

@@ -1,6 +1,5 @@
 import React from 'react';
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 
 import { ReactCompareSlider, ReactCompareSliderHandle } from '../src';
 
@@ -22,8 +21,7 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-  (window.HTMLElement
-    .prototype as any).getBoundingClientRect = getBoundingClientRect;
+  (window.HTMLElement.prototype as any).getBoundingClientRect = getBoundingClientRect;
 });
 
 afterEach(cleanup);
@@ -41,9 +39,11 @@ describe('ReactCompareSlider', () => {
     expect(getByTestId('rcs-two')).toBeInTheDocument();
   });
 
-  it('Should render in portrait.', () => {
+  it('Should render in portrait with custom style.', () => {
+    const style = { width: '100%', height: '100%' };
     const { getByTestId } = render(
       <ReactCompareSlider
+        style={style}
         itemOne={<div data-testid="rcs-one">Foo</div>}
         itemTwo={<div data-testid="rcs-two">Bar</div>}
         portrait
@@ -54,14 +54,14 @@ describe('ReactCompareSlider', () => {
     expect(getByTestId('rcs-two')).toBeInTheDocument();
   });
 
-  it('Should render custom handle.', () => {
+  it('Should render custom handle and style.', () => {
+    const style = { width: '100%', height: '100%' };
     const handleTestId = 'youcanthandlethis';
-    const Handle = () => (
-      <ReactCompareSliderHandle data-testid={handleTestId} />
-    );
+    const Handle = () => <ReactCompareSliderHandle data-testid={handleTestId} />;
 
     const { getByTestId } = render(
       <ReactCompareSlider
+        style={style}
         boundsPadding={100}
         handle={<Handle />}
         itemOne={<div>Foo</div>}
@@ -82,12 +82,8 @@ describe('ReactCompareSlider', () => {
       <ReactCompareSlider
         data-testid={testId}
         style={style}
-        itemOne={
-          <img src="https://via.placeholder.com/1024x768" style={style} />
-        }
-        itemTwo={
-          <img src="https://via.placeholder.com/1024x768" style={style} />
-        }
+        itemOne={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        itemTwo={<img src="https://via.placeholder.com/1024x768" style={style} />}
         onPositionChange={handlePositionChange}
       />
     );
@@ -97,7 +93,7 @@ describe('ReactCompareSlider', () => {
     fireEvent.mouseDown(component, { clientX: 250, clientY: 20 });
     fireEvent.mouseMove(component, { clientX: 100, clientY: 20 });
     fireEvent.mouseUp(component, { clientX: 100, clientY: 20 });
-    // We expect multiple calls while moving.
+    // mousedown+ mousemove + mouseup
     expect(handlePositionChange).toHaveBeenCalledTimes(3);
   });
 
@@ -106,20 +102,14 @@ describe('ReactCompareSlider', () => {
     const handleTestId = 'youcanthandlethis';
     const handlePositionChange = jest.fn();
     const style = { width: 1024, height: 768 };
-    const Handle = () => (
-      <ReactCompareSliderHandle data-testid={handleTestId} />
-    );
+    const Handle = () => <ReactCompareSliderHandle data-testid={handleTestId} />;
 
     const { getByTestId } = render(
       <ReactCompareSlider
         data-testid={componentTestId}
         style={style}
-        itemOne={
-          <img src="https://via.placeholder.com/1024x768" style={style} />
-        }
-        itemTwo={
-          <img src="https://via.placeholder.com/1024x768" style={style} />
-        }
+        itemOne={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        itemTwo={<img src="https://via.placeholder.com/1024x768" style={style} />}
         handle={<Handle />}
         onlyHandleDraggable
         onPositionChange={handlePositionChange}

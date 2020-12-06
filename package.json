@@ -46,12 +46,16 @@
     "storybook": "start-storybook -p 6006 --ci",
     "storybook:build": "build-storybook"
   },
-  "peerDependencies": {
-    "react": ">=16.8",
-    "react-dom": ">=16.8"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
-  "np": {
-    "yarn": true
+  "jest": {
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "./test/setupTests.ts"
+    ]
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
@@ -60,16 +64,18 @@
       "yarn test --bail --findRelatedTests"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "np": {
+    "yarn": true
   },
   "prettier": {
     "printWidth": 80,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.27",
