@@ -46,6 +46,20 @@
     "storybook": "start-storybook -p 6006 --ci",
     "storybook:build": "build-storybook"
   },
+  "browserslist": {
+    "production": [
+      "> 1%",
+      "last 2 versions",
+      "not dead",
+      "not ie > 0",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
