@@ -68,7 +68,7 @@
     "yarn": true
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 90,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
