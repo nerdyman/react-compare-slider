@@ -5,8 +5,7 @@ import { ReactCompareSliderCommonProps } from './types';
 /** Handle container to control position. */
 export const ReactCompareSliderHandleContainer = forwardRef<
   HTMLDivElement,
-  React.HTMLProps<HTMLDivElement> &
-    Pick<ReactCompareSliderCommonProps, 'portrait'>
+  React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
 >(
   ({ children, portrait }, ref): React.ReactElement => {
     const style: React.CSSProperties = {
@@ -33,8 +32,7 @@ export const ReactCompareSliderHandleContainer = forwardRef<
   }
 );
 
-ReactCompareSliderHandleContainer.displayName =
-  'ReactCompareSliderHandleContainer';
+ReactCompareSliderHandleContainer.displayName = 'ReactCompareSliderHandleContainer';
 
 /** Props for `ReactCompareSliderHandle`. */
 export interface ReactCompareSliderHandleProps

@@ -10,9 +10,7 @@ describe('styleFitContainer', () => {
   });
 
   it("Should return 'contain' style.", () => {
-    expect(styleFitContainer({ objectFit: 'contain' }).objectFit).toBe(
-      'contain'
-    );
+    expect(styleFitContainer({ objectFit: 'contain' }).objectFit).toBe('contain');
   });
 
   it('Should return with custom props.', () => {
