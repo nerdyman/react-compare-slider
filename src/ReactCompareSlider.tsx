@@ -1,9 +1,6 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useCallback, useRef, useState } from 'react';
 
-import {
-  ReactCompareSliderHandle,
-  ReactCompareSliderHandleContainer,
-} from './ReactCompareSliderHandle';
+import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import { ReactCompareSliderClipContainer } from './ReactCompareSliderClipContainer';
 import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from './types';
 
@@ -13,6 +10,38 @@ import {
   UseResizeObserverHandlerParams,
   useResizeObserver,
 } from './utils';
+
+/** Handle container to control position. */
+const ReactCompareSliderHandleContainer = forwardRef<
+  HTMLDivElement,
+  React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
+>(
+  ({ children, portrait }, ref): React.ReactElement => {
+    const style: React.CSSProperties = {
+      position: 'absolute',
+      top: 0,
+      width: '100%',
+      height: '100%',
+      pointerEvents: 'none',
+    };
+
+    const innerStyle: React.CSSProperties = {
+      position: 'absolute',
+      width: portrait ? '100%' : undefined,
+      height: portrait ? undefined : '100%',
+      transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
+      pointerEvents: 'all',
+    };
+
+    return (
+      <div style={style} data-rcs="handle-container" ref={ref}>
+        <div style={innerStyle}>{children}</div>
+      </div>
+    );
+  }
+);
+
+ReactCompareSliderHandleContainer.displayName = 'ReactCompareSliderHandleContainer';
 
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {

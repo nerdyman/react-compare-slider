@@ -1,12 +1,5 @@
 import { RefObject, useEffect, useRef, useLayoutEffect, useCallback } from 'react';
 
-/** Whether runtime is client-side. */
-const isClient = !!(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-);
-
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their
  * container.
@@ -76,7 +69,10 @@ export const useEventListener = (
  * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
  * @see https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js
  */
-const useIsomorphicLayoutEffect = isClient ? useLayoutEffect : useEffect;
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' && window.document && window.document.createElement
+    ? useLayoutEffect
+    : useEffect;
 
 /** Params passed to `useResizeObserver` `handler` function. */
 export type UseResizeObserverHandlerParams = DOMRect;
