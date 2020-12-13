@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useCallback, useRef, useState } from 'react';
 
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-import { ReactCompareSliderClipContainer } from './ReactCompareSliderClipContainer';
 import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from './types';
 
 import {
@@ -11,8 +10,30 @@ import {
   useResizeObserver,
 } from './utils';
 
+/** Container for clipped item. */
+const ThisClipContainer = forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+  (props, ref): React.ReactElement => {
+    const style: React.CSSProperties = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      willChange: 'clip',
+      userSelect: 'none',
+      KhtmlUserSelect: 'none',
+      MozUserSelect: 'none',
+      WebkitUserSelect: 'none',
+    };
+
+    return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
+  }
+);
+
+ThisClipContainer.displayName = 'ThisClipContainer';
+
 /** Handle container to control position. */
-const ReactCompareSliderHandleContainer = forwardRef<
+const ThisHandleContainer = forwardRef<
   HTMLDivElement,
   React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
 >(
@@ -41,7 +62,7 @@ const ReactCompareSliderHandleContainer = forwardRef<
   }
 );
 
-ReactCompareSliderHandleContainer.displayName = 'ReactCompareSliderHandleContainer';
+ThisHandleContainer.displayName = 'ThisHandleContainer';
 
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
@@ -334,12 +355,10 @@ export const ReactCompareSlider: React.FC<
   return (
     <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
       {itemTwo}
-      <ReactCompareSliderClipContainer ref={clipContainerRef}>
-        {itemOne}
-      </ReactCompareSliderClipContainer>
-      <ReactCompareSliderHandleContainer portrait={portrait} ref={handleContainerRef}>
+      <ThisClipContainer ref={clipContainerRef}>{itemOne}</ThisClipContainer>
+      <ThisHandleContainer portrait={portrait} ref={handleContainerRef}>
         {Handle}
-      </ReactCompareSliderHandleContainer>
+      </ThisHandleContainer>
     </div>
   );
 };

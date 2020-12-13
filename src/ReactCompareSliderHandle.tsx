@@ -3,6 +3,7 @@ import React from 'react';
 import { ReactCompareSliderCommonProps } from './types';
 
 interface ThisArrowProps {
+  /** Whether to flip the arrow direction. */
   flip?: boolean;
 }
 
