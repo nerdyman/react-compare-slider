@@ -10,48 +10,40 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 - [Live Examples](<#live-examples>)
 
 <Canvas>
-    <Story id="demos--images" />
+  <Story id="demos--images" />
 </Canvas>
-
-<ArgsTable of={ReactCompareSlider} />
-
-Images can be rendered using the `ReactCompareSliderImage` component and/or
-by using a custom image component, e.g. `picture` or `img`.
 
 <br />
 
 ## `ReactCompareSliderImage`
 
-`ReactCompareSliderImage` is a standalone image component that detects whether
-the browser supports the `object-fit` CSS property, if not it will apply a
-background image to achieve the same effect. It will set `background-size`,
-`background-position` and `background-image` if they have not already been
-defined in a passed `style` prop.
+Images can be rendered using the `ReactCompareSliderImage` component and/or
+by using a custom image component, e.g. `picture` or `img`.
 
-`ReactCompareSliderImage` uses the `styleFitContainer` utility to size and fit media.
+`ReactCompareSliderImage` is a standalone image (`img`) component which uses the 
+`styleFitContainer` utility for positioning and fitting. The defaults from `styleFitContainer`
+are applied automatically but can be overridden using the `style` prop.
 
 <br />
 
 ### `ReactCompareSliderImage` Props
 
-<ArgsTable of={ReactCompareSliderImage} />
+`ReactCompareSliderImage` is a standard `img` component; it accepts all valid `img` props.
 
 ### Usage
 
 ```jsx
 import { ReactCompareSliderImage } from 'react-compare-slider';
 
-/**
- * `src` will automatically be used as the background image for browsers that
- * do not support `object-fit`.
- */
+/** Standard usage. */
 <ReactCompareSliderImage src="..." srcSet="..." />
 
-/**
- * Pass an explicit `backgroundImage` property in a style object if you want to
- * set your own custom background image (still only shown on unsupported browsers).
- */
-<ReactCompareSliderImage src="..." srcSet="..." style={{ backgroundImage: 'url(...)' }} />
+/** Override `styleFitContainer` defaults. */
+<ReactCompareSliderImage
+  src="..."
+  srcSet="..."
+  style={{ objectPosition: 'left' }}
+/>
 ```
 
 ## Live Examples

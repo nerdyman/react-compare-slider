@@ -1,4 +1,4 @@
-import { ArgsTable, Meta } from '@storybook/addon-docs/blocks';
+import { Canvas, ArgsTable, Meta, Story } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSliderHandle } from 'react-compare-slider';
 
@@ -6,7 +6,7 @@ import { ReactCompareSliderHandle } from 'react-compare-slider';
 
 # Using Handles
 
-- [Props](#reactcomparesliderhandle-props)
+- [ReactCompareSliderHandle](#reactcomparesliderhandle)
 - [Custom Default Handle Usage](<#custom-default-handle-usage>)
 - [Custom Standalone Handle Usage](<#custom-standalone-handle-usage>)
 - [Live Examples](<#live-examples>)
@@ -29,31 +29,39 @@ be used instead.
 
 <br />
 
-### `ReactCompareSliderHandle` Props
+### `ReactCompareSliderHandle`
 
 `ReactCompareSliderHandle` supports the `portrait` prop to automatically flip
-itself to match the desired orientation. It also accepts any valid `div`
+itself to match the desired orientation along with individual props to style the lines and button. 
+It also provides class names and accepts any valid `div`
 component props so you can easily customize it to fit your requirements.
+
+- `__rcs-handle-root`    - The root element.
+- `__rcs-handle-button`  - The circular element shown in the middle.
+- `__rcs-handle-line`    -  For each line either side of the button.
+
+<br />
+
+#### Props
 
 <ArgsTable of={ReactCompareSliderHandle} />
 
-### Custom Default Handle Usage
+### Custom `ReactCompareSliderHandle` usage
 
-```jsx
-import { ReactCompareSlider, ReactCompareSliderHandle } from 'react-compare-slider';
+The colors used in `ReactCompareSliderHandle` are inherited from the root element's `color`
+property using the `currentColor` keyword (except for `boxShadow`). 
+To set all colors in sync just change the `style` property or use the `__rcs-handle-root` class.
 
-const MyCustomHandle = () => (
-  <ReactCompareSliderHandle style={{ width: '5px', height: '100%', backgroundColor: red }} />;
-)
-
-<ReactCompareSlider handle={<MyCustomHandle />} />
-```
+<Canvas>
+  <Story id="demos-handles--inherited-color" />
+</Canvas>
 
 ### Custom Standalone Handle Usage
 
 ```jsx
 import { ReactCompareSlider } from 'react-compare-slider';
 
+/** Render a completely custom handle. */
 const MyCustomHandle = () => (
   <div style={{ width: '5px', height: '100%', backgroundColor: red }}></div>;
 )

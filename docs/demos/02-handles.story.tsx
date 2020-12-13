@@ -1,94 +1,147 @@
 /* eslint no-console: 0 */
 import React from 'react';
-import css from '@emotion/css';
 
 import {
   ReactCompareSlider,
+  ReactCompareSliderHandle,
   ReactCompareSliderImage,
 } from 'react-compare-slider';
+
+import * as config from './config';
 
 export default {
   title: 'Demos/Handles',
   component: ReactCompareSlider,
+  argTypes: config.argTypes,
 };
 
-export const BlurredArrows = () => (
+export const InheritedColor = ({ portrait, ...props }) => (
   <ReactCompareSlider
+    {...props}
+    portrait={portrait}
+    handle={<ReactCompareSliderHandle portrait={portrait} style={{ color: 'yellow' }} />}
+    itemOne={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        style={{ filter: 'grayscale(1)' }}
+        alt="one"
+      />
+    }
+    itemTwo={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        alt="two"
+      />
+    }
+    style={{ width: '100%', height: '100vh' }}
+  />
+);
+
+export const IndividualStyles = ({ portrait, ...props }) => (
+  <ReactCompareSlider
+    {...props}
+    portrait={portrait}
     handle={
-      <div
-        css={css`
-          --rcs-handle-width: 2px;
-          --rcs-handle-box: 3.5rem;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: var(--rcs-handle-width);
-          height: 100%;
-          box-shadow: none;
-          background-color: #ffffff;
-          cursor: pointer;
-        `}
-      >
-        {/** Arrow Box @NOTE Using separate component to amplify blur */}
-        <div
-          css={css`
-            position: absolute;
-            width: var(--rcs-handle-box);
-            height: var(--rcs-handle-box);
-            border-radius: 100%;
-            overflow: hidden;
+      <ReactCompareSliderHandle
+        portrait={portrait}
+        buttonStyle={{
+          backgroundColor: 'white',
+          color: '#444',
+          boxShadow: undefined,
+          border: 0,
+        }}
+        linesStyle={{ opacity: 0.5 }}
+      />
+    }
+    itemOne={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        style={{ filter: 'grayscale(1)' }}
+        alt="one"
+      />
+    }
+    itemTwo={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        alt="two"
+      />
+    }
+    style={{ width: '100%', height: '100vh' }}
+  />
+);
 
-            &::before,
-            &::after {
-              content: '';
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              width: inherit;
-              height: inherit;
-              backdrop-filter: blur(0.5rem);
-            }
-          `}
-        />
+export const HideButton = ({ portrait, ...props }) => (
+  <ReactCompareSlider
+    {...props}
+    portrait={portrait}
+    handle={
+      <ReactCompareSliderHandle
+        portrait={portrait}
+        buttonStyle={{ display: 'none' }}
+        // Make line thicker so it's easier to grab.
+        linesStyle={{ width: portrait ? '100%' : 4, height: portrait ? 4 : '100%' }}
+      />
+    }
+    itemOne={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        style={{ filter: 'grayscale(1)' }}
+        alt="one"
+      />
+    }
+    itemTwo={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        alt="two"
+      />
+    }
+    style={{ width: '100%', height: '100vh' }}
+  />
+);
 
-        {/* Arrows */}
-        <div
-          css={css`
-            position: absolute;
-            display: grid;
-            align-items: center;
-            justify-content: center;
-            grid-auto-flow: column;
-            width: var(--rcs-handle-box);
-            height: var(--rcs-handle-box);
-            border: var(--rcs-handle-width) solid #ffffff;
-            gap: 0.65rem;
-            backdrop-filter: blur(0.5rem);
-            border-radius: 100%;
-            overflow: hidden;
+export const HideLines = ({ portrait, ...props }) => (
+  <ReactCompareSlider
+    {...props}
+    portrait={portrait}
+    handle={
+      <ReactCompareSliderHandle
+        portrait={portrait}
+        buttonStyle={{ border: 0, backdropFilter: 'none', boxShadow: 'none' }}
+        linesStyle={{ opacity: 0 }}
+      />
+    }
+    itemOne={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        style={{ filter: 'grayscale(1)' }}
+        alt="one"
+      />
+    }
+    itemTwo={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        alt="two"
+      />
+    }
+    style={{ width: '100%', height: '100vh' }}
+  />
+);
 
-            &::before,
-            &::after {
-              content: '';
-              display: block;
-              width: 0;
-              height: 0;
-              top: 50%;
-              left: 0;
-              border-top: 0.5rem solid transparent;
-              border-bottom: 0.5rem solid transparent;
-            }
-
-            &::before {
-              border-right: 0.65rem solid #ffffff;
-            }
-
-            &::after {
-              border-left: 0.65rem solid #ffffff;
-            }
-          `}
-        />
+export const CompletelyCutom = ({ portrait, ...props }) => (
+  <ReactCompareSlider
+    {...props}
+    portrait={portrait}
+    handle={
+      <div style={{ display: 'grid', placeContent: 'center', height: '100%' }}>
+        <button
+          style={{
+            all: 'unset',
+            fontSize: 56,
+            borderRadius: '50%',
+          }}
+        >
+          {portrait ? '🥰' : '😍'}
+        </button>
       </div>
     }
     itemOne={

@@ -1,10 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react';
 
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-} from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 import * as config from './config';
 
@@ -70,8 +67,8 @@ export const OnPositionChange = (props) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <div className="sb-custom-note">
-        <em>Note:</em> This demo will be slightly laggy when viewing the action
-        logging output.
+        <em>Note:</em> This demo will be slightly laggy when viewing the action logging
+        output.
       </div>
 
       <ReactCompareSlider
@@ -79,14 +76,14 @@ export const OnPositionChange = (props) => {
         onPositionChange={onPositionChange}
         itemOne={
           <ReactCompareSliderImage
-            src="https://images.unsplash.com/photo-1580617971729-27c448892e5a?auto=format&fit=crop&w=1500&q=80"
+            src="https://images.unsplash.com/photo-1585715492106-b0c189bcf301?auto=format&fit=crop&w=1500&q=80"
             alt="Image one"
-            style={{ filter: 'grayscale(1)' }}
+            style={{ filter: 'grayscale(.9)' }}
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://images.unsplash.com/photo-1580617971729-27c448892e5a?auto=format&fit=crop&w=1500&q=80"
+            src="https://images.unsplash.com/photo-1585715492106-b0c189bcf301?auto=format&fit=crop&w=1500&q=80"
             alt="Image two"
           />
         }
@@ -98,10 +95,7 @@ export const OnPositionChange = (props) => {
 
 OnPositionChange.args = { boundsPadding: 0 };
 
-export const OnlyHandleDraggable = ({
-  onlyHandleDraggable = true,
-  ...props
-}) => {
+export const OnlyHandleDraggable = ({ onlyHandleDraggable = true, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -135,7 +129,7 @@ export const Portrait = ({ portrait = true, ...props }) => (
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1596056812959-954b08fe3dda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=70"
         alt="Image one"
-        style={{ filter: 'grayscale(1)' }}
+        style={{ filter: 'grayscale(.9)' }}
       />
     }
     itemTwo={
