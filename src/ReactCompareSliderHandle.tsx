@@ -26,7 +26,7 @@ export interface ReactCompareSliderHandleProps
   /** Optional styles for handle the button. */
   buttonStyle?: React.CSSProperties;
   /** Optional styles for lines either side of the handle button. */
-  lineStyle?: React.CSSProperties;
+  linesStyle?: React.CSSProperties;
   /** Optional styles for the handle root. */
   style?: React.CSSProperties;
 }
@@ -35,7 +35,7 @@ export interface ReactCompareSliderHandleProps
 export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> = ({
   portrait,
   buttonStyle,
-  lineStyle,
+  linesStyle,
   style,
   ...props
 }): React.ReactElement => {
@@ -50,14 +50,14 @@ export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> =
     ...style,
   };
 
-  const _lineStyle: React.CSSProperties = {
+  const _linesStyle: React.CSSProperties = {
     flexGrow: 1,
     height: portrait ? 2 : '100%',
     width: portrait ? '100%' : 2,
     backgroundColor: 'currentColor',
     pointerEvents: 'auto',
     boxShadow: '0 0 7px rgba(0,0,0,.35)',
-    ...lineStyle,
+    ...linesStyle,
   };
 
   const _buttonStyle: React.CSSProperties = {
@@ -80,12 +80,12 @@ export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> =
 
   return (
     <div className="__rcs-handle-root" {...props} style={_style}>
-      <div className="__rcs-handle-line" style={_lineStyle} />
+      <div className="__rcs-handle-line" style={_linesStyle} />
       <div className="__rcs-handle-button" style={_buttonStyle}>
         <ThisArrow />
         <ThisArrow flip />
       </div>
-      <div className="__rcs-handle-line" style={_lineStyle} />
+      <div className="__rcs-handle-line" style={_linesStyle} />
     </div>
   );
 };
