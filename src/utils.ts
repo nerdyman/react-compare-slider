@@ -114,32 +114,28 @@ const useIsomorphicLayoutEffect = isClient ? useLayoutEffect : useEffect;
 export type UseResizeObserverHandlerParams = ContentRect;
 
 /**
- * Bind resize observer to ref.
- * @param ref       - Ref to bind to
- * @param handler   - Callback for handling entry's bounding rect
- * @see https://tobbelindstrom.com/blog/resize-observer-hook/ https://codesandbox.io/s/zw8kylol8m
+ * Bind resize observer callback to element.
+ * @param ref       - Element to bind to.
+ * @param handler   - Callback for handling entry's bounding rect.
  */
 export const useResizeObserver = (
   ref: RefObject<Element>,
   handler: (entry: UseResizeObserverHandlerParams) => void
 ): void => {
   const observer = useRef(
-    new ResizeObserver(([entry]) => {
-      handler(entry.contentRect);
-    })
+    new ResizeObserver(([entry]) => handler(entry.contentRect))
   );
-
-  const disconnect = useCallback(() => {
-    const { current } = observer;
-    current.disconnect();
-  }, []);
 
   const observe = useCallback(() => {
     ref.current && observer.current.observe(ref.current);
   }, [ref]);
 
+  // Bind/rebind observer when `handler` changes.
   useIsomorphicLayoutEffect(() => {
+    observer.current = new ResizeObserver(([entry]) =>
+      handler(entry.contentRect)
+    );
     observe();
-    return (): void => disconnect();
-  }, [disconnect, observe]);
+    return (): void => observer.current.disconnect();
+  }, [handler, observe]);
 };
