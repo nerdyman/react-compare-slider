@@ -1,6 +1,10 @@
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { ResizeObserver } from 'resize-observer';
+const ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
 
-Object.defineProperty(window, 'ResizeObserver', { value: ResizeObserver });
+Object.defineProperty(globalThis, 'ResizeObserver', { value: ResizeObserver });

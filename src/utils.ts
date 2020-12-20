@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useLayoutEffect, useCallback } from 'react';
+import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their
@@ -23,6 +23,7 @@ export const styleFitContainer = ({
 /** Store the previous supplied value. */
 export const usePrevious = <T>(value: T): T => {
   const ref = useRef<T>(value);
+
   useEffect(() => {
     ref.current = value;
   });
@@ -67,9 +68,9 @@ export const useEventListener = (
 
 /**
  * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
- * @see https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js
+ * @see <https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js>
  */
-const useIsomorphicLayoutEffect =
+export const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' && window.document && window.document.createElement
     ? useLayoutEffect
     : useEffect;

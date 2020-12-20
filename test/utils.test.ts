@@ -1,19 +1,37 @@
+/**
+ * @jest-environment node
+ */
+
+import React from 'react';
 import { cleanup } from '@testing-library/react';
 
-import { styleFitContainer } from '../src';
+import { styleFitContainer } from '../src/';
+import { useIsomorphicLayoutEffect } from '../src/utils';
 
 afterEach(cleanup);
 
 describe('styleFitContainer', () => {
-  it('Should return object.', () => {
-    expect(typeof styleFitContainer()).toBe('object');
+  it('Should return custom styles.', () => {
+    expect(
+      styleFitContainer({
+        boxSizing: 'content-box',
+        objectFit: 'contain',
+        objectPosition: 'left',
+        color: 'green',
+      })
+    ).toEqual(
+      expect.objectContaining({
+        boxSizing: 'content-box',
+        objectFit: 'contain',
+        objectPosition: 'left',
+        color: 'green',
+      })
+    );
   });
+});
 
-  it("Should return 'contain' style.", () => {
-    expect(styleFitContainer({ objectFit: 'contain' }).objectFit).toBe('contain');
-  });
-
-  it('Should return with custom props.', () => {
-    expect(styleFitContainer({ color: 'green' }).color).toBe('green');
+describe('useIsomorphicLayoutEffect', () => {
+  it('Should use `useEffect` in node environment.', () => {
+    expect(useIsomorphicLayoutEffect.toString()).toBe(React.useEffect.toString());
   });
 });

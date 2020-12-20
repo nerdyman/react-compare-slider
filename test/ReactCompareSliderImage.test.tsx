@@ -7,16 +7,16 @@ afterEach(cleanup);
 
 describe('ReactCompareSlider', () => {
   it('Should render image.', () => {
-    const alt = 'Testaroo';
-    const src = 'https://via.placeholder.com/1280x720';
-    const srcSet =
-      'https://via.placeholder.com/320x480?text=Small 320w, https://via.placeholder.com/320x480?text=Medium 768w';
+    const props = {
+      alt: 'Testaroo',
+      src: 'https://via.placeholder.com/1280x720',
+      srcSet:
+        'https:/via.placeholder.com/320x480?text=Small 320w, https://via.placeholder.com/800x600?text=Medium 768w',
+    };
 
-    const { getByAltText } = render(
-      <ReactCompareSliderImage alt={alt} src={src} srcSet={srcSet} />
-    );
+    const { getByAltText } = render(<ReactCompareSliderImage {...props} />);
 
-    expect(getByAltText(alt)?.getAttribute('src')).toBe(src);
-    expect(getByAltText(alt)?.getAttribute('srcset')).toBe(srcSet);
+    expect(getByAltText(props.alt)?.getAttribute('src')).toBe(props.src);
+    expect(getByAltText(props.alt)?.getAttribute('srcset')).toBe(props.srcSet);
   });
 });

@@ -93,7 +93,7 @@ describe('ReactCompareSlider', () => {
     fireEvent.mouseDown(component, { clientX: 250, clientY: 20 });
     fireEvent.mouseMove(component, { clientX: 100, clientY: 20 });
     fireEvent.mouseUp(component, { clientX: 100, clientY: 20 });
-    // mousedown+ mousemove + mouseup
+    // mousedown + mousemove + mouseup,
     expect(handlePositionChange).toHaveBeenCalledTimes(3);
   });
 
@@ -127,7 +127,7 @@ describe('ReactCompareSlider', () => {
     fireEvent.mouseDown(handle, { clientX: 250, clientY: 20 });
     fireEvent.mouseMove(handle, { clientX: 100, clientY: 20 });
     fireEvent.mouseUp(handle, { clientX: 100, clientY: 20 });
-    // We expect multiple calls while moving.
+    // mousedown + mousemove + mouseup,
     expect(handlePositionChange).toHaveBeenCalledTimes(3);
   });
 });
