@@ -91,6 +91,9 @@ interface UpdateInternalPositionProps
   isOffset?: boolean;
 }
 
+const EVENT_PASSIVE_PARAMS = { passive: true };
+const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
+
 /** Root Comparison slider. */
 export const ReactCompareSlider: React.FC<
   ReactCompareSliderProps & React.HtmlHTMLAttributes<HTMLDivElement>
@@ -220,7 +223,7 @@ export const ReactCompareSlider: React.FC<
     [onPositionChange]
   );
 
-  // Update internal position if `position` prop changes.
+  // Update internal position when other user controllable props change.
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { width, height } = rootContainerRef.current!.getBoundingClientRect();
@@ -292,22 +295,10 @@ export const ReactCompareSlider: React.FC<
   // Allow drag outside of container while pointer is still down.
   useEffect(() => {
     if (isDragging && !hasWindowBinding.current) {
-      window.addEventListener('mousemove', handlePointerMove, {
-        passive: true,
-      });
-
-      window.addEventListener('mouseup', handlePointerUp, {
-        passive: true,
-      });
-
-      window.addEventListener('touchmove', handlePointerMove, {
-        passive: true,
-      });
-
-      window.addEventListener('touchend', handlePointerUp, {
-        passive: true,
-      });
-
+      window.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('mouseup', handlePointerUp, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('touchmove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('touchend', handlePointerUp, EVENT_PASSIVE_PARAMS);
       hasWindowBinding.current = true;
     }
 
@@ -325,17 +316,21 @@ export const ReactCompareSlider: React.FC<
   // Bind resize observer to container.
   useResizeObserver(rootContainerRef, handleResize);
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  useEventListener('mousedown', handlePointerDown, interactiveTarget!, {
-    capture: true,
-    passive: false,
-  });
+  useEventListener(
+    'mousedown',
+    handlePointerDown,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    interactiveTarget!,
+    EVENT_CAPTURE_PARAMS
+  );
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  useEventListener('touchstart', handlePointerDown, interactiveTarget!, {
-    capture: true,
-    passive: false,
-  });
+  useEventListener(
+    'touchstart',
+    handlePointerDown,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    interactiveTarget!,
+    EVENT_CAPTURE_PARAMS
+  );
 
   // Use custom handle if requested.
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
