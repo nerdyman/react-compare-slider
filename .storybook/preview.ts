@@ -1,8 +1,8 @@
-import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { addDecorator, addParameters } from '@storybook/react';
-import { themes } from '@storybook/theming';
 import { withConsole } from '@storybook/addon-console';
+
+import { theme } from './theme';
 
 addDecorator((storyFn, context) => withConsole()(storyFn)(context));
 
@@ -11,21 +11,14 @@ addParameters({
     hideNoControlsWarning: true,
   },
   docs: {
-    container: DocsContainer,
-    page: DocsPage,
-    inlineStories: false,
+    inlineStories: true,
+    theme,
   },
   options: {
     showRoots: true,
-    theme: {
-      ...themes.dark,
-      appBorderRadius: 3,
-      colorSecondary: '#b464fa',
-      barSelectedColor: '#b464fa',
-    } as any,
+    theme,
   },
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-    // defaultViewport: 'Initial',
   },
 });

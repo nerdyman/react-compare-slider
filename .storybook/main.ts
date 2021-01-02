@@ -24,10 +24,7 @@ module.exports = {
   ],
   babel: (config) => ({
     ...config,
-    presets: [
-      ...config.presets,
-      require.resolve('@emotion/babel-preset-css-prop'),
-    ],
+    presets: [...config.presets, require.resolve('@emotion/babel-preset-css-prop')],
   }),
   /** Files to load as stories */
   stories: ['../docs/**/*.story.@(mdx|tsx)'],
@@ -68,11 +65,7 @@ module.exports = {
       return rule;
     });
 
-    config.resolve.alias['react-compare-slider'] = path.resolve(
-      __dirname,
-      '..',
-      'src'
-    );
+    config.resolve.alias['react-compare-slider'] = path.resolve(__dirname, '..', 'src');
 
     return config;
   },
