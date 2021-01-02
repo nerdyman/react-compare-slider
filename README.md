@@ -35,17 +35,9 @@
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive, fluid
-- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider) *\**
+- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider)
 - Zero dependencies
 - Type safe
-
-<br />
-
-<small>
-
-*\** The unpacked module includes a development version, module (CJS, ESM) versions, sourcemaps and documented types for improved debugging in `development` environments. Check out [BundlePhobia](https://bundlephobia.com/result?p=react-compare-slider) for the production module size.
-
-</small>
 
 <br />
 
