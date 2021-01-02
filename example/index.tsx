@@ -1,13 +1,8 @@
 /* eslint no-console: 0 */
 
-import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-  styleFitContainer,
-} from '../.';
+import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../.';
 
 import { DemoSection } from './demo-blocks';
 
@@ -28,7 +23,7 @@ const App = () => {
     <>
       <DemoSection
         title="Using <code>ReactCompareSliderImage</code>"
-        description="In <code>portrait</code> mode, using <code>ReactCompareSliderImage</code> to fit parent container and provide a fallback for browsers that don't support CSS <code>object-fit</code>."
+        description="In <code>portrait</code> mode, using <code>ReactCompareSliderImage</code> to fit parent container."
       >
         <div>
           <input
@@ -61,7 +56,7 @@ const App = () => {
       </DemoSection>
       <DemoSection
         title="Using <code>styleFitContainer()</code>"
-        description="Using <code>styleFitContainer</code> to fit parent container, <em>does not</em> provide fallback image."
+        description="Using <code>styleFitContainer</code> to fit parent container."
       >
         <ReactCompareSlider
           itemOne={

@@ -45,6 +45,7 @@ export const IndividualStyles = ({ portrait, ...props }) => (
       <ReactCompareSliderHandle
         portrait={portrait}
         buttonStyle={{
+          backdropFilter: undefined,
           backgroundColor: 'white',
           color: '#444',
           boxShadow: undefined,
@@ -78,7 +79,7 @@ export const HideButton = ({ portrait, ...props }) => (
       <ReactCompareSliderHandle
         portrait={portrait}
         buttonStyle={{ display: 'none' }}
-        // Make line thicker so it's easier to grab.
+        // Make lines thicker so they're easier to grab.
         linesStyle={{ width: portrait ? '100%' : 4, height: portrait ? 4 : '100%' }}
       />
     }
@@ -127,7 +128,7 @@ export const HideLines = ({ portrait, ...props }) => (
   />
 );
 
-export const CompletelyCutom = ({ portrait, ...props }) => (
+export const CompletelyCustom = ({ portrait, ...props }) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}

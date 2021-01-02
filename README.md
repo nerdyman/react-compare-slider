@@ -1,27 +1,27 @@
 <div align="center">
-    <h1>React Compare Slider</h1>
-    <p>Compare two components side-by-side or top-to-toe.</p>
+  <h1>React Compare Slider</h1>
+  <p>Compare two components side-by-side or top-to-toe.</p>
 
 [![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
 <a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
-    <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
+  <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
 </a>
 <a href="https://npmjs.com/package/react-compare-slider">
-    <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package" />
+  <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package" />
 </a>
 <a href="https://bundlephobia.com/result?p=react-compare-slider">
-    <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size" />
+  <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size" />
 </a>
 <br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
-    <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
+  <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-    <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
+  <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
 </a>
 <a href="https://react-compare-slider.vercel.app">
-    <img src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" alt="Demos" />
+  <img src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" alt="Demos" />
 </a>
 
 </div>
@@ -35,9 +35,19 @@
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive, fluid
-- Works in IE11+
-- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider), only one ponyfill dependency
+- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider) *\**
+- Zero dependencies
 - Type safe
+
+<br />
+
+<small>
+
+*\** The unpacked module includes a development version, module (CJS, ESM) versions, sourcemaps and documented types for improved debugging in `development` environments. Check out [BundlePhobia](https://bundlephobia.com/result?p=react-compare-slider) for the production module size.
+
+</small>
+
+<br />
 
 ## Demo
 
@@ -109,4 +119,4 @@ See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-
 
 ## Notes
 
-Bootstrapped with [TSDX](<https://github.com/palmerhq/tsdx>).
+Bootstrapped with [TSDX](https://github.com/formium/tsdx).

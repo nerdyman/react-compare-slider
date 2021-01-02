@@ -11,17 +11,9 @@ import { ReactCompareSliderHandle } from 'react-compare-slider';
 - [Custom Standalone Handle Usage](<#custom-standalone-handle-usage>)
 - [Live Examples](<#live-examples>)
 
-```js codesandbox=react-compare-slider-simple-example-9si6l?file=/src/index.js
-import React from "react";
-import ReactDOM from "react-dom";
-import "./styles.css";
-
-import { CustomHandle } from "./App";
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<CustomHandle style={{ height: '100vh' }} />, rootElement);
-
-```
+<Canvas>
+  <Story id="demos-handles--individual-styles" />
+</Canvas>
 
 Custom Handles can be used via the `handle` prop on the main slider component.
 If a custom `handle` is not supplied `ReactCompareSliderHandle` will
@@ -32,9 +24,11 @@ be used instead.
 ### `ReactCompareSliderHandle`
 
 `ReactCompareSliderHandle` supports the `portrait` prop to automatically flip
-itself to match the desired orientation along with individual props to style the lines and button. 
-It also provides class names and accepts any valid `div`
-component props so you can easily customize it to fit your requirements.
+itself to match the desired orientation. It also has individual props and class names to 
+style the lines and button and accepts any valid `div` component props so you can easily 
+customize it to fit your requirements.
+
+#### CSS `className`
 
 - `__rcs-handle-root`    - The root element.
 - `__rcs-handle-button`  - The circular element shown in the middle.
