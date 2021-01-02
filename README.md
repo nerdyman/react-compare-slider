@@ -101,7 +101,7 @@ by using the [`styleFitContainer` CSS utility](https://react-compare-slider.verc
 
 ### Custom Handles
 
-[![Custom Handles](./example/custom-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
+[![Custom Handles](./example/custom-handle-capture.gif)](https://react-compare-slider.vercel.app/?path=/story/demos-handles--individual-styles)
 
 See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-handles--page) for more information.
 
