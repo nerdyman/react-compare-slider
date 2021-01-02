@@ -261,8 +261,6 @@ export const ReactCompareSlider: React.FC<
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
     function moveCall(ev: MouseEvent | TouchEvent) {
-      if (!isDragging) return;
-
       updateInternalPosition({
         portrait,
         boundsPadding,
@@ -271,7 +269,7 @@ export const ReactCompareSlider: React.FC<
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
     },
-    [portrait, isDragging, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition]
   );
 
   /** Handle mouse/touch up. */

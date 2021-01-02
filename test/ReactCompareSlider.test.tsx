@@ -5,6 +5,7 @@ import { ReactCompareSlider, ReactCompareSliderHandle } from '../src';
 
 const getBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 beforeAll(() => {
   /**
    * @HACK Big ol' hack to imitate `getBoundingClientRect` to allow for testing
@@ -23,6 +24,7 @@ beforeAll(() => {
 afterAll(() => {
   (window.HTMLElement.prototype as any).getBoundingClientRect = getBoundingClientRect;
 });
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 afterEach(cleanup);
 
@@ -73,7 +75,37 @@ describe('ReactCompareSlider', () => {
     expect(getByTestId(handleTestId)).toBeInTheDocument();
   });
 
-  it('Should execute `onPositionChange` callback on main container interactions.', async () => {
+  it('Should resync position on prop updates.', async () => {
+    const handlePositionChange = jest.fn();
+    const style = { width: 1024, height: 768 };
+
+    const { rerender } = render(
+      <ReactCompareSlider
+        boundsPadding={25}
+        itemOne={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        itemTwo={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        onPositionChange={handlePositionChange}
+        position={25}
+        style={style}
+      />
+    );
+
+    rerender(
+      <ReactCompareSlider
+        boundsPadding={75}
+        itemOne={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        itemTwo={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        onPositionChange={handlePositionChange}
+        portrait
+        position={75}
+        style={style}
+      />
+    );
+
+    expect(handlePositionChange).toHaveBeenCalledWith(75);
+  });
+
+  it('Should execute `onPositionChange` callback on main container mouse interactions.', () => {
     const testId = 'testaroo';
     const handlePositionChange = jest.fn();
     const style = { width: 1024, height: 768 };
@@ -89,15 +121,40 @@ describe('ReactCompareSlider', () => {
     );
 
     const component = getByTestId(testId);
-    fireEvent.mouseMove(component, { clientX: 100, clientY: 20 });
-    fireEvent.mouseDown(component, { clientX: 250, clientY: 20 });
-    fireEvent.mouseMove(component, { clientX: 100, clientY: 20 });
-    fireEvent.mouseUp(component, { clientX: 100, clientY: 20 });
-    // mousedown + mousemove + mouseup,
+    fireEvent.mouseDown(component, { pageX: 1024, pageY: 256 });
+    fireEvent.mouseMove(component, { pageX: 1024, pageY: 0 });
+    fireEvent.mouseUp(component, { pageX: 1024, pageY: 0 });
     expect(handlePositionChange).toHaveBeenCalledTimes(3);
   });
 
-  it('Should only execute `onPositionChange` callback on handle interactions when using `onlyHandleDraggable`.', async () => {
+  it('Should execute `onPositionChange` callback on main container touch interactions.', () => {
+    const testId = 'testaroo';
+    const handlePositionChange = jest.fn();
+    const style = { width: 1024, height: 768 };
+
+    const { getByTestId } = render(
+      <ReactCompareSlider
+        data-testid={testId}
+        style={style}
+        itemOne={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        itemTwo={<img src="https://via.placeholder.com/1024x768" style={style} />}
+        portrait
+        onPositionChange={handlePositionChange}
+      />
+    );
+
+    const component = getByTestId(testId);
+    fireEvent.touchStart(component, { touches: [{ pageX: 1024, pageY: 256 }] });
+    // Trigger with same position multiple times to ensure duplicate positions only fire once.
+    fireEvent.touchMove(component, { touches: [{ pageX: 1024, pageY: 0 }] });
+    fireEvent.touchMove(component, { touches: [{ pageX: 1024, pageY: 0 }] });
+    fireEvent.touchMove(component, { touches: [{ pageX: 1024, pageY: 0 }] });
+    fireEvent.touchMove(component, { touches: [{ pageX: 1024, pageY: 256 }] });
+    fireEvent.touchEnd(component, { touches: [{ pageX: 1024, pageY: 0 }] });
+    expect(handlePositionChange).toHaveBeenCalledTimes(4);
+  });
+
+  it('Should only execute `onPositionChange` callback on handle interactions when using `onlyHandleDraggable`.', () => {
     const componentTestId = 'testaroo';
     const handleTestId = 'youcanthandlethis';
     const handlePositionChange = jest.fn();
@@ -117,17 +174,17 @@ describe('ReactCompareSlider', () => {
     );
 
     const component = getByTestId(componentTestId);
-    fireEvent.mouseDown(component, { clientX: 250, clientY: 20 });
-    fireEvent.mouseMove(component, { clientX: 100, clientY: 20 });
-    fireEvent.mouseUp(component, { clientX: 100, clientY: 20 });
+    fireEvent.mouseDown(component, { pageX: 250, pageY: 20 });
+    fireEvent.mouseMove(component, { pageX: 100, pageY: 20 });
+    fireEvent.mouseUp(component, { pageX: 100, pageY: 20 });
     // We expect the position to be called once on mount.
     expect(handlePositionChange).toHaveBeenCalledTimes(1);
 
     const handle = getByTestId(handleTestId);
-    fireEvent.mouseDown(handle, { clientX: 250, clientY: 20 });
-    fireEvent.mouseMove(handle, { clientX: 100, clientY: 20 });
-    fireEvent.mouseUp(handle, { clientX: 100, clientY: 20 });
-    // mousedown + mousemove + mouseup,
+    fireEvent.mouseDown(handle, { pageX: 250, pageY: 20 });
+    fireEvent.mouseMove(handle, { pageX: 100, pageY: 20 });
+    fireEvent.mouseUp(handle, { pageX: 100, pageY: 20 });
+    // mount + mousedown + mousemove.
     expect(handlePositionChange).toHaveBeenCalledTimes(3);
   });
 });
