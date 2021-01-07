@@ -87,16 +87,19 @@ export const useResizeObserver = (
   ref: RefObject<Element>,
   handler: (entry: UseResizeObserverHandlerParams) => void
 ): void => {
-  const observer = useRef(new ResizeObserver(([entry]) => handler(entry.contentRect)));
+  const observer = useRef<ResizeObserver>();
 
   const observe = useCallback(() => {
-    ref.current && observer.current.observe(ref.current);
+    if (ref.current && observer.current) observer.current.observe(ref.current);
   }, [ref]);
 
   // Bind/rebind observer when `handler` changes.
   useIsomorphicLayoutEffect(() => {
     observer.current = new ResizeObserver(([entry]) => handler(entry.contentRect));
     observe();
-    return (): void => observer.current.disconnect();
+
+    return (): void => {
+      if (observer.current) observer.current.disconnect();
+    };
   }, [handler, observe]);
 };

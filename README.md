@@ -39,8 +39,6 @@
 - Zero dependencies
 - Type safe
 
-<br />
-
 ## Demo
 
 - Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-intro--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos)
