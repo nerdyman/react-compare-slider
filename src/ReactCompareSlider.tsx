@@ -109,7 +109,8 @@ export const ReactCompareSlider: React.FC<
   style,
   ...props
 }): React.ReactElement => {
-  /** Reference to root container. */
+  const [didSyncBounds, setDidSyncBounds] = useState(false);
+  /** DOM node of the root element. */
   const rootContainerRef = useRef<HTMLDivElement>(null);
   /** Reference to clip container. */
   const clipContainerRef = useRef<HTMLDivElement>(null);
@@ -150,13 +151,14 @@ export const ReactCompareSlider: React.FC<
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       } = rootContainerRef.current!.getBoundingClientRect();
 
-      // Early out if width or height are zero, can't calculate values
-      // from zeros.
+      // Early out if width or height are zero, can't calculate values from zeros.
       if (width === 0 || height === 0) return;
 
-      // Clamp pixel position to always be within the container's bounds.
-      // This does *not* take `boundsPadding` into account because we need
-      // the real coords to correctly position the handle.
+      /**
+       * Clamped pixel position within the container's bounds.
+       * @NOTE This does *not* take `boundsPadding` into account because we need the real
+       *       coords to correctly position the handle.
+       */
       const positionPx = Math.min(
         Math.max(
           // Determine bounds based on orientation
@@ -174,31 +176,25 @@ export const ReactCompareSlider: React.FC<
         _portrait ? height : width
       );
 
-      /**
-       * Internal position percentage *without* bounds.
-       * @NOTE This uses the entire container bounds **without** `boundsPadding`
-       *       to get the *real* bounds.
-       */
-      const nextInternalPositionPc = (positionPx / (_portrait ? height : width)) * 100;
-
-      /** Determine if the current pixel position meets the min/max bounds. */
+      /** Whether the current pixel position meets the min/max container bounds. */
       const positionMeetsBounds = _portrait
         ? positionPx === 0 || positionPx === height
         : positionPx === 0 || positionPx === width;
 
       const canSkipPositionPc =
-        nextInternalPositionPc === internalPositionPc.current &&
-        (internalPositionPc.current === 0 || internalPositionPc.current === 100);
+        internalPositionPc.current === 0 || internalPositionPc.current === 100;
 
-      // Early out if pixel and percentage positions are already at the min/max
-      // to prevent update spamming when the user is sliding outside of the
-      // container.
-      if (canSkipPositionPc && positionMeetsBounds) {
+      // Early out if pixel and percentage positions are already at the min/max and the
+      // bounds have been synced after mounting to prevent update spamming when the user
+      // is sliding outside of the container.
+      if (didSyncBounds && canSkipPositionPc && positionMeetsBounds) {
         return;
       }
 
-      // Set new internal position.
-      internalPositionPc.current = nextInternalPositionPc;
+      if (!didSyncBounds) setDidSyncBounds(true);
+
+      // Set new internal position *without* bounds padding.
+      internalPositionPc.current = (positionPx / (_portrait ? height : width)) * 100;
 
       /** Pixel position clamped to extremities *with* bounds padding. */
       const clampedPx = Math.min(
@@ -220,7 +216,7 @@ export const ReactCompareSlider: React.FC<
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
-    [onPositionChange]
+    [didSyncBounds, onPositionChange]
   );
 
   // Update internal position when other user controllable props change.
