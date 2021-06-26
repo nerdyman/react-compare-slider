@@ -1,68 +1,10 @@
-import React, { forwardRef, useEffect, useCallback, useRef, useState } from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
+import { ThisClipContainer, ThisHandleContainer } from './ThisContainers';
 import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from './types';
 
-import {
-  useEventListener,
-  usePrevious,
-  UseResizeObserverHandlerParams,
-  useResizeObserver,
-} from './utils';
-
-/** Container for clipped item. */
-const ThisClipContainer = forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  (props, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      willChange: 'clip',
-      userSelect: 'none',
-      KhtmlUserSelect: 'none',
-      MozUserSelect: 'none',
-      WebkitUserSelect: 'none',
-    };
-
-    return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
-  }
-);
-
-ThisClipContainer.displayName = 'ThisClipContainer';
-
-/** Handle container to control position. */
-const ThisHandleContainer = forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
->(
-  ({ children, portrait }, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none',
-    };
-
-    const innerStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: portrait ? '100%' : undefined,
-      height: portrait ? undefined : '100%',
-      transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
-      pointerEvents: 'all',
-    };
-
-    return (
-      <div style={style} data-rcs="handle-container" ref={ref}>
-        <div style={innerStyle}>{children}</div>
-      </div>
-    );
-  }
-);
-
-ThisHandleContainer.displayName = 'ThisHandleContainer';
+import { useEventListener, usePrevious } from './utils';
 
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
@@ -112,18 +54,16 @@ export const ReactCompareSlider: React.FC<
   const [didSyncBounds, setDidSyncBounds] = useState(false);
   /** DOM node of the root element. */
   const rootContainerRef = useRef<HTMLDivElement>(null);
-  /** Reference to clip container. */
+  /** DOM node of the container which clips the item. */
   const clipContainerRef = useRef<HTMLDivElement>(null);
-  /** Reference to handle container. */
+  /** DOM node of the handle container. */
   const handleContainerRef = useRef<HTMLDivElement>(null);
-  /** Reference to current position as a percentage value. */
+  /** The current position as a percentage value. */
   const internalPositionPc = useRef(position);
   /** Previous `position` prop value. */
   const prevPropPosition = usePrevious(position);
   /** Whether user is currently dragging. */
   const [isDragging, setIsDragging] = useState(false);
-  /** Whether component has a `window` event binding. */
-  const hasWindowBinding = useRef(false);
   /** Target container for pointer events. */
   const [interactiveTarget, setInteractiveTarget] = useState<HTMLDivElement | null>();
 
@@ -140,8 +80,8 @@ export const ReactCompareSlider: React.FC<
       x,
       y,
       isOffset,
-      portrait: _portrait,
-      boundsPadding: _boundsPadding,
+      portrait: thisPortrait,
+      boundsPadding: thisBoundsPadding,
     }: UpdateInternalPositionProps) {
       const {
         top,
@@ -162,7 +102,7 @@ export const ReactCompareSlider: React.FC<
       const positionPx = Math.min(
         Math.max(
           // Determine bounds based on orientation
-          _portrait
+          thisPortrait
             ? isOffset
               ? y - top - window.pageYOffset
               : y
@@ -173,11 +113,11 @@ export const ReactCompareSlider: React.FC<
           0
         ),
         // Max value
-        _portrait ? height : width
+        thisPortrait ? height : width
       );
 
       /** Whether the current pixel position meets the min/max container bounds. */
-      const positionMeetsBounds = _portrait
+      const positionMeetsBounds = thisPortrait
         ? positionPx === 0 || positionPx === height
         : positionPx === 0 || positionPx === width;
 
@@ -193,33 +133,38 @@ export const ReactCompareSlider: React.FC<
 
       if (!didSyncBounds) setDidSyncBounds(true);
 
-      // Set new internal position *without* bounds padding.
-      internalPositionPc.current = (positionPx / (_portrait ? height : width)) * 100;
-
       /** Pixel position clamped to extremities *with* bounds padding. */
-      const clampedPx = Math.min(
-        // Get largest from pixel position *or* bounds padding.
-        Math.max(positionPx, 0 + _boundsPadding),
-        // Use height *or* width based on orientation.
-        (_portrait ? height : width) - _boundsPadding
-      );
+      const clampedPosition =
+        (Math.min(
+          // Get largest from pixel position *or* bounds padding.
+          Math.max(positionPx, 0 + thisBoundsPadding),
+          // Use height *or* width based on orientation.
+          (thisPortrait ? height : width) - thisBoundsPadding
+        ) /
+          (thisPortrait ? height : width)) *
+          100 +
+        '%';
+
+      // Set new internal position *without* bounds padding to provide accurate value in
+      // callback.
+      internalPositionPc.current = (positionPx / (thisPortrait ? height : width)) * 100;
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      clipContainerRef.current!.style.clip = _portrait
-        ? `rect(auto,auto,${clampedPx}px,auto)`
-        : `rect(auto,${clampedPx}px,auto,auto)`;
+      clipContainerRef.current!.style.clipPath = thisPortrait
+        ? `polygon(0 0, 100% 0, 100% ${clampedPosition}, 0 ${clampedPosition})`
+        : `polygon(0 0, ${clampedPosition} 0, ${clampedPosition} 100%, 0% 100%)`;
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      handleContainerRef.current!.style.transform = _portrait
-        ? `translate3d(0,${clampedPx}px,0)`
-        : `translate3d(${clampedPx}px,0,0)`;
+      handleContainerRef.current!.style.transform = thisPortrait
+        ? `translate3d(0,${clampedPosition},0)`
+        : `translate3d(${clampedPosition},0,0)`;
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
     [didSyncBounds, onPositionChange]
   );
 
-  // Update internal position when other user controllable props change.
+  // Update internal position when other user-controllable props change.
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { width, height } = rootContainerRef.current!.getBoundingClientRect();
@@ -238,15 +183,17 @@ export const ReactCompareSlider: React.FC<
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
-    (ev: MouseEvent | TouchEvent) => {
+    (ev: PointerEvent) => {
       ev.preventDefault();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      handleContainerRef.current!.setPointerCapture(ev.pointerId);
 
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev.pageX,
+        y: ev.pageY,
       });
 
       setIsDragging(true);
@@ -257,6 +204,8 @@ export const ReactCompareSlider: React.FC<
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
     function moveCall(ev: MouseEvent | TouchEvent) {
+      if (!isDragging) return;
+
       updateInternalPosition({
         portrait,
         boundsPadding,
@@ -265,53 +214,18 @@ export const ReactCompareSlider: React.FC<
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [boundsPadding, isDragging, portrait, updateInternalPosition]
   );
 
   /** Handle mouse/touch up. */
-  const handlePointerUp = useCallback(() => {
+  const handlePointerUp = useCallback((ev: PointerEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    handleContainerRef.current!.setPointerCapture(ev.pointerId);
     setIsDragging(false);
   }, []);
 
-  /** Resync internal position on resize. */
-  const handleResize = useCallback(
-    ({ width, height }: UseResizeObserverHandlerParams) => {
-      updateInternalPosition({
-        portrait,
-        boundsPadding,
-        x: (width / 100) * internalPositionPc.current,
-        y: (height / 100) * internalPositionPc.current,
-      });
-    },
-    [portrait, boundsPadding, updateInternalPosition]
-  );
-
-  // Allow drag outside of container while pointer is still down.
-  useEffect(() => {
-    if (isDragging && !hasWindowBinding.current) {
-      window.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('mouseup', handlePointerUp, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('touchmove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('touchend', handlePointerUp, EVENT_PASSIVE_PARAMS);
-      hasWindowBinding.current = true;
-    }
-
-    return (): void => {
-      if (hasWindowBinding.current) {
-        window.removeEventListener('mousemove', handlePointerMove);
-        window.removeEventListener('mouseup', handlePointerUp);
-        window.removeEventListener('touchmove', handlePointerMove);
-        window.removeEventListener('touchend', handlePointerUp);
-        hasWindowBinding.current = false;
-      }
-    };
-  }, [handlePointerMove, handlePointerUp, isDragging]);
-
-  // Bind resize observer to container.
-  useResizeObserver(rootContainerRef, handleResize);
-
   useEventListener(
-    'mousedown',
+    'pointerdown',
     handlePointerDown,
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     interactiveTarget!,
@@ -319,11 +233,19 @@ export const ReactCompareSlider: React.FC<
   );
 
   useEventListener(
-    'touchstart',
-    handlePointerDown,
+    'pointermove',
+    handlePointerMove,
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     interactiveTarget!,
-    EVENT_CAPTURE_PARAMS
+    EVENT_PASSIVE_PARAMS
+  );
+
+  useEventListener(
+    'pointerup',
+    handlePointerUp,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    interactiveTarget!,
+    EVENT_PASSIVE_PARAMS
   );
 
   // Use custom handle if requested.
