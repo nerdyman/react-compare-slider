@@ -73,6 +73,7 @@ export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> =
     borderWidth: 2,
     pointerEvents: 'auto',
     backdropFilter: 'blur(7px)',
+    WebkitBackdropFilter: 'blur(7px)', // For Safari.
     boxShadow: '0 0 7px rgba(0,0,0,.35)',
     transform: portrait ? 'rotate(90deg)' : undefined,
     ...buttonStyle,

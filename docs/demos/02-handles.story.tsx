@@ -46,6 +46,7 @@ export const IndividualStyles = ({ portrait, ...props }) => (
         portrait={portrait}
         buttonStyle={{
           backdropFilter: undefined,
+          WebkitBackdropFilter: undefined,
           backgroundColor: 'white',
           color: '#444',
           boxShadow: undefined,
@@ -107,7 +108,12 @@ export const HideLines = ({ portrait, ...props }) => (
     handle={
       <ReactCompareSliderHandle
         portrait={portrait}
-        buttonStyle={{ border: 0, backdropFilter: 'none', boxShadow: 'none' }}
+        buttonStyle={{
+          border: 0,
+          backdropFilter: 'none',
+          WebkitBackdropFilter: 'none',
+          boxShadow: 'none',
+        }}
         linesStyle={{ opacity: 0 }}
       />
     }

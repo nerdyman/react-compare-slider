@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/npm/v/react-compare-slider.svg" alt="NPM package" />
 </a>
 <a href="https://bundlephobia.com/result?p=react-compare-slider">
-  <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg" alt="Bundle size" />
+  <img src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" alt="Bundle size" />
 </a>
 <br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
