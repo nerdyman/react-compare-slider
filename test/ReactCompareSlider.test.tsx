@@ -124,7 +124,7 @@ describe('ReactCompareSlider', () => {
     fireEvent.mouseDown(component, { pageX: 1024, pageY: 256 });
     fireEvent.mouseMove(component, { pageX: 1024, pageY: 0 });
     fireEvent.mouseUp(component, { pageX: 1024, pageY: 0 });
-    expect(handlePositionChange).toHaveBeenCalledTimes(3);
+    expect(handlePositionChange).toHaveBeenCalledTimes(4);
   });
 
   it('Should execute `onPositionChange` callback on main container touch interactions.', () => {
@@ -151,7 +151,7 @@ describe('ReactCompareSlider', () => {
     fireEvent.touchMove(component, { touches: [{ pageX: 1024, pageY: 0 }] });
     fireEvent.touchMove(component, { touches: [{ pageX: 1024, pageY: 256 }] });
     fireEvent.touchEnd(component, { touches: [{ pageX: 1024, pageY: 0 }] });
-    expect(handlePositionChange).toHaveBeenCalledTimes(4);
+    expect(handlePositionChange).toHaveBeenCalledTimes(5);
   });
 
   it('Should only execute `onPositionChange` callback on handle interactions when using `onlyHandleDraggable`.', () => {
@@ -177,14 +177,14 @@ describe('ReactCompareSlider', () => {
     fireEvent.mouseDown(component, { pageX: 250, pageY: 20 });
     fireEvent.mouseMove(component, { pageX: 100, pageY: 20 });
     fireEvent.mouseUp(component, { pageX: 100, pageY: 20 });
-    // We expect the position to be called once on mount.
-    expect(handlePositionChange).toHaveBeenCalledTimes(1);
+    // We expect the position to be called twice on mount.
+    expect(handlePositionChange).toHaveBeenCalledTimes(2);
 
     const handle = getByTestId(handleTestId);
     fireEvent.mouseDown(handle, { pageX: 250, pageY: 20 });
     fireEvent.mouseMove(handle, { pageX: 100, pageY: 20 });
     fireEvent.mouseUp(handle, { pageX: 100, pageY: 20 });
     // mount + mousedown + mousemove.
-    expect(handlePositionChange).toHaveBeenCalledTimes(3);
+    expect(handlePositionChange).toHaveBeenCalledTimes(4);
   });
 });
