@@ -106,7 +106,7 @@ See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-
 ## Requirements
 
 - React 16.8+
-- The latest two versions of each major browser are officially supported ([see browserslist definition](./package.json#L49)) &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you need to support IE11
+- The [latest two versions of each major browser](./package.json#L49) are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you need to support IE11
 
 ## Notes
 
