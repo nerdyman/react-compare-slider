@@ -168,3 +168,30 @@ export const Position = ({ position = 75, ...props }) => (
 );
 
 Position.args = { boundsPadding: 0, position: 25 };
+
+export const HandlePositionOnHover = ({ handlePositionOnHover = true, ...props }) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        handlePositionOnHover={handlePositionOnHover}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1563272633-16ff57209209?auto=format&fit=crop&w=1280&q=80"
+            alt="Image one"
+            style={{ filter: 'sepia(1)' }}
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1563272633-16ff57209209?auto=format&fit=crop&w=1280&q=80"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+HandlePositionOnHover.args = { boundsPadding: 0, handlePositionOnHover: true };
