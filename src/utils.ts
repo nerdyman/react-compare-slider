@@ -103,3 +103,9 @@ export const useResizeObserver = (
     };
   }, [handler, observe]);
 };
+
+export const isTouchEvent = (ev: unknown): ev is React.TouchEvent | TouchEvent =>
+  ev instanceof TouchEvent;
+
+export const isMouseEvent = (ev: unknown): ev is React.MouseEvent | MouseEvent =>
+  ev instanceof MouseEvent;

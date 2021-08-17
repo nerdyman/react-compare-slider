@@ -8,6 +8,7 @@ import {
   usePrevious,
   UseResizeObserverHandlerParams,
   useResizeObserver,
+  isTouchEvent,
 } from './utils';
 
 /** Container for clipped item. */
@@ -78,6 +79,8 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   onlyHandleDraggable?: boolean;
   /** Callback on position change with position as percentage. */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
+  /** If true it handles image position on hover */
+  handlePositionOnHover?: boolean;
 }
 
 /** Properties for internal `updateInternalPosition` callback. */
@@ -106,6 +109,7 @@ export const ReactCompareSlider: React.FC<
   portrait = false,
   position = 50,
   boundsPadding = 0,
+  handlePositionOnHover = false,
   style,
   ...props
 }): React.ReactElement => {
@@ -248,15 +252,15 @@ export const ReactCompareSlider: React.FC<
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
-    (ev: MouseEvent | TouchEvent) => {
+    (ev: React.MouseEvent | MouseEvent | React.TouchEvent | TouchEvent) => {
       ev.preventDefault();
 
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: isTouchEvent(ev) ? ev.touches[0].pageX : ev.pageX,
+        y: isTouchEvent(ev) ? ev.touches[0].pageY : ev.pageY,
       });
 
       setIsDragging(true);
@@ -266,13 +270,13 @@ export const ReactCompareSlider: React.FC<
 
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
-    function moveCall(ev: MouseEvent | TouchEvent) {
+    function moveCall(ev: React.MouseEvent | MouseEvent | React.TouchEvent | TouchEvent) {
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: isTouchEvent(ev) ? ev.touches[0].pageX : ev.pageX,
+        y: isTouchEvent(ev) ? ev.touches[0].pageY : ev.pageY,
       });
     },
     [portrait, boundsPadding, updateInternalPosition]
@@ -352,7 +356,14 @@ export const ReactCompareSlider: React.FC<
   };
 
   return (
-    <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
+    <div
+      {...props}
+      ref={rootContainerRef}
+      style={rootStyle}
+      data-rcs="root"
+      onMouseLeave={handlePointerUp}
+      onMouseEnter={handlePositionOnHover ? handlePointerDown : () => null}
+    >
       {itemTwo}
       <ThisClipContainer ref={clipContainerRef}>{itemOne}</ThisClipContainer>
       <ThisHandleContainer portrait={portrait} ref={handleContainerRef}>
