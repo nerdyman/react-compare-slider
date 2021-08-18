@@ -188,8 +188,8 @@ describe('ReactCompareSlider', () => {
     expect(handlePositionChange).toHaveBeenCalledTimes(4);
   });
 
-  describe('handlePositionOnHover prop', () => {
-    it('Should execute `onPositionChange` callback on mouse enter if `handlePositionOnHover` is truthy', () => {
+  describe('changePositionOnHover prop', () => {
+    it('Should execute `onPositionChange` callback on mouse enter if `changePositionOnHover` is truthy', () => {
       const componentTestId = 'testaroo';
       const handleTestId = 'youcanthandlethis';
       const handlePositionChange = jest.fn();
@@ -205,7 +205,7 @@ describe('ReactCompareSlider', () => {
           handle={<Handle />}
           onlyHandleDraggable
           onPositionChange={handlePositionChange}
-          handlePositionOnHover
+          changePositionOnHover
         />
       );
 
@@ -214,7 +214,7 @@ describe('ReactCompareSlider', () => {
       // We expect the position to be called twice on mount.
       expect(handlePositionChange).toHaveBeenCalledTimes(3);
     });
-    it('Should not execute `onPositionChange` callback on mouse enter if `handlePositionOnHover` is not truthy', () => {
+    it('Should not execute `onPositionChange` callback on mouse enter if `changePositionOnHover` is not truthy', () => {
       const componentTestId = 'testaroo';
       const handleTestId = 'youcanthandlethis';
       const handlePositionChange = jest.fn();
@@ -230,7 +230,7 @@ describe('ReactCompareSlider', () => {
           handle={<Handle />}
           onlyHandleDraggable
           onPositionChange={handlePositionChange}
-          handlePositionOnHover={false}
+          changePositionOnHover={false}
         />
       );
       const component = getByTestId(componentTestId);

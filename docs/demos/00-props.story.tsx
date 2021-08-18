@@ -169,12 +169,12 @@ export const Position = ({ position = 75, ...props }) => (
 
 Position.args = { boundsPadding: 0, position: 25 };
 
-export const HandlePositionOnHover = ({ handlePositionOnHover = true, ...props }) => {
+export const ChangePositionOnHover = ({ changePositionOnHover = true, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
         {...props}
-        handlePositionOnHover={handlePositionOnHover}
+        changePositionOnHover={changePositionOnHover}
         itemOne={
           <ReactCompareSliderImage
             src="https://images.unsplash.com/photo-1563272633-16ff57209209?auto=format&fit=crop&w=1280&q=80"
@@ -194,4 +194,4 @@ export const HandlePositionOnHover = ({ handlePositionOnHover = true, ...props }
   );
 };
 
-HandlePositionOnHover.args = { boundsPadding: 0, handlePositionOnHover: true };
+ChangePositionOnHover.args = { boundsPadding: 0, changePositionOnHover: true };

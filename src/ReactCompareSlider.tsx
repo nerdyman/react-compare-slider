@@ -80,7 +80,7 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   /** Callback on position change with position as percentage. */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
   /** If true it handles image position on hover */
-  handlePositionOnHover?: boolean;
+  changePositionOnHover?: boolean;
 }
 
 /** Properties for internal `updateInternalPosition` callback. */
@@ -109,7 +109,7 @@ export const ReactCompareSlider: React.FC<
   portrait = false,
   position = 50,
   boundsPadding = 0,
-  handlePositionOnHover = false,
+  changePositionOnHover = false,
   style,
   ...props
 }): React.ReactElement => {
@@ -362,7 +362,7 @@ export const ReactCompareSlider: React.FC<
       style={rootStyle}
       data-rcs="root"
       onMouseLeave={handlePointerUp}
-      onMouseEnter={handlePositionOnHover ? handlePointerDown : () => null}
+      onMouseEnter={changePositionOnHover ? handlePointerDown : () => null}
     >
       {itemTwo}
       <ThisClipContainer ref={clipContainerRef}>{itemOne}</ThisClipContainer>
