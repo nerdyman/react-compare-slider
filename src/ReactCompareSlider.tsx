@@ -8,7 +8,6 @@ import {
   usePrevious,
   UseResizeObserverHandlerParams,
   useResizeObserver,
-  isTouchEvent,
 } from './utils';
 
 /** Container for clipped item. */
@@ -252,15 +251,15 @@ export const ReactCompareSlider: React.FC<
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
-    (ev: React.MouseEvent | MouseEvent | React.TouchEvent | TouchEvent) => {
+    (ev: MouseEvent | TouchEvent) => {
       ev.preventDefault();
 
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: isTouchEvent(ev) ? ev.touches[0].pageX : ev.pageX,
-        y: isTouchEvent(ev) ? ev.touches[0].pageY : ev.pageY,
+        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
+        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
 
       setIsDragging(true);
@@ -270,13 +269,13 @@ export const ReactCompareSlider: React.FC<
 
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
-    function moveCall(ev: React.MouseEvent | MouseEvent | React.TouchEvent | TouchEvent) {
+    function moveCall(ev: MouseEvent | TouchEvent) {
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: isTouchEvent(ev) ? ev.touches[0].pageX : ev.pageX,
-        y: isTouchEvent(ev) ? ev.touches[0].pageY : ev.pageY,
+        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
+        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
     },
     [portrait, boundsPadding, updateInternalPosition]
@@ -324,6 +323,26 @@ export const ReactCompareSlider: React.FC<
   // Bind resize observer to container.
   useResizeObserver(rootContainerRef, handleResize);
 
+  // Handle hover events on the container.
+  useEffect(() => {
+    const containerRef = rootContainerRef.current!;
+
+    const handleMouseLeave = () => {
+      if (isDragging) return;
+      handlePointerUp();
+    };
+
+    if (changePositionOnHover) {
+      containerRef.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      containerRef.addEventListener('mouseleave', handleMouseLeave, EVENT_PASSIVE_PARAMS);
+    }
+
+    return () => {
+      containerRef.removeEventListener('mousemove', handlePointerMove);
+      containerRef.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
+
   useEventListener(
     'mousedown',
     handlePointerDown,
@@ -356,14 +375,7 @@ export const ReactCompareSlider: React.FC<
   };
 
   return (
-    <div
-      {...props}
-      ref={rootContainerRef}
-      style={rootStyle}
-      data-rcs="root"
-      onMouseLeave={handlePointerUp}
-      onMouseEnter={changePositionOnHover ? handlePointerDown : () => null}
-    >
+    <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
       {itemTwo}
       <ThisClipContainer ref={clipContainerRef}>{itemOne}</ThisClipContainer>
       <ThisHandleContainer portrait={portrait} ref={handleContainerRef}>
