@@ -78,6 +78,8 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   onlyHandleDraggable?: boolean;
   /** Callback on position change with position as percentage. */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
+  /** If true it handles image position on hover */
+  changePositionOnHover?: boolean;
 }
 
 /** Properties for internal `updateInternalPosition` callback. */
@@ -106,6 +108,7 @@ export const ReactCompareSlider: React.FC<
   portrait = false,
   position = 50,
   boundsPadding = 0,
+  changePositionOnHover = false,
   style,
   ...props
 }): React.ReactElement => {
@@ -319,6 +322,26 @@ export const ReactCompareSlider: React.FC<
 
   // Bind resize observer to container.
   useResizeObserver(rootContainerRef, handleResize);
+
+  // Handle hover events on the container.
+  useEffect(() => {
+    const containerRef = rootContainerRef.current!;
+
+    const handleMouseLeave = () => {
+      if (isDragging) return;
+      handlePointerUp();
+    };
+
+    if (changePositionOnHover) {
+      containerRef.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      containerRef.addEventListener('mouseleave', handleMouseLeave, EVENT_PASSIVE_PARAMS);
+    }
+
+    return () => {
+      containerRef.removeEventListener('mousemove', handlePointerMove);
+      containerRef.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
 
   useEventListener(
     'mousedown',

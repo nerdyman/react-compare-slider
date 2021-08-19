@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../.';
+import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../src';
 
 import { DemoSection } from './demo-blocks';
 
