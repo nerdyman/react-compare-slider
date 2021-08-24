@@ -76,6 +76,7 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | Prop | Type | Required | Default value | Description |
 |------|------|:--------:|---------------|-------------|
 | [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/docs-bounds-padding--page) | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
+| [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/docs-change-position-on-hover--page) | `boolean` |   | `false` | Whether the slider should follow the pointer on hover. |
 | [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page) | `ReactNode` |   | `undefined` | Custom handle component. |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
@@ -106,7 +107,7 @@ See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-
 ## Requirements
 
 - React 16.8+
-- The [latest two versions of each major browser](./package.json#L49) are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you need to support IE11
+- The [latest two versions of each major browser](./package.json#L49) are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you require legacy Edge support
 
 ## Notes
 

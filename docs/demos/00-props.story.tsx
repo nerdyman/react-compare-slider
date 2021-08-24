@@ -177,14 +177,14 @@ export const ChangePositionOnHover = ({ changePositionOnHover = true, ...props }
         changePositionOnHover={changePositionOnHover}
         itemOne={
           <ReactCompareSliderImage
-            src="https://images.unsplash.com/photo-1563272633-16ff57209209?auto=format&fit=crop&w=1280&q=80"
+            src="https://images.unsplash.com/photo-1582545066898-e9aca56e4ae7?auto=format&fit=crop&w=1280&q=80"
             alt="Image one"
-            style={{ filter: 'sepia(1)' }}
+            style={{ filter: 'contrast(200%) grayscale(1)' }}
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://images.unsplash.com/photo-1563272633-16ff57209209?auto=format&fit=crop&w=1280&q=80"
+            src="https://images.unsplash.com/photo-1582545066898-e9aca56e4ae7?auto=format&fit=crop&w=1280&q=80"
             alt="Image two"
           />
         }

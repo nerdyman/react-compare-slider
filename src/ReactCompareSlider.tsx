@@ -68,6 +68,8 @@ ThisHandleContainer.displayName = 'ThisHandleContainer';
 export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
   /** Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). */
   boundsPadding?: number;
+  /** Whether the slider should follow the pointer on hover. */
+  changePositionOnHover?: boolean;
   /** Custom handle component. */
   handle?: React.ReactNode;
   /** First item to show. */
@@ -78,8 +80,6 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   onlyHandleDraggable?: boolean;
   /** Callback on position change with position as percentage. */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
-  /** If true it handles image position on hover */
-  changePositionOnHover?: boolean;
 }
 
 /** Properties for internal `updateInternalPosition` callback. */
