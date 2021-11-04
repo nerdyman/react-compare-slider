@@ -86,7 +86,7 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps
-  extends Required<Pick<ReactCompareSliderProps, 'boundsPadding' | 'portrait'>> {
+  extends Required<Pick<ReactCompareSliderProps, 'boundsPadding' | 'portrait' | 'zoomScale'>> {
   /** X coordinate to update to (landscape). */
   x: number;
   /** Y coordinate to update to (portrait). */
@@ -149,6 +149,7 @@ export const ReactCompareSlider: React.FC<
       isOffset,
       portrait: _portrait,
       boundsPadding: _boundsPadding,
+      zoomScale: _zoomScale
     }: UpdateInternalPositionProps) {
       const {
         top,
@@ -184,17 +185,22 @@ export const ReactCompareSlider: React.FC<
         _portrait ? height : width
       );
 
+      /** Adjust for the zoomScale. */
+      const adjustedPos = positionPx / _zoomScale;
+      const adjustedWidth = width / _zoomScale;
+      const adjustedHeight = height / _zoomScale;
+
       /**
        * Internal position percentage *without* bounds.
        * @NOTE This uses the entire container bounds **without** `boundsPadding`
        *       to get the *real* bounds.
        */
-      const nextInternalPositionPc = (positionPx / (_portrait ? height : width)) * 100;
+      const nextInternalPositionPc = (adjustedPos / (_portrait ? adjustedHeight : adjustedWidth)) * 100;
 
       /** Whether the current pixel position meets the min/max bounds. */
       const positionMeetsBounds = _portrait
-        ? positionPx === 0 || positionPx === height
-        : positionPx === 0 || positionPx === width;
+        ? adjustedPos === 0 || adjustedPos === adjustedHeight
+        : adjustedPos === 0 || adjustedPos === adjustedWidth;
 
       const canSkipPositionPc =
         nextInternalPositionPc === internalPositionPc.current &&
@@ -215,9 +221,9 @@ export const ReactCompareSlider: React.FC<
       /** Pixel position clamped to extremities *with* bounds padding. */
       const clampedPx = Math.min(
         // Get largest from pixel position *or* bounds padding.
-        Math.max(positionPx, 0 + _boundsPadding),
+        Math.max(adjustedPos, 0 + _boundsPadding),
         // Use height *or* width based on orientation.
-        (_portrait ? height : width) - _boundsPadding
+        (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding
       );
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -247,10 +253,11 @@ export const ReactCompareSlider: React.FC<
     updateInternalPosition({
       portrait,
       boundsPadding,
+      zoomScale,
       x: (width / 100) * nextPosition,
       y: (height / 100) * nextPosition,
     });
-  }, [portrait, position, prevPropPosition, boundsPadding, updateInternalPosition]);
+  }, [portrait, position, prevPropPosition, boundsPadding, updateInternalPosition, zoomScale]);
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
@@ -260,9 +267,10 @@ export const ReactCompareSlider: React.FC<
       updateInternalPosition({
         portrait,
         boundsPadding,
+        zoomScale,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX / zoomScale : ev.touches[0].pageX / zoomScale,
-        y: ev instanceof MouseEvent ? ev.pageY / zoomScale : ev.touches[0].pageY / zoomScale,
+        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
+        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
 
       setIsDragging(true);
@@ -276,9 +284,10 @@ export const ReactCompareSlider: React.FC<
       updateInternalPosition({
         portrait,
         boundsPadding,
+        zoomScale,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX / zoomScale : ev.touches[0].pageX / zoomScale,
-        y: ev instanceof MouseEvent ? ev.pageY / zoomScale : ev.touches[0].pageY / zoomScale,
+        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
+        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
     },
     [portrait, boundsPadding, updateInternalPosition, zoomScale]
@@ -295,11 +304,12 @@ export const ReactCompareSlider: React.FC<
       updateInternalPosition({
         portrait,
         boundsPadding,
+        zoomScale,
         x: (width / 100) * internalPositionPc.current,
         y: (height / 100) * internalPositionPc.current,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition, zoomScale]
   );
 
   // Allow drag outside of container while pointer is still down.
