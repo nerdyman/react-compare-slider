@@ -70,6 +70,8 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   boundsPadding?: number;
   /** Whether the slider should follow the pointer on hover. */
   changePositionOnHover?: boolean;
+  /** Corrects the handle position if the image is zoomed/scaled. */
+  zoomScale?: number;
   /** Custom handle component. */
   handle?: React.ReactNode;
   /** First item to show. */
@@ -109,6 +111,7 @@ export const ReactCompareSlider: React.FC<
   position = 50,
   boundsPadding = 0,
   changePositionOnHover = false,
+  zoomScale = 1,
   style,
   ...props
 }): React.ReactElement => {
@@ -258,13 +261,13 @@ export const ReactCompareSlider: React.FC<
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev instanceof MouseEvent ? ev.pageX / zoomScale : ev.touches[0].pageX / zoomScale,
+        y: ev instanceof MouseEvent ? ev.pageY / zoomScale : ev.touches[0].pageY / zoomScale,
       });
 
       setIsDragging(true);
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition, zoomScale]
   );
 
   /** Handle mouse/touch move. */
@@ -274,11 +277,11 @@ export const ReactCompareSlider: React.FC<
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev instanceof MouseEvent ? ev.pageX / zoomScale : ev.touches[0].pageX / zoomScale,
+        y: ev instanceof MouseEvent ? ev.pageY / zoomScale : ev.touches[0].pageY / zoomScale,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition, zoomScale]
   );
 
   /** Handle mouse/touch up. */
