@@ -297,13 +297,18 @@ export const ReactCompareSlider: React.FC<
   }, []);
 
   /** Resync internal position on resize. */
-  const handleResize = useCallback(
-    ({ width, height }: UseResizeObserverHandlerParams) => {
+  const handleResize = useCallback<(arg0: UseResizeObserverHandlerParams) => void>(
+    ({ width, height }) => {
+      const {
+        width: scaledWidth,
+        height: scaledHeight,
+      } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
+
       updateInternalPosition({
         portrait,
         boundsPadding,
-        x: (width / 100) * internalPositionPc.current,
-        y: (height / 100) * internalPositionPc.current,
+        x: ((width / 100) * internalPositionPc.current * scaledWidth) / width,
+        y: ((height / 100) * internalPositionPc.current * scaledHeight) / height,
       });
     },
     [portrait, boundsPadding, updateInternalPosition]
