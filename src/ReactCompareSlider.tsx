@@ -181,17 +181,27 @@ export const ReactCompareSlider: React.FC<
         _portrait ? height : width
       );
 
+      /** Adjust for the zoomScale. */
+      let zoomScale = _portrait
+        ? height / rootContainerRef.current!.offsetHeight
+        : width / rootContainerRef.current!.offsetWidth;
+      if (!Number.isFinite(zoomScale)) zoomScale = 1;
+      const adjustedPos = positionPx / zoomScale;
+      const adjustedWidth = width / zoomScale;
+      const adjustedHeight = height / zoomScale;
+
       /**
        * Internal position percentage *without* bounds.
        * @NOTE This uses the entire container bounds **without** `boundsPadding`
        *       to get the *real* bounds.
        */
-      const nextInternalPositionPc = (positionPx / (_portrait ? height : width)) * 100;
+      const nextInternalPositionPc =
+        (adjustedPos / (_portrait ? adjustedHeight : adjustedWidth)) * 100;
 
       /** Whether the current pixel position meets the min/max bounds. */
       const positionMeetsBounds = _portrait
-        ? positionPx === 0 || positionPx === height
-        : positionPx === 0 || positionPx === width;
+        ? adjustedPos === 0 || adjustedPos === adjustedHeight
+        : adjustedPos === 0 || adjustedPos === adjustedWidth;
 
       const canSkipPositionPc =
         nextInternalPositionPc === internalPositionPc.current &&
@@ -212,9 +222,9 @@ export const ReactCompareSlider: React.FC<
       /** Pixel position clamped to extremities *with* bounds padding. */
       const clampedPx = Math.min(
         // Get largest from pixel position *or* bounds padding.
-        Math.max(positionPx, 0 + _boundsPadding),
+        Math.max(adjustedPos, 0 + _boundsPadding),
         // Use height *or* width based on orientation.
-        (_portrait ? height : width) - _boundsPadding
+        (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding
       );
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -287,13 +297,18 @@ export const ReactCompareSlider: React.FC<
   }, []);
 
   /** Resync internal position on resize. */
-  const handleResize = useCallback(
-    ({ width, height }: UseResizeObserverHandlerParams) => {
+  const handleResize = useCallback<(arg0: UseResizeObserverHandlerParams) => void>(
+    ({ width, height }) => {
+      const {
+        width: scaledWidth,
+        height: scaledHeight,
+      } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
+
       updateInternalPosition({
         portrait,
         boundsPadding,
-        x: (width / 100) * internalPositionPc.current,
-        y: (height / 100) * internalPositionPc.current,
+        x: ((width / 100) * internalPositionPc.current * scaledWidth) / width,
+        y: ((height / 100) * internalPositionPc.current * scaledHeight) / height,
       });
     },
     [portrait, boundsPadding, updateInternalPosition]
