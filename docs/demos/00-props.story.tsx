@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react';
+import { Story } from '@storybook/react';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
@@ -11,7 +12,7 @@ export default {
   argTypes: config.argTypes,
 };
 
-export const Images = (props) => (
+export const Images: Story = (props) => (
   <ReactCompareSlider
     {...props}
     itemOne={
@@ -33,7 +34,7 @@ export const Images = (props) => (
 
 Images.args = { boundsPadding: 0 };
 
-export const BoundsPadding = ({ boundsPadding = 80, ...props }) => {
+export const BoundsPadding: Story = ({ boundsPadding = 80, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -59,7 +60,7 @@ export const BoundsPadding = ({ boundsPadding = 80, ...props }) => {
 
 BoundsPadding.args = { boundsPadding: 80 };
 
-export const OnPositionChange = (props) => {
+export const OnPositionChange: Story = (props) => {
   const onPositionChange = React.useCallback((position) => {
     console.log('[OnPositionChange.onPositionChange]', position);
   }, []);
@@ -95,7 +96,7 @@ export const OnPositionChange = (props) => {
 
 OnPositionChange.args = { boundsPadding: 0 };
 
-export const OnlyHandleDraggable = ({ onlyHandleDraggable = true, ...props }) => {
+export const OnlyHandleDraggable: Story = ({ onlyHandleDraggable = true, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -122,7 +123,7 @@ export const OnlyHandleDraggable = ({ onlyHandleDraggable = true, ...props }) =>
 
 OnlyHandleDraggable.args = { boundsPadding: 0, onlyHandleDraggable: true };
 
-export const Portrait = ({ portrait = true, ...props }) => (
+export const Portrait: Story = ({ portrait = true, ...props }) => (
   <ReactCompareSlider
     portrait={portrait}
     itemOne={
@@ -145,7 +146,7 @@ export const Portrait = ({ portrait = true, ...props }) => (
 
 Portrait.args = { boundsPadding: 0, portrait: true };
 
-export const Position = ({ position = 75, ...props }) => (
+export const Position: Story = ({ position = 75, ...props }) => (
   <ReactCompareSlider
     position={position}
     itemOne={
@@ -169,7 +170,10 @@ export const Position = ({ position = 75, ...props }) => (
 
 Position.args = { boundsPadding: 0, position: 25 };
 
-export const ChangePositionOnHover = ({ changePositionOnHover = true, ...props }) => {
+export const ChangePositionOnHover: Story = ({
+  changePositionOnHover = true,
+  ...props
+}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -195,3 +199,29 @@ export const ChangePositionOnHover = ({ changePositionOnHover = true, ...props }
 };
 
 ChangePositionOnHover.args = { boundsPadding: 0, changePositionOnHover: true };
+
+export const Scaled: Story = ({ style, ...props }) => (
+  <ReactCompareSlider
+    {...props}
+    itemOne={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        style={{ filter: 'grayscale(1)' }}
+        alt="one"
+      />
+    }
+    itemTwo={
+      <ReactCompareSliderImage
+        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        alt="two"
+      />
+    }
+    style={{ width: '100%', height: '100vh', ...style }}
+  />
+);
+
+Scaled.args = {
+  style: {
+    transform: 'scale(0.75)',
+  },
+};
