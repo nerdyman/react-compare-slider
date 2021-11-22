@@ -1,68 +1,14 @@
-import React, { forwardRef, useEffect, useCallback, useRef, useState } from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 
+import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from './types';
-
 import {
   useEventListener,
   usePrevious,
   UseResizeObserverHandlerParams,
   useResizeObserver,
 } from './utils';
-
-/** Container for clipped item. */
-const ThisClipContainer = forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  (props, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      willChange: 'clip',
-      userSelect: 'none',
-      KhtmlUserSelect: 'none',
-      MozUserSelect: 'none',
-      WebkitUserSelect: 'none',
-    };
-
-    return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
-  }
-);
-
-ThisClipContainer.displayName = 'ThisClipContainer';
-
-/** Handle container to control position. */
-const ThisHandleContainer = forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
->(
-  ({ children, portrait }, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none',
-    };
-
-    const innerStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: portrait ? '100%' : undefined,
-      height: portrait ? undefined : '100%',
-      transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
-      pointerEvents: 'all',
-    };
-
-    return (
-      <div style={style} data-rcs="handle-container" ref={ref}>
-        <div style={innerStyle}>{children}</div>
-      </div>
-    );
-  }
-);
-
-ThisHandleContainer.displayName = 'ThisHandleContainer';
 
 /** Comparison slider properties. */
 export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
@@ -147,13 +93,9 @@ export const ReactCompareSlider: React.FC<
       portrait: _portrait,
       boundsPadding: _boundsPadding,
     }: UpdateInternalPositionProps) {
-      const {
-        top,
-        left,
-        width,
-        height,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      } = rootContainerRef.current!.getBoundingClientRect();
+      const { top, left, width, height } = (
+        rootContainerRef.current as HTMLDivElement
+      ).getBoundingClientRect();
 
       // Early out if width or height are zero, can't calculate values
       // from zeros.
@@ -181,12 +123,12 @@ export const ReactCompareSlider: React.FC<
         _portrait ? height : width
       );
 
-      /** Adjust for the zoomScale. */
-      let zoomScale = _portrait
-        ? height / rootContainerRef.current!.offsetHeight
-        : width / rootContainerRef.current!.offsetWidth;
-      if (!Number.isFinite(zoomScale)) zoomScale = 1;
-      const adjustedPos = positionPx / zoomScale;
+      /** Width or height with CSS scaling accounted for. */
+      const zoomScale = _portrait
+        ? height / ((rootContainerRef.current as HTMLDivElement).offsetHeight || 1)
+        : width / ((rootContainerRef.current as HTMLDivElement).offsetWidth || 1);
+
+      const adjustedPosition = positionPx / zoomScale;
       const adjustedWidth = width / zoomScale;
       const adjustedHeight = height / zoomScale;
 
@@ -196,12 +138,12 @@ export const ReactCompareSlider: React.FC<
        *       to get the *real* bounds.
        */
       const nextInternalPositionPc =
-        (adjustedPos / (_portrait ? adjustedHeight : adjustedWidth)) * 100;
+        (adjustedPosition / (_portrait ? adjustedHeight : adjustedWidth)) * 100;
 
       /** Whether the current pixel position meets the min/max bounds. */
       const positionMeetsBounds = _portrait
-        ? adjustedPos === 0 || adjustedPos === adjustedHeight
-        : adjustedPos === 0 || adjustedPos === adjustedWidth;
+        ? adjustedPosition === 0 || adjustedPosition === adjustedHeight
+        : adjustedPosition === 0 || adjustedPosition === adjustedWidth;
 
       const canSkipPositionPc =
         nextInternalPositionPc === internalPositionPc.current &&
@@ -222,18 +164,16 @@ export const ReactCompareSlider: React.FC<
       /** Pixel position clamped to extremities *with* bounds padding. */
       const clampedPx = Math.min(
         // Get largest from pixel position *or* bounds padding.
-        Math.max(adjustedPos, 0 + _boundsPadding),
+        Math.max(adjustedPosition, 0 + _boundsPadding),
         // Use height *or* width based on orientation.
         (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      clipContainerRef.current!.style.clip = _portrait
+      (clipContainerRef.current as HTMLElement).style.clip = _portrait
         ? `rect(auto,auto,${clampedPx}px,auto)`
         : `rect(auto,${clampedPx}px,auto,auto)`;
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      handleContainerRef.current!.style.transform = _portrait
+      (handleContainerRef.current as HTMLElement).style.transform = _portrait
         ? `translate3d(0,${clampedPx}px,0)`
         : `translate3d(${clampedPx}px,0,0)`;
 
@@ -244,8 +184,9 @@ export const ReactCompareSlider: React.FC<
 
   // Update internal position when other user controllable props change.
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const { width, height } = rootContainerRef.current!.getBoundingClientRect();
+    const { width, height } = (
+      rootContainerRef.current as HTMLDivElement
+    ).getBoundingClientRect();
 
     // Use current internal position if `position` hasn't changed.
     const nextPosition =
@@ -297,12 +238,11 @@ export const ReactCompareSlider: React.FC<
   }, []);
 
   /** Resync internal position on resize. */
-  const handleResize = useCallback<(arg0: UseResizeObserverHandlerParams) => void>(
+  const handleResize: (resizeProps: UseResizeObserverHandlerParams) => void = useCallback(
     ({ width, height }) => {
-      const {
-        width: scaledWidth,
-        height: scaledHeight,
-      } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
+      const { width: scaledWidth, height: scaledHeight } = (
+        rootContainerRef.current as HTMLDivElement
+      ).getBoundingClientRect();
 
       updateInternalPosition({
         portrait,
@@ -340,7 +280,7 @@ export const ReactCompareSlider: React.FC<
 
   // Handle hover events on the container.
   useEffect(() => {
-    const containerRef = rootContainerRef.current!;
+    const containerRef = rootContainerRef.current as HTMLDivElement;
 
     const handleMouseLeave = () => {
       if (isDragging) return;
@@ -361,16 +301,14 @@ export const ReactCompareSlider: React.FC<
   useEventListener(
     'mousedown',
     handlePointerDown,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    interactiveTarget!,
+    interactiveTarget as HTMLDivElement,
     EVENT_CAPTURE_PARAMS
   );
 
   useEventListener(
     'touchstart',
     handlePointerDown,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    interactiveTarget!,
+    interactiveTarget as HTMLDivElement,
     EVENT_CAPTURE_PARAMS
   );
 
@@ -392,10 +330,10 @@ export const ReactCompareSlider: React.FC<
   return (
     <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
       {itemTwo}
-      <ThisClipContainer ref={clipContainerRef}>{itemOne}</ThisClipContainer>
-      <ThisHandleContainer portrait={portrait} ref={handleContainerRef}>
+      <ContainerClip ref={clipContainerRef}>{itemOne}</ContainerClip>
+      <ContainerHandle portrait={portrait} ref={handleContainerRef}>
         {Handle}
-      </ThisHandleContainer>
+      </ContainerHandle>
     </div>
   );
 };
