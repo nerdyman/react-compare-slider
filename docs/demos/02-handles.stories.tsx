@@ -1,8 +1,9 @@
 /* eslint no-console: 0 */
+import type { Meta, Story } from '@storybook/react';
 import React from 'react';
-
 import {
   ReactCompareSlider,
+  ReactCompareSliderDetailedProps,
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
 } from 'react-compare-slider';
@@ -13,9 +14,12 @@ export default {
   title: 'Demos/Handles',
   component: ReactCompareSlider,
   argTypes: config.argTypes,
-};
+} as Meta;
 
-export const InheritedColor = ({ portrait, ...props }) => (
+export const InheritedColor: Story<ReactCompareSliderDetailedProps> = ({
+  portrait,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -37,7 +41,10 @@ export const InheritedColor = ({ portrait, ...props }) => (
   />
 );
 
-export const IndividualStyles = ({ portrait, ...props }) => (
+export const IndividualStyles: Story<ReactCompareSliderDetailedProps> = ({
+  portrait,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -72,7 +79,10 @@ export const IndividualStyles = ({ portrait, ...props }) => (
   />
 );
 
-export const HideButton = ({ portrait, ...props }) => (
+export const HideButton: Story<ReactCompareSliderDetailedProps> = ({
+  portrait,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -101,7 +111,10 @@ export const HideButton = ({ portrait, ...props }) => (
   />
 );
 
-export const HideLines = ({ portrait, ...props }) => (
+export const HideLines: Story<ReactCompareSliderDetailedProps> = ({
+  portrait,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -134,7 +147,10 @@ export const HideLines = ({ portrait, ...props }) => (
   />
 );
 
-export const CompletelyCustom = ({ portrait, ...props }) => (
+export const CompletelyCustom: Story<ReactCompareSliderDetailedProps> = ({
+  portrait,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}

@@ -1,8 +1,8 @@
 /* eslint no-console: 0 */
-import React from 'react';
+import type { Meta, Story } from '@storybook/react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
-
-import { ReactCompareSlider } from 'react-compare-slider';
+import React from 'react';
+import { ReactCompareSlider, ReactCompareSliderProps } from 'react-compare-slider';
 
 import * as config from './config';
 
@@ -10,7 +10,7 @@ export default {
   title: 'Demos/Custom Components',
   component: ReactCompareSlider,
   argTypes: config.argTypes,
-};
+} as Meta;
 
 class DataMap extends React.Component {
   mapRef = React.createRef();
@@ -29,7 +29,7 @@ const mapStyle = {
   height: '100vh',
 };
 
-export const GoogleMaps = ({ onlyHandleDraggable = true, ...props }) => {
+export const GoogleMaps: Story<ReactCompareSliderProps> = (args) => {
   const mapOne = React.useRef({
     zoom: 13,
     initialCenter: {
@@ -45,13 +45,12 @@ export const GoogleMaps = ({ onlyHandleDraggable = true, ...props }) => {
 
   return (
     <ReactCompareSlider
-      {...props}
+      {...args}
       itemOne={<GoogleMap {...mapOne.current} />}
       itemTwo={<GoogleMap {...mapTwo.current} />}
-      onlyHandleDraggable={onlyHandleDraggable}
       style={mapStyle}
     />
   );
 };
 
-GoogleMaps.args = { boundsPadding: 0, onlyHandleDraggable: true };
+GoogleMaps.args = { onlyHandleDraggable: true };

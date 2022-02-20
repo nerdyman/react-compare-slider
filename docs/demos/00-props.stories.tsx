@@ -1,8 +1,11 @@
 /* eslint no-console: 0 */
+import type { Meta, Story } from '@storybook/react';
 import React from 'react';
-import { Story } from '@storybook/react';
-
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage,
+  ReactCompareSliderDetailedProps,
+} from 'react-compare-slider';
 
 import * as config from './config';
 
@@ -10,21 +13,21 @@ export default {
   title: 'Demos',
   component: ReactCompareSlider,
   argTypes: config.argTypes,
-};
+} as Meta;
 
-export const Images: Story = (props) => (
+export const Images: Story<ReactCompareSliderDetailedProps> = (args) => (
   <ReactCompareSlider
-    {...props}
+    {...args}
     itemOne={
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1438401171849-74ac270044ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=70"
-        alt="Image one"
+        alt="item one"
       />
     }
     itemTwo={
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1437809781432-a957377661ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=70"
-        alt="Image two"
+        alt="item two"
         style={{ transform: 'scale(1.125)' }}
       />
     }
@@ -34,11 +37,14 @@ export const Images: Story = (props) => (
 
 Images.args = { boundsPadding: 0 };
 
-export const BoundsPadding: Story = ({ boundsPadding = 80, ...props }) => {
+export const BoundsPadding: Story<ReactCompareSliderDetailedProps> = ({
+  boundsPadding = 80,
+  ...args
+}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
-        {...props}
+        {...args}
         boundsPadding={boundsPadding}
         itemOne={
           <ReactCompareSliderImage
@@ -60,7 +66,7 @@ export const BoundsPadding: Story = ({ boundsPadding = 80, ...props }) => {
 
 BoundsPadding.args = { boundsPadding: 80 };
 
-export const OnPositionChange: Story = (props) => {
+export const OnPositionChange: Story<ReactCompareSliderDetailedProps> = (args) => {
   const onPositionChange = React.useCallback((position) => {
     console.log('[OnPositionChange.onPositionChange]', position);
   }, []);
@@ -73,7 +79,7 @@ export const OnPositionChange: Story = (props) => {
       </div>
 
       <ReactCompareSlider
-        {...props}
+        {...args}
         onPositionChange={onPositionChange}
         itemOne={
           <ReactCompareSliderImage
@@ -96,11 +102,14 @@ export const OnPositionChange: Story = (props) => {
 
 OnPositionChange.args = { boundsPadding: 0 };
 
-export const OnlyHandleDraggable: Story = ({ onlyHandleDraggable = true, ...props }) => {
+export const OnlyHandleDraggable: Story<ReactCompareSliderDetailedProps> = ({
+  onlyHandleDraggable = true,
+  ...args
+}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
-        {...props}
+        {...args}
         onlyHandleDraggable={onlyHandleDraggable}
         itemOne={
           <ReactCompareSliderImage
@@ -121,11 +130,15 @@ export const OnlyHandleDraggable: Story = ({ onlyHandleDraggable = true, ...prop
   );
 };
 
-OnlyHandleDraggable.args = { boundsPadding: 0, onlyHandleDraggable: true };
+OnlyHandleDraggable.args = { onlyHandleDraggable: true };
 
-export const Portrait: Story = ({ portrait = true, ...props }) => (
+export const Portrait: Story<ReactCompareSliderDetailedProps> = ({
+  portrait = true,
+  ...args
+}) => (
   <ReactCompareSlider
     portrait={portrait}
+    {...args}
     itemOne={
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1596056812959-954b08fe3dda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=70"
@@ -139,16 +152,15 @@ export const Portrait: Story = ({ portrait = true, ...props }) => (
         alt="Image two"
       />
     }
-    {...props}
     style={{ width: '100%', height: '100vh' }}
   />
 );
 
-Portrait.args = { boundsPadding: 0, portrait: true };
+Portrait.args = { portrait: true };
 
-export const Position: Story = ({ position = 75, ...props }) => (
+export const Position: Story<ReactCompareSliderDetailedProps> = (args) => (
   <ReactCompareSlider
-    position={position}
+    {...args}
     itemOne={
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1580928046254-e255588b9c42?auto=format&fit=crop&w=1267&q=80"
@@ -163,21 +175,20 @@ export const Position: Story = ({ position = 75, ...props }) => (
         style={{ objectPosition: 'center top' }}
       />
     }
-    {...props}
     style={{ width: '100%', height: '100vh' }}
   />
 );
 
-Position.args = { boundsPadding: 0, position: 25 };
+Position.args = { position: 25 };
 
-export const ChangePositionOnHover: Story = ({
+export const ChangePositionOnHover: Story<ReactCompareSliderDetailedProps> = ({
   changePositionOnHover = true,
-  ...props
+  ...args
 }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
-        {...props}
+        {...args}
         changePositionOnHover={changePositionOnHover}
         itemOne={
           <ReactCompareSliderImage
@@ -200,9 +211,9 @@ export const ChangePositionOnHover: Story = ({
 
 ChangePositionOnHover.args = { boundsPadding: 0, changePositionOnHover: true };
 
-export const Scaled: Story = ({ style, ...props }) => (
+export const Scaled: Story<ReactCompareSliderDetailedProps> = ({ style, ...args }) => (
   <ReactCompareSlider
-    {...props}
+    {...args}
     itemOne={
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
