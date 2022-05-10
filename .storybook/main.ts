@@ -4,7 +4,6 @@ const codesandbox = require('remark-codesandbox');
 module.exports = {
   addons: [
     '@storybook/addon-viewport',
-    '@storybook/addon-controls',
     '@storybook/addon-storysource',
     {
       name: '@storybook/addon-docs',
@@ -20,14 +19,16 @@ module.exports = {
         },
       },
     },
-    '@storybook/addon-actions/register',
+    '@storybook/addon-controls',
+    '@storybook/addon-actions',
+    '@storybook/addon-interactions',
   ],
-  babel: (config) => ({
-    ...config,
-    presets: [...config.presets, require.resolve('@emotion/babel-preset-css-prop')],
-  }),
+  features: {
+    interactionsDebugger: true,
+  },
   /** Files to load as stories */
-  stories: ['../docs/**/*.story.@(mdx|tsx)'],
+  stories: ['../docs/**/*.stories.@(mdx|tsx)'],
+
   /** Customise webpack config */
   webpackFinal: async (config) => {
     // @HACK Horrific hack to shoehorn `remark-codesandbox` plugin into presets
