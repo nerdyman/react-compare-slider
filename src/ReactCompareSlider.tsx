@@ -179,15 +179,15 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
-    (ev: MouseEvent | TouchEvent) => {
+    (ev: PointerEvent) => {
       ev.preventDefault();
 
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev.pageX,
+        y: ev.pageY,
       });
 
       setIsDragging(true);
@@ -196,15 +196,14 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     [portrait, boundsPadding, updateInternalPosition]
   );
 
-  /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
-    function moveCall(ev: MouseEvent | TouchEvent) {
+    function moveCall(ev: PointerEvent | MouseEvent) {
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev.pageX,
+        y: ev.pageY,
       });
 
       setCanTransition(false);
@@ -212,7 +211,6 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     [portrait, boundsPadding, updateInternalPosition]
   );
 
-  /** Handle mouse/touch up. */
   const handlePointerUp = useCallback(() => {
     setIsDragging(false);
     // We want to allow `position` changes to transition if `transition` prop is passed.
