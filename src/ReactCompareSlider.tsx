@@ -1,32 +1,14 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
+import type { CSSProperties, FC } from 'react';
 
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from './types';
+import { ReactCompareSliderProps, ReactCompareSliderDetailedProps } from './types';
 import {
   useEventListener,
-  usePrevious,
   UseResizeObserverHandlerParams,
   useResizeObserver,
 } from './utils';
-
-/** Comparison slider properties. */
-export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
-  /** Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). */
-  boundsPadding?: number;
-  /** Whether the slider should follow the pointer on hover. */
-  changePositionOnHover?: boolean;
-  /** Custom handle component. */
-  handle?: React.ReactNode;
-  /** First item to show. */
-  itemOne: React.ReactNode;
-  /** Second item to show. */
-  itemTwo: React.ReactNode;
-  /** Whether to only change position when handle is interacted with (useful for touch devices). */
-  onlyHandleDraggable?: boolean;
-  /** Callback on position change with position as percentage. */
-  onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
-}
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps
@@ -43,9 +25,7 @@ const EVENT_PASSIVE_PARAMS = { passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
 /** Root Comparison slider. */
-export const ReactCompareSlider: React.FC<
-  ReactCompareSliderProps & React.HtmlHTMLAttributes<HTMLDivElement>
-> = ({
+export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   handle,
   itemOne,
   itemTwo,
@@ -56,8 +36,9 @@ export const ReactCompareSlider: React.FC<
   boundsPadding = 0,
   changePositionOnHover = false,
   style,
+  transition,
   ...props
-}): React.ReactElement => {
+}) => {
   /** DOM node of the root element. */
   const rootContainerRef = useRef<HTMLDivElement>(null);
   /** DOM node of the item that is clipped. */
@@ -66,12 +47,12 @@ export const ReactCompareSlider: React.FC<
   const handleContainerRef = useRef<HTMLDivElement>(null);
   /** Current position as a percentage value (initially negative to sync bounds on mount). */
   const internalPositionPc = useRef(position);
-  /** Previous `position` prop value. */
-  const prevPropPosition = usePrevious(position);
   /** Whether user is currently dragging. */
   const [isDragging, setIsDragging] = useState(false);
   /** Whether component has a `window` event binding. */
   const hasWindowBinding = useRef(false);
+  /** Whether the `transition` property can be applied. */
+  const [canTransition, setCanTransition] = useState(false);
   /** Target container for pointer events. */
   const [interactiveTarget, setInteractiveTarget] = useState<HTMLDivElement | null>();
   /** Whether the bounds of the container element have been synchronised. */
@@ -188,17 +169,13 @@ export const ReactCompareSlider: React.FC<
       rootContainerRef.current as HTMLDivElement
     ).getBoundingClientRect();
 
-    // Use current internal position if `position` hasn't changed.
-    const nextPosition =
-      position === prevPropPosition ? internalPositionPc.current : position;
-
     updateInternalPosition({
       portrait,
       boundsPadding,
-      x: (width / 100) * nextPosition,
-      y: (height / 100) * nextPosition,
+      x: (width / 100) * position,
+      y: (height / 100) * position,
     });
-  }, [portrait, position, prevPropPosition, boundsPadding, updateInternalPosition]);
+  }, [portrait, position, boundsPadding, updateInternalPosition]);
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
@@ -214,6 +191,7 @@ export const ReactCompareSlider: React.FC<
       });
 
       setIsDragging(true);
+      setCanTransition(true);
     },
     [portrait, boundsPadding, updateInternalPosition]
   );
@@ -228,6 +206,8 @@ export const ReactCompareSlider: React.FC<
         x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
+
+      setCanTransition(false);
     },
     [portrait, boundsPadding, updateInternalPosition]
   );
@@ -235,11 +215,13 @@ export const ReactCompareSlider: React.FC<
   /** Handle mouse/touch up. */
   const handlePointerUp = useCallback(() => {
     setIsDragging(false);
+    // We want to allow `position` changes to transition if `transition` prop is passed.
+    setCanTransition(true);
   }, []);
 
   /** Resync internal position on resize. */
-  const handleResize: (resizeProps: UseResizeObserverHandlerParams) => void = useCallback(
-    ({ width, height }) => {
+  const handleResize = useCallback(
+    ({ width, height }: UseResizeObserverHandlerParams) => {
       const { width: scaledWidth, height: scaledHeight } = (
         rootContainerRef.current as HTMLDivElement
       ).getBoundingClientRect();
@@ -254,29 +236,32 @@ export const ReactCompareSlider: React.FC<
     [portrait, boundsPadding, updateInternalPosition]
   );
 
+  // Bind resize observer to container.
+  useResizeObserver(rootContainerRef, handleResize);
+
+  useEventListener(
+    'pointerdown',
+    handlePointerDown,
+    interactiveTarget as HTMLDivElement,
+    EVENT_CAPTURE_PARAMS
+  );
+
   // Allow drag outside of container while pointer is still down.
   useEffect(() => {
     if (isDragging && !hasWindowBinding.current) {
-      window.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('mouseup', handlePointerUp, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('touchmove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('touchend', handlePointerUp, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
       hasWindowBinding.current = true;
     }
 
     return (): void => {
       if (hasWindowBinding.current) {
-        window.removeEventListener('mousemove', handlePointerMove);
-        window.removeEventListener('mouseup', handlePointerUp);
-        window.removeEventListener('touchmove', handlePointerMove);
-        window.removeEventListener('touchend', handlePointerUp);
+        window.removeEventListener('pointermove', handlePointerMove);
+        window.removeEventListener('pointerup', handlePointerUp);
         hasWindowBinding.current = false;
       }
     };
   }, [handlePointerMove, handlePointerUp, isDragging]);
-
-  // Bind resize observer to container.
-  useResizeObserver(rootContainerRef, handleResize);
 
   // Handle hover events on the container.
   useEffect(() => {
@@ -298,24 +283,10 @@ export const ReactCompareSlider: React.FC<
     };
   }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
 
-  useEventListener(
-    'mousedown',
-    handlePointerDown,
-    interactiveTarget as HTMLDivElement,
-    EVENT_CAPTURE_PARAMS
-  );
-
-  useEventListener(
-    'touchstart',
-    handlePointerDown,
-    interactiveTarget as HTMLDivElement,
-    EVENT_CAPTURE_PARAMS
-  );
-
   // Use custom handle if requested.
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
 
-  const rootStyle: React.CSSProperties = {
+  const rootStyle: CSSProperties = {
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
@@ -327,11 +298,19 @@ export const ReactCompareSlider: React.FC<
     ...style,
   };
 
+  const appliedTransition = canTransition ? transition : undefined;
+
   return (
     <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
       {itemTwo}
-      <ContainerClip ref={clipContainerRef}>{itemOne}</ContainerClip>
-      <ContainerHandle portrait={portrait} ref={handleContainerRef}>
+      <ContainerClip ref={clipContainerRef} transition={appliedTransition}>
+        {itemOne}
+      </ContainerClip>
+      <ContainerHandle
+        portrait={portrait}
+        ref={handleContainerRef}
+        transition={appliedTransition}
+      >
         {Handle}
       </ContainerHandle>
     </div>

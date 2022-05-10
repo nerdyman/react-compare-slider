@@ -1,4 +1,5 @@
 import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
 
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their
@@ -7,9 +8,9 @@ import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'reac
 export const styleFitContainer = ({
   boxSizing = 'border-box',
   objectFit = 'cover',
-  objectPosition = 'center',
+  objectPosition = 'center center',
   ...props
-}: React.CSSProperties = {}): React.CSSProperties => ({
+}: CSSProperties = {}): CSSProperties => ({
   display: 'block',
   width: '100%',
   height: '100%',
@@ -20,23 +21,12 @@ export const styleFitContainer = ({
   ...props,
 });
 
-/** Store the previous supplied value. */
-export const usePrevious = <T>(value: T): T => {
-  const ref = useRef<T>(value);
-
-  useEffect(() => {
-    ref.current = value;
-  });
-
-  return ref.current;
-};
-
 /**
  * Event listener binding hook.
  * @param eventName      - Event to bind to.
  * @param handler        - Callback handler.
  * @param element        - Element to bind to.
- * @param handlerOptions - Event handler options.
+ * @param handlerOptions - Event listener options.
  */
 export const useEventListener = (
   eventName: EventListener['name'],

@@ -1,57 +1,63 @@
 import React, { forwardRef } from 'react';
+import type { CSSProperties, HTMLProps } from 'react';
 
-import type { ReactCompareSliderCommonProps } from './types';
+import type { ReactCompareSliderCommonProps, ReactCompareSliderProps } from './types';
+
+type ContainerBaseProps = Pick<ReactCompareSliderProps, 'transition'>;
 
 /** Container for clipped item. */
-export const ContainerClip = forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  (props, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      willChange: 'clip',
-      userSelect: 'none',
-      KhtmlUserSelect: 'none',
-      MozUserSelect: 'none',
-      WebkitUserSelect: 'none',
-    };
+export const ContainerClip = forwardRef<
+  HTMLDivElement,
+  HTMLProps<HTMLDivElement> & ContainerBaseProps
+>(({ transition, ...props }, ref) => {
+  const style: CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    transition: transition ? `clip ${transition}` : undefined,
+    willChange: 'clip',
+    userSelect: 'none',
+    KhtmlUserSelect: 'none',
+    MozUserSelect: 'none',
+    WebkitUserSelect: 'none',
+  };
 
-    return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
-  }
-);
+  return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
+});
 
 ContainerClip.displayName = 'ContainerClip';
 
-/** Container to control the handle's position. */
+/** Container to control the handle position. */
 export const ContainerHandle = forwardRef<
   HTMLDivElement,
-  React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
->(
-  ({ children, portrait }, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none',
-    };
+  HTMLProps<HTMLDivElement> &
+    Pick<ReactCompareSliderCommonProps, 'portrait'> &
+    ContainerBaseProps
+>(({ children, portrait, transition }, ref) => {
+  const style: CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: '100%',
+    pointerEvents: 'none',
+    transition: transition ? `transform ${transition}` : undefined,
+  };
 
-    const innerStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: portrait ? '100%' : undefined,
-      height: portrait ? undefined : '100%',
-      transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
-      pointerEvents: 'all',
-    };
+  const innerStyle: CSSProperties = {
+    position: 'absolute',
+    width: portrait ? '100%' : undefined,
+    height: portrait ? undefined : '100%',
+    transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
+    pointerEvents: 'all',
+  };
 
-    return (
-      <div style={style} data-rcs="handle-container" ref={ref}>
-        <div style={innerStyle}>{children}</div>
-      </div>
-    );
-  }
-);
+  return (
+    <div style={style} data-rcs="handle-container" ref={ref}>
+      <div style={innerStyle}>{children}</div>
+    </div>
+  );
+});
 
-ContainerHandle.displayName = 'ThisHandleContainer';
+ContainerHandle.displayName = 'ContainerHandle';
