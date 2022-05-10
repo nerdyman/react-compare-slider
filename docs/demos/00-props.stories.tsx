@@ -209,7 +209,33 @@ export const ChangePositionOnHover: Story<ReactCompareSliderDetailedProps> = ({
   );
 };
 
-ChangePositionOnHover.args = { boundsPadding: 0, changePositionOnHover: true };
+ChangePositionOnHover.args = { changePositionOnHover: true };
+
+export const Transition: Story<ReactCompareSliderDetailedProps> = (args) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...args}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1582545066898-e9aca56e4ae7?auto=format&fit=crop&w=1280&q=80"
+            alt="Image one"
+            style={{ filter: 'contrast(200%) grayscale(1)' }}
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://images.unsplash.com/photo-1582545066898-e9aca56e4ae7?auto=format&fit=crop&w=1280&q=80"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+Transition.args = { transition: '0.375s ease-in-out' };
 
 export const Scaled: Story<ReactCompareSliderDetailedProps> = ({ style, ...args }) => (
   <ReactCompareSlider
