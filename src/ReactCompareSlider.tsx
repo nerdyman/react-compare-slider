@@ -177,7 +177,6 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     });
   }, [portrait, position, boundsPadding, updateInternalPosition]);
 
-  /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
     (ev: PointerEvent) => {
       ev.preventDefault();
@@ -252,7 +251,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
       hasWindowBinding.current = true;
     }
 
-    return (): void => {
+    return () => {
       if (hasWindowBinding.current) {
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
@@ -288,6 +287,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
+    touchAction: 'none',
     userSelect: 'none',
     KhtmlUserSelect: 'none',
     msUserSelect: 'none',

@@ -61,7 +61,7 @@ export const useEventListener = (
  * @see <https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js>
  */
 export const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' && window.document && window.document.createElement
+  typeof window !== 'undefined' && window.document && typeof window.document.createElement !== 'undefined'
     ? useLayoutEffect
     : useEffect;
 
