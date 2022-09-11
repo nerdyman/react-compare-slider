@@ -22,10 +22,6 @@ module.exports = {
     },
     '@storybook/addon-actions/register',
   ],
-  babel: (config) => ({
-    ...config,
-    presets: [...config.presets, require.resolve('@emotion/babel-preset-css-prop')],
-  }),
   /** Files to load as stories */
   stories: ['../docs/**/*.story.@(mdx|tsx)'],
   /** Customise webpack config */
