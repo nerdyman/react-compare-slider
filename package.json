@@ -69,7 +69,7 @@
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "pretty-quick --staged",
-      "eslint --config ./.eslintrc.precommit.js --fix",
+      "eslint --fix",
       "yarn test --bail --findRelatedTests"
     ]
   },

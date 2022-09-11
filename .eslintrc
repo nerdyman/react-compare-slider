@@ -27,8 +27,7 @@
     "lines-around-comment": 0,
     "no-constant-binary-expression": "error",
     "no-confusing-arrow": 0,
-    "no-console": ["warn", { "allow": ["warn"] }],
-    "no-debugger": 0,
+    "no-console": "error",
     "no-shadow": "warn",
 
     "react/jsx-indent": 0,
@@ -36,7 +35,7 @@
     "react/prop-types": 0,
 
     "@typescript-eslint/no-unused-vars": [
-      "warn",
+      "error",
       {
         "args": "all",
         "argsIgnorePattern": "^_",
