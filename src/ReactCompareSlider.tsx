@@ -2,18 +2,18 @@ import React, { useEffect, useCallback, useRef, useState } from 'react';
 
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-import type { ReactCompareSliderAllProps } from './types';
+import type { ReactCompareSliderDetailedProps } from './types';
 import {
   KeyboardEventKeys,
   useEventListener,
   usePrevious,
-  UseResizeObserverHandlerParams,
+  UseResizeObserverHandlerProps,
   useResizeObserver,
 } from './utils';
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps
-  extends Required<Pick<ReactCompareSliderAllProps, 'boundsPadding' | 'portrait'>> {
+  extends Required<Pick<ReactCompareSliderDetailedProps, 'boundsPadding' | 'portrait'>> {
   /** X coordinate to update to (landscape). */
   x: number;
   /** Y coordinate to update to (portrait). */
@@ -26,7 +26,7 @@ const EVENT_PASSIVE_PARAMS = { passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
 /** Root Comparison slider. */
-export const ReactCompareSlider: React.FC<ReactCompareSliderAllProps> = ({
+export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
   handle,
   itemOne,
   itemTwo,
@@ -225,7 +225,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderAllProps> = ({
   }, []);
 
   /** Resync internal position on resize. */
-  const handleResize: (resizeProps: UseResizeObserverHandlerParams) => void = useCallback(
+  const handleResize: (resizeProps: UseResizeObserverHandlerProps) => void = useCallback(
     ({ width, height }) => {
       const { width: scaledWidth, height: scaledHeight } = (
         rootContainerRef.current as HTMLDivElement

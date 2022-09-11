@@ -30,5 +30,5 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
 }
 
 /** `ReactCompareSliderProps` *and* all valid `div` element props.  */
-export type ReactCompareSliderAllProps = ReactCompareSliderProps &
+export type ReactCompareSliderDetailedProps = ReactCompareSliderProps &
   React.HtmlHTMLAttributes<HTMLDivElement>;
