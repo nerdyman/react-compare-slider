@@ -70,7 +70,7 @@
     "**/*.{js,jsx,ts,tsx}": [
       "pretty-quick --staged",
       "eslint --fix",
-      "yarn test --bail --findRelatedTests"
+      "yarn test"
     ]
   },
   "np": {
