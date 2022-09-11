@@ -1,10 +1,15 @@
 const path = require('path');
+
 const codesandbox = require('remark-codesandbox');
 
-module.exports = {
+const storybookConfig = {
   addons: [
-    '@storybook/addon-viewport',
-    '@storybook/addon-controls',
+    '@storybook/addon-links',
+    '@storybook/addon-console',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/jest',
+    '@storybook/addon-coverage',
     '@storybook/addon-storysource',
     {
       name: '@storybook/addon-docs',
@@ -20,10 +25,9 @@ module.exports = {
         },
       },
     },
-    '@storybook/addon-actions/register',
   ],
   /** Files to load as stories */
-  stories: ['../docs/**/*.story.@(mdx|tsx)'],
+  stories: ['../docs/**/*.stories.@(mdx|tsx)'],
   /** Customise webpack config */
   webpackFinal: async (config) => {
     // @HACK Horrific hack to shoehorn `remark-codesandbox` plugin into presets
@@ -66,3 +70,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = storybookConfig;
