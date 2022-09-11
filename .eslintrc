@@ -7,27 +7,18 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "testing-library",
-    "@typescript-eslint",
-    "react",
-    "jest",
-    "jest-dom"
-  ],
+  "plugins": ["@typescript-eslint", "react"],
   "extends": [
     "eslint:recommended",
-    "plugin:jest/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:testing-library/recommended",
-    "plugin:jest-dom/recommended"
+    "plugin:testing-library/recommended"
   ],
   "env": {
     "browser": true,
-    "es6": true,
-    "jest/globals": true
+    "es6": true
   },
   "settings": {
     "react": { "version": "detect" }
@@ -35,6 +26,7 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "lines-around-comment": 0,
+    "no-constant-binary-expression": "error",
     "no-confusing-arrow": 0,
     "no-console": ["warn", { "allow": ["warn"] }],
     "no-debugger": 0,
