@@ -17,7 +17,7 @@ const ThisArrow: React.FC<ThisArrowProps> = ({ flip }) => {
     transform: flip ? 'rotate(180deg)' : undefined,
   };
 
-  return <div style={style} />;
+  return <div className="__rcs-handle-arrow" style={style} />;
 };
 
 /** Props for `ReactCompareSliderHandle`. */
