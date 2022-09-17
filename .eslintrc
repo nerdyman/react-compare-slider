@@ -28,12 +28,12 @@
     "no-constant-binary-expression": "error",
     "no-confusing-arrow": 0,
     "no-console": "error",
-    "no-shadow": "warn",
 
     "react/jsx-indent": 0,
     "react/jsx-indent-props": 0,
     "react/prop-types": 0,
 
+    "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
