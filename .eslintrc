@@ -38,8 +38,8 @@
       "error",
       {
         "args": "all",
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
+        "argsIgnorePattern": "^__",
+        "varsIgnorePattern": "^__"
       }
     ]
   }
