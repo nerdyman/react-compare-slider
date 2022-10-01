@@ -21,7 +21,7 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   itemOne: React.ReactNode;
   /** Second item to show. */
   itemTwo: React.ReactNode;
-  /** How many pixels to move the handle on keyboard arrow press. */
+  /** How many pixels to move when the slider is focused and keyboard arrow is pressed. */
   keyboardMovementIncrement?: number;
   /** Whether to only change position when handle is interacted with (useful for touch devices). */
   onlyHandleDraggable?: boolean;

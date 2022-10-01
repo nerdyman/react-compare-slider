@@ -32,6 +32,7 @@
 
 - Supports responsive images and any other React components (`picture`, `video`, `canvas`, `iframe` etc.)
 - Supports landscape and portrait orientations
+- Accessible &ndash; includes screen reader and keyboard support
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive, fluid
@@ -80,6 +81,7 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page) | `ReactNode` |   | `undefined` | Custom handle component. |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
+| `keyboardMovementIncrement`   | `number` |  | `20` | How many pixels to move when the slider is focused and keyboard arrow is pressed. |
 | [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page) | `boolean`  |   | `false` | Whether to only change position when handle is interacted with (useful for touch devices). |
 | [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
 | [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait) | `boolean`   |   | `false` | Whether to use portrait orientation. |
@@ -104,11 +106,12 @@ by using the [`styleFitContainer` CSS utility](https://react-compare-slider.verc
 
 See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-handles--page) for more information.
 
+## Real World Examples
+
+- [Official GOV.UK Coronavirus Dashboard](https://coronavirus.data.gov.uk/details/interactive-map/vaccinations#vaccinations-map-container)
+- [Upscayl, Free and Open Source AI Image Upscaler](https://github.com/upscayl/upscayl#free-and-open-source-ai-image-upscaler)
+
 ## Requirements
 
 - React 16.8+
-- The [latest two versions of each major browser](./package.json#L49) are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you require legacy Edge support
-
-## Notes
-
-Bootstrapped with [TSDX](https://github.com/formium/tsdx).
+- The [latest two versions of each major browser](./package.json#L50) at time of release are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you require legacy Edge support
