@@ -36,7 +36,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
   position = 50,
   boundsPadding = 0,
   changePositionOnHover = false,
-  keyboardMovementIncrement = 20,
+  keyboardIncrement = 20,
   style,
   ...props
 }): React.ReactElement => {
@@ -263,13 +263,8 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
       const isIncrement =
         ev.key == KeyboardEventKeys.ARROW_UP || ev.key == KeyboardEventKeys.ARROW_RIGHT;
 
-      const offsetX = isIncrement
-        ? right - keyboardMovementIncrement
-        : left + keyboardMovementIncrement;
-
-      const offsetY = isIncrement
-        ? top + keyboardMovementIncrement
-        : bottom - keyboardMovementIncrement;
+      const offsetX = isIncrement ? right - keyboardIncrement : left + keyboardIncrement;
+      const offsetY = isIncrement ? top + keyboardIncrement : bottom - keyboardIncrement;
 
       updateInternalPosition({
         portrait,
@@ -279,7 +274,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
         isOffset: true,
       });
     },
-    [boundsPadding, keyboardMovementIncrement, portrait, updateInternalPosition]
+    [boundsPadding, keyboardIncrement, portrait, updateInternalPosition]
   );
 
   // Allow drag outside of container while pointer is still down.

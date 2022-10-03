@@ -81,7 +81,7 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page) | `ReactNode` |   | `undefined` | Custom handle component. |
 | `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
 | `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
-| `keyboardMovementIncrement`   | `number` |  | `20` | How many pixels to move when the slider is focused and keyboard arrow is pressed. |
+| `keyboardIncrement`   | `number` |  | `20` | How many pixels to move when the slider is focused and keyboard arrow is pressed. |
 | [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page) | `boolean`  |   | `false` | Whether to only change position when handle is interacted with (useful for touch devices). |
 | [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
 | [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait) | `boolean`   |   | `false` | Whether to use portrait orientation. |
