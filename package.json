@@ -64,14 +64,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn test"
     }
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "pretty-quick --staged",
-      "eslint --fix",
-      "yarn test"
+      "eslint --fix"
     ]
   },
   "np": {
