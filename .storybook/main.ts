@@ -30,42 +30,41 @@ const storybookConfig = {
   stories: ['../docs/**/*.stories.@(mdx|tsx)'],
   /** Customise webpack config */
   webpackFinal: async (config) => {
-    // @HACK Horrific hack to shoehorn `remark-codesandbox` plugin into presets
-    //       by checking if they have a `remarkPlugins` option.
-    config.module.rules = config.module.rules.map((rule) => {
-      if (Array.isArray(rule.use)) {
-        rule.use = rule.use.map((use) => {
-          if (use.options && use.options.remarkPlugins) {
-            console.log('\t[main][CUSTOM] Found remark plugins.');
-            use.options.remarkPlugins.push([
-              codesandbox,
-              {
-                autoDeploy: process.env.NODE_ENV === 'production',
-                mode: 'iframe',
-                customTemplates: {
-                  'react-compare-slider': {
-                    entry: 'src/App.jsx',
-                    extends: '9si6l',
-                  },
-                },
-                query: {
-                  view: 'preview',
-                  hidedevtools: 1,
-                  hidenavigation: 1,
-                  fontsize: 14,
-                },
-              },
-            ]);
-          }
+    console.group('[webpackFinal]');
 
-          return use;
-        });
-      }
+    const mdxConfig = config.module.rules
+      .find(
+        (rule) => rule?.test?.test?.('story.mdx') && !rule?.exclude?.test?.('story.mdx')
+      )
+      ?.use?.find?.((use) => use.loader.includes('@storybook/mdx1-csf'));
 
-      return rule;
-    });
+    console.debug('using MDX config', mdxConfig);
+
+    mdxConfig.options = mdxConfig.options ?? {};
+    mdxConfig.options.remarkPlugins = mdxConfig.options.remarkPlugins ?? [];
+    mdxConfig.options.remarkPlugins.push([
+      codesandbox,
+      {
+        autoDeploy: process.env.NODE_ENV === 'production',
+        mode: 'iframe',
+        customTemplates: {
+          'react-compare-slider': {
+            entry: 'src/App.jsx',
+            extends: '9si6l',
+          },
+        },
+        query: {
+          view: 'preview',
+          hidedevtools: 1,
+          hidenavigation: 1,
+          fontsize: 14,
+        },
+      },
+    ]);
 
     config.resolve.alias['react-compare-slider'] = path.resolve(__dirname, '..', 'src');
+
+    console.groupEnd();
 
     return config;
   },
