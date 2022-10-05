@@ -1,9 +1,8 @@
 /* eslint no-console: 0 */
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../src';
 
+import { ReactCompareSlider, ReactCompareSliderImage, styleFitContainer } from '../src';
 import { DemoSection } from './demo-blocks';
 
 const App = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
@@ -6,8 +6,8 @@ import { ReactCompareSliderCommonProps, ReactCompareSliderPropPosition } from '.
 import {
   useEventListener,
   usePrevious,
-  UseResizeObserverHandlerParams,
   useResizeObserver,
+  UseResizeObserverHandlerParams,
 } from './utils';
 
 /** Comparison slider properties. */
@@ -93,9 +93,12 @@ export const ReactCompareSlider: React.FC<
       portrait: _portrait,
       boundsPadding: _boundsPadding,
     }: UpdateInternalPositionProps) {
-      const { top, left, width, height } = (
-        rootContainerRef.current as HTMLDivElement
-      ).getBoundingClientRect();
+      const {
+        top,
+        left,
+        width,
+        height,
+      } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
 
       // Early out if width or height are zero, can't calculate values
       // from zeros.
@@ -184,9 +187,10 @@ export const ReactCompareSlider: React.FC<
 
   // Update internal position when other user controllable props change.
   useEffect(() => {
-    const { width, height } = (
-      rootContainerRef.current as HTMLDivElement
-    ).getBoundingClientRect();
+    const {
+      width,
+      height,
+    } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
 
     // Use current internal position if `position` hasn't changed.
     const nextPosition =
@@ -240,9 +244,10 @@ export const ReactCompareSlider: React.FC<
   /** Resync internal position on resize. */
   const handleResize: (resizeProps: UseResizeObserverHandlerParams) => void = useCallback(
     ({ width, height }) => {
-      const { width: scaledWidth, height: scaledHeight } = (
-        rootContainerRef.current as HTMLDivElement
-      ).getBoundingClientRect();
+      const {
+        width: scaledWidth,
+        height: scaledHeight,
+      } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
 
       updateInternalPosition({
         portrait,

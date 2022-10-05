@@ -7,13 +7,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "testing-library",
-    "@typescript-eslint",
-    "react",
-    "jest",
-    "jest-dom"
-  ],
+  "plugins": ["testing-library", "@typescript-eslint", "react", "jest", "jest-dom"],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",

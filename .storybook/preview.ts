@@ -1,6 +1,6 @@
+import { withConsole } from '@storybook/addon-console';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { addDecorator, addParameters } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
 
 import { theme } from './theme';
 

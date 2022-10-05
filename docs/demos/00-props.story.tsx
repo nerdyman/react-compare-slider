@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
-import React from 'react';
 import { Story } from '@storybook/react';
-
+import React from 'react';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 import * as config from './config';
