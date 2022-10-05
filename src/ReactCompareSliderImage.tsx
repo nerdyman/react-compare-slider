@@ -7,10 +7,10 @@ export type ReactCompareSliderImageProps = React.ImgHTMLAttributes<HTMLImageElem
 
 /** Image with defaults from `styleFitContainer` applied. */
 export const ReactCompareSliderImage: React.FC<ReactCompareSliderImageProps> = ({
-  style,
-  ...props
+    style,
+    ...props
 }): React.ReactElement => {
-  const rootStyle: React.CSSProperties = styleFitContainer(style);
+    const rootStyle: React.CSSProperties = styleFitContainer(style);
 
-  return <img {...props} style={rootStyle} data-rcs="image" />;
+    return <img {...props} style={rootStyle} data-rcs="image" />;
 };
