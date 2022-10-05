@@ -13,10 +13,7 @@ export const DemoSection: React.FC<DemoSectionProps> = ({
 }) => (
   <section className="c-demo-section" {...props}>
     <div className="c-demo-section__info">
-      <h1
-        className="c-demo-section__title"
-        dangerouslySetInnerHTML={{ __html: title }}
-      />
+      <h1 className="c-demo-section__title" dangerouslySetInnerHTML={{ __html: title }} />
       <p
         className="c-demo-section__description"
         dangerouslySetInnerHTML={{ __html: description }}

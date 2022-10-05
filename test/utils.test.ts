@@ -1,9 +1,8 @@
 /**
  * @jest-environment node
  */
-
-import React from 'react';
 import { cleanup } from '@testing-library/react';
+import React from 'react';
 
 import { styleFitContainer } from '../src/';
 import { useIsomorphicLayoutEffect } from '../src/utils';
