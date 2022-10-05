@@ -89,9 +89,6 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "importOrder": [
-      "^@core/(.*)$",
-      "^@server/(.*)$",
-      "^@ui/(.*)$",
       "^[./]"
     ],
     "importOrderBuiltinModulesToTop": true,
