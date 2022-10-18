@@ -5,7 +5,7 @@ import { styleFitContainer } from './utils';
 /** Props for `ReactCompareSliderImage`. */
 export type ReactCompareSliderImageProps = React.ImgHTMLAttributes<HTMLImageElement>;
 
-/** Image with defaults from `styleFitContainer` applied. */
+/** `Img` element with defaults from `styleFitContainer` applied. */
 export const ReactCompareSliderImage: React.FC<ReactCompareSliderImageProps> = ({
   style,
   ...props

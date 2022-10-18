@@ -32,6 +32,7 @@
 
 - Supports responsive images and any other React components (`picture`, `video`, `canvas`, `iframe` etc.)
 - Supports landscape and portrait orientations
+- Accessible &ndash; includes screen reader and keyboard support
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive, fluid
@@ -57,7 +58,7 @@ npm install react-compare-slider
 
 ### Basic Image Usage
 
-You *may* use `ReactCompareSliderImage` to render images or use your own custom
+You _may_ use `ReactCompareSliderImage` to render images or use your own custom
 components.
 
 ```jsx
@@ -66,24 +67,25 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 <ReactCompareSlider
   itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
   itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
-/>
+/>;
 ```
 
 See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.vercel.app/?path=/story/demos--images).
 
 ## Props
 
-| Prop | Type | Required | Default value | Description |
-|------|------|:--------:|---------------|-------------|
-| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/docs-bounds-padding--page) | `number` |   | `0` | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait). |
-| [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/docs-change-position-on-hover--page) | `boolean` |   | `false` | Whether the slider should follow the pointer on hover. |
-| [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page) | `ReactNode` |   | `undefined` | Custom handle component. |
-| `itemOne`   | `ReactNode` | ✓ | `undefined` | First component to show in slider. |
-| `itemTwo`   | `ReactNode` | ✓ | `undefined` | Second component to show in slider. |
-| [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page) | `boolean`  |   | `false` | Whether to only change position when handle is interacted with (useful for touch devices). |
-| [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)  | `function`  |   | `undefined` | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
-| [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait) | `boolean`   |   | `false` | Whether to use portrait orientation. |
-| [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)  | `number`    |   | `50` | Initial percentage position of divide (`0-100`). |
+| Prop                                                                                                                | Type        | Required | Default value | Description                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------- | ----------- | :------: | ------------- | ----------------------------------------------------------------------------------------------------- |
+| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/docs-bounds-padding--page)                   | `number`    |          | `0`           | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).       |
+| [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/docs-change-position-on-hover--page) | `boolean`   |          | `false`       | Whether the slider should follow the pointer on hover.                                                |
+| [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page)                                 | `ReactNode` |          | `undefined`   | Custom handle component.                                                                              |
+| `itemOne`                                                                                                           | `ReactNode` |    ✓     | `undefined`   | First component to show in slider.                                                                    |
+| `itemTwo`                                                                                                           | `ReactNode` |    ✓     | `undefined`   | Second component to show in slider.                                                                   |
+| `keyboardIncrement`                                                                                                 | `number`    |          | `20`          | How many pixels to move when the slider handle is focused and keyboard arrow is pressed.              |
+| [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page)      | `boolean`   |          | `false`       | Whether to only change position when handle is interacted with (useful for touch devices).            |
+| [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)                | `function`  |          | `undefined`   | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
+| [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait)                                  | `boolean`   |          | `false`       | Whether to use portrait orientation.                                                                  |
+| [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)                                  | `number`    |          | `50`          | Initial percentage position of divide (`0-100`).                                                      |
 
 See the [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 
@@ -95,7 +97,7 @@ The library supports all types of React components.
 
 - [Google Maps Demo](https://react-compare-slider.vercel.app/?path=/story/demos-custom-components--google-maps)
 
-Custom components can apply the same base styles as `ReactCompareSliderImage` 
+Custom components can apply the same base styles as `ReactCompareSliderImage`
 by using the [`styleFitContainer` CSS utility](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page#stylefitcontainer).
 
 ### Custom Handles
@@ -104,11 +106,13 @@ by using the [`styleFitContainer` CSS utility](https://react-compare-slider.verc
 
 See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-handles--page) for more information.
 
+## Real World Examples
+
+- [Official GOV.UK Coronavirus Dashboard](https://coronavirus.data.gov.uk/details/interactive-map/vaccinations#vaccinations-map-container)
+- [Upscayl, Free and Open Source AI Image Upscaler](https://github.com/upscayl/upscayl#free-and-open-source-ai-image-upscaler)
+- [DevTools-X, A collection of offline first developer utilities](https://github.com/fosslife/devtools-x)
+
 ## Requirements
 
 - React 16.8+
-- The [latest two versions of each major browser](./package.json#L49) are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you require legacy Edge support
-
-## Notes
-
-Bootstrapped with [TSDX](https://github.com/formium/tsdx).
+- The [latest two versions of each major browser](./package.json#L50) at time of release are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you require legacy Edge support

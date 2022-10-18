@@ -11,7 +11,7 @@ export const ContainerClip = forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivE
       left: 0,
       width: '100%',
       height: '100%',
-      willChange: 'clip',
+      willChange: 'clip-path',
       userSelect: 'none',
       KhtmlUserSelect: 'none',
       MozUserSelect: 'none',
@@ -26,32 +26,39 @@ ContainerClip.displayName = 'ContainerClip';
 
 /** Container to control the handle's position. */
 export const ContainerHandle = forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement> & Pick<ReactCompareSliderCommonProps, 'portrait'>
->(
-  ({ children, portrait }, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none',
-    };
+  HTMLButtonElement,
+  React.HTMLProps<HTMLButtonElement> &
+    Pick<ReactCompareSliderCommonProps, 'portrait' | 'position'>
+>(({ children, portrait, position }, ref): React.ReactElement => {
+  const style: React.CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    width: portrait ? '100%' : undefined,
+    height: portrait ? undefined : '100%',
+    background: 'none',
+    border: 0,
+    padding: 0,
+    pointerEvents: 'all',
+    appearance: 'none',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    outline: 0,
+  };
 
-    const innerStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: portrait ? '100%' : undefined,
-      height: portrait ? undefined : '100%',
-      transform: portrait ? 'translateY(-50%)' : 'translateX(-50%)',
-      pointerEvents: 'all',
-    };
-
-    return (
-      <div style={style} data-rcs="handle-container" ref={ref}>
-        <div style={innerStyle}>{children}</div>
-      </div>
-    );
-  }
-);
+  return (
+    <button
+      ref={ref}
+      aria-orientation={portrait ? 'vertical' : 'horizontal'}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={position}
+      data-rcs="handle-container"
+      role="slider"
+      style={style}
+    >
+      {children}
+    </button>
+  );
+});
 
 ContainerHandle.displayName = 'ThisHandleContainer';

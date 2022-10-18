@@ -1,5 +1,13 @@
 import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
+/** Keyboard `key` events to trigger slider movement. */
+export enum KeyboardEventKeys {
+  ARROW_LEFT = 'ArrowLeft',
+  ARROW_RIGHT = 'ArrowRight',
+  ARROW_UP = 'ArrowUp',
+  ARROW_DOWN = 'ArrowDown',
+}
+
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their
  * container.
@@ -7,7 +15,7 @@ import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'reac
 export const styleFitContainer = ({
   boxSizing = 'border-box',
   objectFit = 'cover',
-  objectPosition = 'center',
+  objectPosition = 'center center',
   ...props
 }: React.CSSProperties = {}): React.CSSProperties => ({
   display: 'block',
@@ -68,15 +76,17 @@ export const useEventListener = (
 
 /**
  * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
- * @see <https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js>
+ * @see https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js
  */
 export const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' && window.document && window.document.createElement
+  typeof window !== 'undefined' &&
+  window.document &&
+  typeof window.document.createElement !== 'undefined'
     ? useLayoutEffect
     : useEffect;
 
 /** Params passed to `useResizeObserver` `handler` function. */
-export type UseResizeObserverHandlerParams = DOMRect;
+export type UseResizeObserverHandlerProps = DOMRect;
 
 /**
  * Bind resize observer callback to element.
@@ -85,7 +95,7 @@ export type UseResizeObserverHandlerParams = DOMRect;
  */
 export const useResizeObserver = (
   ref: RefObject<Element>,
-  handler: (entry: UseResizeObserverHandlerParams) => void
+  handler: (entry: UseResizeObserverHandlerProps) => void
 ): void => {
   const observer = useRef<ResizeObserver>();
 

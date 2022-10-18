@@ -38,9 +38,9 @@
     "build": "NODE_ENV=production tsdx build",
     "dedupe-types": "rm -rf node_modules && yarn remove @types/react && yarn && yarn add --dev @types/react && npx yarn-deduplicate --packages @types/react yarn.lock",
     "release": "yarn build && np --no-2fa",
-    "test": "CI=true tsdx test --color",
-    "test:watch": "tsdx test",
-    "test:coverage": "CI=true tsdx test --color --coverage",
+    "test": "test-storybook",
+    "test:coverage": "yarn test --coverage && npx nyc report --reporter=lcov -t coverage/storybook --report-dir coverage/storybook",
+    "test:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn storybook:build --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test:coverage\"",
     "lint": "tsdx lint",
     "lint-staged": "lint-staged",
     "storybook": "start-storybook -p 6006 --ci",
@@ -64,20 +64,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn test"
     }
-  },
-  "jest": {
-    "verbose": true,
-    "setupFilesAfterEnv": [
-      "./test/setupTests.ts"
-    ]
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "pretty-quick --staged",
-      "eslint --config ./.eslintrc.precommit.js --fix",
-      "yarn test --bail --findRelatedTests"
+      "eslint --fix"
     ]
   },
   "np": {
@@ -106,51 +99,41 @@
     "react-dom": ">=16.8"
   },
   "devDependencies": {
-    "@emotion/babel-preset-css-prop": "^11.0.0",
-    "@emotion/css": "^11.1.3",
-    "@emotion/react": "^11.1.4",
-    "@ianvs/prettier-plugin-sort-imports": "^3.4.2",
-    "@storybook/addon-actions": "^6.2.0-alpha.10",
-    "@storybook/addon-console": "^1.2.2",
-    "@storybook/addon-controls": "^6.2.0-alpha.10",
-    "@storybook/addon-docs": "^6.2.0-alpha.10",
-    "@storybook/addon-storysource": "^6.2.0-alpha.10",
-    "@storybook/addon-viewport": "^6.2.0-alpha.10",
-    "@storybook/addons": "^6.2.0-alpha.10",
+    "@storybook/addon-console": "^1.2.3",
+    "@storybook/addon-coverage": "^0.0.5",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/addon-storysource": "^6.5.12",
+    "@storybook/jest": "^0.0.10",
     "@storybook/preset-typescript": "3.0.0",
-    "@storybook/react": "^6.2.0-alpha.10",
-    "@storybook/theming": "^6.2.0-alpha.10",
-    "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/react-hooks": "^3.7.0",
-    "@types/jest": "^26.0.19",
+    "@storybook/react": "^6.5.12",
+    "@storybook/test-runner": "^0.9.0",
+    "@storybook/testing-library": "^0.0.13",
+    "@storybook/theming": "^6.5.12",
     "@types/node": "^14.14.17",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/resize-observer-browser": "^0.1.4",
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
-    "@typescript-eslint/parser": "^4.11.1",
-    "babel-loader": "^8.2.2",
-    "eslint": "^7.16.0",
-    "eslint-plugin-jest": "^24.1.3",
-    "eslint-plugin-jest-dom": "^3.6.5",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testing-library": "^3.10.1",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@types/resize-observer-browser": "^0.1.7",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "concurrently": "^7.4.0",
+    "eslint": "^8.25.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "google-maps-react": "^2.0.6",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
-    "np": "^7.2.0",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-test-renderer": "^17.0.1",
-    "remark-codesandbox": "^0.10.0",
+    "np": "^7.6.2",
+    "prettier": "^2.7.1",
+    "pretty-quick": "^3.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remark-codesandbox": "^0.10.1",
     "rollup-plugin-analyzer": "^4.0.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
-    "typescript": "^4.1.3"
+    "typescript": "^4.8.4"
   },
   "dependencies": {}
 }

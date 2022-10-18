@@ -17,7 +17,7 @@ const ThisArrow: React.FC<ThisArrowProps> = ({ flip }) => {
     transform: flip ? 'rotate(180deg)' : undefined,
   };
 
-  return <div style={style} />;
+  return <div className="__rcs-handle-arrow" style={style} />;
 };
 
 /** Props for `ReactCompareSliderHandle`. */
@@ -32,10 +32,13 @@ export interface ReactCompareSliderHandleProps
 }
 
 /** Default `handle`. */
-export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> = ({
-  portrait,
+export const ReactCompareSliderHandle: React.FC<
+  ReactCompareSliderHandleProps & React.HtmlHTMLAttributes<HTMLDivElement>
+> = ({
+  className = '__rcs-handle-root',
   buttonStyle,
   linesStyle,
+  portrait,
   style,
   ...props
 }): React.ReactElement => {
@@ -80,7 +83,12 @@ export const ReactCompareSliderHandle: React.FC<ReactCompareSliderHandleProps> =
   };
 
   return (
-    <div className="__rcs-handle-root" {...props} style={_style}>
+    <div
+      {...props}
+      aria-label={props['aria-label'] || 'Drag to move'}
+      className={className}
+      style={_style}
+    >
       <div className="__rcs-handle-line" style={_linesStyle} />
       <div className="__rcs-handle-button" style={_buttonStyle}>
         <ThisArrow />

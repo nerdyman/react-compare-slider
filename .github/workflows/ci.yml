@@ -25,15 +25,17 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build
         run: yarn build
 
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.4
-        env:
-          CC_TEST_REPORTER_ID: '${{ secrets.CC_TEST_REPORTER_ID }}'
+      - name: Test
+        run: yarn test:ci
+
+      - name: Upload Test Coverage
+        uses: codecov/codecov-action@v3
         with:
-          coverageCommand: yarn test --ci --coverage
-          debug: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
