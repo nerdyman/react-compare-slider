@@ -80,7 +80,19 @@
     "printWidth": 90,
     "semi": true,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "es5",
+    "importOrder": [
+      "^[./]"
+    ],
+    "importOrderBuiltinModulesToTop": true,
+    "importOrderCaseInsensitive": true,
+    "importOrderParserPlugins": [
+      "typescript",
+      "jsx",
+      "decorators-legacy"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
   },
   "peerDependencies": {
     "react": ">=16.8",
