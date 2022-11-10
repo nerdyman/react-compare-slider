@@ -40,7 +40,7 @@
     "release": "yarn build && np --no-2fa",
     "test": "test-storybook",
     "test:coverage": "yarn test --coverage && npx nyc report --reporter=lcov -t coverage/storybook --report-dir coverage/storybook",
-    "test:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn storybook:build --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test:coverage\"",
+    "test:ci": "NODE_OPTIONS='--openssl-legacy-provider' concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn storybook:build --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test:coverage\"",
     "lint": "tsdx lint",
     "lint-staged": "lint-staged",
     "storybook": "start-storybook -p 6006 --ci",
