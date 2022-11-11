@@ -20,12 +20,14 @@
     "compare",
     "image",
     "video",
+    "canvas",
     "component",
     "image comparison",
     "twentytwenty",
     "portrait",
     "typescript"
   ],
+  "packageManager": "pnpm@7.15.0",
   "sideEffects": false,
   "main": "dist/index.js",
   "module": "dist/react-compare-slider.esm.js",
@@ -34,17 +36,19 @@
     "dist"
   ],
   "scripts": {
+    "bootstrap": "corepack enable && pnpm install --frozen-lockfile",
+    "clean": "rm -rf ./node_modules ./example/node_modules",
+    "dx": "pnpm run bootstrap && pnpm install-completion",
     "start": "tsdx watch",
     "build": "NODE_ENV=production tsdx build",
-    "dedupe-types": "rm -rf node_modules && yarn remove @types/react && yarn && yarn add --dev @types/react && npx yarn-deduplicate --packages @types/react yarn.lock",
-    "release": "yarn build && np --no-2fa",
+    "release": "pnpm build && np --no-2fa",
     "test": "test-storybook",
-    "test:coverage": "yarn test --coverage && npx nyc report --reporter=lcov -t coverage/storybook --report-dir coverage/storybook",
-    "test:ci": "NODE_OPTIONS='--openssl-legacy-provider' concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn storybook:build --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test:coverage\"",
-    "lint": "tsdx lint",
+    "test:coverage": "NODE_OPTIONS='--openssl-legacy-provider' pnpm test --coverage && npx nyc report --reporter=lcov -t coverage/storybook --report-dir coverage/storybook",
+    "test:ci": "NODE_OPTIONS='--openssl-legacy-provider' concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm storybook:build --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && pnpm test:coverage\"",
+    "lint": "eslint . && prettier --check .",
     "lint-staged": "lint-staged",
-    "storybook": "start-storybook -p 6006 --ci",
-    "storybook:build": "build-storybook"
+    "storybook": "storybook dev -p 6006 --ci",
+    "storybook:build": "storybook build"
   },
   "browserslist": {
     "production": [
@@ -64,7 +68,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn test"
+      "pre-commit": "lint-staged && pnpm run test"
     }
   },
   "lint-staged": {
@@ -74,51 +78,37 @@
     ]
   },
   "np": {
-    "yarn": true
-  },
-  "prettier": {
-    "printWidth": 90,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "importOrder": [
-      "^[./]"
-    ],
-    "importOrderBuiltinModulesToTop": true,
-    "importOrderCaseInsensitive": true,
-    "importOrderParserPlugins": [
-      "typescript",
-      "jsx",
-      "decorators-legacy"
-    ],
-    "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true
+    "pnpm": true
   },
   "peerDependencies": {
     "react": ">=16.8",
     "react-dom": ">=16.8"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
     "@storybook/addon-console": "^1.2.3",
     "@storybook/addon-coverage": "^0.0.5",
-    "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
-    "@storybook/addon-storysource": "^6.5.12",
+    "@storybook/addon-essentials": "7.0.0-alpha.48",
+    "@storybook/addon-interactions": "7.0.0-alpha.48",
+    "@storybook/addon-links": "7.0.0-alpha.48",
+    "@storybook/addon-storysource": "7.0.0-alpha.48",
+    "@storybook/builder-vite": "7.0.0-alpha.48",
     "@storybook/jest": "^0.0.10",
-    "@storybook/preset-typescript": "3.0.0",
-    "@storybook/react": "^6.5.12",
-    "@storybook/test-runner": "^0.9.0",
-    "@storybook/testing-library": "^0.0.13",
-    "@storybook/theming": "^6.5.12",
-    "@types/node": "^14.14.17",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
+    "@storybook/preset-typescript": "3.0.0-alpha.1",
+    "@storybook/react": "7.0.0-alpha.48",
+    "@storybook/react-vite": "7.0.0-alpha.48",
+    "@storybook/test-runner": "0.10.0-next.1",
+    "@storybook/testing-library": "0.0.14-next.0",
+    "@storybook/theming": "7.0.0-alpha.48",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
     "@types/resize-observer-browser": "^0.1.7",
-    "@typescript-eslint/eslint-plugin": "^5.40.1",
-    "@typescript-eslint/parser": "^5.40.1",
-    "concurrently": "^7.4.0",
-    "eslint": "^8.25.0",
+    "@types/wait-on": "^5.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "concurrently": "^7.5.0",
+    "eslint": "^8.27.0",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "google-maps-react": "^2.0.6",
@@ -131,9 +121,11 @@
     "react-dom": "^18.2.0",
     "remark-codesandbox": "^0.10.1",
     "rollup-plugin-analyzer": "^4.0.0",
+    "storybook": "7.0.0-alpha.48",
     "tsdx": "^0.14.1",
-    "tslib": "^2.0.3",
-    "typescript": "^4.8.4"
-  },
-  "dependencies": {}
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4",
+    "vite": "^3.2.3",
+    "wait-on": "^6.0.1"
+  }
 }

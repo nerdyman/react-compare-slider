@@ -1,2 +1,9 @@
 *.md
 *.mdx
+node_modules/
+dist/
+coverage/
+.nyc_output/
+*.ignore
+pnpm-lock.yaml
+.pnpm-store

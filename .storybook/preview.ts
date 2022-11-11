@@ -1,16 +1,18 @@
-import { withConsole } from '@storybook/addon-console';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import { addDecorator, addParameters } from '@storybook/react';
+// import { withConsole } from '@storybook/addon-console';
+
+import '@storybook/addon-console';
 
 import { theme } from './theme';
 
-addDecorator((storyFn, context) => withConsole()(storyFn)(context));
-
-addParameters({
+export const parameters = {
+  layout: 'fullscreen',
   controls: {
     hideNoControlsWarning: true,
   },
   docs: {
+    /** @see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#docs-page */
+    docsPage: 'automatic',
+    defaultName: 'Docs',
     inlineStories: true,
     theme,
   },
@@ -18,7 +20,4 @@ addParameters({
     showRoots: true,
     theme,
   },
-  viewport: {
-    viewports: INITIAL_VIEWPORTS,
-  },
-});
+};
