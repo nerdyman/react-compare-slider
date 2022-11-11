@@ -15,16 +15,16 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: pnpm run build
 
       - name: Test
-        run: yarn test:ci
+        run: pnpm run test:ci
 
       - name: Upload Test Coverage
         uses: codecov/codecov-action@v3
