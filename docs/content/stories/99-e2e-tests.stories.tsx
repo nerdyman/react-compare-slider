@@ -1,15 +1,14 @@
-import { jest, expect } from '@storybook/jest';
+import { expect, jest } from '@storybook/jest';
 import type { Meta, Story } from '@storybook/react';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import React from 'react';
-
 import {
-  ReactCompareSlider,
   ReactCompareSliderHandle as BaseReactCompareSliderHandle,
   ReactCompareSliderImage as BaseReactCompareSliderImage,
+  ReactCompareSlider,
   ReactCompareSliderDetailedProps,
   styleFitContainer,
-} from '../../src';
+} from 'react-compare-slider';
 
 export default {
   title: 'Tests/E2E',

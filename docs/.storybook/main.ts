@@ -1,20 +1,15 @@
-const path = require('node:path');
+import path from 'node:path';
 
-const { mergeConfig } = require('vite');
+import { mergeConfig } from 'vite';
 
-const codesandbox = require('remark-codesandbox');
-
-const storybookConfig = {
+export default {
   core: {
     builder: '@storybook/builder-vite',
   },
 
   framework: {
     name: '@storybook/react-vite',
-    options: { fastRefresh: true },
   },
-
-  csfPluginOptions: {},
 
   addons: [
     '@storybook/addon-links',
@@ -27,10 +22,13 @@ const storybookConfig = {
   ],
 
   /** Files to load as stories */
-  stories: ['../docs/**/*.stories.@(mdx|tsx)'],
+  stories: ['../content/**/*.stories.@(mdx|tsx)'],
 
   async viteFinal(config) {
     return mergeConfig(config, {
+      build: {
+        sourcemap: 'inline',
+      },
       resolve: {
         alias: {
           ['react-compare-slider']: path.resolve(__dirname, '..', 'src'),
@@ -39,5 +37,3 @@ const storybookConfig = {
     });
   },
 };
-
-module.exports = storybookConfig;

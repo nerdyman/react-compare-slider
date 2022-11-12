@@ -9,3 +9,4 @@ dist
 coverage
 *.ignore
 storybook-static
+docs/src

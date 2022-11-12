@@ -1,4 +1,3 @@
-/* eslint no-console: 0 */
 import { GoogleApiWrapper, Map } from 'google-maps-react';
 import React from 'react';
 import { ReactCompareSlider } from 'react-compare-slider';
