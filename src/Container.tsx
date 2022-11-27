@@ -1,25 +1,26 @@
 import React, { forwardRef } from 'react';
+import type { CSSProperties, HTMLProps, ReactElement } from 'react';
 
 import type { ReactCompareSliderCommonProps } from './types';
 
 /** Container for clipped item. */
-export const ContainerClip = forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  (props, ref): React.ReactElement => {
-    const style: React.CSSProperties = {
+export const ContainerClip = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
+  (props, ref): ReactElement => {
+    const style: CSSProperties = {
       position: 'absolute',
       top: 0,
       left: 0,
       width: '100%',
       height: '100%',
-      willChange: 'clip-path',
       userSelect: 'none',
+      willChange: 'clip-path',
       KhtmlUserSelect: 'none',
       MozUserSelect: 'none',
       WebkitUserSelect: 'none',
     };
 
     return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
-  }
+  },
 );
 
 ContainerClip.displayName = 'ContainerClip';
@@ -27,10 +28,9 @@ ContainerClip.displayName = 'ContainerClip';
 /** Container to control the handle's position. */
 export const ContainerHandle = forwardRef<
   HTMLButtonElement,
-  React.HTMLProps<HTMLButtonElement> &
-    Pick<ReactCompareSliderCommonProps, 'portrait' | 'position'>
->(({ children, portrait, position }, ref): React.ReactElement => {
-  const style: React.CSSProperties = {
+  HTMLProps<HTMLButtonElement> & Pick<ReactCompareSliderCommonProps, 'portrait' | 'position'>
+>(({ children, portrait, position }, ref): ReactElement => {
+  const style: CSSProperties = {
     position: 'absolute',
     top: 0,
     width: portrait ? '100%' : undefined,
@@ -43,6 +43,8 @@ export const ContainerHandle = forwardRef<
     WebkitAppearance: 'none',
     MozAppearance: 'none',
     outline: 0,
+    transform: portrait ? `translate3d(0, -50% ,0)` : `translate3d(-50%, 0, 0)`,
+    willChange: 'left',
   };
 
   return (

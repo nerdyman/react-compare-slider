@@ -1,10 +1,11 @@
 /** @type {import('prettier').Options} */
 module.exports = {
   plugins: [require.resolve('@ianvs/prettier-plugin-sort-imports')],
-  printWidth: 90,
+  printWidth: 100,
   semi: true,
   singleQuote: true,
-  trailingComma: 'es5',
+  trailingComma: 'all',
+  endOfLine: 'lf',
   useTabs: false,
 
   importOrder: ['^~/(.*)$', '^[./]'],

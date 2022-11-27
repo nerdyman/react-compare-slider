@@ -1,4 +1,5 @@
 import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
 
 /** Keyboard `key` events to trigger slider movement. */
 export enum KeyboardEventKeys {
@@ -17,7 +18,7 @@ export const styleFitContainer = ({
   objectFit = 'cover',
   objectPosition = 'center center',
   ...props
-}: React.CSSProperties = {}): React.CSSProperties => ({
+}: CSSProperties = {}): CSSProperties => ({
   display: 'block',
   width: '100%',
   height: '100%',
@@ -50,7 +51,7 @@ export const useEventListener = (
   eventName: EventListener['name'],
   handler: EventListener['caller'],
   element: EventTarget,
-  handlerOptions: AddEventListenerOptions
+  handlerOptions: AddEventListenerOptions,
 ): void => {
   const savedHandler = useRef<EventListener['caller']>();
 
@@ -95,7 +96,7 @@ export type UseResizeObserverHandlerProps = DOMRect;
  */
 export const useResizeObserver = (
   ref: RefObject<Element>,
-  handler: (entry: UseResizeObserverHandlerProps) => void
+  handler: (entry: UseResizeObserverHandlerProps) => void,
 ): void => {
   const observer = useRef<ResizeObserver>();
 

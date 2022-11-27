@@ -2,7 +2,7 @@
   <h1>React Compare Slider</h1>
   <p>Compare two components side-by-side or top-to-toe.</p>
 
-[![Example](./example/default-handle-capture.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
+[![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
 <a href="https://github.com/nerdyman/react-compare-slider/blob/master/LICENSE">
   <img src="https://img.shields.io/npm/l/react-compare-slider.svg" alt="License MIT" />
@@ -15,7 +15,7 @@
 </a>
 <br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
-  <img src="https://img.shields.io/github/workflow/status/nerdyman/react-compare-slider/build" alt="Build Status" />
+  <img src="https://github.com/nerdyman/react-compare-slider/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
 </a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
   <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
@@ -35,9 +35,8 @@
 - Accessible &ndash; includes screen reader and keyboard support
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
-- Responsive, fluid
-- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider)
-- Zero dependencies
+- Responsive, intrinsic sizing
+- [Teeny-tiny](https://bundlephobia.com/result?p=react-compare-slider), zero dependencies
 - Type safe
 
 ## Demo
@@ -51,9 +50,11 @@
 ### Install
 
 ```sh
-yarn add react-compare-slider
-# OR
 npm install react-compare-slider
+# or
+yarn add react-compare-slider
+# or
+pnpm install react-compare-slider
 ```
 
 ### Basic Image Usage
@@ -64,10 +65,14 @@ components.
 ```jsx
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-<ReactCompareSlider
-  itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
-  itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
-/>;
+export const Example = () => {
+  return (
+    <ReactCompareSlider
+      itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
+      itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
+    />
+  );
+};
 ```
 
 See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.vercel.app/?path=/story/demos--images).
@@ -89,22 +94,15 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 
 See the [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 
+<br />
+
 ## Extending
 
-### Custom Items
-
-The library supports all types of React components.
-
 - [Google Maps Demo](https://react-compare-slider.vercel.app/?path=/story/demos-custom-components--google-maps)
-
-Custom components can apply the same base styles as `ReactCompareSliderImage`
+- Custom components can apply the same base styles as `ReactCompareSliderImage`
 by using the [`styleFitContainer` CSS utility](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page#stylefitcontainer).
 
-### Custom Handles
-
-[![Custom Handles](./example/custom-handle-capture.gif)](https://react-compare-slider.vercel.app/?path=/story/demos-handles--individual-styles)
-
-See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-handles--page) for more information.
+- [Custom handles](https://react-compare-slider.vercel.app/?path=/docs/docs-handles--page)
 
 ## Real World Examples
 
@@ -115,4 +113,4 @@ See the [Handles docs](https://react-compare-slider.vercel.app/?path=/docs/docs-
 ## Requirements
 
 - React 16.8+
-- The [latest two versions of each major browser](./package.json#L50) at time of release are officially supported &ndash; try [version 1.2.1](https://www.npmjs.com/package/react-compare-slider/v/1.2.1) if you require legacy Edge support
+- The [latest two versions](./package.json#L55) of each major browser are officially supported

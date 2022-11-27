@@ -10,7 +10,7 @@ export default defineConfig((options) => ({
   sourcemap: true,
   splitting: true,
   treeshake: true,
-  // Storybook docgen won't work with source files in parent directory, so we need to copy
+  // Storybook docgen won't work with source files outside of its root directory, so we need to copy
   // them into the docs folder.
-  onSuccess: 'cp -r src ./docs',
+  onSuccess: 'cp -r src ./docs/storybook',
 }));

@@ -2,9 +2,9 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.rulers": [90],
+  "editor.rulers": [100],
   "editor.formatOnSave": true,
-  "eslint.packageManager": "yarn",
+  "eslint.packageManager": "pnpm",
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,

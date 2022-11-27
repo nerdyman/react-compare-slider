@@ -4,34 +4,39 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Build
+    name: Build, lint and test
     runs-on: ubuntu-latest
-
-    env:
-      CI: true
+    strategy:
+      matrix:
+        node: ['18.12.x']
 
     steps:
       - name: 🛒 Checkout repo
         uses: actions/checkout@v3
 
-      # see https://github.com/actions/setup-node/issues/531
-      - name: 🤷 Force enable corepack
-        run: corepack enable
+      - uses: pnpm/action-setup@v2
 
-      - name: 👷 Set up Node.js
+      - name: ⚒️ Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📦 Install Dependencies
-        run: npm run bootstrap
+        # https://github.com/storybookjs/builder-vite/issues/55
+        run: npm run bootstrap --shamefully-hoist
+
+      - name: 🚦 Lint
+        run: pnpm run lint
 
       - name: 🔨 Build
         run: pnpm run build
 
       - name: 🧪 Test
-        run: pnpm run test:ci
+        run: |
+          npx playwright install-deps chromium
+          pnpm run --filter @this/example build
+          pnpm run test:ci
 
       - name: 🛫 Upload Test Coverage
         uses: codecov/codecov-action@v3

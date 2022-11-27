@@ -1,4 +1,5 @@
 import React from 'react';
+import type { CSSProperties, FC, HtmlHTMLAttributes, ReactElement } from 'react';
 
 import { ReactCompareSliderCommonProps } from './types';
 
@@ -7,8 +8,8 @@ interface ThisArrowProps {
   flip?: boolean;
 }
 
-const ThisArrow: React.FC<ThisArrowProps> = ({ flip }) => {
-  const style: React.CSSProperties = {
+const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
+  const style: CSSProperties = {
     width: 0,
     height: 0,
     borderTop: '8px solid transparent',
@@ -24,16 +25,16 @@ const ThisArrow: React.FC<ThisArrowProps> = ({ flip }) => {
 export interface ReactCompareSliderHandleProps
   extends Pick<ReactCompareSliderCommonProps, 'portrait'> {
   /** Optional styles for handle the button. */
-  buttonStyle?: React.CSSProperties;
+  buttonStyle?: CSSProperties;
   /** Optional styles for lines either side of the handle button. */
-  linesStyle?: React.CSSProperties;
+  linesStyle?: CSSProperties;
   /** Optional styles for the handle root. */
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 /** Default `handle`. */
-export const ReactCompareSliderHandle: React.FC<
-  ReactCompareSliderHandleProps & React.HtmlHTMLAttributes<HTMLDivElement>
+export const ReactCompareSliderHandle: FC<
+  ReactCompareSliderHandleProps & HtmlHTMLAttributes<HTMLDivElement>
 > = ({
   className = '__rcs-handle-root',
   buttonStyle,
@@ -41,8 +42,8 @@ export const ReactCompareSliderHandle: React.FC<
   portrait,
   style,
   ...props
-}): React.ReactElement => {
-  const _style: React.CSSProperties = {
+}): ReactElement => {
+  const _style: CSSProperties = {
     display: 'flex',
     flexDirection: portrait ? 'row' : 'column',
     placeItems: 'center',
@@ -53,7 +54,7 @@ export const ReactCompareSliderHandle: React.FC<
     ...style,
   };
 
-  const _linesStyle: React.CSSProperties = {
+  const _linesStyle: CSSProperties = {
     flexGrow: 1,
     height: portrait ? 2 : '100%',
     width: portrait ? '100%' : 2,
@@ -63,7 +64,7 @@ export const ReactCompareSliderHandle: React.FC<
     ...linesStyle,
   };
 
-  const _buttonStyle: React.CSSProperties = {
+  const _buttonStyle: CSSProperties = {
     display: 'grid',
     gridAutoFlow: 'column',
     gap: 8,

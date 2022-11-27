@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import type { CSSProperties, FC, ReactElement } from 'react';
 
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps } from './types';
 import {
   KeyboardEventKeys,
+  UseResizeObserverHandlerProps,
   useEventListener,
   usePrevious,
-  UseResizeObserverHandlerProps,
   useResizeObserver,
 } from './utils';
 
@@ -26,7 +27,7 @@ const EVENT_PASSIVE_PARAMS = { passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
 /** Root Comparison slider. */
-export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
+export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   handle,
   itemOne,
   itemTwo,
@@ -39,7 +40,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
   keyboardIncrement = 20,
   style,
   ...props
-}): React.ReactElement => {
+}): ReactElement => {
   /** DOM node of the root element. */
   const rootContainerRef = useRef<HTMLDivElement>(null);
   /** DOM node of the item that is clipped. */
@@ -57,12 +58,13 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
   /** Target container for pointer events. */
   const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
   /** Whether the bounds of the container element have been synchronised. */
+  // @TODO Remove this.
   const [didSyncBounds, setDidSyncBounds] = useState(false);
 
   // Set target container for pointer events.
   useEffect(() => {
     setInteractiveTarget(
-      onlyHandleDraggable ? handleContainerRef.current : rootContainerRef.current
+      onlyHandleDraggable ? handleContainerRef.current : rootContainerRef.current,
     );
   }, [onlyHandleDraggable]);
 
@@ -99,10 +101,10 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
             ? x - left - window.pageXOffset
             : x,
           // Min value
-          0
+          0,
         ),
         // Max value
-        _portrait ? height : width
+        _portrait ? height : width,
       );
 
       /** Width or height with CSS scaling accounted for. */
@@ -148,12 +150,12 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
         // Get largest from pixel position *or* bounds padding.
         Math.max(adjustedPosition, 0 + _boundsPadding),
         // Use height *or* width based on orientation.
-        (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding
+        (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding,
       );
 
       (handleContainerRef.current as HTMLButtonElement).setAttribute(
         'aria-valuenow',
-        `${Math.round(internalPositionPc.current)}`
+        `${Math.round(internalPositionPc.current)}`,
       );
 
       (clipContainerRef.current as HTMLElement).style.clipPath = _portrait
@@ -166,18 +168,15 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
-    [didSyncBounds, onPositionChange]
+    [didSyncBounds, onPositionChange],
   );
 
   // Update internal position when other user controllable props change.
   useEffect(() => {
-    const { width, height } = (
-      rootContainerRef.current as HTMLDivElement
-    ).getBoundingClientRect();
+    const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
 
     // Use current internal position if `position` hasn't changed.
-    const nextPosition =
-      position === prevPropPosition ? internalPositionPc.current : position;
+    const nextPosition = position === prevPropPosition ? internalPositionPc.current : position;
 
     updateInternalPosition({
       portrait,
@@ -202,7 +201,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
 
       setIsDragging(true);
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition],
   );
 
   /** Handle mouse/touch move. */
@@ -216,7 +215,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
         y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition],
   );
 
   /** Handle mouse/touch up. */
@@ -238,7 +237,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
         y: ((height / 100) * internalPositionPc.current * scaledHeight) / height,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition]
+    [portrait, boundsPadding, updateInternalPosition],
   );
 
   /**
@@ -274,7 +273,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
         isOffset: true,
       });
     },
-    [boundsPadding, keyboardIncrement, portrait, updateInternalPosition]
+    [boundsPadding, keyboardIncrement, portrait, updateInternalPosition],
   );
 
   // Allow drag outside of container while pointer is still down.
@@ -305,7 +304,7 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
   useEffect(() => {
     const containerRef = rootContainerRef.current as HTMLDivElement;
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = (): void => {
       if (isDragging) return;
       handlePointerUp();
     };
@@ -325,34 +324,34 @@ export const ReactCompareSlider: React.FC<ReactCompareSliderDetailedProps> = ({
     'keydown',
     handleKeydown,
     handleContainerRef.current as HTMLButtonElement,
-    EVENT_CAPTURE_PARAMS
+    EVENT_CAPTURE_PARAMS,
   );
 
   useEventListener(
     'click',
     handleHandleClick,
     handleContainerRef.current as HTMLButtonElement,
-    EVENT_CAPTURE_PARAMS
+    EVENT_CAPTURE_PARAMS,
   );
 
   useEventListener(
     'mousedown',
     handlePointerDown,
     interactiveTarget as HTMLDivElement,
-    EVENT_CAPTURE_PARAMS
+    EVENT_CAPTURE_PARAMS,
   );
 
   useEventListener(
     'touchstart',
     handlePointerDown,
     interactiveTarget as HTMLDivElement,
-    EVENT_CAPTURE_PARAMS
+    EVENT_CAPTURE_PARAMS,
   );
 
   // Use custom handle if requested.
   const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
 
-  const rootStyle: React.CSSProperties = {
+  const rootStyle: CSSProperties = {
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,

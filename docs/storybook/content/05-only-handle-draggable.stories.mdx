@@ -1,0 +1,43 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+<Meta title="Docs/Only Handle Draggable" component={ReactCompareSlider} />
+
+# Using `onlyHandleDraggable`
+
+The `onlyHandleDraggable` prop moves click, touch and drag from the main slider
+container to the handle.
+
+`onlyHandleDraggable` is useful for full width/height sliders on touch devices
+where the user needs to touch the slider container to scroll past it
+without the slider container capturing the event, changing its position.
+`onlyHandleDraggable` is also useful when comparing interactive components which
+have their own pointer events, such as [embedded maps](/?path=/story/demos-custom-components--google-maps).
+
+<br/>
+
+## Detecting Touch Devices
+
+The library doesn't provide a method to detect touch devices as it's simple to
+do natively.
+
+```js
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+```
+
+## Live Examples
+
+<Canvas>
+  <Story id="demos--only-handle-draggable" />
+</Canvas>
+
+<Canvas>
+  <Story id="demos-custom-components--google-maps" />
+</Canvas>
+
+<ArgsTable of={ReactCompareSlider} />
+
+Also checkout the standalone
+[Only Handle Draggable](?path=/story/demos--only-handle-draggable) and
+[Google Maps](?path=/story/demos-custom-components--google-maps) demos.
