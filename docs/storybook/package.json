@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "storybook": "rm -rf ./node_modules/.cache && start-storybook -p 6006 --ci",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "test": "rm -rf ./coverage && test-storybook"
   },
   "dependencies": {
     "google-maps-react": "^2.0.6",
