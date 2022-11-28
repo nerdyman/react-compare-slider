@@ -6,9 +6,6 @@ jobs:
   build:
     name: Build, lint and test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['18.12.x']
 
     steps:
       - name: 🛒 Checkout repo
@@ -23,8 +20,7 @@ jobs:
           cache: 'pnpm'
 
       - name: 📦 Install Dependencies
-        # https://github.com/storybookjs/builder-vite/issues/55
-        run: npm run bootstrap --shamefully-hoist
+        run: npm run bootstrap
 
       - name: 🚦 Lint
         run: pnpm run lint
