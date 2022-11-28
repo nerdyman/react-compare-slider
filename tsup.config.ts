@@ -1,4 +1,11 @@
+/* eslint no-console: 0 */
+import browserslist from 'browserslist';
+import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
 import { defineConfig } from 'tsup';
+
+const target = resolveToEsbuildTarget(browserslist());
+
+console.info('[tsup] Target:', target);
 
 export default defineConfig((options) => ({
   clean: true,
@@ -6,7 +13,7 @@ export default defineConfig((options) => ({
   entry: ['src/index.ts'],
   format: ['esm'],
   minify: !options.watch,
-  target: 'es2021',
+  target,
   sourcemap: true,
   splitting: true,
   treeshake: true,

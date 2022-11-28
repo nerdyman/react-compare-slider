@@ -30,7 +30,6 @@ jobs:
 
       - name: 🧪 Test
         run: |
-          npx playwright install-deps chromium
           pnpm run --filter @this/example build
           pnpm run test:ci
 

@@ -11,7 +11,9 @@ importers:
       '@types/resize-observer-browser': ^0.1.7
       '@typescript-eslint/eslint-plugin': ^5.44.0
       '@typescript-eslint/parser': ^5.44.0
+      browserslist: ^4.21.4
       concurrently: ^7.6.0
+      esbuild-plugin-browserslist: ^0.5.2
       eslint: ^8.28.0
       eslint-plugin-react: ^7.31.11
       eslint-plugin-react-hooks: ^4.6.0
@@ -36,7 +38,9 @@ importers:
       '@types/resize-observer-browser': 0.1.7
       '@typescript-eslint/eslint-plugin': 5.44.0_fnsv2sbzcckq65bwfk7a5xwslu
       '@typescript-eslint/parser': 5.44.0_hsf322ms6xhhd4b5ne6lb74y4a
+      browserslist: 4.21.4
       concurrently: 7.6.0
+      esbuild-plugin-browserslist: 0.5.2_browserslist@4.21.4
       eslint: 8.28.0
       eslint-plugin-react: 7.31.11_eslint@8.28.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.28.0
@@ -8565,6 +8569,20 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /esbuild-plugin-browserslist/0.5.2_browserslist@4.21.4:
+    resolution: {integrity: sha512-NI5Ruka0Z9to8k6mpJGPBOpNnhg2KbSOrXhE5Pw9PrDpTIuUIcVvq/SZkloIt8jL/O8+qYJL3t5ufWTRyLSw4Q==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      browserslist: ^4.21.4
+      esbuild: ~0.15.12
+    dependencies:
+      browserslist: 4.21.4
+      debug: 4.3.4
+      zod: 3.19.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /esbuild-sunos-64/0.15.15:
     resolution: {integrity: sha512-jOPBudffG4HN8yJXcK9rib/ZTFoTA5pvIKbRrt3IKAGMq1EpBi4xoVoSRrq/0d4OgZLaQbmkHp8RO9eZIn5atA==}
@@ -17854,6 +17872,10 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
     dev: true
 
   /zwitch/1.0.5:
