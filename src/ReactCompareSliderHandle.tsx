@@ -1,7 +1,7 @@
 import React from 'react';
 import type { CSSProperties, FC, HtmlHTMLAttributes, ReactElement } from 'react';
 
-import { ReactCompareSliderCommonProps } from './types';
+import type { ReactCompareSliderCommonProps } from './types';
 
 interface ThisArrowProps {
   /** Whether to flip the arrow direction. */

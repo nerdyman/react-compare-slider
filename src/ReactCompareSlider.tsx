@@ -4,13 +4,8 @@ import type { CSSProperties, FC, ReactElement } from 'react';
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps } from './types';
-import {
-  KeyboardEventKeys,
-  UseResizeObserverHandlerProps,
-  useEventListener,
-  usePrevious,
-  useResizeObserver,
-} from './utils';
+import type { UseResizeObserverHandlerProps } from './utils';
+import { KeyboardEventKeys, useEventListener, usePrevious, useResizeObserver } from './utils';
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps

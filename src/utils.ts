@@ -1,5 +1,5 @@
-import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, RefObject } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 /** Keyboard `key` events to trigger slider movement. */
 export enum KeyboardEventKeys {
