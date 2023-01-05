@@ -183,15 +183,15 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
-    (ev: MouseEvent | TouchEvent) => {
+    (ev: PointerEvent) => {
       ev.preventDefault();
 
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev.pageX,
+        y: ev.pageY,
       });
 
       setIsDragging(true);
@@ -201,13 +201,13 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
 
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
-    function moveCall(ev: MouseEvent | TouchEvent) {
+    function moveCall(ev: PointerEvent) {
       updateInternalPosition({
         portrait,
         boundsPadding,
         isOffset: true,
-        x: ev instanceof MouseEvent ? ev.pageX : ev.touches[0].pageX,
-        y: ev instanceof MouseEvent ? ev.pageY : ev.touches[0].pageY,
+        x: ev.pageX,
+        y: ev.pageY,
       });
     },
     [portrait, boundsPadding, updateInternalPosition],
@@ -239,7 +239,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
    * Yo dawg, we heard you like handles, so we handled in your handle so you can handle
    * while you handle.
    */
-  const handleHandleClick = useCallback((ev: MouseEvent) => {
+  const handleHandleClick = useCallback((ev: PointerEvent) => {
     ev.stopPropagation();
     (handleContainerRef.current as HTMLButtonElement).focus();
   }, []);
@@ -274,19 +274,15 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   // Allow drag outside of container while pointer is still down.
   useEffect(() => {
     if (isDragging && !hasWindowBinding.current) {
-      window.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('mouseup', handlePointerUp, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('touchmove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('touchend', handlePointerUp, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      window.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
       hasWindowBinding.current = true;
     }
 
     return (): void => {
       if (hasWindowBinding.current) {
-        window.removeEventListener('mousemove', handlePointerMove);
-        window.removeEventListener('mouseup', handlePointerUp);
-        window.removeEventListener('touchmove', handlePointerMove);
-        window.removeEventListener('touchend', handlePointerUp);
+        window.removeEventListener('pointermove', handlePointerMove);
+        window.removeEventListener('pointerup', handlePointerUp);
         hasWindowBinding.current = false;
       }
     };
@@ -305,13 +301,13 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     };
 
     if (changePositionOnHover) {
-      containerRef.addEventListener('mousemove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      containerRef.addEventListener('mouseleave', handleMouseLeave, EVENT_PASSIVE_PARAMS);
+      containerRef.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+      containerRef.addEventListener('pointerleave', handleMouseLeave, EVENT_PASSIVE_PARAMS);
     }
 
     return () => {
-      containerRef.removeEventListener('mousemove', handlePointerMove);
-      containerRef.removeEventListener('mouseleave', handleMouseLeave);
+      containerRef.removeEventListener('pointermove', handlePointerMove);
+      containerRef.removeEventListener('pointerleave', handleMouseLeave);
     };
   }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
 
@@ -350,6 +346,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     position: 'relative',
     overflow: 'hidden',
     cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
+    touchAction: 'none',
     userSelect: 'none',
     KhtmlUserSelect: 'none',
     msUserSelect: 'none',
