@@ -295,19 +295,19 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   useEffect(() => {
     const containerRef = rootContainerRef.current as HTMLDivElement;
 
-    const handleMouseLeave = (): void => {
+    const handlePointerLeave = (): void => {
       if (isDragging) return;
       handlePointerUp();
     };
 
     if (changePositionOnHover) {
       containerRef.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      containerRef.addEventListener('pointerleave', handleMouseLeave, EVENT_PASSIVE_PARAMS);
+      containerRef.addEventListener('pointerleave', handlePointerLeave, EVENT_PASSIVE_PARAMS);
     }
 
     return () => {
       containerRef.removeEventListener('pointermove', handlePointerMove);
-      containerRef.removeEventListener('pointerleave', handleMouseLeave);
+      containerRef.removeEventListener('pointerleave', handlePointerLeave);
     };
   }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
 
@@ -326,14 +326,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   );
 
   useEventListener(
-    'mousedown',
-    handlePointerDown,
-    interactiveTarget as HTMLDivElement,
-    EVENT_CAPTURE_PARAMS,
-  );
-
-  useEventListener(
-    'touchstart',
+    'pointerdown',
     handlePointerDown,
     interactiveTarget as HTMLDivElement,
     EVENT_CAPTURE_PARAMS,
