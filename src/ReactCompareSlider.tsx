@@ -186,6 +186,9 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     (ev: PointerEvent) => {
       ev.preventDefault();
 
+      // Only handle left mouse button (touch events also use 0).
+      if (ev.button !== 0) return;
+
       updateInternalPosition({
         portrait,
         boundsPadding,
