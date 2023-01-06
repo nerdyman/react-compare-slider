@@ -1,6 +1,13 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   build:
@@ -30,6 +37,7 @@ jobs:
 
       - name: 🧪 Test
         run: |
+          npx playwright install chromium
           pnpm run --filter @this/example build
           pnpm run test:ci
 

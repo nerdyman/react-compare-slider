@@ -3,6 +3,10 @@ import path from 'path';
 import codesandbox from 'remark-codesandbox';
 
 const config = {
+  core: {
+    builder: 'webpack5',
+  },
+
   addons: [
     '@storybook/addon-essentials',
     {
