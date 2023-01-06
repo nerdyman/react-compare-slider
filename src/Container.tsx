@@ -44,7 +44,7 @@ export const ContainerHandle = forwardRef<
     MozAppearance: 'none',
     outline: 0,
     transform: portrait ? `translate3d(0, -50% ,0)` : `translate3d(-50%, 0, 0)`,
-    willChange: 'left',
+    willChange: portrait ? 'top' : 'left',
   };
 
   return (

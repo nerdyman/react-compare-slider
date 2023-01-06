@@ -5,6 +5,7 @@ import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps } from './types';
 import type { UseResizeObserverHandlerProps } from './utils';
+import { getPositionAsPercentage } from './utils';
 import { KeyboardEventKeys, useEventListener, usePrevious, useResizeObserver } from './utils';
 
 /** Properties for internal `updateInternalPosition` callback. */
@@ -52,9 +53,12 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   const hasWindowBinding = useRef(false);
   /** Target container for pointer events. */
   const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
-  /** Whether the bounds of the container element have been synchronised. */
-  // @TODO Remove this.
-  const [didSyncBounds, setDidSyncBounds] = useState(false);
+  const [didMount, setDidMount] = useState(false);
+
+  // Set mount state to ensure initial position setter is not skipped.
+  useEffect(() => {
+    setDidMount(true);
+  }, []);
 
   // Set target container for pointer events.
   useEffect(() => {
@@ -72,98 +76,69 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
       portrait: _portrait,
       boundsPadding: _boundsPadding,
     }: UpdateInternalPositionProps) {
-      const { top, left, width, height } = (
+      const { left, top, width, height } = (
         rootContainerRef.current as HTMLDivElement
       ).getBoundingClientRect();
 
-      // Early out if width or height are zero, can't calculate values
-      // from zeros.
+      // Early out if width or height are zero, can't calculate values from zeros.
       if (width === 0 || height === 0) return;
-
-      /**
-       * Pixel position clamped within the container's bounds.
-       * @NOTE This does *not* take `boundsPadding` into account because we need
-       *       the full coords to correctly position the handle.
-       */
-      const positionPx = Math.min(
-        Math.max(
-          // Determine bounds based on orientation
-          _portrait
-            ? isOffset
-              ? y - top - window.pageYOffset
-              : y
-            : isOffset
-            ? x - left - window.pageXOffset
-            : x,
-          // Min value
-          0,
-        ),
-        // Max value
-        _portrait ? height : width,
-      );
 
       /** Width or height with CSS scaling accounted for. */
       const zoomScale = _portrait
         ? height / ((rootContainerRef.current as HTMLDivElement).offsetHeight || 1)
         : width / ((rootContainerRef.current as HTMLDivElement).offsetWidth || 1);
 
-      const adjustedPosition = positionPx / zoomScale;
-      const adjustedWidth = width / zoomScale;
-      const adjustedHeight = height / zoomScale;
+      // Convert passed pixel to percentage using the container's bounds.
+      const boundsPaddingPercentage =
+        ((_boundsPadding * zoomScale) / (_portrait ? height : width)) * 100;
 
-      /**
-       * Internal position percentage *without* bounds.
-       * @NOTE This uses the entire container bounds **without** `boundsPadding`
-       *       to get the *real* bounds.
-       */
-      const nextInternalPositionPc =
-        (adjustedPosition / (_portrait ? adjustedHeight : adjustedWidth)) * 100;
+      const nextPosition = getPositionAsPercentage({
+        bounds: { x, y, width, height, left, top },
+        isOffset,
+        portrait: _portrait,
+      });
 
-      /** Whether the current pixel position meets the min/max bounds. */
-      const positionMeetsBounds = _portrait
-        ? adjustedPosition === 0 || adjustedPosition === adjustedHeight
-        : adjustedPosition === 0 || adjustedPosition === adjustedWidth;
+      /** Next position clamped within padded `boundsPadding` box. */
+      const nextPositionWithBoundsPadding = Math.min(
+        Math.max(nextPosition, boundsPaddingPercentage * zoomScale),
+        100 - boundsPaddingPercentage * zoomScale,
+      );
 
-      const canSkipPositionPc =
-        nextInternalPositionPc === internalPositionPc.current &&
+      const canSkipUpdate =
+        didMount &&
+        nextPosition === internalPositionPc.current &&
+        (nextPosition === 100 || nextPosition === 0) &&
         (internalPositionPc.current === 0 || internalPositionPc.current === 100);
 
-      // Early out if pixel and percentage positions are already at the min/max
-      // to prevent update spamming when the user is sliding outside of the
-      // container.
-      if (didSyncBounds && canSkipPositionPc && positionMeetsBounds) {
+      // Early out if pixel and percentage positions are already at the min/max to prevent update
+      // spamming when the user is sliding outside of the container.
+      if (canSkipUpdate) {
         return;
-      } else {
-        setDidSyncBounds(true);
       }
 
       // Set new internal position.
-      internalPositionPc.current = nextInternalPositionPc;
-
-      /** Pixel position clamped to extremities *with* bounds padding. */
-      const clampedPx = Math.min(
-        // Get largest from pixel position *or* bounds padding.
-        Math.max(adjustedPosition, 0 + _boundsPadding),
-        // Use height *or* width based on orientation.
-        (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding,
-      );
+      internalPositionPc.current = nextPosition;
 
       (handleContainerRef.current as HTMLButtonElement).setAttribute(
         'aria-valuenow',
         `${Math.round(internalPositionPc.current)}`,
       );
 
-      (clipContainerRef.current as HTMLElement).style.clipPath = _portrait
-        ? `inset(${clampedPx}px 0 0 0)`
-        : `inset(0 0 0 ${clampedPx}px)`;
+      (handleContainerRef.current as HTMLElement).style.top = _portrait
+        ? `${nextPositionWithBoundsPadding}%`
+        : '0';
 
-      (handleContainerRef.current as HTMLElement).style.transform = _portrait
-        ? `translate3d(0,calc(-50% + ${clampedPx}px),0)`
-        : `translate3d(calc(-50% + ${clampedPx}px),0,0)`;
+      (handleContainerRef.current as HTMLElement).style.left = _portrait
+        ? '0'
+        : `${nextPositionWithBoundsPadding}%`;
+
+      (clipContainerRef.current as HTMLElement).style.clipPath = _portrait
+        ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
+        : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
-    [didSyncBounds, onPositionChange],
+    [didMount, onPositionChange],
   );
 
   // Update internal position when other user controllable props change.
