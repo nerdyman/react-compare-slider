@@ -27,7 +27,7 @@
     "portrait",
     "typescript"
   ],
-  "packageManager": "pnpm@7.17.1",
+  "packageManager": "pnpm@7.22.0",
   "sideEffects": false,
   "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
@@ -44,7 +44,7 @@
     "release": "pnpm run build && np --no-2fa",
     "test": "pnpm --filter @this/storybook run test",
     "test:coverage": "pnpm run test --coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./docs/storybook/coverage/storybook",
-    "test:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm http-server ./docs/storybook/storybook-static -p 6006 --silent\" \"pnpm wait-port 6006 && pnpm run test:coverage\"",
+    "test:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm http-server -a localhost ./docs/storybook/storybook-static --port 6006\" \"pnpm wait-port 6006 && pnpm run test:coverage\"",
     "type:check": "tsc --noEmit",
     "lint": "concurrently -k -s first -n \"eslint,prettier\" -c \"green,magenta\" \"pnpm run lint:eslint\" \"pnpm run lint:prettier\"",
     "lint:eslint": "eslint .",
