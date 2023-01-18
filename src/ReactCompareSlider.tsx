@@ -5,12 +5,12 @@ import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps } from './types';
 import type { UseResizeObserverHandlerProps } from './utils';
-import { getPositionAsPercentage } from './utils';
 import { KeyboardEventKeys, useEventListener, usePrevious, useResizeObserver } from './utils';
 
 /** Properties for internal `updateInternalPosition` callback. */
-interface UpdateInternalPositionProps
-  extends Required<Pick<ReactCompareSliderDetailedProps, 'boundsPadding' | 'portrait'>> {
+interface UpdateInternalPositionProps {
+  /** Whether to always update the internal position. */
+  alwaysUpdate?: boolean;
   /** X coordinate to update to (landscape). */
   x: number;
   /** Y coordinate to update to (portrait). */
@@ -33,7 +33,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   position = 50,
   boundsPadding = 0,
   changePositionOnHover = false,
-  keyboardIncrement = 20,
+  keyboardIncrement = '5%',
   style,
   ...props
 }): ReactElement => {
@@ -44,8 +44,11 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   /** DOM node of the handle container. */
   const handleContainerRef = useRef<HTMLButtonElement>(null);
   /** Current position as a percentage value (initially negative to sync bounds on mount). */
-  const internalPositionPc = useRef(position);
-  /** Previous `position` prop value. */
+  const internalPosition = useRef(position);
+  /**
+   * Previous `position` prop value.
+   * @TODO Investigate whether this needs to `usePrevious`.
+   */
   const prevPropPosition = usePrevious(position);
   /** Whether user is currently dragging. */
   const [isDragging, setIsDragging] = useState(false);
@@ -55,7 +58,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
   const [didMount, setDidMount] = useState(false);
 
-  // Set mount state to ensure initial position setter is not skipped.
+  // Set mount state to ensure initial position setter is not skipped if the initial value is `100`.
   useEffect(() => {
     setDidMount(true);
   }, []);
@@ -67,78 +70,63 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     );
   }, [onlyHandleDraggable]);
 
-  /** Update internal position value. */
+  /** Sync the internal position and trigger position change callback if defined. */
   const updateInternalPosition = useCallback(
-    function updateInternalCall({
-      x,
-      y,
-      isOffset,
-      portrait: _portrait,
-      boundsPadding: _boundsPadding,
-    }: UpdateInternalPositionProps) {
-      const { left, top, width, height } = (
-        rootContainerRef.current as HTMLDivElement
-      ).getBoundingClientRect();
+    function updateInternal({ x, y, isOffset, alwaysUpdate }: UpdateInternalPositionProps) {
+      const rootElement = rootContainerRef.current as HTMLDivElement;
+      const handleElement = handleContainerRef.current as HTMLButtonElement;
+      const clipElement = clipContainerRef.current as HTMLDivElement;
+      const { width, height, left, top } = rootElement.getBoundingClientRect();
 
-      // Early out if width or height are zero, can't calculate values from zeros.
-      if (width === 0 || height === 0) return;
+      const pixelPosition = portrait
+        ? y - (isOffset ? top - window.pageYOffset : 0)
+        : x - (isOffset ? left - window.pageXOffset : 0);
 
-      /** Width or height with CSS scaling accounted for. */
-      const zoomScale = _portrait
-        ? height / ((rootContainerRef.current as HTMLDivElement).offsetHeight || 1)
-        : width / ((rootContainerRef.current as HTMLDivElement).offsetWidth || 1);
+      /** Next position as percentage. */
+      const nextPosition = Math.min(
+        Math.max((pixelPosition / (portrait ? height : width)) * 100, 0),
+        100,
+      );
 
-      // Convert passed pixel to percentage using the container's bounds.
+      // Skip position update if possible.
+      if (!alwaysUpdate && didMount) {
+        const boundsAreMet = portrait
+          ? pixelPosition >= height || pixelPosition === 0
+          : pixelPosition >= width || pixelPosition === 0;
+
+        const positionMeetsBounds =
+          boundsAreMet && (internalPosition.current === 0 || internalPosition.current === 100);
+
+        if (boundsAreMet && positionMeetsBounds) {
+          return;
+        }
+      }
+
+      const zoomScale = portrait
+        ? height / (rootElement.offsetHeight || 1)
+        : width / (rootElement.offsetWidth || 1);
+
       const boundsPaddingPercentage =
-        ((_boundsPadding * zoomScale) / (_portrait ? height : width)) * 100;
+        ((boundsPadding * zoomScale) / (portrait ? height : width)) * 100;
 
-      const nextPosition = getPositionAsPercentage({
-        bounds: { x, y, width, height, left, top },
-        isOffset,
-        portrait: _portrait,
-      });
-
-      /** Next position clamped within padded `boundsPadding` box. */
       const nextPositionWithBoundsPadding = Math.min(
         Math.max(nextPosition, boundsPaddingPercentage * zoomScale),
         100 - boundsPaddingPercentage * zoomScale,
       );
 
-      const canSkipUpdate =
-        didMount &&
-        nextPosition === internalPositionPc.current &&
-        (nextPosition === 100 || nextPosition === 0) &&
-        (internalPositionPc.current === 0 || internalPositionPc.current === 100);
-
-      // Early out if pixel and percentage positions are already at the min/max to prevent update
-      // spamming when the user is sliding outside of the container.
-      if (canSkipUpdate) {
-        return;
-      }
-
-      // Set new internal position.
-      internalPositionPc.current = nextPosition;
-
-      (handleContainerRef.current as HTMLButtonElement).setAttribute(
-        'aria-valuenow',
-        `${Math.round(internalPositionPc.current)}`,
-      );
-
-      (handleContainerRef.current as HTMLElement).style.top = _portrait
-        ? `${nextPositionWithBoundsPadding}%`
-        : '0';
-
-      (handleContainerRef.current as HTMLElement).style.left = _portrait
-        ? '0'
-        : `${nextPositionWithBoundsPadding}%`;
-
-      (clipContainerRef.current as HTMLElement).style.clipPath = _portrait
+      internalPosition.current = nextPosition;
+      handleElement.setAttribute('aria-valuenow', `${Math.round(internalPosition.current)}`);
+      handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
+      handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
+      clipElement.style.clipPath = portrait
         ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
         : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
 
-      if (onPositionChange) onPositionChange(internalPositionPc.current);
+      if (onPositionChange) {
+        onPositionChange(internalPosition.current);
+      }
     },
-    [didMount, onPositionChange],
+    [boundsPadding, didMount, onPositionChange, portrait],
   );
 
   // Update internal position when other user controllable props change.
@@ -146,15 +134,28 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
     const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
 
     // Use current internal position if `position` hasn't changed.
-    const nextPosition = position === prevPropPosition ? internalPositionPc.current : position;
+    const nextPosition = position === prevPropPosition ? internalPosition.current : position;
 
     updateInternalPosition({
-      portrait,
-      boundsPadding,
       x: (width / 100) * nextPosition,
       y: (height / 100) * nextPosition,
+      alwaysUpdate: true,
     });
-  }, [portrait, position, prevPropPosition, boundsPadding, updateInternalPosition]);
+  }, [boundsPadding, portrait, position, prevPropPosition, updateInternalPosition]);
+
+  // Update internal position when other user controllable props change.
+  useEffect(() => {
+    const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
+
+    // Use current internal position if `position` hasn't changed.
+    const nextPosition = position === prevPropPosition ? internalPosition.current : position;
+
+    updateInternalPosition({
+      x: (width / 100) * nextPosition,
+      y: (height / 100) * nextPosition,
+      alwaysUpdate: true,
+    });
+  }, [boundsPadding, portrait, position, prevPropPosition, updateInternalPosition]);
 
   /** Handle mouse/touch down. */
   const handlePointerDown = useCallback(
@@ -165,8 +166,6 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
       if (ev.button !== 0) return;
 
       updateInternalPosition({
-        portrait,
-        boundsPadding,
         isOffset: true,
         x: ev.pageX,
         y: ev.pageY,
@@ -174,21 +173,19 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
 
       setIsDragging(true);
     },
-    [portrait, boundsPadding, updateInternalPosition],
+    [updateInternalPosition],
   );
 
   /** Handle mouse/touch move. */
   const handlePointerMove = useCallback(
     function moveCall(ev: PointerEvent) {
       updateInternalPosition({
-        portrait,
-        boundsPadding,
         isOffset: true,
         x: ev.pageX,
         y: ev.pageY,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition],
+    [updateInternalPosition],
   );
 
   /** Handle mouse/touch up. */
@@ -204,13 +201,11 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
       ).getBoundingClientRect();
 
       updateInternalPosition({
-        portrait,
-        boundsPadding,
-        x: ((width / 100) * internalPositionPc.current * scaledWidth) / width,
-        y: ((height / 100) * internalPositionPc.current * scaledHeight) / height,
+        x: ((width / 100) * internalPosition.current * scaledWidth) / width,
+        y: ((height / 100) * internalPosition.current * scaledHeight) / height,
       });
     },
-    [portrait, boundsPadding, updateInternalPosition],
+    [updateInternalPosition],
   );
 
   /**
@@ -218,35 +213,52 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
    * while you handle.
    */
   const handleHandleClick = useCallback((ev: PointerEvent) => {
-    ev.stopPropagation();
+    ev.preventDefault();
     (handleContainerRef.current as HTMLButtonElement).focus();
   }, []);
 
   /** Handle keyboard movment. */
   const handleKeydown = useCallback(
     (ev: KeyboardEvent) => {
-      if (!Object.values(KeyboardEventKeys).includes(ev.key as KeyboardEventKeys)) return;
+      if (!Object.values(KeyboardEventKeys).includes(ev.key as KeyboardEventKeys)) {
+        return;
+      }
+
       ev.preventDefault();
 
-      const { top, right, bottom, left } = (
+      const { top, left } = (
         handleContainerRef.current as HTMLButtonElement
       ).getBoundingClientRect();
 
-      const isIncrement =
-        ev.key == KeyboardEventKeys.ARROW_UP || ev.key == KeyboardEventKeys.ARROW_RIGHT;
+      const { width, height } = (
+        rootContainerRef.current as HTMLDivElement
+      ).getBoundingClientRect();
 
-      const offsetX = isIncrement ? right - keyboardIncrement : left + keyboardIncrement;
-      const offsetY = isIncrement ? top + keyboardIncrement : bottom - keyboardIncrement;
+      const isPercentage = typeof keyboardIncrement === 'string';
+      const incrementPercentage = isPercentage
+        ? parseFloat(keyboardIncrement)
+        : (keyboardIncrement / width) * 100;
+
+      const isIncrement = portrait
+        ? ev.key === KeyboardEventKeys.ARROW_LEFT || ev.key === KeyboardEventKeys.ARROW_DOWN
+        : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
+
+      const nextPosition = Math.min(
+        Math.max(
+          isIncrement
+            ? internalPosition.current + incrementPercentage
+            : internalPosition.current - incrementPercentage,
+          0,
+        ),
+        100,
+      );
 
       updateInternalPosition({
-        portrait,
-        boundsPadding,
-        x: portrait ? left : offsetX,
-        y: portrait ? offsetY : top,
-        isOffset: true,
+        x: portrait ? left : (width * nextPosition) / 100,
+        y: portrait ? (height * nextPosition) / 100 : top,
       });
     },
-    [boundsPadding, keyboardIncrement, portrait, updateInternalPosition],
+    [keyboardIncrement, portrait, updateInternalPosition],
   );
 
   // Allow drag outside of container while pointer is still down.
@@ -334,7 +346,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
       <ContainerHandle
         portrait={portrait}
         ref={handleContainerRef}
-        position={Math.round(internalPositionPc.current)}
+        position={Math.round(internalPosition.current)}
       >
         {Handle}
       </ContainerHandle>

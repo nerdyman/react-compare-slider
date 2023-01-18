@@ -114,25 +114,3 @@ export const useResizeObserver = (
     };
   }, [handler, observe]);
 };
-
-/** Get pixel bounds as a percentage. */
-export const getPositionAsPercentage = ({
-  bounds,
-  isOffset,
-  portrait,
-}: {
-  bounds: { x: number; y: number; width: number; height: number; top: number; left: number };
-  isOffset?: boolean;
-  portrait: boolean;
-}): number => {
-  const targetPlane = portrait ? bounds.height : bounds.width;
-  const targetPosition = portrait
-    ? isOffset
-      ? bounds.y - bounds.top - window.pageYOffset
-      : bounds.y
-    : isOffset
-    ? bounds.x - bounds.left - window.pageXOffset
-    : bounds.x;
-
-  return (Math.min(Math.max(targetPosition, 0), targetPlane) / targetPlane) * 100;
-};
