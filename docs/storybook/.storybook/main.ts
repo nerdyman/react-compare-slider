@@ -1,10 +1,14 @@
-import path from 'path';
+const path = require('path');
 
-import codesandbox from 'remark-codesandbox';
+const codesandbox = require('remark-codesandbox');
 
 const config = {
   core: {
     builder: 'webpack5',
+  },
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript-plugin',
   },
 
   addons: [
@@ -64,4 +68,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;

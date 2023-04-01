@@ -6,9 +6,12 @@ import { ReactCompareSliderHandle } from 'react-compare-slider';
 
 # Using Handles
 
-<Canvas>
-  <Story id="demos-handles--individual-styles" />
-</Canvas>
+<p class="sb-custom-info">
+
+**Note**: You should use a non-interactive elements (`div`, `span`, etc.) for custom `handle` 
+components as handles are rendered within a `button` by the slider.
+
+</p>
 
 Custom Handles can be used via the `handle` prop on the main slider component.
 If a custom `handle` is not supplied `ReactCompareSliderHandle` will
@@ -25,9 +28,9 @@ customize it to fit your requirements.
 
 #### CSS `className`
 
-- `__rcs-handle-root`    - The root element.
-- `__rcs-handle-button`  - The circular element shown in the middle.
-- `__rcs-handle-line`    -  For each line either side of the button.
+- `.__rcs-handle-root`    - The root element.
+- `.__rcs-handle-button`  - The circular element shown in the middle.
+- `.__rcs-handle-line`    -  For each line either side of the button.
 
 <br />
 
@@ -39,25 +42,20 @@ customize it to fit your requirements.
 
 The colors used in `ReactCompareSliderHandle` are inherited from the root element's `color`
 property using the `currentColor` keyword (except for `boxShadow`). 
-To set all colors in sync just change the `style` property or use the `__rcs-handle-root` class.
+To set all colors in sync just change the `style` property or use the `.__rcs-handle-root` class.
 
 <Canvas>
-  <Story id="demos-handles--inherited-color" />
+  <Story id="handles--inherited-color" />
 </Canvas>
 
 ### Custom Standalone Handle Usage
 
-```jsx
-import { ReactCompareSlider } from 'react-compare-slider';
 
-/** Render a completely custom handle. */
-const MyCustomHandle = () => (
-  <div style={{ width: '5px', height: '100%', backgroundColor: red }}></div>;
-)
+<Canvas>
+  <Story id="handles-customcomponent--custom-component" />
+</Canvas>
 
-<ReactCompareSlider handle={<MyCustomHandle />} />
-```
 
 ### Live Examples
 
-Check out the [handles demos](/?path=/story/demos-handles--inherited-color) to experiment with handles.
+Check out the [handles examples](/story/handles--inherited-color).

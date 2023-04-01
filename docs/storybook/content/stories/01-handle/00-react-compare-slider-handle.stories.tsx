@@ -6,10 +6,10 @@ import {
   ReactCompareSliderImage,
 } from 'react-compare-slider';
 
-import { argTypes, args } from './config';
+import { argTypes, args } from '../config';
 
 export default {
-  title: 'Demos/Handles',
+  title: 'Handles',
   component: ReactCompareSlider,
   args,
   argTypes,
@@ -116,40 +116,6 @@ export const HideLines = ({ portrait, ...props }) => (
         }}
         linesStyle={{ opacity: 0 }}
       />
-    }
-    itemOne={
-      <ReactCompareSliderImage
-        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
-        style={{ filter: 'grayscale(1)' }}
-        alt="one"
-      />
-    }
-    itemTwo={
-      <ReactCompareSliderImage
-        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
-        alt="two"
-      />
-    }
-    style={{ width: '100%', height: '100vh' }}
-  />
-);
-
-export const CompletelyCustom = ({ portrait, ...props }) => (
-  <ReactCompareSlider
-    {...props}
-    portrait={portrait}
-    handle={
-      <div style={{ display: 'grid', placeContent: 'center', height: '100%' }}>
-        <button
-          style={{
-            all: 'unset',
-            fontSize: 56,
-            borderRadius: '50%',
-          }}
-        >
-          {portrait ? '🥰' : '😍'}
-        </button>
-      </div>
     }
     itemOne={
       <ReactCompareSliderImage

@@ -1,0 +1,62 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { ReactCompareSlider, ReactCompareSliderImage, UseReactCompareSliderReturn } from 'react-compare-slider';
+
+<Meta title="Docs/useReactCompareSliderRef" component={ReactCompareSlider} />
+
+# Using the `useReactCompareSliderRef` Hook
+
+<p class="sb-custom-info">
+
+**Note**: Properties returned from the hook are only usable _after_ the component has mounted.
+
+</p>
+
+The `useReactCompareSliderRef` hook allows you to access the root container as a ref (`rootContainer`) and provides
+access to the internal function used to performantly update the slider position (`setPosition`). 
+
+| Property | Type | Description |
+| :-- | :-- | :-- |
+| `rootContainer` | `HTMLDivElement` or `null` | The root container DOM element. |
+| `setPosition` | `(position: number) => void` | Set the slider position to the given percentage. |
+
+`setPosition` offers performant programmatic control of the slider. It is more performant because 
+it does not trigger a re-render, as opposed to setting the `position` prop which will re-render the 
+component then call the internal set position function as a side effect.
+
+Another benefit of `setPosition` is that it can be used to reset the slider position back to
+the initial position. This is not possible with the `position` prop.
+
+```tsx
+const Example = () => {
+  const reactCompareSliderRef = useReactCompareSliderRef();
+
+  // Safely use the ref properties in an effect or event handler callback.
+  useEffect(() => {
+    console.log(reactCompareSliderRef.current.rootContainer); // The root container DOM element.
+    reactCompareSliderRef.current.setPosition(20); // Set the slider position to 20%.
+  }, [reactCompareSliderRef]);
+
+  return (
+    <ReactCompareSlider
+      ref={reactCompareSliderRef}
+    />
+  );
+}
+
+```
+
+There's no limitation to `setPosition` usage, you can even use it to sync sliders together!
+
+<Canvas>
+  <Story id="demos--use-react-compare-slider-ref" />
+</Canvas>
+
+<ArgsTable of={ReactCompareSlider} />
+
+<br />
+
+## Live Examples
+
+Checkout the [useReactCompareSliderRef examples](/story/demos--use-react-compare-slider-ref).
+

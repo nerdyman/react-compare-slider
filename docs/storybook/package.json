@@ -11,6 +11,7 @@
     "test": "rm -rf ./coverage && test-storybook"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.18.1",
     "google-maps-react": "^2.0.6",
     "react-compare-slider": "workspace:*"
   },

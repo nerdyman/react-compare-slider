@@ -1,5 +1,7 @@
 <style type="text/css">
   :root {
+    --rcs-brand-primary: rgb(200, 109, 252);
+    --rcs-brand-alpha: rgba(89, 47, 114, 0.25);
     --sb-brand-outline-base: rgba(255, 255, 255, 0.1);
     --sb-brand-contrast: #ffffff;
     --sb-surface-top-base: rgb(39, 37, 39, 0.5);
@@ -55,6 +57,20 @@
   .docblock-argstable-body code,
   .sbdocs.sbdocs-p code {
     border-color: var(--sb-brand-outline-base) !important;
+    color: var(--sb-brand-contrast) !important;
+  }
+
+  blockquote.sbdocs.sbdocs-blockquote, .sb-custom-info {
+    border-left: 3px solid var(--rcs-brand-alpha) !important;
+    border-left-color: var(--rcs-brand-primary) !important;
+    background-color: var(--rcs-brand-alpha) !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 0.2rem !important;
+  }
+
+  .sb-custom-info > * {
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .sb-show-main > #root {
@@ -77,10 +93,8 @@
   .sb-custom-note {
     display: block;
     font-family: sans-serif;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: rgba(0, 0, 0, 0.85);
+    padding: 0.75rem;
+    background-color: #1b151f;
     color: white;
   }
 

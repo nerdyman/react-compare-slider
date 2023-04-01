@@ -1,0 +1,40 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+<Meta title="Docs/Keyboard Increment" component={ReactCompareSlider} />
+
+# Using `keyboardIncrement`
+
+The `keyboardIncrement` prop allows you to use the keyboard arrows to increment/decrement the slider
+position when the slider `handle` is focused.
+
+The increment can be either a `number` which evaluates to a pixel value or a `string` value
+ending in `%`, e.g. `20%` to move the slider 20% of the total slider width in landscape mode
+or height in portrait mode. A percentage is usually preferable as it adapts relatively to the width or
+height of the slider, making it behaving consistently across resolutions.
+
+```jsx
+// Increment by 20 pixels.
+<ReactCompareSlider
+  keyboardIncrement={20}
+/>
+
+// Increment by 20 percent of the slider width or height.
+<ReactCompareSlider
+  keyboardIncrement={'20%'}
+/>
+```
+
+<Canvas>
+  <Story id="demos--keyboard-increment" />
+</Canvas>
+
+<ArgsTable of={ReactCompareSlider} />
+
+<br />
+
+## Live Examples
+
+Checkout the [Keyboard Increment examples](/story/demos--keyboard-increment).
+
