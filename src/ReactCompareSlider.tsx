@@ -1,11 +1,19 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import type { CSSProperties, FC, ReactElement } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
+import type { CSSProperties, ReactElement } from 'react';
 
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-import type { ReactCompareSliderDetailedProps } from './types';
+import type { ReactCompareSliderDetailedProps, UseReactCompareSliderRefReturn } from './types';
 import type { UseResizeObserverHandlerProps } from './utils';
-import { KeyboardEventKeys, useEventListener, usePrevious, useResizeObserver } from './utils';
+import { usePrevious } from './utils';
+import { KeyboardEventKeys, useEventListener, useResizeObserver } from './utils';
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps {
@@ -23,333 +31,340 @@ const EVENT_PASSIVE_PARAMS = { passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
 /** Root Comparison slider. */
-export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
-  handle,
-  itemOne,
-  itemTwo,
-  onlyHandleDraggable = false,
-  onPositionChange,
-  portrait = false,
-  position = 50,
-  boundsPadding = 0,
-  changePositionOnHover = false,
-  keyboardIncrement = '5%',
-  style,
-  ...props
-}): ReactElement => {
-  /** DOM node of the root element. */
-  const rootContainerRef = useRef<HTMLDivElement>(null);
-  /** DOM node of the item that is clipped. */
-  const clipContainerRef = useRef<HTMLDivElement>(null);
-  /** DOM node of the handle container. */
-  const handleContainerRef = useRef<HTMLButtonElement>(null);
-  /** Current position as a percentage value (initially negative to sync bounds on mount). */
-  const internalPosition = useRef(position);
-  /**
-   * Previous `position` prop value.
-   * @TODO Investigate whether this needs to `usePrevious`.
-   */
-  const prevPropPosition = usePrevious(position);
-  /** Whether user is currently dragging. */
-  const [isDragging, setIsDragging] = useState(false);
-  /** Whether component has a `window` event binding. */
-  const hasWindowBinding = useRef(false);
-  /** Target container for pointer events. */
-  const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
-  const [didMount, setDidMount] = useState(false);
+export const ReactCompareSlider = forwardRef<
+  UseReactCompareSliderRefReturn,
+  ReactCompareSliderDetailedProps
+>(
+  (
+    {
+      handle,
+      itemOne,
+      itemTwo,
+      onlyHandleDraggable = false,
+      onPositionChange,
+      portrait = false,
+      position = 50,
+      boundsPadding = 0,
+      changePositionOnHover = false,
+      keyboardIncrement = '5%',
+      style,
+      ...props
+    },
+    ref,
+  ): ReactElement => {
+    /** DOM node of the root element. */
+    const rootContainerRef = useRef<HTMLDivElement>(null);
+    /** DOM node of the item that is clipped. */
+    const clipContainerRef = useRef<HTMLDivElement>(null);
+    /** DOM node of the handle container. */
+    const handleContainerRef = useRef<HTMLButtonElement>(null);
+    /** Current position as a percentage value (initially negative to sync bounds on mount). */
+    const internalPosition = useRef(position);
+    /** Whether user is currently dragging. */
+    const [isDragging, setIsDragging] = useState(false);
+    /** Whether component has a `window` event binding. */
+    const hasWindowBinding = useRef(false);
+    /** Target container for pointer events. */
+    const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
+    /** The `position` value at *previous* render. */
+    const previousPosition = usePrevious(position);
+    const [didMount, setDidMount] = useState(false);
 
-  // Set mount state to ensure initial position setter is not skipped if the initial value is `100`.
-  useEffect(() => {
-    setDidMount(true);
-  }, []);
+    /** Sync the internal position and trigger position change callback if defined. */
+    const updateInternalPosition = useCallback(
+      function updateInternal({ x, y, isOffset, alwaysUpdate }: UpdateInternalPositionProps) {
+        const rootElement = rootContainerRef.current as HTMLDivElement;
+        const handleElement = handleContainerRef.current as HTMLButtonElement;
+        const clipElement = clipContainerRef.current as HTMLDivElement;
+        const { width, height, left, top } = rootElement.getBoundingClientRect();
 
-  // Set target container for pointer events.
-  useEffect(() => {
-    setInteractiveTarget(
-      onlyHandleDraggable ? handleContainerRef.current : rootContainerRef.current,
-    );
-  }, [onlyHandleDraggable]);
+        const pixelPosition = portrait
+          ? y - (isOffset ? top - window.pageYOffset : 0)
+          : x - (isOffset ? left - window.pageXOffset : 0);
 
-  /** Sync the internal position and trigger position change callback if defined. */
-  const updateInternalPosition = useCallback(
-    function updateInternal({ x, y, isOffset, alwaysUpdate }: UpdateInternalPositionProps) {
-      const rootElement = rootContainerRef.current as HTMLDivElement;
-      const handleElement = handleContainerRef.current as HTMLButtonElement;
-      const clipElement = clipContainerRef.current as HTMLDivElement;
-      const { width, height, left, top } = rootElement.getBoundingClientRect();
+        /** Next position as percentage. */
+        const nextPosition = Math.min(
+          Math.max((pixelPosition / (portrait ? height : width)) * 100, 0),
+          100,
+        );
 
-      const pixelPosition = portrait
-        ? y - (isOffset ? top - window.pageYOffset : 0)
-        : x - (isOffset ? left - window.pageXOffset : 0);
+        // Skip position update if possible.
+        if (!alwaysUpdate && didMount) {
+          const boundsAreMet = portrait
+            ? pixelPosition >= height || pixelPosition === 0
+            : pixelPosition >= width || pixelPosition === 0;
 
-      /** Next position as percentage. */
-      const nextPosition = Math.min(
-        Math.max((pixelPosition / (portrait ? height : width)) * 100, 0),
-        100,
-      );
+          const positionMeetsBounds =
+            boundsAreMet && (internalPosition.current === 0 || internalPosition.current === 100);
 
-      // Skip position update if possible.
-      if (!alwaysUpdate && didMount) {
-        const boundsAreMet = portrait
-          ? pixelPosition >= height || pixelPosition === 0
-          : pixelPosition >= width || pixelPosition === 0;
-
-        const positionMeetsBounds =
-          boundsAreMet && (internalPosition.current === 0 || internalPosition.current === 100);
-
-        if (boundsAreMet && positionMeetsBounds) {
-          return;
+          if (boundsAreMet && positionMeetsBounds) {
+            return;
+          }
         }
-      }
 
-      const zoomScale = portrait
-        ? height / (rootElement.offsetHeight || 1)
-        : width / (rootElement.offsetWidth || 1);
+        const zoomScale = portrait
+          ? height / (rootElement.offsetHeight || 1)
+          : width / (rootElement.offsetWidth || 1);
 
-      const boundsPaddingPercentage =
-        ((boundsPadding * zoomScale) / (portrait ? height : width)) * 100;
+        const boundsPaddingPercentage =
+          ((boundsPadding * zoomScale) / (portrait ? height : width)) * 100;
 
-      const nextPositionWithBoundsPadding = Math.min(
-        Math.max(nextPosition, boundsPaddingPercentage * zoomScale),
-        100 - boundsPaddingPercentage * zoomScale,
-      );
+        const nextPositionWithBoundsPadding = Math.min(
+          Math.max(nextPosition, boundsPaddingPercentage * zoomScale),
+          100 - boundsPaddingPercentage * zoomScale,
+        );
 
-      internalPosition.current = nextPosition;
-      handleElement.setAttribute('aria-valuenow', `${Math.round(internalPosition.current)}`);
-      handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
-      handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
-      clipElement.style.clipPath = portrait
-        ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
-        : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
+        internalPosition.current = nextPosition;
+        handleElement.setAttribute('aria-valuenow', `${Math.round(internalPosition.current)}`);
+        handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
+        handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
+        clipElement.style.clipPath = portrait
+          ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
+          : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
 
-      if (onPositionChange) {
-        onPositionChange(internalPosition.current);
-      }
-    },
-    [boundsPadding, didMount, onPositionChange, portrait],
-  );
+        if (onPositionChange) {
+          onPositionChange(internalPosition.current);
+        }
+      },
+      [boundsPadding, didMount, onPositionChange, portrait],
+    );
 
-  // Update internal position when other user controllable props change.
-  useEffect(() => {
-    const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
-
-    // Use current internal position if `position` hasn't changed.
-    const nextPosition = position === prevPropPosition ? internalPosition.current : position;
-
-    updateInternalPosition({
-      x: (width / 100) * nextPosition,
-      y: (height / 100) * nextPosition,
-      alwaysUpdate: true,
-    });
-  }, [boundsPadding, portrait, position, prevPropPosition, updateInternalPosition]);
-
-  // Update internal position when other user controllable props change.
-  useEffect(() => {
-    const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
-
-    // Use current internal position if `position` hasn't changed.
-    const nextPosition = position === prevPropPosition ? internalPosition.current : position;
-
-    updateInternalPosition({
-      x: (width / 100) * nextPosition,
-      y: (height / 100) * nextPosition,
-      alwaysUpdate: true,
-    });
-  }, [boundsPadding, portrait, position, prevPropPosition, updateInternalPosition]);
-
-  /** Handle mouse/touch down. */
-  const handlePointerDown = useCallback(
-    (ev: PointerEvent) => {
-      ev.preventDefault();
-
-      // Only handle left mouse button (touch events also use 0).
-      if (ev.button !== 0) return;
-
-      updateInternalPosition({
-        isOffset: true,
-        x: ev.pageX,
-        y: ev.pageY,
-      });
-
-      setIsDragging(true);
-    },
-    [updateInternalPosition],
-  );
-
-  /** Handle mouse/touch move. */
-  const handlePointerMove = useCallback(
-    function moveCall(ev: PointerEvent) {
-      updateInternalPosition({
-        isOffset: true,
-        x: ev.pageX,
-        y: ev.pageY,
-      });
-    },
-    [updateInternalPosition],
-  );
-
-  /** Handle mouse/touch up. */
-  const handlePointerUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  /** Resync internal position on resize. */
-  const handleResize: (resizeProps: UseResizeObserverHandlerProps) => void = useCallback(
-    ({ width, height }) => {
-      const { width: scaledWidth, height: scaledHeight } = (
-        rootContainerRef.current as HTMLDivElement
-      ).getBoundingClientRect();
-
-      updateInternalPosition({
-        x: ((width / 100) * internalPosition.current * scaledWidth) / width,
-        y: ((height / 100) * internalPosition.current * scaledHeight) / height,
-      });
-    },
-    [updateInternalPosition],
-  );
-
-  /**
-   * Yo dawg, we heard you like handles, so we handled in your handle so you can handle
-   * while you handle.
-   */
-  const handleHandleClick = useCallback((ev: PointerEvent) => {
-    ev.preventDefault();
-    (handleContainerRef.current as HTMLButtonElement).focus();
-  }, []);
-
-  /** Handle keyboard movment. */
-  const handleKeydown = useCallback(
-    (ev: KeyboardEvent) => {
-      if (!Object.values(KeyboardEventKeys).includes(ev.key as KeyboardEventKeys)) {
-        return;
-      }
-
-      ev.preventDefault();
-
-      const { top, left } = (
-        handleContainerRef.current as HTMLButtonElement
-      ).getBoundingClientRect();
-
+    // Update internal position when other user controllable props change.
+    useEffect(() => {
       const { width, height } = (
         rootContainerRef.current as HTMLDivElement
       ).getBoundingClientRect();
 
-      const isPercentage = typeof keyboardIncrement === 'string';
-      const incrementPercentage = isPercentage
-        ? parseFloat(keyboardIncrement)
-        : (keyboardIncrement / width) * 100;
-
-      const isIncrement = portrait
-        ? ev.key === KeyboardEventKeys.ARROW_LEFT || ev.key === KeyboardEventKeys.ARROW_DOWN
-        : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
-
-      const nextPosition = Math.min(
-        Math.max(
-          isIncrement
-            ? internalPosition.current + incrementPercentage
-            : internalPosition.current - incrementPercentage,
-          0,
-        ),
-        100,
-      );
+      // Use current internal position if `position` hasn't changed.
+      const nextPosition = position === previousPosition ? internalPosition.current : position;
 
       updateInternalPosition({
-        x: portrait ? left : (width * nextPosition) / 100,
-        y: portrait ? (height * nextPosition) / 100 : top,
+        x: (width / 100) * nextPosition,
+        y: (height / 100) * nextPosition,
+        alwaysUpdate: true,
       });
-    },
-    [keyboardIncrement, portrait, updateInternalPosition],
-  );
+    }, [boundsPadding, position, portrait, previousPosition, updateInternalPosition]);
 
-  // Allow drag outside of container while pointer is still down.
-  useEffect(() => {
-    if (isDragging && !hasWindowBinding.current) {
-      window.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      window.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
-      hasWindowBinding.current = true;
-    }
+    /** Handle mouse/touch down. */
+    const handlePointerDown = useCallback(
+      (ev: PointerEvent) => {
+        ev.preventDefault();
 
-    return (): void => {
-      if (hasWindowBinding.current) {
-        window.removeEventListener('pointermove', handlePointerMove);
-        window.removeEventListener('pointerup', handlePointerUp);
-        hasWindowBinding.current = false;
+        // Only handle left mouse button (touch events also use 0).
+        if (ev.button !== 0) return;
+
+        updateInternalPosition({ isOffset: true, x: ev.pageX, y: ev.pageY });
+        setIsDragging(true);
+      },
+      [updateInternalPosition],
+    );
+
+    /** Handle mouse/touch move. */
+    const handlePointerMove = useCallback(
+      function moveCall(ev: PointerEvent) {
+        updateInternalPosition({ isOffset: true, x: ev.pageX, y: ev.pageY });
+      },
+      [updateInternalPosition],
+    );
+
+    /** Handle mouse/touch up. */
+    const handlePointerUp = useCallback(() => {
+      setIsDragging(false);
+    }, []);
+
+    /** Resync internal position on resize. */
+    const handleResize: (resizeProps: UseResizeObserverHandlerProps) => void = useCallback(
+      ({ width, height }) => {
+        const { width: scaledWidth, height: scaledHeight } = (
+          rootContainerRef.current as HTMLDivElement
+        ).getBoundingClientRect();
+
+        updateInternalPosition({
+          x: ((width / 100) * internalPosition.current * scaledWidth) / width,
+          y: ((height / 100) * internalPosition.current * scaledHeight) / height,
+        });
+      },
+      [updateInternalPosition],
+    );
+
+    /**
+     * Yo dawg, we heard you like handles, so we handled in your handle so you can handle
+     * while you handle.
+     */
+    const handleHandleClick = useCallback((ev: PointerEvent) => {
+      ev.preventDefault();
+      (handleContainerRef.current as HTMLButtonElement).focus();
+    }, []);
+
+    /** Handle keyboard movment. */
+    const handleKeydown = useCallback(
+      (ev: KeyboardEvent) => {
+        if (!Object.values(KeyboardEventKeys).includes(ev.key as KeyboardEventKeys)) {
+          return;
+        }
+
+        ev.preventDefault();
+
+        const { top, left } = (
+          handleContainerRef.current as HTMLButtonElement
+        ).getBoundingClientRect();
+
+        const { width, height } = (
+          rootContainerRef.current as HTMLDivElement
+        ).getBoundingClientRect();
+
+        const isPercentage = typeof keyboardIncrement === 'string';
+        const incrementPercentage = isPercentage
+          ? parseFloat(keyboardIncrement)
+          : (keyboardIncrement / width) * 100;
+
+        const isIncrement = portrait
+          ? ev.key === KeyboardEventKeys.ARROW_LEFT || ev.key === KeyboardEventKeys.ARROW_DOWN
+          : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
+
+        const nextPosition = Math.min(
+          Math.max(
+            isIncrement
+              ? internalPosition.current + incrementPercentage
+              : internalPosition.current - incrementPercentage,
+            0,
+          ),
+          100,
+        );
+
+        updateInternalPosition({
+          x: portrait ? left : (width * nextPosition) / 100,
+          y: portrait ? (height * nextPosition) / 100 : top,
+        });
+      },
+      [keyboardIncrement, portrait, updateInternalPosition],
+    );
+
+    // Set mount state to ensure initial position setter is not skipped if the initial value is `100`.
+    useEffect(() => {
+      setDidMount(true);
+    }, []);
+
+    // Set target container for pointer events.
+    useEffect(() => {
+      setInteractiveTarget(
+        onlyHandleDraggable ? handleContainerRef.current : rootContainerRef.current,
+      );
+    }, [onlyHandleDraggable]);
+
+    // Handle hover events on the container.
+    useEffect(() => {
+      const containerRef = rootContainerRef.current as HTMLDivElement;
+
+      const handlePointerLeave = (): void => {
+        if (isDragging) return;
+        handlePointerUp();
+      };
+
+      if (changePositionOnHover) {
+        containerRef.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+        containerRef.addEventListener('pointerleave', handlePointerLeave, EVENT_PASSIVE_PARAMS);
       }
+
+      return () => {
+        containerRef.removeEventListener('pointermove', handlePointerMove);
+        containerRef.removeEventListener('pointerleave', handlePointerLeave);
+      };
+    }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
+
+    // Allow drag outside of container while pointer is still down.
+    useEffect(() => {
+      if (isDragging && !hasWindowBinding.current) {
+        window.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+        window.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
+        hasWindowBinding.current = true;
+      }
+
+      return (): void => {
+        if (hasWindowBinding.current) {
+          window.removeEventListener('pointermove', handlePointerMove);
+          window.removeEventListener('pointerup', handlePointerUp);
+          hasWindowBinding.current = false;
+        }
+      };
+    }, [handlePointerMove, handlePointerUp, isDragging]);
+
+    useImperativeHandle(
+      ref,
+      (): UseReactCompareSliderRefReturn => {
+        return {
+          rootContainer: rootContainerRef.current as HTMLDivElement,
+          setPosition(nextPosition): void {
+            const { width, height } = (
+              rootContainerRef.current as HTMLDivElement
+            ).getBoundingClientRect();
+
+            updateInternalPosition({
+              x: (width / 100) * nextPosition,
+              y: (height / 100) * nextPosition,
+              alwaysUpdate: true,
+            });
+          },
+        };
+      },
+      [updateInternalPosition],
+    );
+
+    // Bind resize observer to container.
+    useResizeObserver(rootContainerRef, handleResize);
+
+    useEventListener(
+      'keydown',
+      handleKeydown,
+      handleContainerRef.current as HTMLButtonElement,
+      EVENT_CAPTURE_PARAMS,
+    );
+
+    useEventListener(
+      'click',
+      handleHandleClick,
+      handleContainerRef.current as HTMLButtonElement,
+      EVENT_CAPTURE_PARAMS,
+    );
+
+    useEventListener(
+      'pointerdown',
+      handlePointerDown,
+      interactiveTarget as HTMLDivElement,
+      EVENT_CAPTURE_PARAMS,
+    );
+
+    // Use custom handle if requested.
+    const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
+
+    const rootStyle: CSSProperties = {
+      position: 'relative',
+      overflow: 'hidden',
+      cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
+      touchAction: 'none',
+      userSelect: 'none',
+      KhtmlUserSelect: 'none',
+      msUserSelect: 'none',
+      MozUserSelect: 'none',
+      WebkitUserSelect: 'none',
+      ...style,
     };
-  }, [handlePointerMove, handlePointerUp, isDragging]);
 
-  // Bind resize observer to container.
-  useResizeObserver(rootContainerRef, handleResize);
+    return (
+      <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
+        {itemOne}
+        <ContainerClip ref={clipContainerRef}>{itemTwo}</ContainerClip>
 
-  // Handle hover events on the container.
-  useEffect(() => {
-    const containerRef = rootContainerRef.current as HTMLDivElement;
+        <ContainerHandle
+          portrait={portrait}
+          ref={handleContainerRef}
+          position={Math.round(internalPosition.current)}
+        >
+          {Handle}
+        </ContainerHandle>
+      </div>
+    );
+  },
+);
 
-    const handlePointerLeave = (): void => {
-      if (isDragging) return;
-      handlePointerUp();
-    };
-
-    if (changePositionOnHover) {
-      containerRef.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-      containerRef.addEventListener('pointerleave', handlePointerLeave, EVENT_PASSIVE_PARAMS);
-    }
-
-    return () => {
-      containerRef.removeEventListener('pointermove', handlePointerMove);
-      containerRef.removeEventListener('pointerleave', handlePointerLeave);
-    };
-  }, [changePositionOnHover, handlePointerMove, handlePointerUp, isDragging]);
-
-  useEventListener(
-    'keydown',
-    handleKeydown,
-    handleContainerRef.current as HTMLButtonElement,
-    EVENT_CAPTURE_PARAMS,
-  );
-
-  useEventListener(
-    'click',
-    handleHandleClick,
-    handleContainerRef.current as HTMLButtonElement,
-    EVENT_CAPTURE_PARAMS,
-  );
-
-  useEventListener(
-    'pointerdown',
-    handlePointerDown,
-    interactiveTarget as HTMLDivElement,
-    EVENT_CAPTURE_PARAMS,
-  );
-
-  // Use custom handle if requested.
-  const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
-
-  const rootStyle: CSSProperties = {
-    position: 'relative',
-    overflow: 'hidden',
-    cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
-    touchAction: 'none',
-    userSelect: 'none',
-    KhtmlUserSelect: 'none',
-    msUserSelect: 'none',
-    MozUserSelect: 'none',
-    WebkitUserSelect: 'none',
-    ...style,
-  };
-
-  return (
-    <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
-      {itemOne}
-      <ContainerClip ref={clipContainerRef}>{itemTwo}</ContainerClip>
-
-      <ContainerHandle
-        portrait={portrait}
-        ref={handleContainerRef}
-        position={Math.round(internalPosition.current)}
-      >
-        {Handle}
-      </ContainerHandle>
-    </div>
-  );
-};
+ReactCompareSlider.displayName = 'ReactCompareSlider';
