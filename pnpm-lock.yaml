@@ -89,7 +89,7 @@ importers:
   docs/example:
     dependencies:
       react-compare-slider:
-        specifier: '*'
+        specifier: latest
         version: link:../..
     devDependencies:
       '@types/react':

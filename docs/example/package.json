@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-compare-slider": "*"
+    "react-compare-slider": "latest"
   },
   "devDependencies": {
     "@types/react": "^18.0.33",
