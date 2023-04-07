@@ -8,3 +8,4 @@ coverage/
 pnpm-lock.yaml
 storybook-static/
 .next/
+docs/storybook/src

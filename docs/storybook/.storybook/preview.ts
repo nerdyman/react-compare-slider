@@ -13,7 +13,9 @@ export const parameters: Parameters = {
     /** @see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#docs-page */
     docsPage: true,
     defaultName: 'Docs',
-    inlineStories: true,
+    story: {
+      inline: true,
+    },
     theme,
   },
   options: {

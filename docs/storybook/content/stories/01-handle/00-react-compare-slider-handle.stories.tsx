@@ -1,5 +1,6 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
+import type { ReactCompareSliderProps } from 'react-compare-slider';
 import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
@@ -15,7 +16,7 @@ export default {
   argTypes,
 } as Meta;
 
-export const InheritedColor = ({ portrait, ...props }) => (
+export const InheritedColor: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props }) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -37,7 +38,7 @@ export const InheritedColor = ({ portrait, ...props }) => (
   />
 );
 
-export const IndividualStyles = ({ portrait, ...props }) => (
+export const IndividualStyles: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props }) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -72,7 +73,7 @@ export const IndividualStyles = ({ portrait, ...props }) => (
   />
 );
 
-export const HideButton = ({ portrait, ...props }) => (
+export const HideButton: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props }) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}
@@ -101,7 +102,7 @@ export const HideButton = ({ portrait, ...props }) => (
   />
 );
 
-export const HideLines = ({ portrait, ...props }) => (
+export const HideLines: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props }) => (
   <ReactCompareSlider
     {...props}
     portrait={portrait}

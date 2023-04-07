@@ -30,6 +30,14 @@
     height: auto !important;
   }
 
+  .sbdocs.sbdocs-content h1 code,
+  .sbdocs.sbdocs-content h2 code,
+  .sbdocs.sbdocs-content h3 code {
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+  }
+
   .sbdocs.sbdocs-h1 {
     border-bottom: 3px solid var(--sb-brand-outline-base);
     padding-bottom: 0.25rem;
@@ -60,7 +68,8 @@
     color: var(--sb-brand-contrast) !important;
   }
 
-  blockquote.sbdocs.sbdocs-blockquote, .sb-custom-info {
+  blockquote.sbdocs.sbdocs-blockquote,
+  .sb-custom-info {
     border-left: 3px solid var(--rcs-brand-alpha) !important;
     border-left-color: var(--rcs-brand-primary) !important;
     background-color: var(--rcs-brand-alpha) !important;
@@ -73,7 +82,8 @@
     margin: 0 !important;
   }
 
-  .sb-show-main > #root {
+  .sb-show-main > #root,
+  #storybook-root:not([hidden='true']) {
     display: flex;
     flex-grow: 1;
     width: 100%;
@@ -81,8 +91,8 @@
     max-height: 100vh;
   }
 
-  .docblock-propstable-body tr td,
   .docblock-argstable-body tr td {
+    display: table-cell !important;
     background-color: var(--sb-surface-middle-base) !important;
   }
 
@@ -98,6 +108,38 @@
     color: white;
   }
 
+  .sbdocs p {
+    line-height: 1.65;
+  }
+
+  .sbdocs table:not(.docblock-argstable) {
+    width: 100% !important;
+  }
+
+  .sbdocs table:not(.docblock-argstable) thead tr {
+    border: 0 !important;
+  }
+
+  .sbdocs table:not(.docblock-argstable) tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: none !important;
+  }
+
+  .sbdocs table:not(.docblock-argstable) tr:last-of-type td {
+    border-bottom: 0 !important;
+  }
+
+  .sbdocs table:not(.docblock-argstable) th,
+  .sbdocs table:not(.docblock-argstable) td {
+    padding: 0.65rem 0.75rem !important;
+    border: 0 !important;
+  }
+
+  .sbdocs table:not(.docblock-argstable) th:last-of-type,
+  .sbdocs table:not(.docblock-argstable) td:last-of-type {
+    border-right: 0 !important;
+  }
+
   /** @HACK Storybook adds a 100px height to this container for some reason.
    *  Using custom styles to workaround it...ish.
    */
@@ -109,6 +151,8 @@
   .sbdocs-preview div[id^='story--'] > div {
     height: 70vh !important;
     max-height: 32rem;
+    max-width: 100%;
+    overflow: hidden;
     flex-grow: 1;
   }
 </style>

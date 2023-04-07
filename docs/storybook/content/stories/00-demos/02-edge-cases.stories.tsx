@@ -1,5 +1,6 @@
-import type { StoryObj } from '@storybook/react';
+import type { StoryFn } from '@storybook/react';
 import React from 'react';
+import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 import { argTypes, args } from '../config';
@@ -11,7 +12,7 @@ export default {
   argTypes,
 };
 
-export const Scaled: StoryObj = ({ style, ...props }) => (
+export const Scaled: StoryFn<ReactCompareSliderDetailedProps> = ({ style, ...props }) => (
   <ReactCompareSlider
     {...props}
     itemOne={

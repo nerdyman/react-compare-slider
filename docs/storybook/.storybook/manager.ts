@@ -1,4 +1,5 @@
 import { addons } from '@storybook/addons';
+import { ThemeVars } from '@storybook/theming';
 import { create } from '@storybook/theming/create';
 
 import { theme } from './theme';
@@ -14,5 +15,5 @@ addons.setConfig({
     brandTitle: 'React Compare Slider',
     brandUrl: 'https://github.com/nerdyman/react-compare-slider',
     gridCellSize: 12,
-  }),
+  } as ThemeVars),
 });

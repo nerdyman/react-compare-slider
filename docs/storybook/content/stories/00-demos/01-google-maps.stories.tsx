@@ -1,12 +1,14 @@
-import { GoogleMap as GoogleMapBase, GoogleMapProps, useJsApiLoader } from '@react-google-maps/api';
-import { StoryObj } from '@storybook/react';
+import type { GoogleMapProps } from '@react-google-maps/api';
+import { GoogleMap as GoogleMapBase, useJsApiLoader } from '@react-google-maps/api';
+import type { StoryObj } from '@storybook/react';
 import React from 'react';
-import { ReactCompareSlider, ReactCompareSliderDetailedProps } from 'react-compare-slider';
+import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
+import { ReactCompareSlider } from 'react-compare-slider';
 
 import { argTypes, args } from '../config';
 
 export default {
-  title: 'Demos/GoogleMaps',
+  title: 'Demos/Google Maps',
   component: ReactCompareSlider,
   args,
   argTypes,
@@ -15,11 +17,11 @@ export default {
 const useGoogleMap = () => {
   const [map, setMap] = React.useState<any>(null);
 
-  const onLoad = React.useCallback(function callback(map) {
-    setMap(map);
+  const onLoad = React.useCallback(function callback(nextMap) {
+    setMap(nextMap);
   }, []);
 
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
 
@@ -37,8 +39,8 @@ const sharedMapProps: GoogleMapProps = {
   tilt: 0,
   center: { lat: 54.9754478, lng: -1.6073616 },
   mapContainerStyle: {
-    width: '100vw',
-    height: '100vh',
+    width: '100%',
+    height: '100%',
   },
 };
 

@@ -55,7 +55,7 @@ export const UseReactCompareSliderRefUninstantied = () => {
 
 UseReactCompareSliderRefUninstantied.args = getArgs();
 
-UseReactCompareSliderRefUninstantied.play = async ({ canvasElement }) => {
+UseReactCompareSliderRefUninstantied.play = async () => {
   expect(console.warn).toHaveBeenCalledWith(
     '[react-compare-slider] `setPosition` cannot be used until the component has mounted.',
   );

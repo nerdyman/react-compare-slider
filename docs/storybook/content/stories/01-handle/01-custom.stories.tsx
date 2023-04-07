@@ -1,5 +1,6 @@
-import type { Meta, Story } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
+import type { ReactCompareSliderProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 import { argTypes, args } from '../config';
@@ -11,7 +12,7 @@ export default {
   argTypes,
 } as Meta;
 
-export const CustomComponent: Story = (props) => {
+export const CustomComponent: StoryFn<ReactCompareSliderProps> = (props) => {
   const CustomHandle: React.FC = () => {
     return (
       <div
@@ -51,13 +52,13 @@ export const CustomComponent: Story = (props) => {
       handle={<CustomHandle />}
       itemOne={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/space-needle-1.jpg"
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
           alt="Image one"
         />
       }
       itemTwo={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/space-needle-2.jpg"
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
           alt="Image two"
         />
       }

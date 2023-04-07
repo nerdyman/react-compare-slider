@@ -1,6 +1,6 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/blocks';
 
-import { ReactCompareSlider, ReactCompareSliderImage, UseReactCompareSliderReturn } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 <Meta title="Docs/useReactCompareSliderRef" component={ReactCompareSlider} />
 
@@ -15,10 +15,12 @@ import { ReactCompareSlider, ReactCompareSliderImage, UseReactCompareSliderRetur
 The `useReactCompareSliderRef` hook allows you to access the root container as a ref (`rootContainer`) and provides
 access to the internal function used to performantly update the slider position (`setPosition`). 
 
-| Property | Type | Description |
-| :-- | :-- | :-- |
-| `rootContainer` | `HTMLDivElement` or `null` | The root container DOM element. |
-| `setPosition` | `(position: number) => void` | Set the slider position to the given percentage. |
+| Property        | Type                          | Description                                      |
+| :-------------- | :---------------------------- | :----------------------------------------------  |
+| `rootContainer` | `` number\|`${number}%` ``    | The root container DOM element.                  |
+| `setPosition`   | `(position: number) => void`  | Set the slider position to the given percentage. |
+
+<div style={{  height: 1 }}></div>
 
 `setPosition` offers performant programmatic control of the slider. It is more performant because 
 it does not trigger a re-render, as opposed to setting the `position` prop which will re-render the 
@@ -46,7 +48,7 @@ const Example = () => {
 
 ```
 
-There's no limitation to `setPosition` usage, you can even use it to sync sliders together!
+There's no limitation to `setPosition` usage, you can even use it to link sliders together!
 
 <Canvas>
   <Story id="demos--use-react-compare-slider-ref" />

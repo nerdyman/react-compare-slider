@@ -14,15 +14,10 @@ export const args: ReactCompareSliderProps = {
   onPositionChange: undefined,
 };
 
-export const argTypes: ArgTypes<ReactCompareSliderProps> = {
+export const argTypes: ArgTypes<Partial<ReactCompareSliderProps>> = {
   handle: { control: { type: 'function' } },
   itemOne: { control: { type: 'function' } },
   itemTwo: { control: { type: 'function' } },
-  portrait: { control: { type: 'boolean' } },
-  position: { control: { type: 'range', min: 0, max: 100 } },
-  boundsPadding: { control: { type: 'number' } },
-  onlyHandleDraggable: { control: { type: 'boolean' } },
-  changePositionOnHover: { control: { type: 'boolean' } },
-  keyboardIncrement: { control: { type: 'text' } },
   onPositionChange: { control: { type: 'function' } },
+  position: { control: { type: 'range', min: 0, max: 100 } },
 };

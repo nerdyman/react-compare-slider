@@ -1,9 +1,10 @@
 /* eslint no-console: 0 */
 import browserslist from 'browserslist';
 import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
+import type { Options } from 'tsup';
 import { defineConfig } from 'tsup';
 
-const target = resolveToEsbuildTarget(browserslist());
+const target = resolveToEsbuildTarget(browserslist()) as Options['target'];
 
 console.info('[tsup] Target:', target);
 

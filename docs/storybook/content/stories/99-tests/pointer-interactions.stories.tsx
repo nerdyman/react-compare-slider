@@ -2,7 +2,8 @@ import { expect } from '@storybook/jest';
 import type { Meta, Story } from '@storybook/react';
 import { fireEvent, userEvent, waitFor, within } from '@storybook/testing-library';
 import React from 'react';
-import { ReactCompareSlider, ReactCompareSliderDetailedProps } from 'react-compare-slider';
+import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
+import { ReactCompareSlider } from 'react-compare-slider';
 
 import { Template, getArgs } from './utils';
 

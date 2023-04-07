@@ -1,7 +1,7 @@
 {
-  "root": false,
-  "extends": ["../../.eslintrc"],
+  "extends": "../../.eslintrc",
   "rules": {
+    "no-console": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
     "react/react-in-jsx-scope": 0
   }
