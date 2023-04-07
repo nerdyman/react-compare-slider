@@ -47,3 +47,7 @@ jobs:
           fail_ci_if_error: true
           verbose: true
           directory: ./docs/storybook/coverage
+
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
