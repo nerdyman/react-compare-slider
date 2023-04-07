@@ -8,7 +8,7 @@ import {
 } from 'react-compare-slider';
 
 export default {
-  title: 'Tests/E2E/ReactCompareSliderImage',
+  title: 'Tests/Browser/ReactCompareSliderImage',
 } as Meta;
 
 /** Default image. */

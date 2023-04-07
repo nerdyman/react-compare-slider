@@ -5,18 +5,18 @@ import React from 'react';
 import { useReactCompareSliderRef } from 'react-compare-slider';
 
 import { UseReactCompareSliderRef as UseReactCompareSliderRefStory } from '../00-demos/00-index.stories';
-import { ROOT_TEST_ID, getArgs } from './utils';
+import { SLIDER_ROOT_TEST_ID, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/UseReactCompareSliderRef',
+  title: 'Tests/Browser/UseReactCompareSliderRef',
 } as Meta;
 
 export const UseReactCompareSliderRef = UseReactCompareSliderRefStory;
 
 UseReactCompareSliderRef.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider1 = canvas.queryByTestId(`${ROOT_TEST_ID}-1`) as Element;
-  const slider2 = canvas.queryByTestId(`${ROOT_TEST_ID}-2`) as Element;
+  const slider1 = canvas.queryByTestId(`${SLIDER_ROOT_TEST_ID}-1`) as Element;
+  const slider2 = canvas.queryByTestId(`${SLIDER_ROOT_TEST_ID}-2`) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -34,7 +34,7 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
   });
 
   userEvent.click(slider2, {
-    clientX: slider2.getBoundingClientRect().left,
+    clientX: slider2.getBoundingClientRect().right,
     clientY: slider2.getBoundingClientRect().top,
   });
 

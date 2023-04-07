@@ -7,7 +7,7 @@ import { ReactCompareSliderHandle as BaseReactCompareSliderHandle } from 'react-
 import { Template, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/ReactCompareSliderHandle',
+  title: 'Tests/Browser/ReactCompareSliderHandle',
 } as Meta;
 
 /** Test `handle`. */

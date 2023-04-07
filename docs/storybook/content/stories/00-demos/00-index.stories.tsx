@@ -7,7 +7,7 @@ import {
   useReactCompareSliderRef,
 } from 'react-compare-slider';
 
-import { ROOT_TEST_ID } from '../99-tests/utils';
+import { SLIDER_ROOT_TEST_ID } from '../99-tests/utils';
 import { argTypes, args } from '../config';
 
 export default {
@@ -349,7 +349,7 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
       <div style={{ display: 'flex', flexGrow: 1 }}>
         <ReactCompareSlider
           {...props}
-          data-testid={`${ROOT_TEST_ID}-1`}
+          data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
           ref={slider1Ref}
           onFocus={() => setSliderInControl(1)}
           onPointerDown={() => setSliderInControl(1)}
@@ -370,7 +370,7 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
         />
         <ReactCompareSlider
           {...props}
-          data-testid={`${ROOT_TEST_ID}-2`}
+          data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
           ref={slider2Ref}
           onFocus={() => setSliderInControl(2)}
           onPointerDown={() => setSliderInControl(2)}

@@ -8,10 +8,10 @@ export const Template: StoryFn<ReactCompareSliderDetailedProps> = (args) => (
   <ReactCompareSlider {...args} />
 );
 
-export const ROOT_TEST_ID = 'rcs-root';
+export const SLIDER_ROOT_TEST_ID = 'rcs-root';
 
 export const getArgs = (args: Partial<ReactCompareSliderDetailedProps> = {}) => ({
-  'data-testid': ROOT_TEST_ID,
+  'data-testid': SLIDER_ROOT_TEST_ID,
   onPositionChange: jest.fn(console.log),
   style: { width: '100%', height: '100vh' },
   itemOne: (

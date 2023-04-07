@@ -6,7 +6,7 @@ import React from 'react';
 import { Template, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/ZeroBounds',
+  title: 'Tests/Browser/ZeroBounds',
 } as Meta;
 
 /** Rendering items with no width or height. */
@@ -19,11 +19,11 @@ ZeroBounds.args = getArgs({
 
 ZeroBounds.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const rootComponent = canvas.queryByTestId(ZeroBounds.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(ZeroBounds.args['data-testid']) as Element;
 
   // Should have elements on mount and not crash.
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(rootComponent).toBeInTheDocument());
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByTestId('one')).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByTestId('two')).toBeInTheDocument());
 };

@@ -5,7 +5,7 @@ import { waitFor, within } from '@storybook/testing-library';
 import { Template, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/Default',
+  title: 'Tests/Browser/Default',
 } as Meta;
 
 /** Test default props. */
@@ -14,11 +14,11 @@ Default.args = getArgs();
 
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const rootComponent = canvas.queryByTestId(Default.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(Default.args['data-testid']) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(rootComponent).toBeInTheDocument());
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
 

@@ -6,7 +6,7 @@ import React from 'react';
 import { Template, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/Disabled',
+  title: 'Tests/Browser/Disabled',
 } as Meta;
 
 export const Disabled = (args) => (
@@ -22,11 +22,11 @@ Disabled.args = getArgs({ style: { width: 200, height: 200 }, disabled: true });
 
 Disabled.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const rootComponent = canvas.queryByTestId(Disabled.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(Disabled.args['data-testid']) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(rootComponent).toBeInTheDocument());
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   const testButton = canvas.queryByTestId('test-button') as HTMLElement;
 
@@ -39,7 +39,7 @@ Disabled.play = async ({ canvasElement }) => {
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
   // Click on the canvas and move pointer - position and focused element should not be slider.
-  userEvent.click(rootComponent, { clientX: 200, clientY: 200 });
+  userEvent.click(sliderRoot, { clientX: 200, clientY: 200 });
   expect((document.activeElement as HTMLElement).tagName).toBe('BODY');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 

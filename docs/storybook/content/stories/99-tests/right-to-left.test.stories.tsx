@@ -6,7 +6,7 @@ import React from 'react';
 import { Template, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/RightToLeft',
+  title: 'Tests/Browser/RightToLeft',
 } as Meta;
 
 /** Test RTL rendering. */
@@ -20,9 +20,14 @@ RightToLeft.args = getArgs({ style: { width: 200, height: 200 }, position: 25 })
 
 RightToLeft.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const rootComponent = canvas.queryByTestId(RightToLeft.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(RightToLeft.args['data-testid']) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(rootComponent).toBeInTheDocument());
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+
+  // Should position slider at 25%.
+  const slider = canvas.getByRole('slider') as HTMLElement;
+  const sliderRect = slider.getBoundingClientRect();
+  expect(sliderRect.left + sliderRect.width / 2).toBe(50);
 };

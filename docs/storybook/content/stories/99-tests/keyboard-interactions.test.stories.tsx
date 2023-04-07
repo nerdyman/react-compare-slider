@@ -5,7 +5,7 @@ import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { Template, getArgs } from './utils';
 
 export default {
-  title: 'Tests/E2E/Keyboard Interactions',
+  title: 'Tests/Browser/Keyboard Interactions',
 } as Meta;
 
 export const KeyboardInteractionsLandscape = Template.bind({});
@@ -13,13 +13,13 @@ KeyboardInteractionsLandscape.args = getArgs({ style: { width: 200, height: 200 
 
 KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const rootComponent = canvas.queryByTestId(
+  const sliderRoot = canvas.queryByTestId(
     KeyboardInteractionsLandscape.args['data-testid'],
   ) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(rootComponent).toBeInTheDocument());
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Focus the handle with tab key.
   userEvent.tab();
@@ -67,13 +67,13 @@ KeyboardInteractionsPortrait.args = getArgs({
 
 KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const rootComponent = canvas.queryByTestId(
+  const sliderRoot = canvas.queryByTestId(
     KeyboardInteractionsPortrait.args['data-testid'],
   ) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(rootComponent).toBeInTheDocument());
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Focus the handle with tab key.
   userEvent.tab();
