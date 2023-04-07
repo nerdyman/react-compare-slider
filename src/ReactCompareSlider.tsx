@@ -37,6 +37,7 @@ export const ReactCompareSlider = forwardRef<
 >(
   (
     {
+      disabled = false,
       handle,
       itemOne,
       itemTwo,
@@ -151,12 +152,12 @@ export const ReactCompareSlider = forwardRef<
         ev.preventDefault();
 
         // Only handle left mouse button (touch events also use 0).
-        if (ev.button !== 0) return;
+        if (disabled || ev.button !== 0) return;
 
         updateInternalPosition({ isOffset: true, x: ev.pageX, y: ev.pageY });
         setIsDragging(true);
       },
-      [updateInternalPosition],
+      [disabled, updateInternalPosition],
     );
 
     /** Handle mouse/touch move. */
@@ -335,7 +336,7 @@ export const ReactCompareSlider = forwardRef<
     );
 
     // Use custom handle if requested.
-    const Handle = handle || <ReactCompareSliderHandle portrait={portrait} />;
+    const Handle = handle || <ReactCompareSliderHandle disabled={disabled} portrait={portrait} />;
 
     const rootStyle: CSSProperties = {
       position: 'relative',
@@ -356,9 +357,10 @@ export const ReactCompareSlider = forwardRef<
         <ContainerClip ref={clipContainerRef}>{itemTwo}</ContainerClip>
 
         <ContainerHandle
+          disabled={disabled}
           portrait={portrait}
-          ref={handleContainerRef}
           position={Math.round(internalPosition.current)}
+          ref={handleContainerRef}
         >
           {Handle}
         </ContainerHandle>

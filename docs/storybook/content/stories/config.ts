@@ -2,15 +2,16 @@ import type { ArgTypes } from '@storybook/react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 
 export const args: ReactCompareSliderProps = {
-  handle: undefined,
-  itemOne: undefined,
-  itemTwo: undefined,
+  disabled: false,
   portrait: false,
   position: 50,
   boundsPadding: 0,
   onlyHandleDraggable: false,
   changePositionOnHover: false,
   keyboardIncrement: '5%',
+  itemOne: undefined,
+  itemTwo: undefined,
+  handle: undefined,
   onPositionChange: undefined,
 };
 

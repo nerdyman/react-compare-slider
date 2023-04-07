@@ -40,6 +40,91 @@ export const Images: StoryFn<ReactCompareSliderProps> = (props) => {
 
 Images.args = {};
 
+export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
+  boundsPadding = 80,
+  ...props
+}) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        boundsPadding={boundsPadding}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+BoundsPadding.args = { boundsPadding: 80 };
+
+export const ChangePositionOnHover: StoryFn<ReactCompareSliderProps> = ({
+  changePositionOnHover = true,
+  ...props
+}) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        changePositionOnHover={changePositionOnHover}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+            alt="Image one"
+            style={{ filter: 'contrast(200%) grayscale(1)' }}
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+ChangePositionOnHover.args = { changePositionOnHover: true };
+
+export const Disabled: StoryFn<ReactCompareSliderProps> = ({ disabled, ...props }) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        disabled={disabled}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+Disabled.args = { disabled: true };
+
 export const Handle: StoryFn<ReactCompareSliderProps> = (props) => {
   const CustomHandle: React.FC = () => {
     return (
@@ -97,24 +182,25 @@ export const Handle: StoryFn<ReactCompareSliderProps> = (props) => {
 
 Handle.args = {};
 
-export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
-  boundsPadding = 80,
-  ...props
-}) => {
+export const KeyboardIncrement: StoryFn<ReactCompareSliderProps> = (props) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <div className="sb-custom-note">
+        <em>Info:</em> Click the slider handle then use the keyboard arrows to change the slider
+        position.
+      </div>
+
       <ReactCompareSlider
         {...props}
-        boundsPadding={boundsPadding}
         itemOne={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-2.jpg"
             alt="Image one"
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-1.jpg"
             alt="Image two"
           />
         }
@@ -124,7 +210,36 @@ export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
   );
 };
 
-BoundsPadding.args = { boundsPadding: 80 };
+KeyboardIncrement.args = {};
+
+export const OnlyHandleDraggable: StoryFn<ReactCompareSliderProps> = ({
+  onlyHandleDraggable = true,
+  ...props
+}) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        onlyHandleDraggable={onlyHandleDraggable}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/dark-hedges-landscape-1.jpg"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/dark-hedges-landscape-2.jpg"
+            alt="Image two"
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+OnlyHandleDraggable.args = { onlyHandleDraggable: true };
 
 export const OnPositionChange: StoryFn<ReactCompareSliderProps> = (props) => {
   const onPositionChange = React.useCallback((position) => {
@@ -160,35 +275,6 @@ export const OnPositionChange: StoryFn<ReactCompareSliderProps> = (props) => {
 };
 
 OnPositionChange.args = {};
-
-export const OnlyHandleDraggable: StoryFn<ReactCompareSliderProps> = ({
-  onlyHandleDraggable = true,
-  ...props
-}) => {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      <ReactCompareSlider
-        {...props}
-        onlyHandleDraggable={onlyHandleDraggable}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/dark-hedges-landscape-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/dark-hedges-landscape-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '100%', flexGrow: 1 }}
-      />
-    </div>
-  );
-};
-
-OnlyHandleDraggable.args = { onlyHandleDraggable: true };
 
 export const Portrait: StoryFn<ReactCompareSliderProps> = ({ portrait = true, ...props }) => (
   <ReactCompareSlider
@@ -234,66 +320,6 @@ export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...p
 
 Position.args = { position: 25 };
 
-export const ChangePositionOnHover: StoryFn<ReactCompareSliderProps> = ({
-  changePositionOnHover = true,
-  ...props
-}) => {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      <ReactCompareSlider
-        {...props}
-        changePositionOnHover={changePositionOnHover}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
-            alt="Image one"
-            style={{ filter: 'contrast(200%) grayscale(1)' }}
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '100%', flexGrow: 1 }}
-      />
-    </div>
-  );
-};
-
-ChangePositionOnHover.args = { changePositionOnHover: true };
-
-export const KeyboardIncrement: StoryFn<ReactCompareSliderProps> = (props) => {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      <div className="sb-custom-note">
-        <em>Info:</em> Click the slider handle then use the keyboard arrows to change the slider
-        position.
-      </div>
-
-      <ReactCompareSlider
-        {...props}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-2.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-1.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '100%', flexGrow: 1 }}
-      />
-    </div>
-  );
-};
-
-KeyboardIncrement.args = {};
-
 export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props) => {
   // We need to know which slider is in control to avoid infinite loops 🤯
   const [sliderInControl, setSliderInControl] = React.useState(1);
@@ -330,13 +356,13 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
           onPositionChange={handlePosition1Change}
           itemOne={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
+              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
               alt="Image one"
             />
           }
           itemTwo={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
               alt="Image two"
             />
           }
@@ -351,13 +377,13 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
           onPositionChange={handlePosition2Change}
           itemOne={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
+              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
               alt="Image one"
             />
           }
           itemTwo={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
               alt="Image two"
             />
           }
@@ -385,57 +411,3 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
 };
 
 UseReactCompareSliderRef.args = {};
-
-export const DetectTouchDevices: StoryFn<ReactCompareSliderProps> = (props) => {
-  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
-  return (
-    <>
-      <ReactCompareSlider
-        {...props}
-        onlyHandleDraggable={isTouchDevice}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '100%', height: '100vh' }}
-      />
-      <span
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          fontFamily: 'system-ui, sans-serif',
-          lineHeight: 1.5,
-          padding: '0.5rem',
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          color: 'white',
-          pointerEvents: 'none',
-          borderRadius: '0 0 0.25rem 0',
-        }}
-      >
-        Enable <code style={{ fontSize: '1rem' }}>onlyHandleDraggable</code> for touch devices only
-        <br />
-        Is touch device: <code style={{ fontSize: '1rem' }}>{String(isTouchDevice)}</code>
-      </span>
-    </>
-  );
-};
-
-DetectTouchDevices.argTypes = {
-  onlyHandleDraggable: {
-    control: {
-      disable: true,
-    },
-  },
-};
-
-DetectTouchDevices.args = {};

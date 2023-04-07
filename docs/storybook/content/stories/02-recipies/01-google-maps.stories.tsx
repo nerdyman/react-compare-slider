@@ -8,7 +8,7 @@ import { ReactCompareSlider } from 'react-compare-slider';
 import { argTypes, args } from '../config';
 
 export default {
-  title: 'Demos/Google Maps',
+  title: 'Recipies/GoogleMaps',
   component: ReactCompareSlider,
   args,
   argTypes,

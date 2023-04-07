@@ -17,14 +17,13 @@ export const Scaled: StoryFn<ReactCompareSliderDetailedProps> = ({ style, ...pro
     {...props}
     itemOne={
       <ReactCompareSliderImage
-        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
-        style={{ filter: 'grayscale(1)' }}
+        src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
         alt="one"
       />
     }
     itemTwo={
       <ReactCompareSliderImage
-        src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
+        src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
         alt="two"
       />
     }

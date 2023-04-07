@@ -5,6 +5,8 @@ export type ReactCompareSliderPropPosition = number;
 
 /** Common props shared between components. */
 export interface ReactCompareSliderCommonProps {
+  /** Whether to disable slider movement (items are still interactable). */
+  disabled?: boolean;
   /** Whether to use portrait (vertical) orientation. */
   portrait?: boolean;
   /** Divider position. */

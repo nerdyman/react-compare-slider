@@ -23,7 +23,7 @@ const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
 
 /** Props for `ReactCompareSliderHandle`. */
 export interface ReactCompareSliderHandleProps
-  extends Pick<ReactCompareSliderCommonProps, 'portrait'> {
+  extends Pick<ReactCompareSliderCommonProps, 'disabled' | 'portrait'> {
   /** Optional styles for handle the button. */
   buttonStyle?: CSSProperties;
   /** Optional styles for lines either side of the handle button. */
@@ -37,6 +37,7 @@ export const ReactCompareSliderHandle: FC<
   ReactCompareSliderHandleProps & HtmlHTMLAttributes<HTMLDivElement>
 > = ({
   className = '__rcs-handle-root',
+  disabled,
   buttonStyle,
   linesStyle,
   portrait,
@@ -48,7 +49,7 @@ export const ReactCompareSliderHandle: FC<
     flexDirection: portrait ? 'row' : 'column',
     placeItems: 'center',
     height: '100%',
-    cursor: portrait ? 'ns-resize' : 'ew-resize',
+    cursor: disabled ? 'not-allowed' : portrait ? 'ns-resize' : 'ew-resize',
     pointerEvents: 'none',
     color: '#fff',
     ...style,

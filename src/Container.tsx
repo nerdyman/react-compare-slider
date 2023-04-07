@@ -28,8 +28,9 @@ ContainerClip.displayName = 'ContainerClip';
 /** Container to control the handle's position. */
 export const ContainerHandle = forwardRef<
   HTMLButtonElement,
-  HTMLProps<HTMLButtonElement> & Pick<ReactCompareSliderCommonProps, 'portrait' | 'position'>
->(({ children, portrait, position }, ref): ReactElement => {
+  HTMLProps<HTMLButtonElement> &
+    Pick<ReactCompareSliderCommonProps, 'disabled' | 'portrait' | 'position'>
+>(({ children, disabled, portrait, position }, ref): ReactElement => {
   const style: CSSProperties = {
     position: 'absolute',
     top: 0,
@@ -55,6 +56,7 @@ export const ContainerHandle = forwardRef<
       aria-valuemax={100}
       aria-valuenow={position}
       data-rcs="handle-container"
+      disabled={disabled}
       role="slider"
       style={style}
     >
