@@ -49,6 +49,7 @@ export const ReactCompareSlider = forwardRef<
       changePositionOnHover = false,
       keyboardIncrement = '5%',
       style,
+      transition,
       ...props
     },
     ref,
@@ -63,6 +64,8 @@ export const ReactCompareSlider = forwardRef<
     const internalPosition = useRef(position);
     /** Whether user is currently dragging. */
     const [isDragging, setIsDragging] = useState(false);
+    /** Whether the `transition` property can be applied. */
+    const [canTransition, setCanTransition] = useState(true);
     /** Whether component has a `window` event binding. */
     const hasWindowBinding = useRef(false);
     /** Target container for pointer events. */
@@ -156,6 +159,7 @@ export const ReactCompareSlider = forwardRef<
 
         updateInternalPosition({ isOffset: true, x: ev.pageX, y: ev.pageY });
         setIsDragging(true);
+        setCanTransition(true);
       },
       [disabled, updateInternalPosition],
     );
@@ -164,6 +168,7 @@ export const ReactCompareSlider = forwardRef<
     const handlePointerMove = useCallback(
       function moveCall(ev: PointerEvent) {
         updateInternalPosition({ isOffset: true, x: ev.pageX, y: ev.pageY });
+        setCanTransition(false);
       },
       [updateInternalPosition],
     );
@@ -171,6 +176,7 @@ export const ReactCompareSlider = forwardRef<
     /** Handle mouse/touch up. */
     const handlePointerUp = useCallback(() => {
       setIsDragging(false);
+      setCanTransition(true);
     }, []);
 
     /** Resync internal position on resize. */
@@ -205,6 +211,8 @@ export const ReactCompareSlider = forwardRef<
         }
 
         ev.preventDefault();
+
+        setCanTransition(true);
 
         const { top, left } = (
           handleContainerRef.current as HTMLButtonElement
@@ -337,6 +345,7 @@ export const ReactCompareSlider = forwardRef<
 
     // Use custom handle if requested.
     const Handle = handle || <ReactCompareSliderHandle disabled={disabled} portrait={portrait} />;
+    const appliedTransition = canTransition ? transition : undefined;
 
     const rootStyle: CSSProperties = {
       position: 'relative',
@@ -354,13 +363,16 @@ export const ReactCompareSlider = forwardRef<
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
         {itemOne}
-        <ContainerClip ref={clipContainerRef}>{itemTwo}</ContainerClip>
+        <ContainerClip ref={clipContainerRef} transition={appliedTransition}>
+          {itemTwo}
+        </ContainerClip>
 
         <ContainerHandle
           disabled={disabled}
           portrait={portrait}
           position={Math.round(internalPosition.current)}
           ref={handleContainerRef}
+          transition={appliedTransition}
         >
           {Handle}
         </ContainerHandle>

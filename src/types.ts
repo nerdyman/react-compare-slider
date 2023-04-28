@@ -1,4 +1,4 @@
-import type { HtmlHTMLAttributes, ReactNode } from 'react';
+import type { HtmlHTMLAttributes, ReactNode, TransitionEventHandler } from 'react';
 
 /** Slider position property. */
 export type ReactCompareSliderPropPosition = number;
@@ -11,6 +11,10 @@ export interface ReactCompareSliderCommonProps {
   portrait?: boolean;
   /** Divider position. */
   position: ReactCompareSliderPropPosition;
+  /** CSS transition properties to apply to handle movement. */
+  transition?: string;
+  /** Callback fired when applied `transition` completes. */
+  onSliderTransitionEnd?: TransitionEventHandler<HTMLElement>;
 }
 
 /** Comparison slider properties. */

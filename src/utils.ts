@@ -77,11 +77,11 @@ export const useEventListener = (
 
 /**
  * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
- * @see https://github.com/reduxjs/react-redux/blob/c581d480dd675f2645851fb006bef91aeb6ac24d/src/utils/useIsomorphicLayoutEffect.js
+ * @see https://github.com/reduxjs/react-redux/blob/89a86805f2fcf9e8fbd2d1dae345ec791de4a71f/src/utils/useIsomorphicLayoutEffect.ts
  */
-export const useIsomorphicLayoutEffect =
+const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' &&
-  window.document &&
+  typeof window.document !== 'undefined' &&
   typeof window.document.createElement !== 'undefined'
     ? useLayoutEffect
     : useEffect;
