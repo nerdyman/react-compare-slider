@@ -1,5 +1,5 @@
 {
-  "name": "my-vue-app",
+  "name": "react-compare-slider-example",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,15 +14,15 @@
     "react-compare-slider": "latest"
   },
   "devDependencies": {
-    "@types/react": "^18.0.33",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
+    "@vitejs/plugin-react": "^4.0.0",
     "modern-normalize": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.10.0",
-    "typescript": "^5.0.3",
-    "vite": "^4.2.0",
-    "vite-plugin-ssr": "^0.4.111"
+    "react-router-dom": "^6.11.0",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.3",
+    "vite-plugin-ssr": "^0.4.118"
   }
 }
