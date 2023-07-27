@@ -46,7 +46,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           verbose: true
-          directory: ./docs/storybook/coverage
+          directory: ./coverage
 
       - uses: preactjs/compressed-size-action@v2
         with:
