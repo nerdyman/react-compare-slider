@@ -1,8 +1,13 @@
 {
+  "root": false,
   "extends": "../../.eslintrc",
+  "parserOptions": {
+    "project": true
+  },
   "rules": {
     "no-console": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": "warn",
     "react/react-in-jsx-scope": 0
   }
 }

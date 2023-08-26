@@ -1,6 +1,6 @@
 import type { GoogleMapProps } from '@react-google-maps/api';
 import { GoogleMap as GoogleMapBase, useJsApiLoader } from '@react-google-maps/api';
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
@@ -12,7 +12,7 @@ export default {
   component: ReactCompareSlider,
   args,
   argTypes,
-};
+} as Meta;
 
 const useGoogleMap = () => {
   const [map, setMap] = React.useState<any>(null);
@@ -44,7 +44,7 @@ const sharedMapProps: GoogleMapProps = {
   },
 };
 
-export const GoogleMaps: StoryObj<ReactCompareSliderDetailedProps> = (props) => {
+export const GoogleMaps: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyAoRpWSXL16EnnFQqFfkRtfMCKJJTMzvk8',

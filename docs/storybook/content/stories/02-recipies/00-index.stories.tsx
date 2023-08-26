@@ -1,4 +1,4 @@
-import type { StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
@@ -10,7 +10,7 @@ export default {
   component: ReactCompareSlider,
   args,
   argTypes,
-};
+} as Meta;
 
 export const DetectTouchDevices: StoryFn<ReactCompareSliderProps> = (props) => {
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;

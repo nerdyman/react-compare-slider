@@ -1,10 +1,9 @@
 import { expect } from '@storybook/jest';
 import type { Meta } from '@storybook/react';
 import { waitFor, within } from '@storybook/testing-library';
-import React from 'react';
 import { ReactCompareSliderHandle as BaseReactCompareSliderHandle } from 'react-compare-slider';
 
-import { Template, getArgs } from './utils';
+import { Template, getArgs } from './test-utils.test';
 
 export default {
   title: 'Tests/Browser/ReactCompareSliderHandle',

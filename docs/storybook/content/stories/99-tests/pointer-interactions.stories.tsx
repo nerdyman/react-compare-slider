@@ -1,11 +1,10 @@
 import { expect } from '@storybook/jest';
 import type { Meta, StoryFn } from '@storybook/react';
-import { fireEvent, userEvent, waitFor, within } from '@storybook/testing-library';
-import React from 'react';
+import { fireEvent, waitFor, within } from '@storybook/testing-library';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
 
-import { Template, getArgs } from './utils';
+import { Template, getArgs } from './test-utils.test';
 
 export default {
   title: 'Tests/Browser/Pointer Interactions',
@@ -24,7 +23,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
-  userEvent.click(sliderRoot, {
+  fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.75,
     clientY: sliderRoot.clientHeight * 0.75,
   });
@@ -34,7 +33,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
     expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75),
   );
 
-  userEvent.click(sliderRoot, {
+  fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth,
     clientY: sliderRoot.clientHeight,
   });
@@ -44,7 +43,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
     expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100),
   );
 
-  userEvent.click(sliderRoot, {
+  fireEvent.pointerDown(sliderRoot, {
     clientX: 10,
     clientY: 10,
   });

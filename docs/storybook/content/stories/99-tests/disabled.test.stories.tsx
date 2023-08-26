@@ -1,16 +1,15 @@
 import { expect } from '@storybook/jest';
 import type { Meta } from '@storybook/react';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
-import React from 'react';
 
-import { Template, getArgs } from './utils';
+import { Template, getArgs } from './test-utils.test';
 
 export default {
   title: 'Tests/Browser/Disabled',
 } as Meta;
 
-export const Disabled = (args) => (
-  <div dir="rtl">
+export const Disabled: typeof Template = (args) => (
+  <div>
     <button type="button" data-testid="test-button">
       Button
     </button>
@@ -21,8 +20,9 @@ export const Disabled = (args) => (
 Disabled.args = getArgs({ style: { width: 200, height: 200 }, disabled: true });
 
 Disabled.play = async ({ canvasElement }) => {
+  const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(Disabled.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(Disabled.args?.['data-testid']) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -34,27 +34,28 @@ Disabled.play = async ({ canvasElement }) => {
   expect(canvas.getByRole('slider')).toBeDisabled();
 
   // Focus the test button.
-  userEvent.click(testButton);
+  await user.click(testButton);
   expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
   // Click on the canvas and move pointer - position and focused element should not be slider.
-  userEvent.click(sliderRoot, { clientX: 200, clientY: 200 });
-  expect((document.activeElement as HTMLElement).tagName).toBe('BODY');
+  await user.click(sliderRoot);
+  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
   // Click on the handle and move pointer - position and focused element should not be slider.
-  userEvent.click(canvas.getByRole('slider'), { clientX: 20, clientY: 20 });
-  expect((document.activeElement as HTMLElement).tagName).toBe('BODY');
+  await user.click(canvas.getByRole('slider'));
+  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
   // Click on the handle and press arrow key - position and focused element should not be slider.
-  userEvent.click(canvas.getByRole('slider'), { clientX: 125, clientY: 125 });
-  expect((document.activeElement as HTMLElement).tagName).toBe('BODY');
+  await user.click(canvas.getByRole('slider'));
+  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
   // Move handle right.
-  userEvent.keyboard('{ArrowRight}');
-  expect((document.activeElement as HTMLElement).tagName).toBe('BODY');
+  await user.click(canvas.getByRole('slider'));
+  await user.keyboard('{ArrowRight}');
+  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 };

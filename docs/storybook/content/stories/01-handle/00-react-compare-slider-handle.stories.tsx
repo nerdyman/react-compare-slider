@@ -1,5 +1,4 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import React from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import {
   ReactCompareSlider,

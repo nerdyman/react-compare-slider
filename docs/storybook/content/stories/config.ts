@@ -13,6 +13,7 @@ export const args: ReactCompareSliderProps = {
   itemTwo: undefined,
   handle: undefined,
   onPositionChange: undefined,
+  transition: undefined,
 };
 
 export const argTypes: ArgTypes<Partial<ReactCompareSliderProps>> = {

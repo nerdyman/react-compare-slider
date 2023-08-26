@@ -2,7 +2,7 @@ import { expect } from '@storybook/jest';
 import type { Meta } from '@storybook/react';
 import { waitFor, within } from '@storybook/testing-library';
 
-import { Template, getArgs } from './utils';
+import { Template, getArgs } from './test-utils.test';
 
 export default {
   title: 'Tests/Browser/Default',
@@ -14,7 +14,7 @@ Default.args = getArgs();
 
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(Default.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(Default.args?.['data-testid']) as Element;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -23,5 +23,5 @@ Default.play = async ({ canvasElement }) => {
   await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
 
   // Should have initial position on mount.
-  await waitFor(() => expect(Default.args.onPositionChange).toHaveBeenLastCalledWith(50));
+  await waitFor(() => expect(Default.args?.onPositionChange).toHaveBeenLastCalledWith(50));
 };

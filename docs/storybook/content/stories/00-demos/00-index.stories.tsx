@@ -1,4 +1,4 @@
-import type { StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import {
@@ -7,7 +7,7 @@ import {
   useReactCompareSliderRef,
 } from 'react-compare-slider';
 
-import { SLIDER_ROOT_TEST_ID } from '../99-tests/utils';
+import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils.test';
 import { argTypes, args } from '../config';
 
 export default {
@@ -15,7 +15,7 @@ export default {
   component: ReactCompareSlider,
   args,
   argTypes,
-};
+} as Meta;
 
 export const Images: StoryFn<ReactCompareSliderProps> = (props) => {
   return (
@@ -297,6 +297,57 @@ export const Portrait: StoryFn<ReactCompareSliderProps> = ({ portrait = true, ..
 );
 
 Portrait.args = { portrait: true };
+
+export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
+  const reactCompareSliderRef = useReactCompareSliderRef();
+
+  React.useEffect(() => {
+    const fireTransition = async () => {
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          reactCompareSliderRef.current?.setPosition(90);
+          resolve(true);
+        }, 500),
+      );
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          reactCompareSliderRef.current?.setPosition(10);
+          resolve(true);
+        }, 500),
+      );
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          reactCompareSliderRef.current?.setPosition(50);
+          resolve(true);
+        }, 500),
+      );
+    };
+
+    fireTransition();
+  }, []);
+
+  return (
+    <ReactCompareSlider
+      {...props}
+      ref={reactCompareSliderRef}
+      itemOne={
+        <ReactCompareSliderImage
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
+          alt="Image one"
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+          alt="Image two"
+        />
+      }
+      style={{ width: '100%', height: '100vh' }}
+    />
+  );
+};
+
+Transition.args = { position: 0, transition: '.5s ease-in-out' };
 
 export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...props }) => (
   <ReactCompareSlider

@@ -1,9 +1,8 @@
 import { expect } from '@storybook/jest';
 import type { Meta } from '@storybook/react';
 import { waitFor, within } from '@storybook/testing-library';
-import React from 'react';
 
-import { Template, getArgs } from './utils';
+import { Template, getArgs } from './test-utils.test';
 
 export default {
   title: 'Tests/Browser/ZeroBounds',
@@ -19,7 +18,7 @@ ZeroBounds.args = getArgs({
 
 ZeroBounds.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(ZeroBounds.args['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(ZeroBounds.args?.['data-testid']) as Element;
 
   // Should have elements on mount and not crash.
   await new Promise((resolve) => setTimeout(resolve, 500));

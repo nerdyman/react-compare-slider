@@ -1,6 +1,5 @@
 import { jest } from '@storybook/jest';
 import type { StoryFn } from '@storybook/react';
-import React from 'react';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 
@@ -10,7 +9,9 @@ export const Template: StoryFn<ReactCompareSliderDetailedProps> = (args) => (
 
 export const SLIDER_ROOT_TEST_ID = 'rcs-root';
 
-export const getArgs = (args: Partial<ReactCompareSliderDetailedProps> = {}) => ({
+export const getArgs = (
+  args: Partial<ReactCompareSliderDetailedProps> = {},
+): Partial<ReactCompareSliderDetailedProps & Record<string, unknown>> => ({
   'data-testid': SLIDER_ROOT_TEST_ID,
   onPositionChange: jest.fn(console.log),
   style: { width: '100%', height: '100vh' },
