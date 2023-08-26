@@ -14,7 +14,6 @@
     "@react-google-maps/api": "^2.19.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@types/testing-library__jest-dom": "^5.14.9",
     "react": "^18.2.0",
     "react-compare-slider": "workspace:^2.2.0",
     "react-dom": "^18.2.0"

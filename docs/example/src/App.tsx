@@ -1,9 +1,6 @@
-import React from 'react';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-import './index.css';
-
-function Page(): JSX.Element {
+export default function App() {
   return (
     <div style={{ width: '100%', height: '100%', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -40,5 +37,3 @@ function Page(): JSX.Element {
     </div>
   );
 }
-
-export { Page };
