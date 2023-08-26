@@ -8,9 +8,11 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "rm -rf ./coverage && NODE_V8_COVERAGE='../../coverage/ssr-tests' node --experimental-test-coverage --test"
+    "test": "rm -rf ./coverage && NODE_V8_COVERAGE='./coverage' node --experimental-test-coverage --test"
   },
   "devDependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-compare-slider": "latest",
+    "react-dom": "^18.2.0"
   }
 }

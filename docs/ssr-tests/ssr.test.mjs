@@ -1,8 +1,10 @@
 const assert = await import('node:assert');
 const { describe, it } = await import('node:test');
-const React = await import('react');
 
-const { ReactCompareSlider, ReactCompareSliderImage } = await import('../../dist/index.mjs');
+const React = await import('react');
+const { renderToStaticMarkup } = await import('react-dom/server');
+
+const { ReactCompareSlider, ReactCompareSliderImage } = await import('react-compare-slider');
 
 describe('SSR', () => {
   it('should render without error', () => {
@@ -18,5 +20,8 @@ describe('SSR', () => {
     });
 
     assert.strictEqual(React.isValidElement(root), true);
+    assert.strictEqual(renderToStaticMarkup(root).includes('data-rcs="root"'), true);
+    assert.strictEqual(renderToStaticMarkup(root).includes('example-1.jpg'), true);
+    assert.strictEqual(renderToStaticMarkup(root).includes('example-2.jpg'), true);
   });
 });

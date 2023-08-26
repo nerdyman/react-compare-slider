@@ -1,5 +1,5 @@
 import { expect, jest } from '@storybook/jest';
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import { fireEvent, waitFor, within } from '@storybook/testing-library';
 import { useReactCompareSliderRef } from 'react-compare-slider';
 
@@ -43,7 +43,7 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
   });
 };
 
-export const UseReactCompareSliderRefUninstantied = () => {
+export const UseReactCompareSliderRefUninstantied: StoryFn = () => {
   console.warn = jest.fn();
   const ref = useReactCompareSliderRef();
 
