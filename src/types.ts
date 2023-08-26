@@ -1,4 +1,4 @@
-import type { HtmlHTMLAttributes, ReactNode, TransitionEventHandler } from 'react';
+import type { HtmlHTMLAttributes, ReactNode } from 'react';
 
 /** Slider position property. */
 export type ReactCompareSliderPropPosition = number;
@@ -11,10 +11,11 @@ export interface ReactCompareSliderCommonProps {
   portrait?: boolean;
   /** Divider position. */
   position: ReactCompareSliderPropPosition;
-  /** CSS transition properties to apply to handle movement. */
+  /**
+   * Shorthand CSS `transition` properties to apply to handle movement - does not need transition property.
+   * @example '.5s ease-in-out'
+   */
   transition?: string;
-  /** Callback fired when applied `transition` completes. */
-  onSliderTransitionEnd?: TransitionEventHandler<HTMLElement>;
 }
 
 /** Comparison slider properties. */

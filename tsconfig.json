@@ -1,8 +1,9 @@
 {
   "include": ["src"],
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "ESNext"],
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
@@ -18,8 +19,7 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true
   }
 }

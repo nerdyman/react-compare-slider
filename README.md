@@ -17,7 +17,7 @@
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
   <img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" />
 </a>
-<a href="https://codecov.io/github/nerdyman/react-compare-slider" > 
+<a href="https://codecov.io/github/nerdyman/react-compare-slider">
   <img alt="Code coverage" src="https://img.shields.io/codecov/c/github/nerdyman/react-compare-slider?token=yhvFTuC7bh" />
  </a>
 <a href="https://react-compare-slider.vercel.app">
@@ -92,6 +92,7 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)                | `function`  |              | `undefined`   | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
 | [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait)                                  | `boolean`   |              | `false`       | Whether to use portrait orientation.                                                                  |
 | [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)                                  | `number`    |              | `50`          | Initial percentage position of divide (`0-100`).                                                      |
+| [`transition`](https://react-compare-slider.vercel.app/?path=/story/demos--transition)                                  | `string`    |              | `undefined`          | Shorthand CSS `transition` properties to apply to handle movement.                                                      |
 
 See the [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 

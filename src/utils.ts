@@ -10,8 +10,7 @@ export enum KeyboardEventKeys {
 }
 
 /**
- * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their
- * container.
+ * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their container.
  */
 export const styleFitContainer = ({
   boxSizing = 'border-box',

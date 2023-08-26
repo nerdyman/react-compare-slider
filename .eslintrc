@@ -28,6 +28,8 @@
     "no-constant-binary-expression": "error",
     "no-confusing-arrow": 0,
     "no-console": "error",
+    "no-unused-vars": 0,
+    "require-await": 0,
 
     "react/jsx-indent": 0,
     "react/jsx-indent-props": 0,
