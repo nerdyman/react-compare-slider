@@ -42,8 +42,8 @@
 ## Demo
 
 - Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos)
-- CodeSandbox: [basic editable demo](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l)
-- [Local example](./docs)
+- CodeSandbox: [basic demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
+- [Local example](./docs/example)
 
 ## Usage
 

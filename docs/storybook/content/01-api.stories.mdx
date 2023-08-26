@@ -1,10 +1,11 @@
 import { Description, Meta, ArgTypes } from '@storybook/blocks';
 
 import {
-  ReactCompareSlider, 
+  ReactCompareSlider,
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
   styleFitContainer,
+  useReactCompareSliderRef,
 } from 'react-compare-slider';
 
 <Meta title="Docs/API" />
@@ -79,9 +80,11 @@ import { styleFitContainer } from 'react-compare-slider';
 
 ## `useReactCompareSliderRef`
 
+<Description of={useReactCompareSliderRef} />
+
 [🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/src/useReactCompareSliderRef.ts)
 
-The `useReactCompareSliderRef` provides a ref to the root element of the slider and exposes the internal
+The `useReactCompareSliderRef` hook provides a ref to the root element of the slider and exposes the internal
 function used to control the position of the slider. It offers performant programmatic control of the slider.
 
 Check out the [`useReactCompareSliderRef` docs](/story/docs-usereactcomparesliderref--page) more information.

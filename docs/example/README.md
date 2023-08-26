@@ -1,10 +1,7 @@
-<div align="center">
-
 # React Compare Slider Demo
 
-👉 [CodeSandbox Demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example) 👈
-
-</div>
+- 🧑‍💻 [CodeSandbox Demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
+- 🐙 [Github Repo](https://github.com/nerdyman/react-compare-slider)
 
 ---
 
