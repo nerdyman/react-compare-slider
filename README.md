@@ -41,7 +41,7 @@
 
 ## Demo
 
-- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos)
+- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [recipies](https://react-compare-slider.vercel.app/?path=/story/recipies)
 - CodeSandbox: [basic demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
 - [Local example](./docs/example)
 

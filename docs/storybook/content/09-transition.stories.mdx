@@ -1,0 +1,29 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+<Meta title="Docs/Transition" component={ReactCompareSlider} />
+
+# Using `transition`
+
+The `transition` property applies a CSS transition when the slider is moved. The shorthand CSS
+property syntax is used **without** the `transition-property` value. The library sets which property
+to apply the transition to internally.
+
+You may notice that the slider sometimes moves immediately to the new position, this is because the
+transition only applies to `pointerdown` events to ensure the dragging movement of the slider is smooth.
+This means the transition will be cancelled if `pointerdown` is followed by a `pointermove` event.
+
+```jsx
+<ReactCompareSlider
+  transition="0.25s cubic-bezier(.17,.67,.83,.67)"
+/>
+```
+
+<Canvas>
+  <Story id="demos--transition" />
+</Canvas>
+
+## Live Examples
+
+Checkout the [Transition example](/story/demos--transition).

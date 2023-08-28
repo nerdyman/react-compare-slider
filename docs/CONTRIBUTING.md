@@ -4,11 +4,11 @@ Thanks for contributing!
 
 ## Getting Started
 
-This is a pnpm monorepo, consisting of the main package in the root of the repo and [`storybook`](./storybook/) and [`example`](./example/) packages in the `packages` directory.
+This is a pnpm monorepo, consisting of the main package in the root of the repo and [`storybook`](./storybook/) and [`example`](./example/) packages in the `docs` directory.
 packages in the `docs` folder. Don't worry if you haven't used pnpm or monorepos before, the
 commands below will set everything up for you.
 
-Ensure you're using the Node version specified in [.nvmrc](./.nvmrc) and run the following to
+Ensure you're using the Node version specified in [.nvmrc](../.nvmrc) and run the following to
 bootstrap the project:
 
 ```sh
@@ -59,4 +59,4 @@ pnpm run test:ci
 
 ## VS Code
 
-If you're using VS Code please make sure you install the [recommended extensions](./.vscode/extensions.json).
+If you're using VS Code please make sure you install the [recommended extensions](../.vscode/extensions.json).
