@@ -27,6 +27,9 @@
     "portrait",
     "typescript"
   ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "packageManager": "pnpm@8.7.0",
   "sideEffects": false,
   "module": "dist/index.mjs",
@@ -48,11 +51,12 @@
     "dx": "npm run bootstrap",
     "start": "pnpm run dev",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
-    "release": "pnpm run build && np --no-2fa",
+    "release": "pnpm run lint && pnpm run test && pnpm run build && pnpm run check && np --no-2fa --releaseDraft false",
     "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
     "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
     "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
     "test:storybook": "pnpm --filter @this/storybook run test --coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./coverage/storybook",
+    "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
     "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm",
     "check:types": "tsc --noEmit",
     "lint": "concurrently -n \"eslint,prettier\" -c \"green,magenta\" \"pnpm run lint:eslint\" \"pnpm run lint:prettier\"",
