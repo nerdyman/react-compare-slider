@@ -15,8 +15,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2(prettier@2.8.8)
       '@types/node':
-        specifier: ^20.5.6
-        version: 20.5.6
+        specifier: ^20.5.7
+        version: 20.5.7
       '@types/react':
         specifier: ^18.2.21
         version: 18.2.21
@@ -138,6 +138,9 @@ importers:
 
   docs/ssr-tests:
     devDependencies:
+      '@types/node':
+        specifier: ^20.5.7
+        version: 20.5.7
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -4919,7 +4922,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.1
       '@types/keyv': 3.1.4
-      '@types/node': 20.5.6
+      '@types/node': 20.5.7
       '@types/responselike': 1.0.0
     dev: true
 
@@ -5073,7 +5076,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 20.5.6
+      '@types/node': 20.5.7
     dev: true
 
   /@types/lodash@4.14.197:
@@ -5121,7 +5124,7 @@ packages:
   /@types/node-fetch@2.6.4:
     resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
     dependencies:
-      '@types/node': 16.18.46
+      '@types/node': 20.5.6
       form-data: 3.0.1
     dev: true
 
@@ -5131,6 +5134,10 @@ packages:
 
   /@types/node@20.5.6:
     resolution: {integrity: sha512-Gi5wRGPbbyOTX+4Y2iULQ27oUPrefaB0PxGQJnfyWN3kvEDGM3mIB5M/gQLmitZf7A9FmLeaqxD3L1CXpm3VKQ==}
+    dev: true
+
+  /@types/node@20.5.7:
+    resolution: {integrity: sha512-dP7f3LdZIysZnmvP3ANJYTSwg+wLLl8p7RqniVlV7j+oXSXAbt9h0WIBFmJy5inWZoX9wZN6eXx+YXd9Rh3RBA==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -5179,7 +5186,7 @@ packages:
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 20.5.6
+      '@types/node': 20.5.7
     dev: true
 
   /@types/scheduler@0.16.3:
