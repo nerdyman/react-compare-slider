@@ -1,7 +1,11 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage,
+  useReactCompareSliderRef,
+} from 'react-compare-slider';
 
 import { argTypes, args } from '../config';
 
@@ -13,27 +17,25 @@ export default {
 } as Meta;
 
 export const Labels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const [labelVisibility, setLabelVisibility] = React.useState(1);
+  const [labelOpacity, setLabelOpacity] = React.useState(1);
 
   const labelStyle = {
     fontSize: '1.5rem',
     position: 'absolute',
     padding: '1rem',
     color: 'white',
-    opacity: labelVisibility,
+    opacity: labelOpacity,
     border: '2px solid white',
     borderRadius: '.5rem',
     backdropFilter: 'blur(0.25rem) saturate(180%) contrast(80%) brightness(120%)',
     transition: 'opacity 0.25s ease-in-out',
   };
 
-  console.log('!!', props.style);
-
   return (
     <ReactCompareSlider
       {...props}
-      onPointerDown={() => setLabelVisibility(0)}
-      onPointerUp={() => setLabelVisibility(1)}
+      onPointerDown={() => setLabelOpacity(0)}
+      onPointerUp={() => setLabelOpacity(1)}
       itemOne={
         <div
           style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'start' }}
@@ -134,7 +136,7 @@ export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props
       itemOne={
         <ReactCompareSliderImage
           style={imagesStyle}
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
           alt="Image one"
           onLoad={() => setLoaded((prev) => prev + 1)}
         />
@@ -142,7 +144,7 @@ export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props
       itemTwo={
         <ReactCompareSliderImage
           style={imagesStyle}
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
           alt="Image two"
           onLoad={() => setLoaded((prev) => prev + 1)}
         />
@@ -157,5 +159,38 @@ WaitForImageLoad.args = {
     height: '100vh',
     backgroundColor: 'black',
     backgroundImage: 'radial-gradient(rgba(200, 109, 252, .5), rgba(39, 37, 39, .5))',
+  },
+};
+
+export const ResetOnPointerLeave: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+  const reactCompareSliderRef = useReactCompareSliderRef();
+
+  return (
+    <div style={{ display: 'flex', width: '100%', padding: '3rem' }}>
+      <ReactCompareSlider
+        {...props}
+        onPointerLeave={() => reactCompareSliderRef.current?.setPosition(props.position!)}
+        ref={reactCompareSliderRef}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+            alt="Image two"
+          />
+        }
+      />
+      <button style={{ position: 'absolute', top: 0, left: 0 }}>Touch device focus trap</button>
+    </div>
+  );
+};
+
+ResetOnPointerLeave.args = {
+  style: {
+    width: '100%',
   },
 };
