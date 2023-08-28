@@ -44,9 +44,9 @@
   "scripts": {
     "bootstrap": "corepack disable && corepack enable && pnpm install --frozen-lockfile",
     "clean": "rm -rvf ./node_modules ./docs/*/node_modules",
-    "dev": "tsup --watch",
+    "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
     "dx": "npm run bootstrap",
-    "start": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"pnpm run dev\" \"pnpm run check:types --watch\"",
+    "start": "pnpm run dev",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
     "release": "pnpm run build && np --no-2fa",
     "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
