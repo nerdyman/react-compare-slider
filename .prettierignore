@@ -1,5 +1,6 @@
 *.md
 *.mdx
+*.log
 node_modules/
 dist/
 coverage/
