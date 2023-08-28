@@ -12,7 +12,8 @@ export interface ReactCompareSliderCommonProps {
   /** Divider position. */
   position: ReactCompareSliderPropPosition;
   /**
-   * Shorthand CSS `transition` properties to apply to handle movement - does not need transition property.
+   * Shorthand CSS `transition` property to apply to handle movement. The specific CSS property
+   * to transition **must not** be provided.
    * @example '.5s ease-in-out'
    */
   transition?: string;

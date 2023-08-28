@@ -66,10 +66,10 @@ export const useEventListener = (
     const eventListener: EventListener = (event) =>
       savedHandler.current && savedHandler.current(event);
 
-    element.addEventListener(eventName, eventListener, handlerOptions);
+    element.addEventListener(eventName, eventListener, { capture: handlerOptions.capture });
 
     return (): void => {
-      element.removeEventListener(eventName, eventListener, handlerOptions);
+      element.removeEventListener(eventName, eventListener, { capture: handlerOptions.capture });
     };
   }, [eventName, element, handlerOptions]);
 };

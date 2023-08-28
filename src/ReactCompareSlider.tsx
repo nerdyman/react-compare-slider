@@ -27,7 +27,7 @@ interface UpdateInternalPositionProps {
   isOffset?: boolean;
 }
 
-const EVENT_PASSIVE_PARAMS = { passive: true };
+const EVENT_PASSIVE_PARAMS = { capture: false, passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
 /** Root Comparison slider. */
