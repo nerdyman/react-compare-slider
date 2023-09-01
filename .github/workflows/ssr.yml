@@ -1,0 +1,36 @@
+name: SSR
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run SSR Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛒 Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+
+      - name: ⚒️ Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+
+      - name: 📦 Install Dependencies
+        run: npm run bootstrap
+
+      - name: 🔨 Build
+        run: pnpm run build
+
+      - name: 🧪 Test
+        run: pnpm run test:ssr
