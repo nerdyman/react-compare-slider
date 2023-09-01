@@ -13,9 +13,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
-    "jest-mock": "^29.6.3",
     "react": "^18.2.0",
     "react-compare-slider": "latest",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "test": "^3.3.0"
   }
 }

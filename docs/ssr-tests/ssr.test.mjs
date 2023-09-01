@@ -4,18 +4,19 @@
 const assert = await import('node:assert');
 const { describe, it } = await import('node:test');
 
-// Using `jest-mock` instead of built-in Node.js `mock` to allow this to run on node 16.
-const mock = await import('jest-mock');
 const { createElement, isValidElement } = await import('react');
 const { renderToStaticMarkup } = await import('react-dom/server');
+// Using npm version of node built-in test lib to allow the test suite to run on node 16.
+const { MockTracker } = await import('test/lib/internal/test_runner/mock.js');
 
 const { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage, styleFitContainer } =
   await import('react-compare-slider');
 
 describe('SSR', () => {
   it('should render without error', () => {
-    const mockConsoleError = mock.spyOn(console, 'error');
-    const mockConsoleWarn = mock.spyOn(console, 'warn');
+    const mock = new MockTracker();
+    const mockConsoleError = mock.method(console, 'error');
+    const mockConsoleWarn = mock.method(console, 'warn');
 
     const root = createElement(ReactCompareSlider, {
       handle: createElement(ReactCompareSliderHandle, {}),
@@ -38,7 +39,6 @@ describe('SSR', () => {
     assert.strictEqual(mockConsoleError.mock.calls.length, 0);
     assert.strictEqual(mockConsoleWarn.mock.calls.length, 0);
 
-    mockConsoleError.mockRestore();
-    mockConsoleWarn.mockRestore();
+    mock.reset();
   });
 });
