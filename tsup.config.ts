@@ -17,6 +17,11 @@ export default defineConfig((options) => ({
   splitting: true,
   treeshake: true,
   // Storybook docgen won't work with files sourced from outside of its root directory, so we need
-  // to copy the built module into the docs folder.
+  // to copy the module source into the docs folder.
   onSuccess: 'cp -r src ./docs/storybook',
+  esbuildOptions(esBuildOptions) {
+    esBuildOptions.banner = {
+      js: '"use client"',
+    };
+  },
 }));

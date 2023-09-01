@@ -41,7 +41,7 @@
 
 ## Demo
 
-- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [recipies](https://react-compare-slider.vercel.app/?path=/story/recipies)
+- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [custom recipies](https://react-compare-slider.vercel.app/?path=/story/recipies), [custom handles](https://react-compare-slider.vercel.app/?path=/story/handles)
 - CodeSandbox: [basic demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
 - [Local example](./docs/example)
 
@@ -94,7 +94,7 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)                                  | `number`    |              | `50`          | Initial percentage position of divide (`0-100`).                                                      |
 | [`transition`](https://react-compare-slider.vercel.app/?path=/story/demos--transition)                                  | `string`    |              | `undefined`          | Shorthand CSS `transition` properties to apply to handle movement.                                                      |
 
-See the [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
+[API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 
 <br />
 

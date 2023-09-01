@@ -51,7 +51,7 @@
     "dx": "npm run bootstrap",
     "start": "pnpm run dev",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
-    "release": "pnpm run lint && pnpm run test && pnpm run build && pnpm run check && np --no-2fa",
+    "release": "pnpm run lint && pnpm run test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
     "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
     "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
     "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
