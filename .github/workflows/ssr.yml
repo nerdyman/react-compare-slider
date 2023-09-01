@@ -27,11 +27,10 @@ jobs:
           cache: 'pnpm'
 
       - name: 📦 Install Dependencies
-        run: npm run bootstrap
+        run: corepack enable && pnpm install --frozen-lockfile --filter . --filter @this/ssr-tests
 
       - name: 🔨 Build
         run: pnpm run build
 
       - name: 🧪 Test
-        working-directory: docs/ssr-tests
-        run: node legacy.test.mjs
+        run: pnpm --filter @this/ssr-tests run test-legacy

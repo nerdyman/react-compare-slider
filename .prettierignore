@@ -11,4 +11,3 @@ pnpm-lock.yaml
 storybook-static/
 .next/
 docs/storybook/src
-docs/ssr-tests/snapshots

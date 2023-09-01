@@ -8,10 +8,12 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "rm -rf ./coverage && NODE_V8_COVERAGE='./coverage' node --experimental-test-coverage --test"
+    "test": "rm -rf ./coverage && NODE_V8_COVERAGE='./coverage' node --experimental-test-coverage --test",
+    "test-legacy": "node --test"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
+    "jest-mock": "^29.6.3",
     "react": "^18.2.0",
     "react-compare-slider": "latest",
     "react-dom": "^18.2.0"
