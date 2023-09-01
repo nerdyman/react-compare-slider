@@ -33,4 +33,5 @@ jobs:
         run: pnpm run build
 
       - name: 🧪 Test
-        run: pnpm run test:ssr
+        working-directory: docs/ssr-tests
+        run: node legacy.mjs
