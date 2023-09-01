@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Run SSR Tests
+    name: Run Legacy Node.js Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -34,4 +34,4 @@ jobs:
 
       - name: 🧪 Test
         working-directory: docs/ssr-tests
-        run: node legacy.mjs
+        run: node legacy.test.mjs
