@@ -88,7 +88,10 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
+    "**/*.{html,css}": [
+      "pretty-quick --staged"
+    ],
+    "**/*.{js,jsx,mjs,ts,tsx}": [
       "pretty-quick --staged",
       "eslint --fix"
     ]
