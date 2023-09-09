@@ -52,7 +52,12 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           verbose: true
-          files: coverage/ssr-tests/lcov.info,coverage/storybook/lcov.info
+          directory: ./coverage
+
+      - name: Upload Code Climate Test Coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: '${{ secrets.CC_TEST_REPORTER_ID }}'
 
       - uses: preactjs/compressed-size-action@v2
         with:
