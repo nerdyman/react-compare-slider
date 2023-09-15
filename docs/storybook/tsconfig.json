@@ -3,9 +3,9 @@
   "include": ["src", "content"],
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "baseUrl": ".",
-    "rootDir": "./",
+    "rootDir": ".",
     "preserveSymlinks": true,
     "noImplicitAny": false,
     "types": ["node", "react", "react-dom", "@testing-library/jest-dom"]

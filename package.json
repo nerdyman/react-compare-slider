@@ -30,7 +30,7 @@
   "engines": {
     "node": ">=16.9.0"
   },
-  "packageManager": "pnpm@8.7.1",
+  "packageManager": "pnpm@8.7.5",
   "sideEffects": false,
   "module": "dist/index.mjs",
   "types": "dist/index.d.mts",
@@ -55,7 +55,7 @@
     "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
     "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
     "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
-    "test:storybook": "pnpm --filter @this/storybook run test --coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./coverage/storybook",
+    "test:storybook": "pnpm --filter @this/storybook run test:coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./coverage/storybook",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
     "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm",
     "check:types": "tsc --noEmit",

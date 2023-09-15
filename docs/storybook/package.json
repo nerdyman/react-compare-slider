@@ -8,7 +8,8 @@
   "scripts": {
     "storybook": "rm -rf ./node_modules/.cache && storybook dev -p 6006 --ci",
     "storybook:build": "storybook build",
-    "test": "rm -rf ./coverage && test-storybook"
+    "test": "rm -rf ./coverage && test-storybook",
+    "test:coverage": "rm -rf ./coverage && test-storybook --coverage && node ./.storybook/hack-coverage.js"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
