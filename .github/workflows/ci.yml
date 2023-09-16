@@ -61,6 +61,7 @@ jobs:
         with:
           debug: true
           coverageLocations: |
+            ${{github.workspace}}/coverage/ssr-tests/*.info:lcov
             ${{github.workspace}}/coverage/storybook/*.info:lcov
 
       - uses: preactjs/compressed-size-action@v2
