@@ -1,0 +1,96 @@
+{
+  "name": "react-compare-slider",
+  "version": "2.2.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerdyman/react-compare-slider.git",
+    "directory": "lib"
+  },
+  "homepage": "https://react-compare-slider.vercel.app",
+  "author": {
+    "email": "averynerdyman@gmail.com",
+    "name": "nerdyman",
+    "url": "https://github.com/nerdyman"
+  },
+  "description": "A slider component to compare any two React components in landscape or portrait orientation. It supports custom images, videos... and everything else.",
+  "keywords": [
+    "react",
+    "slider",
+    "comparison",
+    "compare",
+    "image",
+    "video",
+    "canvas",
+    "component",
+    "image comparison",
+    "twentytwenty",
+    "portrait",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=16.9.0"
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
+    "start": "pnpm run dev",
+    "build": "pnpm run check:types && NODE_ENV=production tsup",
+    "release": "pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
+    "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
+    "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm",
+    "check:types": "tsc --noEmit"
+  },
+  "browserslist": {
+    "production": [
+      "last 2 chrome versions",
+      "last 2 edge versions",
+      "last 2 firefox versions",
+      "safari >= 15.6",
+      "ios >= 15.6",
+      "not dead",
+      "not ie > 0",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "np": {
+    "pnpm": true
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.10.2",
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@types/node": "^20.6.2",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "browserslist": "^4.21.10",
+    "concurrently": "^8.2.1",
+    "esbuild-plugin-browserslist": "^0.9.0",
+    "np": "^8.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tslib": "~2.6.2",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}

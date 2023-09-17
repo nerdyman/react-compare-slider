@@ -34,7 +34,7 @@
     "@storybook/react": "^7.4.0",
     "@storybook/react-vite": "^7.4.0",
     "@storybook/test-runner": "^0.13.0",
-    "@storybook/testing-library": "^0.2.0",
+    "@storybook/testing-library": "^0.2.1",
     "@storybook/theming": "^7.4.0",
     "remark-gfm": "^3.0.1",
     "storybook": "^7.4.0",

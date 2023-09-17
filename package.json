@@ -1,6 +1,5 @@
 {
-  "name": "react-compare-slider",
-  "version": "2.2.0",
+  "name": "@this/root",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,76 +11,26 @@
     "name": "nerdyman",
     "url": "https://github.com/nerdyman"
   },
-  "description": "A slider component to compare any two React components in landscape or portrait orientation. It supports custom images, videos... and everything else.",
-  "keywords": [
-    "react",
-    "slider",
-    "comparison",
-    "compare",
-    "image",
-    "video",
-    "canvas",
-    "component",
-    "image comparison",
-    "twentytwenty",
-    "portrait",
-    "typescript"
-  ],
   "engines": {
     "node": ">=16.9.0"
   },
   "packageManager": "pnpm@8.7.5",
-  "sideEffects": false,
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.mts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.mts"
-    }
-  },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "bootstrap": "corepack disable && corepack enable && pnpm install --frozen-lockfile",
-    "clean": "rm -rvf ./node_modules ./docs/*/node_modules",
+    "bootstrap": "corepack enable && pnpm install --frozen-lockfile",
+    "clean": "rm -rvf ./node_modules ./docs/*/node_modules ./lib/node_modules ./coverage ./docs/*/coverage ./docs/storybook/storybook-static",
     "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
-    "dx": "npm run bootstrap",
     "start": "pnpm run dev",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
     "release": "pnpm run lint && pnpm run test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
-    "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\" && pnpm run test:merge-coverage",
+    "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
     "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
     "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
     "test:storybook": "pnpm --filter @this/storybook run test:coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./coverage/storybook",
-    "test:merge-coverage": "lcov-result-merger './coverage/*/lcov.info' ./coverage/lcov.info",
-    "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
-    "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm",
-    "check:types": "tsc --noEmit",
     "lint": "concurrently -n \"eslint,prettier\" -c \"green,magenta\" \"pnpm run lint:eslint\" \"pnpm run lint:prettier\"",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
-  },
-  "browserslist": {
-    "production": [
-      "last 2 chrome versions",
-      "last 2 edge versions",
-      "last 2 firefox versions",
-      "safari >= 15.6",
-      "ios >= 15.6",
-      "not dead",
-      "not ie > 0",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "husky": {
     "hooks": {
@@ -100,19 +49,12 @@
   "np": {
     "pnpm": true
   },
-  "peerDependencies": {
-    "react": ">=16.8",
-    "react-dom": ">=16.8"
-  },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.10.1",
+    "@arethetypeswrong/cli": "^0.10.2",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
-    "@types/node": "^20.5.7",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "@types/resize-observer-browser": "^0.1.7",
-    "@typescript-eslint/eslint-plugin": "^6.6.0",
-    "@typescript-eslint/parser": "^6.6.0",
+    "@types/node": "^20.6.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
     "browserslist": "^4.21.10",
     "c8": "^8.0.1",
     "concurrently": "^8.2.1",
@@ -121,18 +63,12 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
-    "lcov-result-merger": "^4.1.0",
     "lint-staged": "^14.0.1",
     "np": "^8.0.4",
     "nyc": "^15.1.0",
     "prettier": "^2.8.8",
     "pretty-quick": "^3.1.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "sirv-cli": "^2.0.2",
-    "tslib": "~2.6.2",
-    "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
     "wait-port": "^1.0.4"
   }
 }

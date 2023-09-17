@@ -194,8 +194,8 @@ export const ReactCompareSlider: ForwardRefExoticComponent<
     );
 
     /**
-     * Yo dawg, we heard you like handles, so we handled in your handle so you can handle
-     * while you handle.
+     * Yo dawg, we heard you like handles, so we handled in your handle so you can handle while you
+     * handle.
      */
     const handleHandleClick = useCallback((ev: PointerEvent) => {
       ev.preventDefault();
@@ -210,7 +210,6 @@ export const ReactCompareSlider: ForwardRefExoticComponent<
         }
 
         ev.preventDefault();
-
         setCanTransition(true);
 
         const { top, left } = (

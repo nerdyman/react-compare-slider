@@ -13,7 +13,7 @@ const coveragePath = path.join(__dirname, '..', 'coverage', 'storybook', 'covera
 
 const coverage = fs
   .readFileSync(coveragePath, 'utf8')
-  .replaceAll('react-compare-slider/docs/storybook/src', 'react-compare-slider/src');
+  .replaceAll('react-compare-slider/docs/storybook/src', 'react-compare-slider/lib/src');
 
 fs.writeFileSync(coveragePath, coverage);
 

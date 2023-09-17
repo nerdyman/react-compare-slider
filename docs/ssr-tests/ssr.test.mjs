@@ -32,12 +32,16 @@ describe('SSR', () => {
       }),
     });
 
-    assert.strictEqual(isValidElement(root), true);
-    assert.strictEqual(renderToStaticMarkup(root).includes('data-rcs="root"'), true);
-    assert.strictEqual(renderToStaticMarkup(root).includes('src="example-1.jpg"'), true);
-    assert.strictEqual(renderToStaticMarkup(root).includes('src="example-2.jpg"'), true);
-    assert.strictEqual(mockConsoleError.mock.calls.length, 0);
-    assert.strictEqual(mockConsoleWarn.mock.calls.length, 0);
+    /**
+     * TypeScript errors if assertion isn't assigned.
+     * @see https://github.com/microsoft/TypeScript/issues/36931
+     */
+    let __ = assert.strictEqual(isValidElement(root), true);
+    __ = assert.strictEqual(renderToStaticMarkup(root).includes('data-rcs="root"'), true);
+    __ = assert.strictEqual(renderToStaticMarkup(root).includes('src="example-1.jpg"'), true);
+    __ = assert.strictEqual(renderToStaticMarkup(root).includes('src="example-2.jpg"'), true);
+    __ = assert.strictEqual(mockConsoleError.mock.calls.length, 0);
+    __ = assert.strictEqual(mockConsoleWarn.mock.calls.length, 0);
 
     mock.reset();
   });

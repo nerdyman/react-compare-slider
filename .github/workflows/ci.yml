@@ -33,13 +33,13 @@ jobs:
         run: pnpm run lint
 
       - name: 🔨 Build
-        run: pnpm run build
+        run: pnpm run --filter react-compare-slider build
 
       - name: 🧑‍🏫 Build Example Project
         run: pnpm run --filter @this/example build
 
       - name: 🕵️ Check Package Configuration
-        run: pnpm run check:package
+        run: pnpm run --filter react-compare-slider check:package
 
       - name: 🧪 Test
         run: |
@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           verbose: true
-          files: ./coverage/lcov.info,!./coverage/ssr-tests/*,!./coverage/storybook/*
+          directory: ./coverage
 
       - name: Upload Code Climate Test Coverage
         uses: paambaati/codeclimate-action@v5.0.0

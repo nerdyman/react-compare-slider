@@ -2,7 +2,6 @@
 
 import { resolve } from 'node:path';
 
-import type { AddonOptionsVite } from '@storybook/addon-coverage';
 import type { StorybookConfig } from '@storybook/react-vite';
 import remarkGfm from 'remark-gfm';
 import { mergeConfig } from 'vite';
@@ -15,12 +14,7 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
 
   addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        docs: false,
-      },
-    },
+    '@storybook/addon-essentials',
     {
       name: '@storybook/addon-docs',
       options: {

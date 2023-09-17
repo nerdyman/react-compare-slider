@@ -15,9 +15,9 @@ export default defineConfig((options) => ({
   target,
   sourcemap: true,
   splitting: true,
-  // Storybook docgen won't work with files sourced from outside of its root directory, so we need
-  // to copy the src into the docs folder.
-  onSuccess: 'cp -r src ./docs/storybook',
+  // Storybook test coverage won't work with files sourced from outside of its root directory, so
+  // we need to copy the lib into the docs folder.
+  onSuccess: 'cp -r src ../docs/storybook',
   esbuildOptions(esbuild) {
     esbuild.banner = {
       js: '"use client"',
