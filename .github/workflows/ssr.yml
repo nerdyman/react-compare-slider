@@ -27,10 +27,12 @@ jobs:
           cache: 'pnpm'
 
       - name: 📦 Install Dependencies
-        run: corepack enable && pnpm install --frozen-lockfile --filter . --filter @this/ssr-tests
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile --filter . --filter @this/ssr-tests --filter react-compare-slider
 
       - name: 🔨 Build
-        run: pnpm run build
+        run: pnpm run --filter react-compare-slider build
 
       - name: 🧪 Test
         run: pnpm --filter @this/ssr-tests run test-legacy
