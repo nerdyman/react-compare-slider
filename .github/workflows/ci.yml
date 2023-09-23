@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           verbose: true
-          directory: ./coverage
+          files: ${{github.workspace}}/coverage/ssr-tests/*.info:lcov,${{github.workspace}}/coverage/storybook/*.info:lcov
 
       - name: Upload Code Climate Test Coverage
         uses: paambaati/codeclimate-action@v5.0.0
