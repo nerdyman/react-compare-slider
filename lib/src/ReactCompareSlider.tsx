@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import type { CSSProperties, ForwardRefExoticComponent, ReactElement, RefAttributes } from 'react';
+import type { CSSProperties, ReactElement } from 'react';
 
 import { ContainerClip, ContainerHandle } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
@@ -31,9 +31,10 @@ const EVENT_PASSIVE_PARAMS = { capture: false, passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
 /** Root Comparison slider. */
-export const ReactCompareSlider: ForwardRefExoticComponent<
-  ReactCompareSliderDetailedProps & RefAttributes<UseReactCompareSliderRefReturn>
-> = forwardRef(
+export const ReactCompareSlider = forwardRef<
+  UseReactCompareSliderRefReturn,
+  ReactCompareSliderDetailedProps
+>(
   (
     {
       disabled = false,
@@ -298,9 +299,9 @@ export const ReactCompareSlider: ForwardRefExoticComponent<
 
     useImperativeHandle(
       ref,
-      (): UseReactCompareSliderRefReturn => {
+      () => {
         return {
-          rootContainer: rootContainerRef.current as HTMLDivElement,
+          rootContainer: rootContainerRef.current,
           setPosition(nextPosition): void {
             const { width, height } = (
               rootContainerRef.current as HTMLDivElement

@@ -7,7 +7,7 @@ import { defineConfig } from 'tsup';
 const target = resolveToEsbuildTarget(browserslist()) as Options['target'];
 
 export default defineConfig((options) => ({
-  clean: true,
+  clean: !options.watch,
   dts: true,
   entry: ['src/index.ts'],
   format: ['esm'],

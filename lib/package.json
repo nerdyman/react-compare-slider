@@ -48,7 +48,7 @@
     "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
     "start": "pnpm run dev",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
-    "release": "pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
+    "release": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
     "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm",
     "check:types": "tsc --noEmit"

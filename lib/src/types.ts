@@ -1,4 +1,4 @@
-import type { HtmlHTMLAttributes, ReactNode } from 'react';
+import type { HtmlHTMLAttributes, ReactNode, RefAttributes } from 'react';
 
 /** Slider position property. */
 export type ReactCompareSliderPropPosition = number;
@@ -19,8 +19,8 @@ export interface ReactCompareSliderCommonProps {
   transition?: string;
 }
 
-/** Comparison slider properties. */
-export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommonProps> {
+/** Slider component props *without* ref return props. */
+export interface ReactCompareSliderRootProps extends Partial<ReactCompareSliderCommonProps> {
   /** Padding in pixels to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait). */
   boundsPadding?: number;
   /** Whether the slider should follow the pointer on hover. */
@@ -39,10 +39,6 @@ export interface ReactCompareSliderProps extends Partial<ReactCompareSliderCommo
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
 }
 
-/** `ReactCompareSliderProps` and all valid `div` element props. */
-export type ReactCompareSliderDetailedProps = ReactCompareSliderProps &
-  HtmlHTMLAttributes<HTMLDivElement>;
-
 /** Properties returned by the `useReactCompareSliderRef` hook. */
 export type UseReactCompareSliderRefReturn = {
   /**
@@ -58,3 +54,11 @@ export type UseReactCompareSliderRefReturn = {
    */
   setPosition: (position: ReactCompareSliderPropPosition) => void;
 };
+
+/** Slider component props *with* ref return props. */
+export type ReactCompareSliderProps = ReactCompareSliderRootProps &
+  RefAttributes<UseReactCompareSliderRefReturn>;
+
+/** `ReactCompareSliderProps` and all valid `div` element props. */
+export type ReactCompareSliderDetailedProps = ReactCompareSliderProps &
+  HtmlHTMLAttributes<HTMLDivElement>;
