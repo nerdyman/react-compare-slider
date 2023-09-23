@@ -17,9 +17,9 @@
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
   <img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" />
 </a>
-<a href="https://codecov.io/github/nerdyman/react-compare-slider">
-  <img alt="Code coverage" src="https://img.shields.io/codecov/c/github/nerdyman/react-compare-slider?token=yhvFTuC7bh" />
- </a>
+<a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
+  <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
+</a>
 <a href="https://react-compare-slider.vercel.app">
   <img  alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" />
 </a>

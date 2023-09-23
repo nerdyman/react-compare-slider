@@ -46,14 +46,6 @@ jobs:
           pnpm dlx playwright install chromium
           pnpm run test:ci
 
-      - name: 🛫 Upload Test Coverage
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-          verbose: true
-          files: ${{github.workspace}}/coverage/ssr-tests/*.info:lcov,${{github.workspace}}/coverage/storybook/*.info:lcov
-
       - name: Upload Code Climate Test Coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
