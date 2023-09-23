@@ -19,21 +19,23 @@ pnpm install-completion
 To start the library in watch mode, run the following command:
 
 ```sh
+# Run the library only.
 pnpm run --filter react-compare-slider dev
 # You can also run the scripts from the directory itself if you prefer.
 cd lib
 pnpm run dev
-```
 
-### Storybook
-
-To start Storybook run the following command:
-
-```sh
-pnpm run --filter @this/storybook storybook
+# Run Storybook only.
+pnpm run --filter @this/storybook dev
 # You can also run the scripts from the directory itself if you prefer.
 cd docs/storybook
-pnpm run storybook
+pnpm run dev
+
+# Run example only.
+pnpm run --filter @this/example dev
+# You can also run the scripts from the directory itself if you prefer.
+cd docs/example
+pnpm run dev
 ```
 
 ## Testing

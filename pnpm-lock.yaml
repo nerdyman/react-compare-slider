@@ -23,18 +23,12 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.7.0
         version: 6.7.0(eslint@8.49.0)(typescript@5.2.2)
-      browserslist:
-        specifier: ^4.21.10
-        version: 4.21.10
       c8:
         specifier: ^8.0.1
         version: 8.0.1
       concurrently:
         specifier: ^8.2.1
         version: 8.2.1
-      esbuild-plugin-browserslist:
-        specifier: ^0.9.0
-        version: 0.9.0(browserslist@4.21.10)(esbuild@0.19.3)
       eslint:
         specifier: ^8.49.0
         version: 8.49.0
@@ -214,12 +208,6 @@ importers:
 
   lib:
     devDependencies:
-      '@arethetypeswrong/cli':
-        specifier: ^0.10.2
-        version: 0.10.2
-      '@ianvs/prettier-plugin-sort-imports':
-        specifier: ^3.7.2
-        version: 3.7.2(prettier@2.8.8)
       '@types/node':
         specifier: ^20.6.2
         version: 20.6.2

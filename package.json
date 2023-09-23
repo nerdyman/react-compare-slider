@@ -14,14 +14,10 @@
   "engines": {
     "node": ">=16.9.0"
   },
-  "packageManager": "pnpm@8.7.5",
+  "packageManager": "pnpm@8.7.6",
   "scripts": {
     "bootstrap": "corepack enable && pnpm install --frozen-lockfile",
     "clean": "rm -rvf ./node_modules ./docs/*/node_modules ./lib/node_modules ./coverage ./docs/*/coverage ./docs/storybook/storybook-static",
-    "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
-    "start": "pnpm run dev",
-    "build": "pnpm run check:types && NODE_ENV=production tsup",
-    "release": "pnpm run lint && pnpm run test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
     "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
     "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
     "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
@@ -46,19 +42,14 @@
       "eslint --fix"
     ]
   },
-  "np": {
-    "pnpm": true
-  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.10.2",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@types/node": "^20.6.2",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
-    "browserslist": "^4.21.10",
     "c8": "^8.0.1",
     "concurrently": "^8.2.1",
-    "esbuild-plugin-browserslist": "^0.9.0",
     "eslint": "^8.49.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",

@@ -92,7 +92,7 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 | [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)                | `function`  |              | `undefined`   | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
 | [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait)                                  | `boolean`   |              | `false`       | Whether to use portrait orientation.                                                                  |
 | [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)                                  | `number`    |              | `50`          | Initial percentage position of divide (`0-100`).                                                      |
-| [`transition`](https://react-compare-slider.vercel.app/?path=/story/demos--transition)                                  | `string`    |              | `undefined`          | Shorthand CSS `transition` properties to apply to handle movement.                                                      |
+| [`transition`](https://react-compare-slider.vercel.app/?path=/story/demos--transition)                                  | `string`    |              | `undefined`          | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`                                                      |
 
 [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
 
@@ -101,12 +101,10 @@ See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-i
 ## Real World Examples
 
 - [Official GOV.UK Coronavirus Dashboard](https://coronavirus.data.gov.uk/details/interactive-map/vaccinations#vaccinations-map-container)
-- [RestorePhotos.io](https://www.restorephotos.io/restore)
-- [RemoveBG](https://www.removebg.dev/)
 - [Upscayl, Free and Open Source AI Image Upscaler](https://github.com/upscayl/upscayl#free-and-open-source-ai-image-upscaler)
-- [DevTools-X, A collection of offline first developer utilities](https://github.com/fosslife/devtools-x)
+- [Counter-Strike 2 Website](https://www.counter-strike.net/cs2)
 
 ## Requirements
 
 - React 16.8+
-- The [latest two versions](./package.json#L55) of each major browser are officially supported
+- The [latest two versions](./lib/package.json#L55) of each major browser are officially supported

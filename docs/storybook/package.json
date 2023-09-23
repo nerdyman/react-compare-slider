@@ -6,6 +6,7 @@
   "keywords": [],
   "license": "MIT",
   "scripts": {
+    "dev": "pnpm run storybook",
     "storybook": "rm -rf ./node_modules/.cache && storybook dev -p 6006 --ci",
     "storybook:build": "storybook build",
     "test": "rm -rf ./coverage && test-storybook",

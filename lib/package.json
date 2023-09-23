@@ -46,7 +46,6 @@
   ],
   "scripts": {
     "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
-    "start": "pnpm run dev",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
     "release": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
@@ -78,8 +77,6 @@
     "react-dom": ">=16.8"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.10.2",
-    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@types/node": "^20.6.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
