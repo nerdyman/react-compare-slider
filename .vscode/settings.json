@@ -4,7 +4,6 @@
   },
   "editor.rulers": [100],
   "editor.formatOnSave": true,
-  "eslint.packageManager": "pnpm",
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
