@@ -30,13 +30,12 @@
     "no-console": "error",
     "no-unused-vars": 0,
     "require-await": 0,
-
     "react/jsx-indent": 0,
     "react/jsx-indent-props": 0,
     "react/prop-types": 0,
-
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
     "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -46,5 +45,19 @@
         "varsIgnorePattern": "^__"
       }
     ]
-  }
+  },
+  "ignorePatterns": [
+    "*.log",
+    "*.md",
+    "*.mdx",
+    "node_modules/",
+    "dist/",
+    "coverage/",
+    ".nyc_output/",
+    ".pnpm-store/",
+    "pnpm-lock.yaml",
+    "storybook-static/",
+    ".next/",
+    "docs/storybook/src/"
+  ]
 }

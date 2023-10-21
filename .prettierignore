@@ -5,7 +5,6 @@ node_modules/
 dist/
 coverage/
 .nyc_output/
-*.ignore
 .pnpm-store/
 pnpm-lock.yaml
 storybook-static/
