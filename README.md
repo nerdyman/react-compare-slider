@@ -2,7 +2,7 @@
   <h1>React Compare Slider</h1>
   <p>Compare two components side-by-side or top-to-toe.</p>
 
-[![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
+[![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
 
 <a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>
 <a href="https://npmjs.com/package/react-compare-slider"><img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>
@@ -27,9 +27,9 @@
 - Teeny-tiny, zero dependencies
 - Type safe
 
-## Demo
+## Demos
 
-- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--page), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [custom recipies](https://react-compare-slider.vercel.app/?path=/story/recipies), [custom handles](https://react-compare-slider.vercel.app/?path=/story/handles)
+- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--docs), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [custom recipes](https://react-compare-slider.vercel.app/?path=/story/recipes), [custom handles](https://react-compare-slider.vercel.app/?path=/story/handles) [`useReactCompareSliderRef`](https://react-compare-slider.vercel.app/?path=/docs/docs-usereactcomparesliderref--docs)
 - CodeSandbox: [basic demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
 - [Local example](./docs/example)
 
@@ -63,34 +63,32 @@ export const Example = () => {
 };
 ```
 
-See the [Images docs](https://react-compare-slider.vercel.app/?path=/docs/docs-images--page) for more information and [demos](https://react-compare-slider.vercel.app/?path=/story/demos--images).
-
 ## Props
 
 | Prop | Type | Required | Default | Description |
 | ---- | ---- | :------: | ------- | ----------- |
-| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/docs-bounds-padding--page)                   | `number`    |              | `0`           | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).       |
-| [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/docs-change-position-on-hover--page) | `boolean`   |              | `false`       | Whether the slider should follow the pointer on hover.                                                |
-| [`disabled`](https://react-compare-slider.vercel.app/?path=/story/docs-disabled--page)                   | `boolean`    |              | `false`           |  Whether to disable slider movement (items are still interactable).       |
-| [`handle`](https://react-compare-slider.vercel.app/?path=/story/docs-handles--page)                                 | `ReactNode` |              | `undefined`   | Custom handle component.                                                                              |
+| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/demos--bounds-padding)                   | `number`    |              | `0`           | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).       |
+| [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/demos--change-position-on-hover) | `boolean`   |              | `false`       | Whether the slider should follow the pointer on hover.                                                |
+| [`disabled`](https://react-compare-slider.vercel.app/?path=/story/demos--disabled)                   | `boolean`    |              | `false`           |  Whether to disable slider movement (items are still interactable).       |
+| [`handle`](https://react-compare-slider.vercel.app/?path=/story/demos--handle)                                 | `ReactNode` |              | `undefined`   | Custom handle component.                                                                              |
 | `itemOne`                                                                                                           | `ReactNode` |      ✓       | `undefined`   | First component to show in slider.                                                                    |
 | `itemTwo`                                                                                                           | `ReactNode` |      ✓       | `undefined`   | Second component to show in slider.                                                                   |
-| [`keyboardIncrement`](https://react-compare-slider.vercel.app/?path=/story/docs-keyboard-increment--page)                                                                                                 | `` number\|`${number}%` `` |               | `5%`                                                                                                  | Percentage or pixel amount to move when the slider handle is focused and keyboard arrow is pressed. |
-| [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/docs-only-handle-draggable--page)      | `boolean`   |              | `false`       | Whether to only change position when handle is interacted with (useful for touch devices).            |
+| [`keyboardIncrement`](https://react-compare-slider.vercel.app/?path=/story/demos--keyboard-increment)                                                                                                 | `` number\|`${number}%` `` |               | `5%`                                                                                                  | Percentage or pixel amount to move when the slider handle is focused and keyboard arrow is pressed. |
+| [`onlyHandleDraggable`](https://react-compare-slider.vercel.app/?path=/story/demos--only-handle-draggable)      | `boolean`   |              | `false`       | Whether to only change position when handle is interacted with (useful for touch devices).            |
 | [`onPositionChange`](https://react-compare-slider.vercel.app/?path=/story/demos--on-position-change)                | `function`  |              | `undefined`   | Callback on position change, returns current position percentage as argument `(position) => { ... }`. |
 | [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait)                                  | `boolean`   |              | `false`       | Whether to use portrait orientation.                                                                  |
 | [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)                                  | `number`    |              | `50`          | Initial percentage position of divide (`0-100`).                                                      |
 | [`transition`](https://react-compare-slider.vercel.app/?path=/story/demos--transition)                                  | `string`    |              | `undefined`          | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`                                                      |
 
-[API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--page) for more information.
+[API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--docs) for more information.
 
 <br />
 
 ## Real World Examples
 
-- [Official GOV.UK Coronavirus Dashboard](https://coronavirus.data.gov.uk/details/interactive-map/vaccinations#vaccinations-map-container)
 - [Upscayl, Free and Open Source AI Image Upscaler](https://github.com/upscayl/upscayl#free-and-open-source-ai-image-upscaler)
-- [Counter-Strike 2 Website](https://www.counter-strike.net/cs2)
+- [Official GOV.UK Coronavirus Dashboard](https://coronavirus.data.gov.uk/details/interactive-map/vaccinations#vaccinations-map-container)
+- [Counter-Strike 2 Website](https://www.counter-strike.net/cs2#Maps)
 
 ## Requirements
 
