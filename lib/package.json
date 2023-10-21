@@ -37,8 +37,8 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.mts"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     }
   },
   "files": [
@@ -49,7 +49,7 @@
     "build": "pnpm run check:types && NODE_ENV=production tsup",
     "release": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check && np --no-tests --no-cleanup",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
-    "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm",
+    "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm && publint",
     "check:types": "tsc --noEmit"
   },
   "browserslist": {
@@ -77,13 +77,14 @@
     "react-dom": ">=16.8"
   },
   "devDependencies": {
-    "@types/node": "^20.6.2",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "browserslist": "^4.21.10",
-    "concurrently": "^8.2.1",
-    "esbuild-plugin-browserslist": "^0.9.0",
+    "@types/node": "^20.8.7",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
+    "browserslist": "^4.22.1",
+    "concurrently": "^8.2.2",
+    "esbuild-plugin-browserslist": "^0.9.1",
     "np": "^8.0.4",
+    "publint": "^0.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tslib": "~2.6.2",

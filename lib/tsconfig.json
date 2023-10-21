@@ -9,6 +9,7 @@
     "sourceMap": true,
     "rootDir": "./src",
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
