@@ -10,12 +10,13 @@ import {
 import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils.test';
 import { argTypes, args } from '../config';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Demos',
   component: ReactCompareSlider,
   args,
   argTypes,
-} as Meta;
+};
+export default meta;
 
 export const Images: StoryFn<ReactCompareSliderProps> = (props) => {
   return (

@@ -4,12 +4,13 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 
 import { argTypes, args } from '../config';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Demos/Edge Cases',
   component: ReactCompareSlider,
   args,
   argTypes,
-} as Meta;
+};
+export default meta;
 
 export const Scaled: StoryFn<ReactCompareSliderDetailedProps> = ({ style, ...props }) => (
   <ReactCompareSlider

@@ -1,17 +1,21 @@
 import { expect } from '@storybook/jest';
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import { waitFor, within } from '@storybook/testing-library';
+import type { ReactCompareSlider, ReactCompareSliderImageProps } from 'react-compare-slider';
 import {
   ReactCompareSliderImage as BaseReactCompareSliderImage,
   styleFitContainer,
 } from 'react-compare-slider';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/ReactCompareSliderImage',
-} as Meta;
+};
+export default meta;
 
 /** Default image. */
-export const ReactCompareSliderImage = (args) => <BaseReactCompareSliderImage {...args} />;
+export const ReactCompareSliderImage: StoryFn<ReactCompareSliderImageProps> = (args) => (
+  <BaseReactCompareSliderImage {...args} />
+);
 
 ReactCompareSliderImage.args = {
   alt: 'testaroo',
@@ -22,11 +26,11 @@ ReactCompareSliderImage.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() =>
-    expect(canvas.getByAltText(ReactCompareSliderImage.args.alt)).toBeInTheDocument(),
+    expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!)).toBeInTheDocument(),
   );
 
   // Ensure default styles have been applied to `ReactCompareSliderImage`.
-  expect(canvas.getByAltText(ReactCompareSliderImage.args.alt).style).toMatchObject(
+  expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!).style).toMatchObject(
     styleFitContainer() as Record<string, unknown>,
   );
 };
@@ -46,11 +50,11 @@ ReactCompareSliderImageCustomStyle.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitFor(() =>
-    expect(canvas.getByAltText(ReactCompareSliderImage.args.alt)).toBeInTheDocument(),
+    expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!)).toBeInTheDocument(),
   );
 
   // Ensure default styles have been applied to `ReactCompareSliderImage`.
-  expect(canvas.getByAltText(ReactCompareSliderImage.args.alt).style).toMatchObject(
+  expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!).style).toMatchObject(
     styleFitContainer({
       objectFit: 'fill',
       objectPosition: 'left center',

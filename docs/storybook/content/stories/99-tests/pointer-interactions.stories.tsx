@@ -6,9 +6,10 @@ import { ReactCompareSlider } from 'react-compare-slider';
 
 import { Template, getArgs } from './test-utils.test';
 
-export default {
-  title: 'Tests/Browser/Pointer Interactions',
-} as Meta;
+const meta: Meta<typeof ReactCompareSlider> = {
+  title: 'Tests/Browser/Interactions',
+};
+export default meta;
 
 export const PointerMovementWithinBounds = Template.bind({ style: { width: 200, height: 200 } });
 PointerMovementWithinBounds.args = getArgs({ style: { width: 200, height: 200 } });

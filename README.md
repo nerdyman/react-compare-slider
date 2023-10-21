@@ -4,25 +4,13 @@
 
 [![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://codesandbox.io/s/react-compare-slider-simple-example-9si6l?file=/src/App.jsx)
 
-<a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE">
-  <img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" />
-</a>
-<a href="https://npmjs.com/package/react-compare-slider">
-  <img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" />
-</a>
-<a href="https://bundlephobia.com/result?p=react-compare-slider">
-  <img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" />
-</a>
+<a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>
+<a href="https://npmjs.com/package/react-compare-slider"><img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>
+<a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>
 <br/>
-<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild">
-  <img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" />
-</a>
-<a href="https://codeclimate.com/github/nerdyman/react-compare-slider">
-  <img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" />
-</a>
-<a href="https://react-compare-slider.vercel.app">
-  <img  alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" />
-</a>
+<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
+<a href="https://codeclimate.com/github/nerdyman/react-compare-slider/code?q=lib"><img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" /></a>
+<a href="https://react-compare-slider.vercel.app"><img  alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>
 
 </div>
 

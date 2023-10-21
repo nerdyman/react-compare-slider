@@ -7,9 +7,10 @@ import { ReactCompareSlider } from 'react-compare-slider';
 
 import { Template, getArgs } from './test-utils.test';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Position',
-} as Meta;
+};
+export default meta;
 
 export const StartAt0 = Template.bind({});
 StartAt0.args = getArgs({ position: 0 });

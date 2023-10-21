@@ -7,12 +7,13 @@ import { ReactCompareSlider } from 'react-compare-slider';
 
 import { argTypes, args } from '../config';
 
-export default {
-  title: 'Recipies/GoogleMaps',
+const meta: Meta<typeof ReactCompareSlider> = {
+  title: 'Recipes/Google Maps',
   component: ReactCompareSlider,
   args,
   argTypes,
-} as Meta;
+};
+export default meta;
 
 const useGoogleMap = () => {
   const [map, setMap] = React.useState<any>(null);

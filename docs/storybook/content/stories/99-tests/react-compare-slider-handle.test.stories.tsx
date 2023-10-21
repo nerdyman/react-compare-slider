@@ -1,13 +1,15 @@
 import { expect } from '@storybook/jest';
 import type { Meta } from '@storybook/react';
 import { waitFor, within } from '@storybook/testing-library';
+import type { ReactCompareSlider } from 'react-compare-slider';
 import { ReactCompareSliderHandle as BaseReactCompareSliderHandle } from 'react-compare-slider';
 
 import { Template, getArgs } from './test-utils.test';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/ReactCompareSliderHandle',
-} as Meta;
+};
+export default meta;
 
 /** Test `handle`. */
 export const ReactCompareSliderHandle = Template.bind({});
@@ -20,10 +22,10 @@ ReactCompareSliderHandle.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const handle = canvas.queryByTestId('handlearoo');
 
-  waitFor(() => expect(handle).toBeInTheDocument());
+  await waitFor(() => expect(handle).toBeInTheDocument());
 
   // Lines should inherit color.
-  waitFor(() =>
+  await waitFor(() =>
     expect(
       window.getComputedStyle(handle?.querySelector('.__rcs-handle-line') as HTMLElement)
         .backgroundColor,
@@ -31,14 +33,14 @@ ReactCompareSliderHandle.play = async ({ canvasElement }) => {
   );
 
   // Button should inherit color.
-  waitFor(() =>
+  await waitFor(() =>
     expect(
       window.getComputedStyle(handle?.querySelector('.__rcs-handle-button') as HTMLElement).color,
     ).toBe('rgb(255, 0, 0)'),
   );
 
   // Arrows should inherit color.
-  waitFor(() =>
+  await waitFor(() =>
     expect(
       window.getComputedStyle(handle?.querySelector('.__rcs-handle-arrow') as HTMLElement).color,
     ).toBe('rgb(255, 0, 0)'),

@@ -1,12 +1,14 @@
 import { expect } from '@storybook/jest';
 import type { Meta } from '@storybook/react';
 import { waitFor, within } from '@storybook/testing-library';
+import type { ReactCompareSlider } from 'react-compare-slider';
 
 import { Template, getArgs } from './test-utils.test';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Default',
-} as Meta;
+};
+export default meta;
 
 /** Test default props. */
 export const Default = Template.bind({});

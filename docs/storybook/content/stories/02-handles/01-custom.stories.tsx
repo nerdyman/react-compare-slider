@@ -5,12 +5,13 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 
 import { argTypes, args } from '../config';
 
-export default {
-  title: 'Handles/CustomComponent',
+const meta: Meta<typeof ReactCompareSlider> = {
+  title: 'Handles/Custom Component',
   component: ReactCompareSlider,
   args,
   argTypes,
-} as Meta;
+};
+export default meta;
 
 export const CustomComponent: StoryFn<ReactCompareSliderProps> = (props) => {
   const CustomHandle: React.FC = () => {

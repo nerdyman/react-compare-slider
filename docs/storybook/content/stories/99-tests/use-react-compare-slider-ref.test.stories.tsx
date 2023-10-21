@@ -1,14 +1,16 @@
 import { expect, jest } from '@storybook/jest';
 import type { Meta, StoryFn } from '@storybook/react';
 import { fireEvent, waitFor, within } from '@storybook/testing-library';
+import type { ReactCompareSlider } from 'react-compare-slider';
 import { useReactCompareSliderRef } from 'react-compare-slider';
 
 import { UseReactCompareSliderRef as UseReactCompareSliderRefStory } from '../00-demos/00-index.stories';
 import { SLIDER_ROOT_TEST_ID, getArgs } from './test-utils.test';
 
-export default {
+const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/UseReactCompareSliderRef',
-} as Meta;
+};
+export default meta;
 
 export const UseReactCompareSliderRef = UseReactCompareSliderRefStory;
 
