@@ -5,6 +5,7 @@ node_modules
 *.tgz
 dist
 coverage
+.env
 .pnpm-store/
 storybook-static
 docs/storybook/src
