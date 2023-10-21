@@ -61,7 +61,7 @@ export const ReactCompareSliderHandle: FC<
     width: portrait ? '100%' : 2,
     backgroundColor: 'currentColor',
     pointerEvents: 'auto',
-    boxShadow: '0 0 7px rgba(0,0,0,.35)',
+    boxShadow: '0 0 7px rgba(0,0,0,.5)',
     ...linesStyle,
   };
 
@@ -79,6 +79,7 @@ export const ReactCompareSliderHandle: FC<
     pointerEvents: 'auto',
     backdropFilter: 'blur(7px)',
     WebkitBackdropFilter: 'blur(7px)', // For Safari.
+    backgroundColor: 'rgba(0, 0, 0, 0.125)',
     boxShadow: '0 0 7px rgba(0,0,0,.35)',
     transform: portrait ? 'rotate(90deg)' : undefined,
     ...buttonStyle,

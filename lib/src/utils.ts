@@ -105,7 +105,7 @@ export const useResizeObserver = (
 
   // Bind/rebind observer when `handler` changes.
   useIsomorphicLayoutEffect(() => {
-    observer.current = new ResizeObserver(([entry]) => handler(entry.contentRect));
+    observer.current = new ResizeObserver(([entry]) => handler(entry!.contentRect));
     observe();
 
     return (): void => {
