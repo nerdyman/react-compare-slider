@@ -49,7 +49,7 @@
     "build": "pnpm run check:types && NODE_ENV=production tsup",
     "release": "pnpm run release:preflight && pnpm run release:publish",
     "release:preflight": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check",
-    "release:publish": "semantic-release",
+    "release:publish": "release-it",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
     "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm && publint",
     "check:types": "tsc --noEmit"
@@ -76,11 +76,6 @@
     "react-dom": ">=16.8"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^9.2.1",
-    "@semantic-release/npm": "^11.0.0",
-    "@semantic-release/release-notes-generator": "^12.0.0",
     "@types/node": "^20.8.7",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
@@ -90,6 +85,7 @@
     "publint": "^0.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "release-it": "^16.2.1",
     "tslib": "~2.6.2",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
