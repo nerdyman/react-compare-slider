@@ -30,6 +30,7 @@ export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
     border: '2px solid white',
     borderRadius: '.5rem',
     backdropFilter: 'blur(0.25rem) saturate(180%) contrast(80%) brightness(120%)',
+    WebkitBackdropFilter: 'blur(0.25rem) saturate(180%) contrast(80%) brightness(120%)',
     transition: 'opacity 0.25s ease-in-out',
   };
 
@@ -83,6 +84,7 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
     borderRadius: '.25rem',
     border: '1px solid white',
     backdropFilter: 'blur(0.25rem) saturate(180%) contrast(80%) brightness(120%)',
+    WebkitBackdropFilter: 'blur(0.25rem) saturate(180%) contrast(80%) brightness(120%)',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     transition: 'opacity 0.25s ease-in-out',
   };

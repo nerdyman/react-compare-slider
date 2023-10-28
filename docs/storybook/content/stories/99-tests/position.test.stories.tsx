@@ -17,21 +17,36 @@ StartAt0.args = getArgs({ position: 0 });
 
 StartAt0.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(StartAt100.args?.['data-testid']) as Element;
+  const slider = canvas.getByRole('slider') as Element;
 
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
-  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('0'));
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('0'));
+  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('0px'));
 };
 
 export const StartAt100 = Template.bind({});
-StartAt100.args = getArgs({ position: 100 });
+StartAt100.args = getArgs({ position: 100, style: { width: 256 } });
 
 StartAt100.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(StartAt100.args?.['data-testid']) as Element;
+  const slider = canvas.getByRole('slider') as Element;
 
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
-  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100'));
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
+  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('256px'));
+};
+
+export const PointSamePosition = Template.bind({});
+PointSamePosition.args = getArgs({ position: 50, style: { width: 256 } });
+
+PointSamePosition.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const slider = canvas.getByRole('slider') as Element;
+
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
+  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('128px'));
+
+  await fireEvent.pointerDown(slider, { clientX: 128, clientY: 128 });
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
+  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('128px'));
 };
 
 /**

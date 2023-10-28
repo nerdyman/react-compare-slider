@@ -35,7 +35,7 @@ KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
   expect(document.activeElement!.getAttribute('data-rcs')).not.toBe('handle-container');
 
   // Focus the handle with mouse click.
-  fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
+  await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
   expect(document.activeElement!.getAttribute('data-rcs')).toBe('handle-container');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
@@ -84,7 +84,7 @@ KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
   expect(document.activeElement!.getAttribute('data-rcs')).not.toBe('handle-container');
 
   // Focus the handle with mouse click.
-  fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
+  await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
   expect((document.activeElement as HTMLElement).getAttribute('data-rcs')).toBe('handle-container');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
@@ -99,6 +99,42 @@ KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
   // Move handle Right.
   await user.keyboard('{ArrowUp}');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('45');
+
+  // Move handle Left.
+  await user.keyboard('{ArrowDown}');
+  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+};
+
+export const KeyboardInteractionsPixel = Template.bind({});
+KeyboardInteractionsPixel.args = getArgs({
+  keyboardIncrement: 20,
+  style: { width: 200, height: 200 },
+});
+
+KeyboardInteractionsPixel.play = async ({ canvasElement }) => {
+  const user = userEvent.setup();
+  const canvas = within(canvasElement);
+  const sliderRoot = (await canvas.findByRole('slider')) as Element;
+
+  // Should have elements on mount.
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+
+  // Focus the handle with mouse click.
+  await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
+  expect((document.activeElement as HTMLElement).getAttribute('data-rcs')).toBe('handle-container');
+  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+
+  // Move handle right.
+  await user.keyboard('{ArrowRight}');
+  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('60');
+
+  // Move handle Left.
+  await user.keyboard('{ArrowLeft}');
+  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+
+  // Move handle Right.
+  await user.keyboard('{ArrowUp}');
+  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('60');
 
   // Move handle Left.
   await user.keyboard('{ArrowDown}');

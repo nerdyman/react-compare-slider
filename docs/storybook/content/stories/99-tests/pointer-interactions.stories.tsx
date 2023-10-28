@@ -1,6 +1,6 @@
 import { expect } from '@storybook/jest';
 import type { Meta, StoryFn } from '@storybook/react';
-import { fireEvent, waitFor, within } from '@storybook/testing-library';
+import { fireEvent, userEvent, waitFor, within } from '@storybook/testing-library';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
 
@@ -13,46 +13,50 @@ export default meta;
 
 export const PointerMovementWithinBounds = Template.bind({ style: { width: 200, height: 200 } });
 PointerMovementWithinBounds.args = getArgs({ style: { width: 200, height: 200 } });
-
 PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(
+  const sliderRoot = (await canvas.findByTestId(
     PointerMovementWithinBounds.args?.['data-testid'],
-  ) as Element;
+  )) as Element;
 
   // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+  await expect(sliderRoot).toBeInTheDocument();
 
-  fireEvent.pointerDown(sliderRoot, {
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  await fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.75,
     clientY: sliderRoot.clientHeight * 0.75,
   });
 
-  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75'));
-  await waitFor(() =>
-    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75),
-  );
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-  fireEvent.pointerDown(sliderRoot, {
+  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
+  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  await fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth,
     clientY: sliderRoot.clientHeight,
   });
 
-  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100'));
-  await waitFor(() =>
-    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100),
-  );
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-  fireEvent.pointerDown(sliderRoot, {
+  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
+  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  await fireEvent.pointerDown(sliderRoot, {
     clientX: 10,
     clientY: 10,
   });
 
-  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5'));
-  await waitFor(() =>
-    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5),
-  );
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5');
+  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5);
 };
 
 export const PointerMovementOutsideBounds: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
@@ -62,40 +66,32 @@ export const PointerMovementOutsideBounds: StoryFn<ReactCompareSliderDetailedPro
     </div>
   );
 };
-
 PointerMovementOutsideBounds.args = getArgs({ style: { width: 200, height: 200 } });
-
 PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(
+  const sliderRoot = (await canvas.findByTestId(
     PointerMovementOutsideBounds.args?.['data-testid'],
-  ) as Element;
+  )) as Element;
 
-  await new Promise((resolve) => setTimeout(resolve, 500));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
-  fireEvent.pointerDown(sliderRoot, {
+  await fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.75,
     clientY: sliderRoot.clientHeight * 0.75,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   await waitFor(() => {
-    // expect(document.activeElement).toBe(canvas.getByRole('slider'));
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
     expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(75);
   });
 
-  console.log('!!!', sliderRoot);
-
-  await new Promise((resolve) => setTimeout(resolve, 100));
-
   // Mouse the pointer outside of the slider.
-  fireEvent.pointerMove(sliderRoot, {
+  await fireEvent.pointerMove(sliderRoot, {
     clientX: sliderRoot.clientWidth * 1.5,
     clientY: sliderRoot.clientHeight * 1.5,
   });
-
-  await new Promise((resolve) => setTimeout(resolve, 100));
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
@@ -103,19 +99,20 @@ PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
   });
 
   // Move it back now y'all.
-  fireEvent.pointerMove(sliderRoot, {
+  await fireEvent.pointerMove(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.5,
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
-  fireEvent.pointerUp(sliderRoot);
+  await fireEvent.pointerUp(sliderRoot);
 
-  await waitFor(() => {
-    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
-    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50);
-  });
+  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50);
 };
 
+/**
+ * Ensure slider position stops when pointer is not down and moved outside of the root.
+ */
 export const ChangePositionOnHover: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
@@ -124,22 +121,23 @@ export const ChangePositionOnHover: StoryFn<ReactCompareSliderDetailedProps> = (
   );
 };
 ChangePositionOnHover.args = getArgs({
+  position: 0,
   changePositionOnHover: true,
   style: { width: 200, height: 200 },
 });
-
-/**
- * Test using `changePositionOnHover` while pointer has been pressed while dragging outside of the
- * container.
- */
 ChangePositionOnHover.play = async ({ canvasElement }) => {
+  const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(ChangePositionOnHover.args?.['data-testid']) as Element;
+  const slider = (await canvas.findByRole('slider')) as Element;
+  const sliderRoot = (await canvas.findByTestId(
+    ChangePositionOnHover.args?.['data-testid'],
+  )) as Element;
 
-  await new Promise((resolve) => setTimeout(resolve, 500));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
-  fireEvent.pointerMove(sliderRoot, {
+  await user.click(slider);
+
+  await fireEvent.pointerMove(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.5,
     clientY: sliderRoot.clientHeight * 0.5,
   });
@@ -149,21 +147,69 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
     expect(ChangePositionOnHover.args?.onPositionChange).toHaveBeenCalledWith(50);
   });
 
-  fireEvent.pointerDown(sliderRoot, {
+  // Mouse the pointer outside of the slider.
+  await fireEvent.pointerMove(sliderRoot, {
+    clientX: sliderRoot.clientWidth * 1.5,
+    clientY: sliderRoot.clientHeight * 1.5,
+  });
+
+  await fireEvent.pointerLeave(sliderRoot);
+
+  await waitFor(() => {
+    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
+    expect(ChangePositionOnHover.args?.onPositionChange).toHaveBeenCalledWith(100);
+  });
+};
+
+/**
+ * Ensure slider position continues to update when pointer is down and moved outside of the root.
+ */
+export const ChangePositionOnHoverPointerDown: StoryFn<ReactCompareSliderDetailedProps> = (
+  props,
+) => {
+  return (
+    <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
+      <ReactCompareSlider {...props} />
+    </div>
+  );
+};
+ChangePositionOnHoverPointerDown.args = getArgs({
+  changePositionOnHover: true,
+  style: { width: 200, height: 200 },
+});
+ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const sliderRoot = (await canvas.findByTestId(
+    ChangePositionOnHoverPointerDown.args?.['data-testid'],
+  )) as Element;
+
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+
+  await fireEvent.pointerMove(sliderRoot, {
+    clientX: sliderRoot.clientWidth * 0.5,
+    clientY: sliderRoot.clientHeight * 0.5,
+  });
+
+  await waitFor(() => {
+    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+    expect(ChangePositionOnHoverPointerDown.args?.onPositionChange).toHaveBeenCalledWith(50);
+  });
+
+  await fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.5,
     clientY: sliderRoot.clientHeight * 0.5,
   });
 
   // Mouse the pointer outside of the slider.
-  fireEvent.pointerMove(sliderRoot, {
+  await fireEvent.pointerMove(sliderRoot, {
     clientX: sliderRoot.clientWidth * 1.5,
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
-  fireEvent.pointerLeave(sliderRoot);
+  await fireEvent.pointerLeave(sliderRoot);
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
-    expect(ChangePositionOnHover.args?.onPositionChange).toHaveBeenCalledWith(100);
+    expect(ChangePositionOnHoverPointerDown.args?.onPositionChange).toHaveBeenCalledWith(100);
   });
 };

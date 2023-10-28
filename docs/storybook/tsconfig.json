@@ -3,7 +3,7 @@
   "include": ["src", "dist", "content"],
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "baseUrl": ".",
     "rootDir": ".",
     "preserveSymlinks": true,
