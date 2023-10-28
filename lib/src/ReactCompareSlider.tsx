@@ -72,7 +72,6 @@ export const ReactCompareSlider = forwardRef<
     const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
     /** The `position` value at *previous* render. */
     const previousPosition = usePrevious(position);
-    const [didMount, setDidMount] = useState(false);
 
     /** Sync the internal position and trigger position change callback if defined. */
     const updateInternalPosition = useCallback(
@@ -82,9 +81,14 @@ export const ReactCompareSlider = forwardRef<
         const clipElement = clipContainerRef.current as HTMLDivElement;
         const { width, height, left, top } = rootElement.getBoundingClientRect();
 
+        // Early out when component has zero bounds.
+        if (width === 0 || height === 0) {
+          return;
+        }
+
         const pixelPosition = portrait
-          ? y - (isOffset ? top - window.pageYOffset : 0)
-          : x - (isOffset ? left - window.pageXOffset : 0);
+          ? y - (isOffset ? top - window.scrollY : 0)
+          : x - (isOffset ? left - window.scrollX : 0);
 
         /** Next position as percentage. */
         const nextPosition = Math.min(
@@ -93,7 +97,7 @@ export const ReactCompareSlider = forwardRef<
         );
 
         // Skip position update if possible.
-        if (!alwaysUpdate && didMount) {
+        if (!alwaysUpdate) {
           const boundsAreMet = portrait
             ? pixelPosition >= height || pixelPosition === 0
             : pixelPosition >= width || pixelPosition === 0;
@@ -130,7 +134,7 @@ export const ReactCompareSlider = forwardRef<
           onPositionChange(internalPosition.current);
         }
       },
-      [boundsPadding, didMount, onPositionChange, portrait],
+      [boundsPadding, onPositionChange, portrait],
     );
 
     // Update internal position when other user controllable props change.
@@ -248,11 +252,6 @@ export const ReactCompareSlider = forwardRef<
       [keyboardIncrement, portrait, updateInternalPosition],
     );
 
-    // Set mount state to ensure initial position setter is not skipped if the initial value is `100`.
-    useEffect(() => {
-      setDidMount(true);
-    }, []);
-
     // Set target container for pointer events.
     useEffect(() => {
       setInteractiveTarget(
@@ -348,6 +347,7 @@ export const ReactCompareSlider = forwardRef<
 
     const rootStyle: CSSProperties = {
       position: 'relative',
+      display: 'flex',
       overflow: 'hidden',
       cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
       touchAction: 'none',
