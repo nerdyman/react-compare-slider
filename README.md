@@ -86,9 +86,7 @@ export const Example = () => {
 
 ## Real World Examples
 
-- [Upscayl, Free and Open Source AI Image Upscaler](https://github.com/upscayl/upscayl#free-and-open-source-ai-image-upscaler)
-- [Official GOV.UK Coronavirus Dashboard](https://coronavirus.data.gov.uk/details/interactive-map/vaccinations#vaccinations-map-container)
-- [Counter-Strike 2 Website](https://www.counter-strike.net/cs2#Maps)
+Checkout out the [Real World Examples page](https://react-compare-slider.vercel.app/?path=/docs/docs-real-world-examples--docs).
 
 ## Requirements
 

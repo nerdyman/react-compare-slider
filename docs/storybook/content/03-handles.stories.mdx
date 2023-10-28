@@ -1,4 +1,4 @@
-import { Canvas, ArgsTable, Meta, Story } from '@storybook/blocks';
+import { Canvas, ArgTypes, Meta, Story } from '@storybook/blocks';
 
 import { ReactCompareSliderHandle } from 'react-compare-slider';
 
@@ -8,7 +8,7 @@ import { ReactCompareSliderHandle } from 'react-compare-slider';
 
 <p class="sb-custom-info">
 
-**Note**: You should use a non-interactive elements (`div`, `span`, etc.) for custom `handle` 
+**Note**: You should use a non-interactive elements (`div`, `span`, etc.) for custom `handle`
 components as handles are rendered within a `button` by the library.
 
 </p>
@@ -22,8 +22,8 @@ be used instead.
 ### `ReactCompareSliderHandle`
 
 `ReactCompareSliderHandle` supports the `portrait` prop to automatically flip
-itself to match the desired orientation. It also has individual props and class names to 
-style the lines and button and accepts any valid `div` component props so you can easily 
+itself to match the desired orientation. It also has individual props and class names to
+style the lines and button and accepts any valid `div` component props so you can easily
 customize it to fit your requirements.
 
 #### CSS `className`
@@ -36,12 +36,12 @@ customize it to fit your requirements.
 
 #### Props
 
-<ArgsTable of={ReactCompareSliderHandle} />
+<ArgTypes of={ReactCompareSliderHandle} />
 
 ### Custom `ReactCompareSliderHandle` usage
 
 The colors used in `ReactCompareSliderHandle` are inherited from the root element's `color`
-property using the `currentColor` keyword (except for `boxShadow`). 
+property using the `currentColor` keyword (except for `boxShadow`).
 To set all colors in sync just change the `style` property or use the `.__rcs-handle-root` class.
 
 <Canvas>
@@ -50,11 +50,9 @@ To set all colors in sync just change the `style` property or use the `.__rcs-ha
 
 ### Custom Standalone Handle Usage
 
-
 <Canvas>
-  <Story id="handles-customcomponent--custom-component" />
+  <Story id="handles-custom-component--custom-component" />
 </Canvas>
-
 
 ### Live Examples
 
