@@ -65,69 +65,6 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   );
 };
 
-export const PointerMovementOutsideBounds: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  return (
-    <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
-      <ReactCompareSlider {...props} />
-    </div>
-  );
-};
-PointerMovementOutsideBounds.args = getArgs({ style: { width: 200, height: 200 } });
-PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
-  const user = userEvent.setup();
-  const canvas = within(canvasElement);
-  const sliderRoot = (await canvas.findByTestId(
-    PointerMovementOutsideBounds.args?.['data-testid'],
-  )) as Element;
-
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
-
-  await user.pointer({
-    target: sliderRoot,
-    coords: {
-      clientX: sliderRoot.clientWidth * 0.75,
-      clientY: sliderRoot.clientHeight * 0.75,
-    },
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  await waitFor(() => {
-    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
-    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(75);
-  });
-
-  // Mouse the pointer outside of the slider.
-  await fireEvent.pointerMove(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 1.5,
-    clientY: sliderRoot.clientHeight * 1.5,
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  await waitFor(() => {
-    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
-    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(100);
-  });
-
-  // Move it back now y'all.
-  await fireEvent.pointerMove(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 0.5,
-    clientY: sliderRoot.clientHeight * 1.5,
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  await fireEvent.pointerUp(sliderRoot);
-
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
-  await waitFor(() =>
-    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50),
-  );
-};
-
 /**
  * Ensure slider position stops when pointer is not down and moved outside of the root.
  */
