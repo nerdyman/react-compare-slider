@@ -74,6 +74,7 @@ export const PointerMovementOutsideBounds: StoryFn<ReactCompareSliderDetailedPro
 };
 PointerMovementOutsideBounds.args = getArgs({ style: { width: 200, height: 200 } });
 PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
+  const user = userEvent.setup();
   const canvas = within(canvasElement);
   const sliderRoot = (await canvas.findByTestId(
     PointerMovementOutsideBounds.args?.['data-testid'],
@@ -81,9 +82,12 @@ PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
 
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
-  await fireEvent.pointerDown(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 0.75,
-    clientY: sliderRoot.clientHeight * 0.75,
+  await user.pointer({
+    target: sliderRoot,
+    coords: {
+      clientX: sliderRoot.clientWidth * 0.75,
+      clientY: sliderRoot.clientHeight * 0.75,
+    },
   });
 
   await new Promise((resolve) => setTimeout(resolve, 500));

@@ -132,10 +132,27 @@ KeyboardInteractionsPixel.args = getArgs({
 KeyboardInteractionsPixel.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = (await canvas.findByRole('slider')) as Element;
+  const sliderRoot = canvas.queryByTestId(
+    KeyboardInteractionsPortrait.args?.['data-testid'],
+  ) as Element;
 
   // Should have elements on mount.
+  await new Promise((resolve) => setTimeout(resolve, 500));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+
+  // Focus the handle with tab key.
+  await user.tab();
+
+  await waitFor(() =>
+    expect(document.activeElement!.getAttribute('data-rcs')).toBe('handle-container'),
+  );
+
+  // Unfocus the handle with tab key.
+  await user.tab({ shift: true });
+
+  await waitFor(() =>
+    expect(document.activeElement!.getAttribute('data-rcs')).not.toBe('handle-container'),
+  );
 
   // Focus the handle with mouse click.
   await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
