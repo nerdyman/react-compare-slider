@@ -41,7 +41,13 @@ export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
       onPointerUp={() => setLabelOpacity(1)}
       itemOne={
         <div
-          style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'start' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'start',
+          }}
         >
           <div style={labelStyle}>Left</div>
           <ReactCompareSliderImage
@@ -52,7 +58,13 @@ export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
       }
       itemTwo={
         <div
-          style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'end' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'end',
+          }}
         >
           <div style={labelStyle}>Right</div>
           <ReactCompareSliderImage
@@ -107,7 +119,7 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
         />
       }
       handle={
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
           <ReactCompareSliderHandle />
           <div style={{ ...labelStyle, translate: '-100% 0', left: 0 }}>Label 1</div>
           <div style={{ ...labelStyle, translate: '100% 0', right: 0 }}>Label 2</div>
