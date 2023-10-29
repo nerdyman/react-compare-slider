@@ -91,4 +91,4 @@ Checkout out the [Real World Examples page](https://react-compare-slider.vercel.
 ## Requirements
 
 - React 16.8+
-- The [latest two versions](./lib/package.json#L55) of each major browser are officially supported
+- The [latest two versions](./lib/package.json#L57) of each major browser are officially supported

@@ -43,13 +43,13 @@ pnpm run dev
 If you already have Storybook running, use the following command:
 
 ```sh
-pnpm run -w test
+pnpm run test
 ```
 
 If you _don't_ have Storybook running, use the following command:
 
 ```sh
-pnpm run -w test:ci
+pnpm run test:ci
 ```
 
 ## Standards
