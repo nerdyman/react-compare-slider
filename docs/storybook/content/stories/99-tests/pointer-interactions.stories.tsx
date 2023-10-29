@@ -93,6 +93,8 @@ PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
     expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(100);
@@ -104,7 +106,11 @@ PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await fireEvent.pointerUp(sliderRoot);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
   await expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50);
@@ -142,6 +148,8 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 0.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
     expect(ChangePositionOnHover.args?.onPositionChange).toHaveBeenCalledWith(50);
@@ -153,7 +161,11 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await fireEvent.pointerLeave(sliderRoot);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
@@ -190,15 +202,21 @@ ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 0.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
     expect(ChangePositionOnHoverPointerDown.args?.onPositionChange).toHaveBeenCalledWith(50);
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.5,
     clientY: sliderRoot.clientHeight * 0.5,
   });
+
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   // Mouse the pointer outside of the slider.
   await fireEvent.pointerMove(sliderRoot, {
@@ -206,7 +224,11 @@ ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   await fireEvent.pointerLeave(sliderRoot);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');

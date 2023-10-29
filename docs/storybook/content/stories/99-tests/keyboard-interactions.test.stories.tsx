@@ -36,6 +36,8 @@ KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
 
   // Focus the handle with mouse click.
   await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   expect(document.activeElement!.getAttribute('data-rcs')).toBe('handle-container');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
@@ -85,6 +87,8 @@ KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
 
   // Focus the handle with mouse click.
   await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   expect((document.activeElement as HTMLElement).getAttribute('data-rcs')).toBe('handle-container');
   expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
 
