@@ -11,7 +11,12 @@ const config: StorybookConfig = {
     builder: '@storybook/builder-vite',
   },
 
-  framework: '@storybook/react-vite',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {
+      strictMode: true,
+    },
+  },
 
   addons: [
     '@storybook/addon-essentials',
