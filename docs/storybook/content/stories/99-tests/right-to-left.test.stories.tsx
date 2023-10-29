@@ -30,5 +30,5 @@ RightToLeft.play = async ({ canvasElement }) => {
   // Should position slider at 25%.
   const slider = canvas.getByRole('slider') as HTMLElement;
   const sliderRect = slider.getBoundingClientRect();
-  expect(sliderRect.left + sliderRect.width / 2).toBe(50);
+  await waitFor(() => expect(sliderRect.left + sliderRect.width / 2).toBe(50));
 };

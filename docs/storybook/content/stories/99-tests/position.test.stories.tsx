@@ -122,14 +122,14 @@ ToggleOrientation.play = async ({ canvasElement }) => {
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   await user.click(canvas.getByText('Toggle orientation'));
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('25');
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('25'));
 
   await user.click(canvas.getByText('Toggle orientation'));
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('25');
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('25'));
 
   fireEvent.pointerDown(sliderRoot, { clientX: 100, clientY: 100 });
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 
   await user.click(canvas.getByText('Toggle orientation'));
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 };

@@ -20,7 +20,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   )) as Element;
 
   // Should have elements on mount.
-  await expect(sliderRoot).toBeInTheDocument();
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -31,8 +31,10 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
-  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75);
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75'));
+  await waitFor(() =>
+    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75),
+  );
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -43,8 +45,10 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
-  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100);
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100'));
+  await waitFor(() =>
+    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100),
+  );
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -55,8 +59,10 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5');
-  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5);
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5'));
+  await waitFor(() =>
+    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5),
+  );
 };
 
 export const PointerMovementOutsideBounds: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
@@ -112,8 +118,10 @@ PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
-  await expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50);
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
+  await waitFor(() =>
+    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50),
+  );
 };
 
 /**
