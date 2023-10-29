@@ -33,31 +33,41 @@ Disabled.play = async ({ canvasElement }) => {
   const testButton = canvas.queryByTestId('test-button') as HTMLElement;
 
   // Slider should have disabled attribute.
-  expect(canvas.getByRole('slider')).toBeDisabled();
+  await waitFor(() => expect(canvas.getByRole('slider')).toBeDisabled());
 
   // Focus the test button.
   await user.click(testButton);
-  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() =>
+    expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button'),
+  );
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 
   // Click on the canvas and move pointer - position and focused element should not be slider.
   await user.click(sliderRoot);
-  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() =>
+    expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button'),
+  );
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 
   // Click on the handle and move pointer - position and focused element should not be slider.
   await user.click(canvas.getByRole('slider'));
-  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() =>
+    expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button'),
+  );
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 
   // Click on the handle and press arrow key - position and focused element should not be slider.
   await user.click(canvas.getByRole('slider'));
-  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() =>
+    expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button'),
+  );
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 
   // Move handle right.
   await user.click(canvas.getByRole('slider'));
   await user.keyboard('{ArrowRight}');
-  expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button');
-  expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
+  await waitFor(() =>
+    expect((document.activeElement as HTMLElement).getAttribute('data-testid')).toBe('test-button'),
+  );
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 };
