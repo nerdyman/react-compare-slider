@@ -42,6 +42,7 @@
     }
   },
   "files": [
+    "src",
     "dist"
   ],
   "scripts": {
