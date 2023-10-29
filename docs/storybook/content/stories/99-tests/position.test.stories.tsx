@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { fireEvent, userEvent, waitFor, within } from '@storybook/testing-library';
 import { useState } from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
-import { ReactCompareSlider } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 import { Template, getArgs } from './test-utils.test';
 
@@ -47,6 +47,44 @@ PointSamePosition.play = async ({ canvasElement }) => {
   await fireEvent.pointerDown(slider, { clientX: 128, clientY: 128 });
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
   await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('128px'));
+};
+
+/**
+ * Ensure that the slider handle position is at the end of the slider when the position is 100 and
+ * images do not load immediately.
+ * @see https://github.com/nerdyman/react-compare-slider/issues/37
+ *
+ */
+export const LazyImages: StoryFn<ReactCompareSliderProps> = (props) => {
+  return (
+    <ReactCompareSlider
+      {...props}
+      itemOne={
+        <ReactCompareSliderImage
+          loading="lazy"
+          alt="one"
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
+          style={{ width: 'auto' }}
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          loading="lazy"
+          alt="one"
+          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
+          style={{ width: 'auto' }}
+        />
+      }
+    />
+  );
+};
+LazyImages.args = getArgs({ position: 100, style: { width: 'auto', height: 'auto' } });
+LazyImages.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const slider = canvas.getByRole('slider') as HTMLDivElement;
+
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
+  await waitFor(() => expect(slider.style.left).toBe('100%'));
 };
 
 /**

@@ -17,8 +17,6 @@ import { KeyboardEventKeys, useEventListener, useResizeObserver } from './utils'
 
 /** Properties for internal `updateInternalPosition` callback. */
 interface UpdateInternalPositionProps {
-  /** Whether to always update the internal position. */
-  alwaysUpdate?: boolean;
   /** X coordinate to update to (landscape). */
   x: number;
   /** Y coordinate to update to (portrait). */
@@ -75,7 +73,7 @@ export const ReactCompareSlider = forwardRef<
 
     /** Sync the internal position and trigger position change callback if defined. */
     const updateInternalPosition = useCallback(
-      function updateInternal({ x, y, isOffset, alwaysUpdate }: UpdateInternalPositionProps) {
+      function updateInternal({ x, y, isOffset }: UpdateInternalPositionProps) {
         const rootElement = rootContainerRef.current as HTMLDivElement;
         const handleElement = handleContainerRef.current as HTMLButtonElement;
         const clipElement = clipContainerRef.current as HTMLDivElement;
@@ -95,20 +93,6 @@ export const ReactCompareSlider = forwardRef<
           Math.max((pixelPosition / (portrait ? height : width)) * 100, 0),
           100,
         );
-
-        // Skip position update if possible.
-        if (!alwaysUpdate) {
-          const boundsAreMet = portrait
-            ? pixelPosition >= height || pixelPosition === 0
-            : pixelPosition >= width || pixelPosition === 0;
-
-          const positionMeetsBounds =
-            boundsAreMet && (internalPosition.current === 0 || internalPosition.current === 100);
-
-          if (boundsAreMet && positionMeetsBounds) {
-            return;
-          }
-        }
 
         const zoomScale = portrait
           ? height / (rootElement.offsetHeight || 1)
@@ -149,7 +133,6 @@ export const ReactCompareSlider = forwardRef<
       updateInternalPosition({
         x: (width / 100) * nextPosition,
         y: (height / 100) * nextPosition,
-        alwaysUpdate: true,
       });
     }, [boundsPadding, position, portrait, previousPosition, updateInternalPosition]);
 
@@ -309,7 +292,6 @@ export const ReactCompareSlider = forwardRef<
             updateInternalPosition({
               x: (width / 100) * nextPosition,
               y: (height / 100) * nextPosition,
-              alwaysUpdate: true,
             });
           },
         };
