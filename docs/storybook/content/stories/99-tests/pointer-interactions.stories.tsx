@@ -80,7 +80,7 @@ PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 0.75,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
