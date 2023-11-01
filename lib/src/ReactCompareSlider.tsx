@@ -85,8 +85,12 @@ export const ReactCompareSlider = forwardRef<
         }
 
         const pixelPosition = portrait
-          ? y - (isOffset ? top - window.scrollY : 0)
-          : x - (isOffset ? left - window.scrollX : 0);
+          ? isOffset
+            ? y - top - window.scrollY
+            : y
+          : isOffset
+          ? x - left - window.scrollX
+          : x;
 
         /** Next position as percentage. */
         const nextPosition = Math.min(
