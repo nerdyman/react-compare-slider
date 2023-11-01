@@ -21,14 +21,14 @@ RightToLeft.args = getArgs({ style: { width: 200, height: 200 }, position: 25 })
 
 RightToLeft.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(RightToLeft.args?.['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(RightToLeft.args?.['data-testid']) as HTMLElement;
+  const slider = canvas.getByRole('slider') as HTMLElement;
 
   // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Should position slider at 25%.
-  const slider = canvas.getByRole('slider') as HTMLElement;
-  const sliderRect = slider.getBoundingClientRect();
-  expect(sliderRect.left + sliderRect.width / 2).toBe(50);
+  await waitFor(() => expect(slider).toHaveStyle({ left: '50px' }));
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('25'));
 };
