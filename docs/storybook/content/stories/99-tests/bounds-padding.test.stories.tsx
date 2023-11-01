@@ -34,6 +34,8 @@ Default.play = async ({ canvasElement }) => {
     }),
   );
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '100'));
   // Bounds padding is `20%` of the overall width.
   await waitFor(() => expect(slider.style.left).toBe('80%'));
@@ -63,7 +65,9 @@ Portrait.play = async ({ canvasElement }) => {
     }),
   );
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '100'));
-  // Bounds padding is `20%` of the overall width.
+  // Bounds padding is `20%` of the overall height.
   await waitFor(() => expect(slider.style.top).toBe('80%'));
 };
