@@ -29,7 +29,7 @@
 
 ## Demos
 
-- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--docs), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [custom recipes](https://react-compare-slider.vercel.app/?path=/story/recipes), [custom handles](https://react-compare-slider.vercel.app/?path=/story/handles) [`useReactCompareSliderRef`](https://react-compare-slider.vercel.app/?path=/docs/docs-usereactcomparesliderref--docs)
+- Storybook: [docs](https://react-compare-slider.vercel.app/?path=/docs/docs-introduction--docs), [demos](https://react-compare-slider.vercel.app/?path=/story/demos), [custom recipes](https://react-compare-slider.vercel.app/?path=/story/recipes), [custom handles](https://react-compare-slider.vercel.app/?path=/story/handles), [`useReactCompareSliderRef`](https://react-compare-slider.vercel.app/?path=/docs/docs-usereactcomparesliderref--docs)
 - CodeSandbox: [basic demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
 - [Local example](./docs/example)
 
@@ -91,4 +91,4 @@ Checkout out the [Real World Examples page](https://react-compare-slider.vercel.
 ## Requirements
 
 - React 16.8+
-- The [latest two versions](./lib/package.json#L57) of each major browser are officially supported
+- The latest two versions of each major browser are officially supported
