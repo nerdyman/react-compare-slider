@@ -30,8 +30,10 @@ ReactCompareSliderImage.play = async ({ canvasElement }) => {
   );
 
   // Ensure default styles have been applied to `ReactCompareSliderImage`.
-  expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!).style).toMatchObject(
-    styleFitContainer() as Record<string, unknown>,
+  await waitFor(() =>
+    expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!).style).toMatchObject(
+      styleFitContainer() as Record<string, unknown>,
+    ),
   );
 };
 
@@ -54,11 +56,13 @@ ReactCompareSliderImageCustomStyle.play = async ({ canvasElement }) => {
   );
 
   // Ensure default styles have been applied to `ReactCompareSliderImage`.
-  expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!).style).toMatchObject(
-    styleFitContainer({
-      objectFit: 'fill',
-      objectPosition: 'left center',
-      boxSizing: 'content-box',
-    }),
+  await waitFor(() =>
+    expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!).style).toMatchObject(
+      styleFitContainer({
+        objectFit: 'fill',
+        objectPosition: 'left center',
+        boxSizing: 'content-box',
+      }),
+    ),
   );
 };

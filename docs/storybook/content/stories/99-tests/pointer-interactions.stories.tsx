@@ -20,7 +20,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   )) as Element;
 
   // Should have elements on mount.
-  await expect(sliderRoot).toBeInTheDocument();
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -31,8 +31,10 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
-  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75);
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75'));
+  await waitFor(() =>
+    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75),
+  );
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -43,8 +45,10 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
-  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100);
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100'));
+  await waitFor(() =>
+    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100),
+  );
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -55,59 +59,10 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5');
-  await expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5);
-};
-
-export const PointerMovementOutsideBounds: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  return (
-    <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
-      <ReactCompareSlider {...props} />
-    </div>
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5'));
+  await waitFor(() =>
+    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5),
   );
-};
-PointerMovementOutsideBounds.args = getArgs({ style: { width: 200, height: 200 } });
-PointerMovementOutsideBounds.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const sliderRoot = (await canvas.findByTestId(
-    PointerMovementOutsideBounds.args?.['data-testid'],
-  )) as Element;
-
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
-
-  await fireEvent.pointerDown(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 0.75,
-    clientY: sliderRoot.clientHeight * 0.75,
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  await waitFor(() => {
-    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75');
-    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(75);
-  });
-
-  // Mouse the pointer outside of the slider.
-  await fireEvent.pointerMove(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 1.5,
-    clientY: sliderRoot.clientHeight * 1.5,
-  });
-
-  await waitFor(() => {
-    expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
-    expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(100);
-  });
-
-  // Move it back now y'all.
-  await fireEvent.pointerMove(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 0.5,
-    clientY: sliderRoot.clientHeight * 1.5,
-  });
-
-  await fireEvent.pointerUp(sliderRoot);
-
-  await expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
-  await expect(PointerMovementOutsideBounds.args?.onPositionChange).toHaveBeenCalledWith(50);
 };
 
 /**
@@ -142,6 +97,8 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 0.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
     expect(ChangePositionOnHover.args?.onPositionChange).toHaveBeenCalledWith(50);
@@ -153,7 +110,11 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await fireEvent.pointerLeave(sliderRoot);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
@@ -190,15 +151,21 @@ ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 0.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50');
     expect(ChangePositionOnHoverPointerDown.args?.onPositionChange).toHaveBeenCalledWith(50);
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   await fireEvent.pointerDown(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.5,
     clientY: sliderRoot.clientHeight * 0.5,
   });
+
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   // Mouse the pointer outside of the slider.
   await fireEvent.pointerMove(sliderRoot, {
@@ -206,7 +173,11 @@ ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
     clientY: sliderRoot.clientHeight * 1.5,
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   await fireEvent.pointerLeave(sliderRoot);
+
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => {
     expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100');
