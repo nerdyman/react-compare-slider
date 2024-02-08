@@ -16,13 +16,19 @@ Default.args = getArgs();
 
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(Default.args?.['data-testid']) as Element;
+  const sliderRoot = (await canvas.findByRole('slider')) as HTMLDivElement;
 
   // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
+
+  // Should have a11y attributes on mount.
+  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemin', '0'));
+  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemax', '100'));
+  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuenow', '50'));
+  await waitFor(() =>
+    expect(canvas.queryByLabelText('Drag to move or focus and use arrow keys')).toBeInTheDocument(),
+  );
 
   // Should have initial position on mount.
   await waitFor(() => expect(Default.args?.onPositionChange).toHaveBeenLastCalledWith(50));
