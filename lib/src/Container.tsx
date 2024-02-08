@@ -54,6 +54,7 @@ export const ContainerHandle = forwardRef<
   return (
     <button
       ref={ref}
+      aria-label="Drag to move or focus and use arrow keys"
       aria-orientation={portrait ? 'vertical' : 'horizontal'}
       aria-valuemin={0}
       aria-valuemax={100}
