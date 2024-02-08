@@ -86,12 +86,7 @@ export const ReactCompareSliderHandle: FC<
   };
 
   return (
-    <div
-      {...props}
-      aria-label={props['aria-label'] || 'Drag to move'}
-      className={className}
-      style={_style}
-    >
+    <div {...props} className={className} style={_style}>
       <div className="__rcs-handle-line" style={_linesStyle} />
       <div className="__rcs-handle-button" style={_buttonStyle}>
         <ThisArrow />
