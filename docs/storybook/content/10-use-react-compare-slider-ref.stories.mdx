@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/blocks';
 
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { ReactCompareSlider } from 'react-compare-slider';
 
 <Meta title="Docs/useReactCompareSliderRef" component={ReactCompareSlider} />
 
@@ -13,17 +13,18 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 </p>
 
 The `useReactCompareSliderRef` hook allows you to access the root container as a ref (`rootContainer`) and provides
-access to the internal function used to performantly update the slider position (`setPosition`). 
+access to the internal function used to performantly update the slider position (`setPosition`).
 
-| Property        | Type                          | Description                                      |
-| :-------------- | :---------------------------- | :----------------------------------------------  |
-| `rootContainer` | `` number\|`${number}%` ``    | The root container DOM element.                  |
-| `setPosition`   | `(position: number) => void`  | Set the slider position to the given percentage. |
+| Property           | Type                          | Description
+| :------------------| :---------------------------- | :----------------------------------------------
+| `rootContainer`    | `HTMLDivElement`              | The root container DOM element.
+| `handleContainer`  | `HTMLButtonElement`           | The DOM element of the `handle` parent.
+| `setPosition`      | `(position: number) => void`  | Set the slider position to the given percentage.
 
 <div style={{  height: 1 }}></div>
 
-`setPosition` offers performant programmatic control of the slider. It is more performant because 
-it does not trigger a re-render, as opposed to setting the `position` prop which will re-render the 
+`setPosition` offers performant programmatic control of the slider. It is more performant because
+it does not trigger a re-render, as opposed to setting the `position` prop which will re-render the
 component then call the internal set position function as a side effect.
 
 Another benefit of `setPosition` is that it can be used to reset the slider position back to
