@@ -1,5 +1,6 @@
 import React from 'react';
-import type { CSSProperties, FC, ImgHTMLAttributes, ReactElement } from 'react';
+import type { CSSProperties, ImgHTMLAttributes, ReactElement } from 'react';
+import { forwardRef } from 'react';
 
 import { styleFitContainer } from './utils';
 
@@ -7,11 +8,12 @@ import { styleFitContainer } from './utils';
 export type ReactCompareSliderImageProps = ImgHTMLAttributes<HTMLImageElement>;
 
 /** `Img` element with defaults from `styleFitContainer` applied. */
-export const ReactCompareSliderImage: FC<ReactCompareSliderImageProps> = ({
-  style,
-  ...props
-}): ReactElement => {
-  const rootStyle: CSSProperties = styleFitContainer(style);
+export const ReactCompareSliderImage = forwardRef<HTMLImageElement, ReactCompareSliderImageProps>(
+  ({ style, ...props }, ref): ReactElement => {
+    const rootStyle: CSSProperties = styleFitContainer(style);
 
-  return <img {...props} style={rootStyle} data-rcs="image" />;
-};
+    return <img ref={ref} {...props} style={rootStyle} data-rcs="image" />;
+  },
+);
+
+ReactCompareSliderImage.displayName = 'ReactCompareSliderImage';
