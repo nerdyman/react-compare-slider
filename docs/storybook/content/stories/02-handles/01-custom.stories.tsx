@@ -53,13 +53,13 @@ export const CustomComponent: StoryFn<ReactCompareSliderProps> = (props) => {
       handle={<CustomHandle />}
       itemOne={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
           alt="Image one"
         />
       }
       itemTwo={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
           alt="Image two"
         />
       }
