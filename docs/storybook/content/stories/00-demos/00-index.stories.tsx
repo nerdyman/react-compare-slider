@@ -326,19 +326,19 @@ export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
         setTimeout(() => {
           reactCompareSliderRef.current?.setPosition(90);
           resolve(true);
-        }, 500),
+        }, 750),
       );
       await new Promise((resolve) =>
         setTimeout(() => {
           reactCompareSliderRef.current?.setPosition(10);
           resolve(true);
-        }, 500),
+        }, 750),
       );
       await new Promise((resolve) =>
         setTimeout(() => {
           reactCompareSliderRef.current?.setPosition(50);
           resolve(true);
-        }, 500),
+        }, 750),
       );
     };
 
@@ -351,14 +351,24 @@ export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
       ref={reactCompareSliderRef}
       itemOne={
         <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
         />
       }
       itemTwo={
         <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
+          style={{
+            backgroundColor: 'white',
+            backgroundImage: `
+              linear-gradient(45deg, #ccc 25%, transparent 25%),
+              linear-gradient(-45deg, #ccc 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, #ccc 75%),
+              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+            backgroundSize: `20px 20px`,
+            backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+          }}
         />
       }
       style={{ width: '100%', height: '100vh' }}
@@ -366,7 +376,7 @@ export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
   );
 };
 
-Transition.args = { position: 0, transition: '.5s ease-in-out' };
+Transition.args = { position: 50, transition: '.75s ease-in-out' };
 
 export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...props }) => (
   <ReactCompareSlider
