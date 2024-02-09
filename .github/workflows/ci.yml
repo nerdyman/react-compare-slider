@@ -56,8 +56,9 @@ jobs:
             ${{github.workspace}}/coverage/ssr-tests/*.info:lcov
             ${{github.workspace}}/coverage/storybook/*.info:lcov
 
-      - uses: preactjs/compressed-size-action@v2
-        with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
-          build-script: 'build'
-          cwd: lib
+      # Needs https://github.com/preactjs/compressed-size-action/issues/83
+      # - uses: preactjs/compressed-size-action@v2
+      #   with:
+      #     repo-token: '${{ secrets.GITHUB_TOKEN }}'
+      #     build-script: 'build'
+      #     cwd: lib
