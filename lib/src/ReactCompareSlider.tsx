@@ -28,6 +28,14 @@ interface UpdateInternalPositionProps {
 const EVENT_PASSIVE_PARAMS = { capture: false, passive: true };
 const EVENT_CAPTURE_PARAMS = { capture: true, passive: false };
 
+/**
+ * Handler for the `handle` container element.
+ */
+const handleContainerClick = (ev: PointerEvent): void => {
+  ev.preventDefault();
+  (ev.currentTarget as HTMLButtonElement).focus();
+};
+
 /** Root Comparison slider. */
 export const ReactCompareSlider = forwardRef<
   UseReactCompareSliderRefReturn,
@@ -35,17 +43,17 @@ export const ReactCompareSlider = forwardRef<
 >(
   (
     {
+      boundsPadding = 0,
+      changePositionOnHover = false,
       disabled = false,
       handle,
       itemOne,
       itemTwo,
+      keyboardIncrement = '5%',
       onlyHandleDraggable = false,
       onPositionChange,
       portrait = false,
       position = 50,
-      boundsPadding = 0,
-      changePositionOnHover = false,
-      keyboardIncrement = '5%',
       style,
       transition,
       ...props
@@ -185,15 +193,6 @@ export const ReactCompareSlider = forwardRef<
       [updateInternalPosition],
     );
 
-    /**
-     * Yo dawg, we heard you like handles, so we handled in your handle so you can handle while you
-     * handle.
-     */
-    const handleHandleClick = useCallback((ev: PointerEvent) => {
-      ev.preventDefault();
-      (handleContainerRef.current as HTMLButtonElement).focus();
-    }, []);
-
     /** Handle keyboard movment. */
     const handleKeydown = useCallback(
       (ev: KeyboardEvent) => {
@@ -288,6 +287,7 @@ export const ReactCompareSlider = forwardRef<
       () => {
         return {
           rootContainer: rootContainerRef.current,
+          handleContainer: handleContainerRef.current,
           setPosition(nextPosition): void {
             const { width, height } = (
               rootContainerRef.current as HTMLDivElement
@@ -315,7 +315,7 @@ export const ReactCompareSlider = forwardRef<
 
     useEventListener(
       'click',
-      handleHandleClick,
+      handleContainerClick,
       handleContainerRef.current as HTMLButtonElement,
       EVENT_CAPTURE_PARAMS,
     );

@@ -43,14 +43,20 @@ export interface ReactCompareSliderRootProps extends Partial<ReactCompareSliderC
 export type UseReactCompareSliderRefReturn = {
   /**
    * DOM node of the root container of the slider.
-   * @NOTE This value is only populated **after** the component has mounted.
+   * @NOTE This value is only populated **after** the slider has mounted.
    */
   rootContainer: HTMLDivElement | null;
 
   /**
+   * DOM node of the container of the `handle` component.
+   * @NOTE This value is only populated **after** the slider has mounted.
+   */
+  handleContainer: HTMLButtonElement | null;
+
+  /**
    * Set the position of the slider as a percentage between `0` and `100`.
    * Updates the slider position after render without triggering re-renders.
-   * @NOTE This function is only actionable **after** the component has mounted.
+   * @NOTE This function is only actionable **after** the slider has mounted.
    */
   setPosition: (position: ReactCompareSliderPropPosition) => void;
 };
