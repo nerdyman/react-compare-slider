@@ -9,6 +9,7 @@ import type { UseReactCompareSliderRefReturn } from './types';
 export const useReactCompareSliderRef = (): MutableRefObject<UseReactCompareSliderRefReturn> =>
   useRef<UseReactCompareSliderRefReturn>({
     rootContainer: null,
+    handleContainer: null,
     setPosition: () =>
       // eslint-disable-next-line no-console
       console.warn(
