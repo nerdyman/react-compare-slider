@@ -63,7 +63,7 @@ export const LazyImages: StoryFn<ReactCompareSliderProps> = (props) => {
         <ReactCompareSliderImage
           loading="lazy"
           alt="one"
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
           style={{ width: 'auto' }}
         />
       }
@@ -71,7 +71,7 @@ export const LazyImages: StoryFn<ReactCompareSliderProps> = (props) => {
         <ReactCompareSliderImage
           loading="lazy"
           alt="one"
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
           style={{ width: 'auto' }}
         />
       }

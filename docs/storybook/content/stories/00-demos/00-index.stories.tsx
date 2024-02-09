@@ -24,22 +24,32 @@ export const Images: StoryFn<ReactCompareSliderProps> = (props) => {
       {...props}
       itemOne={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/wall-1.png"
           alt="Image one"
         />
       }
       itemTwo={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/wall-2.png"
           alt="Image two"
         />
       }
-      style={{ width: '100%', height: '100vh' }}
+      style={{
+        width: '100%',
+        height: '100vh',
+        backgroundColor: 'white',
+        backgroundImage: `
+        linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%)
+      `,
+        backgroundSize: `20px 20px`,
+        backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+      }}
     />
   );
 };
-
-Images.args = {};
 
 export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
   boundsPadding = 80,
@@ -52,13 +62,13 @@ export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
         boundsPadding={boundsPadding}
         itemOne={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
             alt="Image one"
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
             alt="Image two"
           />
         }
@@ -81,14 +91,14 @@ export const ChangePositionOnHover: StoryFn<ReactCompareSliderProps> = ({
         changePositionOnHover={changePositionOnHover}
         itemOne={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
             alt="Image one"
             style={{ filter: 'contrast(200%) grayscale(1)' }}
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
             alt="Image two"
           />
         }
@@ -108,13 +118,13 @@ export const Disabled: StoryFn<ReactCompareSliderProps> = ({ disabled, ...props 
         disabled={disabled}
         itemOne={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
             alt="Image one"
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
             alt="Image two"
           />
         }
@@ -166,13 +176,13 @@ export const Handle: StoryFn<ReactCompareSliderProps> = (props) => {
       handle={<CustomHandle />}
       itemOne={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
           alt="Image one"
         />
       }
       itemTwo={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
           alt="Image two"
         />
       }
@@ -195,13 +205,13 @@ export const KeyboardIncrement: StoryFn<ReactCompareSliderProps> = (props) => {
         {...props}
         itemOne={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-2.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/bangor-pier-2.jpg"
             alt="Image one"
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-1.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/bangor-pier-1.jpg"
             alt="Image two"
           />
         }
@@ -259,13 +269,13 @@ export const OnPositionChange: StoryFn<ReactCompareSliderProps> = (props) => {
         onPositionChange={onPositionChange}
         itemOne={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-1.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/bangor-pier-1.jpg"
             alt="Image one"
           />
         }
         itemTwo={
           <ReactCompareSliderImage
-            src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/bangor-pier-2.jpg"
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/bangor-pier-2.jpg"
             alt="Image two"
           />
         }
@@ -283,17 +293,29 @@ export const Portrait: StoryFn<ReactCompareSliderProps> = ({ portrait = true, ..
     {...props}
     itemOne={
       <ReactCompareSliderImage
-        src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+        src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/wall-1.png"
         alt="Image one"
       />
     }
     itemTwo={
       <ReactCompareSliderImage
-        src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+        src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/wall-2.png"
         alt="Image two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
+    style={{
+      width: '100%',
+      height: '100vh',
+      backgroundColor: 'white',
+      backgroundImage: `
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%)
+    `,
+      backgroundSize: `20px 20px`,
+      backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+    }}
   />
 );
 
@@ -333,13 +355,13 @@ export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
       ref={reactCompareSliderRef}
       itemOne={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/sydney-opera-house-1.jpg"
           alt="Image one"
         />
       }
       itemTwo={
         <ReactCompareSliderImage
-          src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/sydney-opera-house-2.jpg"
           alt="Image two"
         />
       }
@@ -356,13 +378,13 @@ export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...p
     position={position}
     itemOne={
       <ReactCompareSliderImage
-        src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
+        src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
         alt="Image one"
       />
     }
     itemTwo={
       <ReactCompareSliderImage
-        src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
+        src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-skyline-2.jpg"
         alt="Image two"
       />
     }
@@ -408,13 +430,13 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
           onPositionChange={handlePosition1Change}
           itemOne={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
               alt="Image one"
             />
           }
           itemTwo={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
               alt="Image two"
             />
           }
@@ -429,13 +451,13 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props
           onPositionChange={handlePosition2Change}
           itemOne={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
               alt="Image one"
             />
           }
           itemTwo={
             <ReactCompareSliderImage
-              src="https://github.com/nerdyman/stuff/raw/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
               alt="Image two"
             />
           }
