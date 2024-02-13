@@ -56,6 +56,7 @@ export const ReactCompareSlider = forwardRef<
       position = 50,
       style,
       transition,
+      browsingContext = window,
       ...props
     },
     ref,
@@ -72,8 +73,8 @@ export const ReactCompareSlider = forwardRef<
     const [isDragging, setIsDragging] = useState(false);
     /** Whether the `transition` property can be applied. */
     const [canTransition, setCanTransition] = useState(true);
-    /** Whether component has a `window` event binding. */
-    const hasWindowBinding = useRef(false);
+    /** Whether component has a `browsingContext` event binding. */
+    const hasBrowsingContextBinding = useRef(false);
     /** Target container for pointer events. */
     const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
     /** The `position` value at *previous* render. */
@@ -94,10 +95,10 @@ export const ReactCompareSlider = forwardRef<
 
         const pixelPosition = portrait
           ? isOffset
-            ? y - top - window.scrollY
+            ? y - top - browsingContext.scrollY
             : y
           : isOffset
-          ? x - left - window.scrollX
+          ? x - left - browsingContext.scrollX
           : x;
 
         /** Next position as percentage. */
@@ -267,17 +268,17 @@ export const ReactCompareSlider = forwardRef<
 
     // Allow drag outside of container while pointer is still down.
     useEffect(() => {
-      if (isDragging && !hasWindowBinding.current) {
-        window.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-        window.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
-        hasWindowBinding.current = true;
+      if (isDragging && !hasBrowsingContextBinding.current) {
+        browsingContext.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+        browsingContext.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
+        hasBrowsingContextBinding.current = true;
       }
 
       return (): void => {
-        if (hasWindowBinding.current) {
-          window.removeEventListener('pointermove', handlePointerMove);
-          window.removeEventListener('pointerup', handlePointerUp);
-          hasWindowBinding.current = false;
+        if (hasBrowsingContextBinding.current) {
+          browsingContext.removeEventListener('pointermove', handlePointerMove);
+          browsingContext.removeEventListener('pointerup', handlePointerUp);
+          hasBrowsingContextBinding.current = false;
         }
       };
     }, [handlePointerMove, handlePointerUp, isDragging]);
