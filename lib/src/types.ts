@@ -37,6 +37,8 @@ export interface ReactCompareSliderRootProps extends Partial<ReactCompareSliderC
   onlyHandleDraggable?: boolean;
   /** Callback on position change with position as percentage. */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
+  /** Custom browsing context to use instead of the global `window` object. */
+  browsingContext?: Window;
 }
 
 /** Properties returned by the `useReactCompareSliderRef` hook. */

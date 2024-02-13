@@ -79,6 +79,7 @@ export const Example = () => {
 | [`portrait`](https://react-compare-slider.vercel.app/?path=/story/demos--portrait)                                  | `boolean`   |              | `false`       | Whether to use portrait orientation.                                                                  |
 | [`position`](https://react-compare-slider.vercel.app/?path=/story/demos--position)                                  | `number`    |              | `50`          | Initial percentage position of divide (`0-100`).                                                      |
 | [`transition`](https://react-compare-slider.vercel.app/?path=/story/demos--transition)                                  | `string`    |              | `undefined`          | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`                                                      |
+| [`browsingContext`](https://react-compare-slider.vercel.app/?path=/story/demos--browsing-context) | `Window` | | `undefined` | Custom browsing context to use instead of the global `window` object when listening for pointer events. |
 
 [API docs](https://react-compare-slider.vercel.app/?path=/docs/docs-api--docs) for more information.
 
