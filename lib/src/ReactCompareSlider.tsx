@@ -48,7 +48,7 @@ export const ReactCompareSlider = forwardRef<
       keyboardIncrement = '5%',
       style,
       transition,
-      browsingContext,
+      browsingContext = globalThis,
       ...props
     },
     ref,
@@ -71,8 +71,6 @@ export const ReactCompareSlider = forwardRef<
     const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>();
     /** The `position` value at *previous* render. */
     const previousPosition = usePrevious(position);
-    /** Browsing context object. */
-    const context = browsingContext || window;
 
     /** Sync the internal position and trigger position change callback if defined. */
     const updateInternalPosition = useCallback(
@@ -89,10 +87,10 @@ export const ReactCompareSlider = forwardRef<
 
         const pixelPosition = portrait
           ? isOffset
-            ? y - top - context.scrollY
+            ? y - top - browsingContext.scrollY
             : y
           : isOffset
-          ? x - left - context.scrollX
+          ? x - left - browsingContext.scrollX
           : x;
 
         /** Next position as percentage. */
@@ -272,15 +270,15 @@ export const ReactCompareSlider = forwardRef<
     // Allow drag outside of container while pointer is still down.
     useEffect(() => {
       if (isDragging && !hasBrowsingContextBinding.current) {
-        context.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
-        context.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
+        browsingContext.addEventListener('pointermove', handlePointerMove, EVENT_PASSIVE_PARAMS);
+        browsingContext.addEventListener('pointerup', handlePointerUp, EVENT_PASSIVE_PARAMS);
         hasBrowsingContextBinding.current = true;
       }
 
       return (): void => {
         if (hasBrowsingContextBinding.current) {
-          context.removeEventListener('pointermove', handlePointerMove);
-          context.removeEventListener('pointerup', handlePointerUp);
+          browsingContext.removeEventListener('pointermove', handlePointerMove);
+          browsingContext.removeEventListener('pointerup', handlePointerUp);
           hasBrowsingContextBinding.current = false;
         }
       };
