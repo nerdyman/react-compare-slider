@@ -131,7 +131,7 @@ export const ReactCompareSlider = forwardRef<
           onPositionChange(internalPosition.current);
         }
       },
-      [boundsPadding, onPositionChange, portrait],
+      [boundsPadding, onPositionChange, portrait, browsingContext],
     );
 
     // Update internal position when other user controllable props change.
