@@ -282,7 +282,7 @@ export const ReactCompareSlider = forwardRef<
           hasBrowsingContextBinding.current = false;
         }
       };
-    }, [handlePointerMove, handlePointerUp, isDragging]);
+    }, [handlePointerMove, handlePointerUp, isDragging, browsingContext]);
 
     useImperativeHandle(
       ref,
