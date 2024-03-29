@@ -45,6 +45,7 @@ export const ReactCompareSlider = forwardRef<
     {
       boundsPadding = 0,
       changePositionOnHover = false,
+      clipItemOne = false,
       disabled = false,
       handle,
       itemOne,
@@ -62,8 +63,10 @@ export const ReactCompareSlider = forwardRef<
   ): ReactElement => {
     /** DOM node of the root element. */
     const rootContainerRef = useRef<HTMLDivElement>(null);
-    /** DOM node of the item that is clipped. */
-    const clipContainerRef = useRef<HTMLDivElement>(null);
+    /** DOM node of the item one that is clipped. */
+    const clipContainerOneRef = useRef<HTMLDivElement>(null);
+    /** DOM node of the item two that is clipped. */
+    const clipContainerTwoRef = useRef<HTMLDivElement>(null);
     /** DOM node of the handle container. */
     const handleContainerRef = useRef<HTMLButtonElement>(null);
     /** Current position as a percentage value (initially negative to sync bounds on mount). */
@@ -84,7 +87,8 @@ export const ReactCompareSlider = forwardRef<
       function updateInternal({ x, y, isOffset }: UpdateInternalPositionProps) {
         const rootElement = rootContainerRef.current as HTMLDivElement;
         const handleElement = handleContainerRef.current as HTMLButtonElement;
-        const clipElement = clipContainerRef.current as HTMLDivElement;
+        const clipElementOne = clipContainerOneRef.current;
+        const clipElementTwo = clipContainerTwoRef.current as HTMLDivElement;
         const { width, height, left, top } = rootElement.getBoundingClientRect();
 
         // Early out when component has zero bounds.
@@ -122,7 +126,12 @@ export const ReactCompareSlider = forwardRef<
         handleElement.setAttribute('aria-valuenow', `${Math.round(internalPosition.current)}`);
         handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
         handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
-        clipElement.style.clipPath = portrait
+        if (clipElementOne) {
+          clipElementOne.style.clipPath = portrait
+            ? `inset(0 0 ${100 - nextPositionWithBoundsPadding}% 0)`
+            : `inset(0 ${100 - nextPositionWithBoundsPadding}% 0 0)`;
+        }
+        clipElementTwo.style.clipPath = portrait
           ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
           : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
 
@@ -347,8 +356,14 @@ export const ReactCompareSlider = forwardRef<
 
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
-        {itemOne}
-        <ContainerClip ref={clipContainerRef} transition={appliedTransition}>
+        {clipItemOne ? (
+          <ContainerClip ref={clipContainerOneRef} transition={appliedTransition}>
+            {itemOne}
+          </ContainerClip>
+        ) : (
+          itemOne
+        )}
+        <ContainerClip ref={clipContainerTwoRef} transition={appliedTransition}>
           {itemTwo}
         </ContainerClip>
 
