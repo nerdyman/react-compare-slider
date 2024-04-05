@@ -9,9 +9,6 @@ on:
       - synchronize
   workflow_dispatch:
 
-env:
-  PLAYWRIGHT_BROWSERS_PATH: $HOME/.cache/ms-playwright
-
 jobs:
   build:
     name: Build, lint and test
@@ -46,7 +43,7 @@ jobs:
 
       - name: 🧪 Test
         run: |
-          pnpm dlx playwright install --with-deps chromium
+          pnpm dlx playwright@1.41.1 install --with-deps chromium
           pnpm run test:ci
 
       - name: Upload Code Climate Test Coverage
