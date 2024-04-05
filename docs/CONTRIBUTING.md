@@ -4,8 +4,11 @@ Thanks for contributing!
 
 ## Getting Started
 
-This is a pnpm monorepo, consisting of the main package in [`lib`](../lib/) and [`storybook`](./storybook/) and [`example`](./example/) packages in the `docs` directory. Don't worry if you haven't used pnpm or monorepos before, the
-commands below will set everything up for you.
+This is a pnpm monorepo, consisting of the main package in [`lib`](../lib/) and
+[`storybook`](./storybook/) and [`example`](./example/) packages in the `docs` directory. Don't
+worry if you haven't used pnpm or monorepos before, the commands below will set everything up for you.
+
+If you run Windows please use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 Ensure you're using the Node version specified in [.nvmrc](../.nvmrc) and run the following to
 bootstrap the project:
@@ -19,7 +22,7 @@ pnpm install-completion
 To start the library in watch mode, run the following command:
 
 ```sh
-# Run the library only.
+# Run the library only, note this must run before starting Storybook.
 pnpm run --filter react-compare-slider dev
 # You can also run the scripts from the directory itself if you prefer.
 cd lib
