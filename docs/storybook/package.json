@@ -33,7 +33,6 @@
     "@storybook/blocks": "^7.6.13",
     "@storybook/builder-vite": "^7.6.13",
     "@storybook/jest": "^0.2.3",
-    "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^7.6.13",
     "@storybook/react-vite": "^7.6.13",
     "@storybook/test-runner": "^0.16.0",

@@ -9,9 +9,6 @@ on:
       - synchronize
   workflow_dispatch:
 
-env:
-  PLAYWRIGHT_BROWSERS_PATH: $HOME/.cache/ms-playwright
-
 jobs:
   build:
     name: Build, lint and test
