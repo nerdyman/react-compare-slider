@@ -44,6 +44,7 @@ export const ReactCompareSlider = forwardRef<
   (
     {
       boundsPadding = 0,
+      browsingContext = globalThis,
       changePositionOnHover = false,
       disabled = false,
       handle,
@@ -56,7 +57,6 @@ export const ReactCompareSlider = forwardRef<
       position = 50,
       style,
       transition,
-      browsingContext = globalThis,
       ...props
     },
     ref,
