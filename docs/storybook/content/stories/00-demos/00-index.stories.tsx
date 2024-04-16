@@ -1,11 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import React from 'react';
+import React, { useState } from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
   useReactCompareSliderRef,
 } from 'react-compare-slider';
+import { createPortal } from 'react-dom';
 
 import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils.test';
 import { argTypes, args } from '../config';
@@ -77,6 +78,42 @@ export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
 };
 
 BoundsPadding.args = { boundsPadding: 80 };
+
+export const BrowsingContext: StoryFn<ReactCompareSliderProps> = (props) => {
+  const [browsingContext, setBrowsingContext] = useState<Window | null>(null);
+  const reactCompareSliderRef = useReactCompareSliderRef();
+
+  return (
+    <div>
+      <button onClick={() => setBrowsingContext(window.open('', '', 'popup,width=200,height=200'))}>
+        Render in browsing context
+      </button>
+      {browsingContext &&
+        createPortal(
+          <ReactCompareSlider
+            {...props}
+            itemOne={
+              <ReactCompareSliderImage
+                src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/london-eye-1.jpg"
+                alt="Image one"
+              />
+            }
+            itemTwo={
+              <ReactCompareSliderImage
+                src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/london-eye-2.jpg"
+                alt="Image two"
+              />
+            }
+            ref={reactCompareSliderRef}
+            browsingContext={browsingContext}
+          />,
+          browsingContext.document.body,
+        )}
+    </div>
+  );
+};
+
+BrowsingContext.args = {};
 
 export const ChangePositionOnHover: StoryFn<ReactCompareSliderProps> = ({
   changePositionOnHover = true,
