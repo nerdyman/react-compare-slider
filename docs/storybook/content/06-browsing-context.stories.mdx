@@ -1,0 +1,29 @@
+import { ArgTypes, Canvas, Meta, Story } from '@storybook/blocks';
+
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+<Meta title="Docs/Browsing Context" component={ReactCompareSlider} />
+
+# Using `browsingContext`
+
+The `browsingContext` prop allows you to change the target that events are bound to. By default,
+`globalThis` (`Window`) is used and will cover 99.999% of use cases. However, if you are using
+the library outside of current window context (e.g. an `iframe` or pop-up window) you will notice
+that not all the events are caputed by the slider. `browsingContext` can be used to set a different
+target to bind events to.
+
+For example, if you wanted to render the slider in a popup you would use `createPortal` from `react-dom`
+with the `document.body` property of the popup as the DOM node for `createPortal` and pass the popup
+window context as the `browsingContext` prop.
+
+<Canvas>
+  <Story id="demos--browsing-context" />
+</Canvas>
+
+<ArgTypes of={ReactCompareSlider} />
+
+<br />
+
+## Live Examples
+
+Checkout the [Bounds padding examples](/story/demos--browsing-context).

@@ -86,7 +86,7 @@ export const BrowsingContext: StoryFn<ReactCompareSliderProps> = (props) => {
   return (
     <div>
       <button onClick={() => setBrowsingContext(window.open('', '', 'popup,width=200,height=200'))}>
-        Render in browsing context
+        Render in popup
       </button>
       {browsingContext &&
         createPortal(

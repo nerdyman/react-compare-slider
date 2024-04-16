@@ -68,7 +68,7 @@ export const Example = () => {
 | Prop | Type | Required | Default | Description |
 | ---- | ---- | :------: | ------- | ----------- |
 | [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/demos--bounds-padding)                   | `number`                     |   | `0`           | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).
-| `browsingContext`                                                                                               | `globalThis`                 |   | `globalThis`  | Context to bind events to (useful for iframes).
+| [`browsingContext`](https://react-compare-slider.vercel.app/?path=/story/demos--browsing-context)               | `globalThis`                 |   | `globalThis`  | Context to bind events to (useful for iframes).
 | [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/demos--change-position-on-hover) | `boolean`                    |   | `false`       | Whether the slider should follow the pointer on hover.
 | [`disabled`](https://react-compare-slider.vercel.app/?path=/story/demos--disabled)                              | `boolean`                    |   | `false`       |  Whether to disable slider movement (items are still interactable).
 | [`handle`](https://react-compare-slider.vercel.app/?path=/story/demos--handle)                                  | `ReactNode`                  |   | `undefined`   | Custom handle component.
