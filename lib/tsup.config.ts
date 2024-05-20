@@ -10,7 +10,13 @@ export default defineConfig((options) => ({
   clean: !options.watch,
   dts: true,
   entry: ['src/index.ts'],
-  format: ['esm'],
+  format: ['esm', 'cjs'],
+  outExtension: (context) => {
+    return {
+      dts: context.format === 'esm' ? '.d.mts' : '.d.ts',
+      js: context.format === 'esm' ? '.mjs' : '.cjs',
+    };
+  },
   minify: !options.watch,
   target,
   sourcemap: true,
