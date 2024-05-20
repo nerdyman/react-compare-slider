@@ -9,6 +9,7 @@ import { mergeConfig } from 'vite';
 const config: StorybookConfig = {
   core: {
     builder: '@storybook/builder-vite',
+    disableWhatsNewNotifications: true,
   },
 
   framework: {

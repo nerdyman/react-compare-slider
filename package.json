@@ -42,6 +42,9 @@
       "eslint --fix"
     ]
   },
+  "resolutions": {
+    "react-element-to-jsx-string": "npm:@styled/react-element-to-jsx-string"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.13.6",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
