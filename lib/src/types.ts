@@ -25,8 +25,8 @@ export interface ReactCompareSliderRootProps extends Partial<ReactCompareSliderC
   boundsPadding?: number;
   /** Whether the slider should follow the pointer on hover. */
   changePositionOnHover?: boolean;
-  /** Whether itemOne should be clipped */
-  clipItemOne?: boolean;
+  /** Whether to clip `itemOne`, `itemTwo` or both items. */
+  clip?: 'all' | 'itemOne' | 'itemTwo';
   /** Custom handle component. */
   handle?: ReactNode;
   /** First item to show. */

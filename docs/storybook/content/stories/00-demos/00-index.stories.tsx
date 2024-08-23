@@ -1,6 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import React, { useState } from 'react';
-import type { ReactCompareSliderProps } from 'react-compare-slider';
+import type {
+  ReactCompareSliderDetailedProps,
+  ReactCompareSliderProps,
+} from 'react-compare-slider';
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
@@ -19,7 +22,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 };
 export default meta;
 
-export const Images: StoryFn<ReactCompareSliderProps> = (props) => {
+export const Images: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <ReactCompareSlider
       {...props}
@@ -33,21 +36,25 @@ export const Images: StoryFn<ReactCompareSliderProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
-          style={{
-            backgroundColor: 'white',
-            backgroundImage: `
-              linear-gradient(45deg, #ccc 25%, transparent 25%),
-              linear-gradient(-45deg, #ccc 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #ccc 75%),
-              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
-            backgroundSize: `20px 20px`,
-            backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
-          }}
+          style={{ filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)' }}
         />
       }
-      style={{ width: '100%', height: '100vh' }}
     />
   );
+};
+
+Images.args = {
+  style: {
+    width: '100%',
+    backgroundColor: 'white',
+    backgroundImage: `
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+    backgroundSize: `20px 20px`,
+    backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+  },
 };
 
 export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
@@ -322,7 +329,10 @@ export const OnPositionChange: StoryFn<ReactCompareSliderProps> = (props) => {
 
 OnPositionChange.args = {};
 
-export const Portrait: StoryFn<ReactCompareSliderProps> = ({ portrait = true, ...props }) => (
+export const Portrait: StoryFn<ReactCompareSliderDetailedProps> = ({
+  portrait = true,
+  ...props
+}) => (
   <ReactCompareSlider
     portrait={portrait}
     {...props}
@@ -337,22 +347,28 @@ export const Portrait: StoryFn<ReactCompareSliderProps> = ({ portrait = true, ..
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
         alt="Image two"
         style={{
-          backgroundColor: 'white',
-          backgroundImage: `
-            linear-gradient(45deg, #ccc 25%, transparent 25%),
-            linear-gradient(-45deg, #ccc 25%, transparent 25%),
-            linear-gradient(45deg, transparent 75%, #ccc 75%),
-            linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
-          backgroundSize: `20px 20px`,
-          backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+          filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
         }}
       />
     }
-    style={{ width: '100%', height: '100vh' }}
   />
 );
 
-Portrait.args = { portrait: true };
+Portrait.args = {
+  portrait: true,
+  style: {
+    width: '100%',
+    height: '100vh',
+    backgroundColor: 'white',
+    backgroundImage: `
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+    backgroundSize: `20px 20px`,
+    backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+  },
+};
 
 export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
   const reactCompareSliderRef = useReactCompareSliderRef();
@@ -397,14 +413,7 @@ export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
           style={{
-            backgroundColor: 'white',
-            backgroundImage: `
-              linear-gradient(45deg, #ccc 25%, transparent 25%),
-              linear-gradient(-45deg, #ccc 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #ccc 75%),
-              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
-            backgroundSize: `20px 20px`,
-            backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+            filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
           }}
         />
       }
@@ -413,7 +422,20 @@ export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
   );
 };
 
-Transition.args = { position: 50, transition: '.75s ease-in-out' };
+Transition.args = {
+  position: 50,
+  transition: '.75s ease-in-out',
+  style: {
+    backgroundColor: 'white',
+    backgroundImage: `
+              linear-gradient(45deg, #ccc 25%, transparent 25%),
+              linear-gradient(-45deg, #ccc 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, #ccc 75%),
+              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+    backgroundSize: `20px 20px`,
+    backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+  },
+};
 
 export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...props }) => (
   <ReactCompareSlider

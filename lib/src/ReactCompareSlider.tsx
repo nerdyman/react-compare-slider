@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import type { CSSProperties, ReactElement } from 'react';
 
-import { ContainerClip, ContainerHandle } from './Container';
+import { ContainerHandle, ContainerItem } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps, UseReactCompareSliderRefReturn } from './types';
 import type { UseResizeObserverHandlerProps } from './utils';
@@ -46,7 +46,7 @@ export const ReactCompareSlider = forwardRef<
       boundsPadding = 0,
       browsingContext = globalThis,
       changePositionOnHover = false,
-      clipItemOne = false,
+      clip = 'all',
       disabled = false,
       handle,
       itemOne,
@@ -64,9 +64,9 @@ export const ReactCompareSlider = forwardRef<
   ): ReactElement => {
     /** DOM node of the root element. */
     const rootContainerRef = useRef<HTMLDivElement>(null);
-    /** DOM node of the item one that is clipped. */
+    /** DOM node `itemOne` container. */
     const clipContainerOneRef = useRef<HTMLDivElement>(null);
-    /** DOM node of the item two that is clipped. */
+    /** DOM node of `itemTwo`. */
     const clipContainerTwoRef = useRef<HTMLDivElement>(null);
     /** DOM node of the handle container. */
     const handleContainerRef = useRef<HTMLButtonElement>(null);
@@ -88,7 +88,7 @@ export const ReactCompareSlider = forwardRef<
       function updateInternal({ x, y, isOffset }: UpdateInternalPositionProps) {
         const rootElement = rootContainerRef.current as HTMLDivElement;
         const handleElement = handleContainerRef.current as HTMLButtonElement;
-        const clipElementOne = clipContainerOneRef.current;
+        const clipElementOne = clipContainerOneRef.current as HTMLDivElement;
         const clipElementTwo = clipContainerTwoRef.current as HTMLDivElement;
         const { width, height, left, top } = rootElement.getBoundingClientRect();
 
@@ -127,20 +127,28 @@ export const ReactCompareSlider = forwardRef<
         handleElement.setAttribute('aria-valuenow', `${Math.round(internalPosition.current)}`);
         handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
         handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
-        if (clipElementOne) {
+
+        if (clip === 'all' || clip === 'itemOne') {
           clipElementOne.style.clipPath = portrait
             ? `inset(0 0 ${100 - nextPositionWithBoundsPadding}% 0)`
             : `inset(0 ${100 - nextPositionWithBoundsPadding}% 0 0)`;
+        } else {
+          clipElementOne.style.clipPath = 'none';
         }
-        clipElementTwo.style.clipPath = portrait
-          ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
-          : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
+
+        if (clip === 'all' || clip === 'itemTwo') {
+          clipElementTwo.style.clipPath = portrait
+            ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
+            : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
+        } else {
+          clipElementTwo.style.clipPath = 'none';
+        }
 
         if (onPositionChange) {
           onPositionChange(internalPosition.current);
         }
       },
-      [boundsPadding, onPositionChange, portrait, browsingContext],
+      [browsingContext, boundsPadding, clip, onPositionChange, portrait],
     );
 
     // Update internal position when other user controllable props change.
@@ -156,7 +164,7 @@ export const ReactCompareSlider = forwardRef<
         x: (width / 100) * nextPosition,
         y: (height / 100) * nextPosition,
       });
-    }, [boundsPadding, position, portrait, previousPosition, updateInternalPosition]);
+    }, [boundsPadding, clip, position, portrait, previousPosition, updateInternalPosition]);
 
     /** Handle mouse/touch down. */
     const handlePointerDown = useCallback(
@@ -343,7 +351,9 @@ export const ReactCompareSlider = forwardRef<
 
     const rootStyle: CSSProperties = {
       position: 'relative',
-      display: 'flex',
+      display: 'grid',
+      maxWidth: '100%',
+      maxHeight: '100%',
       overflow: 'hidden',
       cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
       touchAction: 'none',
@@ -357,16 +367,13 @@ export const ReactCompareSlider = forwardRef<
 
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
-        {clipItemOne ? (
-          <ContainerClip ref={clipContainerOneRef} transition={appliedTransition}>
-            {itemOne}
-          </ContainerClip>
-        ) : (
-          itemOne
-        )}
-        <ContainerClip ref={clipContainerTwoRef} transition={appliedTransition}>
+        <ContainerItem ref={clipContainerOneRef} transition={appliedTransition}>
+          {itemOne}
+        </ContainerItem>
+
+        <ContainerItem ref={clipContainerTwoRef} transition={appliedTransition}>
           {itemTwo}
-        </ContainerClip>
+        </ContainerItem>
 
         <ContainerHandle
           disabled={disabled}
