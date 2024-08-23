@@ -5,6 +5,7 @@ import type { ReactCompareSliderProps } from 'react-compare-slider';
  * @NOTE These must reflect the default values defined in the code and in `README.md`.
  */
 export const args: ReactCompareSliderProps = {
+  clip: 'all',
   disabled: false,
   portrait: false,
   position: 50,

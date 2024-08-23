@@ -140,20 +140,4 @@
   .sbdocs table:not(.docblock-argstable) td:last-of-type {
     border-right: 0 !important;
   }
-
-  /** @HACK Storybook adds a 100px height to this container for some reason.
-   *  Using custom styles to workaround it...ish.
-   */
-
-  .sbdocs-preview div[id^='story--'] {
-    display: flex;
-  }
-
-  .sbdocs-preview div[id^='story--'] > div {
-    height: 70vh !important;
-    max-height: 32rem;
-    max-width: 100%;
-    overflow: hidden;
-    flex-grow: 1;
-  }
 </style>
