@@ -52,7 +52,7 @@ export const ZeroBoundsWithLazyContent = () => {
           data-testid="one"
           alt="one"
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/e2e-test-1.png"
-          style={{ width: 128, height: 128, objectFit: 'cover' }}
+          style={{ display: 'block', width: 128, height: 128, objectFit: 'cover' }}
         />
       ),
       itemTwo: (
@@ -60,7 +60,7 @@ export const ZeroBoundsWithLazyContent = () => {
           data-testid="two"
           alt="two"
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/e2e-test-2.png"
-          style={{ width: 128, height: 128, objectFit: 'cover' }}
+          style={{ display: 'block', width: 128, height: 128, objectFit: 'cover' }}
         />
       ),
     }));
