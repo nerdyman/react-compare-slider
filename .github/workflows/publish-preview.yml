@@ -28,4 +28,4 @@ jobs:
         run: pnpm run --filter react-compare-slider build
 
       - name: 🚀 Publish Preview Release
-        run: pnpx pkg-pr-new publish
+        run: pnpx pkg-pr-new publish './lib'
