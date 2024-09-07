@@ -10,7 +10,11 @@ import type { CSSProperties, ReactElement } from 'react';
 
 import { ContainerHandle, ContainerItem } from './Container';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-import type { ReactCompareSliderDetailedProps, UseReactCompareSliderRefReturn } from './types';
+import {
+  ReactCompareSliderClipOption,
+  type ReactCompareSliderDetailedProps,
+  type UseReactCompareSliderRefReturn,
+} from './types';
 import type { UseResizeObserverHandlerProps } from './utils';
 import { usePrevious } from './utils';
 import { KeyboardEventKeys, useEventListener, useResizeObserver } from './utils';
@@ -46,7 +50,7 @@ export const ReactCompareSlider = forwardRef<
       boundsPadding = 0,
       browsingContext = globalThis,
       changePositionOnHover = false,
-      clip = 'all',
+      clip = ReactCompareSliderClipOption.both,
       disabled = false,
       handle,
       itemOne,
@@ -128,7 +132,9 @@ export const ReactCompareSlider = forwardRef<
         handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
         handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
 
-        if (clip === 'all' || clip === 'itemOne') {
+        const clipBoth = clip === ReactCompareSliderClipOption.both;
+
+        if (clipBoth || clip === ReactCompareSliderClipOption.itemOne) {
           clipElementOne.style.clipPath = portrait
             ? `inset(0 0 ${100 - nextPositionWithBoundsPadding}% 0)`
             : `inset(0 ${100 - nextPositionWithBoundsPadding}% 0 0)`;
@@ -136,7 +142,7 @@ export const ReactCompareSlider = forwardRef<
           clipElementOne.style.clipPath = 'none';
         }
 
-        if (clip === 'all' || clip === 'itemTwo') {
+        if (clipBoth || clip === ReactCompareSliderClipOption.itemTwo) {
           clipElementTwo.style.clipPath = portrait
             ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
             : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;

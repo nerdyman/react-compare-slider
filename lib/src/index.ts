@@ -6,11 +6,13 @@ export type { ReactCompareSliderHandleProps } from './ReactCompareSliderHandle';
 export { ReactCompareSliderImage } from './ReactCompareSliderImage';
 export type { ReactCompareSliderImageProps } from './ReactCompareSliderImage';
 
-export type {
-  ReactCompareSliderDetailedProps,
-  ReactCompareSliderProps,
-  ReactCompareSliderPropPosition,
-  UseReactCompareSliderRefReturn,
+export {
+  type ReactCompareSliderDetailedProps,
+  type ReactCompareSliderProps,
+  type ReactCompareSliderPropPosition,
+  type UseReactCompareSliderRefReturn,
+  ReactCompareSliderClipOption,
+  type ReactCompareSliderClip,
 } from './types';
 
 export { styleFitContainer } from './utils';

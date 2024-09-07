@@ -1,22 +1,22 @@
 import type { ArgTypes } from '@storybook/react';
-import type { ReactCompareSliderProps } from 'react-compare-slider';
+import { ReactCompareSliderClipOption, type ReactCompareSliderProps } from 'react-compare-slider';
 
 /**
- * @NOTE These must reflect the default values defined in the code and in `README.md`.
+ * @NOTE These must reflect the default values defined in the `types.ts`.
  */
 export const args: ReactCompareSliderProps = {
-  clip: 'all',
-  disabled: false,
-  portrait: false,
-  position: 50,
   boundsPadding: 0,
-  onlyHandleDraggable: false,
   changePositionOnHover: false,
+  clip: ReactCompareSliderClipOption.both,
+  disabled: false,
+  handle: undefined,
   keyboardIncrement: '5%',
   itemOne: undefined,
   itemTwo: undefined,
-  handle: undefined,
+  onlyHandleDraggable: false,
   onPositionChange: undefined,
+  portrait: false,
+  position: 50,
   transition: undefined,
 };
 
