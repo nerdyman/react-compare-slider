@@ -22,7 +22,7 @@ jobs:
       - name: 📦 Install Dependencies
         run: |
           corepack enable
-          pnpm install --frozen-lockfile --filter . --filter react-compare-slider
+          pnpm install --frozen-lockfile --filter react-compare-slider
 
       - name: 🔨 Build
         run: pnpm run --filter react-compare-slider build
