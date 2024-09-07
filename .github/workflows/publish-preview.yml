@@ -1,0 +1,32 @@
+name: Publish Preview Release
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  approved:
+    if: github.event.review.state == 'APPROVED'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛒 Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+
+      - name: ⚒️ Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: 📦 Install Dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile --filter . --filter react-compare-slider
+
+      - name: 🔨 Build
+        run: pnpm run --filter react-compare-slider build
+
+      - name: 🚀 Publish Preview Release
+        run: pnpx pkg-pr-new publish
