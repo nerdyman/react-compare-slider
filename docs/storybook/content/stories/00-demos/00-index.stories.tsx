@@ -1,9 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import React, { useState } from 'react';
-import type {
-  ReactCompareSliderDetailedProps,
-  ReactCompareSliderProps,
-} from 'react-compare-slider';
+import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
@@ -57,7 +54,7 @@ Images.args = {
   },
 };
 
-export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
+export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({
   boundsPadding = 80,
   ...props
 }) => {
@@ -86,7 +83,7 @@ export const BoundsPadding: StoryFn<ReactCompareSliderProps> = ({
 
 BoundsPadding.args = { boundsPadding: 80 };
 
-export const BrowsingContext: StoryFn<ReactCompareSliderProps> = (props) => {
+export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [browsingContext, setBrowsingContext] = useState<Window | null>(null);
   const reactCompareSliderRef = useReactCompareSliderRef();
 
@@ -122,7 +119,7 @@ export const BrowsingContext: StoryFn<ReactCompareSliderProps> = (props) => {
 
 BrowsingContext.args = {};
 
-export const ChangePositionOnHover: StoryFn<ReactCompareSliderProps> = ({
+export const ChangePositionOnHover: StoryFn<ReactCompareSliderDetailedProps> = ({
   changePositionOnHover = true,
   ...props
 }) => {
@@ -152,7 +149,7 @@ export const ChangePositionOnHover: StoryFn<ReactCompareSliderProps> = ({
 
 ChangePositionOnHover.args = { changePositionOnHover: true };
 
-export const Disabled: StoryFn<ReactCompareSliderProps> = ({ disabled, ...props }) => {
+export const Disabled: StoryFn<ReactCompareSliderDetailedProps> = ({ disabled, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -178,7 +175,7 @@ export const Disabled: StoryFn<ReactCompareSliderProps> = ({ disabled, ...props 
 
 Disabled.args = { disabled: true };
 
-export const Handle: StoryFn<ReactCompareSliderProps> = (props) => {
+export const Handle: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const CustomHandle: React.FC = () => {
     return (
       <div
@@ -235,7 +232,7 @@ export const Handle: StoryFn<ReactCompareSliderProps> = (props) => {
 
 Handle.args = {};
 
-export const KeyboardIncrement: StoryFn<ReactCompareSliderProps> = (props) => {
+export const KeyboardIncrement: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <div className="sb-custom-note">
@@ -265,7 +262,7 @@ export const KeyboardIncrement: StoryFn<ReactCompareSliderProps> = (props) => {
 
 KeyboardIncrement.args = {};
 
-export const OnlyHandleDraggable: StoryFn<ReactCompareSliderProps> = ({
+export const OnlyHandleDraggable: StoryFn<ReactCompareSliderDetailedProps> = ({
   onlyHandleDraggable = true,
   ...props
 }) => {
@@ -294,7 +291,7 @@ export const OnlyHandleDraggable: StoryFn<ReactCompareSliderProps> = ({
 
 OnlyHandleDraggable.args = { onlyHandleDraggable: true };
 
-export const OnPositionChange: StoryFn<ReactCompareSliderProps> = (props) => {
+export const OnPositionChange: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const onPositionChange = React.useCallback((position) => {
     console.log('[OnPositionChange.onPositionChange]', position);
   }, []);
@@ -370,7 +367,7 @@ Portrait.args = {
   },
 };
 
-export const Transition: StoryFn<ReactCompareSliderProps> = (props) => {
+export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const reactCompareSliderRef = useReactCompareSliderRef();
 
   React.useEffect(() => {
@@ -437,7 +434,7 @@ Transition.args = {
   },
 };
 
-export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...props }) => (
+export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ position = 25, ...props }) => (
   <ReactCompareSlider
     {...props}
     position={position}
@@ -459,7 +456,7 @@ export const Position: StoryFn<ReactCompareSliderProps> = ({ position = 25, ...p
 
 Position.args = { position: 25 };
 
-export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderProps> = (props) => {
+export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   // We need to know which slider is in control to avoid infinite loops 🤯
   const [sliderInControl, setSliderInControl] = React.useState(1);
   const slider1Ref = useReactCompareSliderRef();
