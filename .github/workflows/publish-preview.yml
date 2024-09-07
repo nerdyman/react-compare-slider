@@ -1,11 +1,10 @@
 name: Publish Preview Release
 on:
-  pull_request_review:
-    types: [submitted]
-
+  pull_request:
+    types: [labeled]
 jobs:
   approved:
-    if: github.event.review.state == 'APPROVED'
+    if: github.event.label.name == 'publish-preview' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     steps:
