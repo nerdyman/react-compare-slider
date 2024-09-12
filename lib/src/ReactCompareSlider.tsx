@@ -362,7 +362,7 @@ export const ReactCompareSlider = forwardRef<
       maxHeight: '100%',
       overflow: 'hidden',
       cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
-      touchAction: 'none',
+      touchAction: isDragging ? 'none' : undefined,
       userSelect: 'none',
       KhtmlUserSelect: 'none',
       msUserSelect: 'none',
