@@ -202,6 +202,11 @@ export const ReactCompareSlider = forwardRef<
       setCanTransition(true);
     }, []);
 
+    const handleTouchEnd = useCallback(() => {
+      setIsDragging(false);
+      setCanTransition(true);
+    }, []);
+
     /** Resync internal position on resize. */
     const handleResize: (resizeProps: UseResizeObserverHandlerProps) => void = useCallback(
       ({ width, height }) => {
@@ -331,6 +336,13 @@ export const ReactCompareSlider = forwardRef<
     useResizeObserver(rootContainerRef, handleResize);
 
     useEventListener(
+      'touchend',
+      handleTouchEnd,
+      interactiveTarget as HTMLDivElement,
+      EVENT_CAPTURE_PARAMS,
+    );
+
+    useEventListener(
       'keydown',
       handleKeydown,
       handleContainerRef.current as HTMLButtonElement,
@@ -362,7 +374,7 @@ export const ReactCompareSlider = forwardRef<
       maxHeight: '100%',
       overflow: 'hidden',
       cursor: isDragging ? (portrait ? 'ns-resize' : 'ew-resize') : undefined,
-      touchAction: isDragging ? 'none' : undefined,
+      touchAction: 'pan-y',
       userSelect: 'none',
       KhtmlUserSelect: 'none',
       msUserSelect: 'none',
