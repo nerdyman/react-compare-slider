@@ -13,7 +13,6 @@ export default defineConfig((options) => ({
   format: ['esm', 'cjs'],
   outExtension: (context) => {
     return {
-      dts: context.format === 'esm' ? '.d.mts' : '.d.ts',
       js: context.format === 'esm' ? '.mjs' : '.cjs',
     };
   },

@@ -12,7 +12,7 @@
     "url": "https://github.com/nerdyman"
   },
   "engines": {
-    "node": ">=16.9.0"
+    "node": ">=18.0.0"
   },
   "packageManager": "pnpm@8.15.1",
   "scripts": {
@@ -46,9 +46,9 @@
     "react-element-to-jsx-string": "npm:@styled/react-element-to-jsx-string"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.13.6",
+    "@arethetypeswrong/cli": "^0.16.2",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
-    "@types/node": "^20.11.16",
+    "@types/node": "^22.5.5",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "c8": "^9.1.0",
