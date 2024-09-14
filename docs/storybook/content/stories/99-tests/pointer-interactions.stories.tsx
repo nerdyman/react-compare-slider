@@ -184,3 +184,45 @@ ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
     expect(ChangePositionOnHoverPointerDown.args?.onPositionChange).toHaveBeenCalledWith(100);
   });
 };
+
+/**
+ * Ensure slider 'disconnects' when it loses focus on touch devices.
+ */
+export const TouchEvents: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+  return (
+    <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
+      <button>Clickaroo</button>
+      <ReactCompareSlider {...props} />
+    </div>
+  );
+};
+
+TouchEvents.args = getArgs({
+  changePositionOnHover: true,
+  style: { width: 200, height: 200 },
+});
+
+TouchEvents.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const sliderRoot = (await canvas.findByTestId(TouchEvents.args?.['data-testid'])) as HTMLElement;
+
+  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+  await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
+
+  await new Promise((resolve) => setTimeout(resolve, 250));
+
+  await fireEvent.pointerDown(sliderRoot, {
+    clientX: sliderRoot.clientWidth * 0.65,
+    clientY: sliderRoot.clientHeight * 0.65,
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 250));
+
+  await waitFor(() => expect(sliderRoot).toHaveStyle({ cursor: 'ew-resize' }));
+
+  await new Promise((resolve) => setTimeout(resolve, 250));
+
+  await fireEvent.touchEnd(sliderRoot);
+
+  await waitFor(() => expect(sliderRoot).toHaveStyle({ cursor: 'auto' }));
+};
