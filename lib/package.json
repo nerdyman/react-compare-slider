@@ -29,18 +29,23 @@
     "typescript"
   ],
   "engines": {
-    "node": ">=16.9.0"
+    "node": ">=18.0.0"
   },
   "sideEffects": false,
   "type": "module",
   "main": "dist/index.cjs",
-  "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [
@@ -54,7 +59,7 @@
     "release:preflight": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check",
     "release:publish": "release-it",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
-    "check:package": "attw -P . --ignore-rules cjs-resolves-to-esm && publint",
+    "check:package": "attw -P . && publint",
     "check:types": "tsc --noEmit"
   },
   "browserslist": {
@@ -79,18 +84,18 @@
     "react-dom": ">=16.8"
   },
   "devDependencies": {
-    "@types/node": "^20.11.16",
+    "@types/node": "^22.5.5",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "browserslist": "^4.22.3",
+    "browserslist": "^4.23.3",
     "concurrently": "^8.2.2",
-    "esbuild-plugin-browserslist": "^0.11.1",
-    "publint": "^0.2.7",
+    "esbuild-plugin-browserslist": "^0.14.0",
+    "publint": "^0.2.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "release-it": "^17.0.3",
-    "tslib": "~2.6.2",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3"
+    "release-it": "^17.6.0",
+    "tslib": "~2.7.0",
+    "tsup": "^8.2.4",
+    "typescript": "^5.6.2"
   }
 }
