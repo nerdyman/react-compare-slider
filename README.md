@@ -14,6 +14,11 @@
 
 </div>
 
+> [!IMPORTANT]  
+> This readme is for the [v4 release](https://github.com/nerdyman/react-compare-slider/releases) which is currently in beta (`react-compare-slider@beta`).
+> 
+> See [Version 3](https://github.com/nerdyman/react-compare-slider/tree/v3.1.0) for the latest stable release (`react-compare-slider`).
+
 ---
 
 ## Features
