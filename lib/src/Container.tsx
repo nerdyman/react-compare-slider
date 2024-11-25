@@ -5,13 +5,14 @@ import type { ReactCompareSliderCommonProps } from './types';
 
 type ContainerItemProps = ComponentPropsWithoutRef<'div'> &
   Pick<ReactCompareSliderCommonProps, 'transition'> & {
+    shouldOverlap?: boolean;
     order?: number;
   };
 
 /** Container for clipped item. */
 export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
-  ({ transition, order, ...props }, ref): ReactElement => {
-    const style: CSSProperties = {
+  ({ shouldOverlap, order, style, transition, ...props }, ref): ReactElement => {
+    const appliedStyle: CSSProperties = {
       gridArea: '1 / 1 / 2 / 2',
       order,
       maxWidth: '100%',
@@ -20,12 +21,14 @@ export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
       transition: transition ? `clip-path ${transition}` : undefined,
       userSelect: 'none',
       willChange: 'clip-path, transition',
+      zIndex: shouldOverlap ? 1 : undefined,
       KhtmlUserSelect: 'none',
       MozUserSelect: 'none',
       WebkitUserSelect: 'none',
+      ...style,
     };
 
-    return <div {...props} style={style} data-rcs="clip-item" ref={ref} />;
+    return <div {...props} style={appliedStyle} data-rcs="clip-item" ref={ref} />;
   },
 );
 
@@ -50,6 +53,7 @@ export const ContainerHandle = forwardRef<HTMLButtonElement, ContainerHandleProp
       appearance: 'none',
       WebkitAppearance: 'none',
       MozAppearance: 'none',
+      zIndex: 1,
       outline: 0,
       transform: portrait ? `translate3d(0, -50% ,0)` : `translate3d(-50%, 0, 0)`,
       transition: transition ? `${targetAxis} ${transition}` : undefined,

@@ -44,6 +44,9 @@ ClipBoth.play = async ({ canvasElement }) => {
     const [itemOne, itemTwo] = Array.from(
       sliderRoot.querySelectorAll('[data-rcs="clip-item"]'),
     ) as HTMLElement[];
+
+    expect(itemOne).toBeVisible();
+    expect(itemTwo).toBeVisible();
     expect(itemOne?.style.clipPath).toBe('inset(0px 25% 0px 0px)');
     expect(itemTwo?.style.clipPath).toBe('inset(0px 0px 0px 75%)');
   });
@@ -66,6 +69,9 @@ ClipItemOne.play = async ({ canvasElement }) => {
     const [itemOne, itemTwo] = Array.from(
       sliderRoot.querySelectorAll('[data-rcs="clip-item"]'),
     ) as HTMLElement[];
+
+    expect(itemOne).toBeVisible();
+    expect(itemTwo).toBeVisible();
     expect(itemOne?.style.clipPath).toBe('inset(0px 50% 0px 0px)');
     expect(itemTwo?.style.clipPath).toBe('none');
   });
@@ -83,6 +89,9 @@ ClipItemOne.play = async ({ canvasElement }) => {
     const [itemOne, itemTwo] = Array.from(
       sliderRoot.querySelectorAll('[data-rcs="clip-item"]'),
     ) as HTMLElement[];
+
+    expect(itemOne).toBeVisible();
+    expect(itemTwo).toBeVisible();
     expect(itemOne?.style.clipPath).toBe('inset(0px 25% 0px 0px)');
     expect(itemTwo?.style.clipPath).toBe('none');
   });
