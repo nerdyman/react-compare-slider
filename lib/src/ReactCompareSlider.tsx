@@ -385,7 +385,11 @@ export const ReactCompareSlider = forwardRef<
 
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
-        <ContainerItem ref={clipContainerOneRef} transition={appliedTransition}>
+        <ContainerItem
+          ref={clipContainerOneRef}
+          transition={appliedTransition}
+          shouldOverlap={clip === ReactCompareSliderClipOption.itemOne}
+        >
           {itemOne}
         </ContainerItem>
 
