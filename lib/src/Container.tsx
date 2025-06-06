@@ -1,27 +1,49 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import type { CSSProperties, ComponentPropsWithoutRef, ReactElement } from 'react';
 
-import type { ReactCompareSliderCommonProps } from './types';
+import {
+  ReactCompareSliderClipOption,
+  type ReactCompareSliderClip,
+  type ReactCompareSliderCommonProps,
+  type ReactCompareSliderRootProps,
+} from './types';
+
+type GetClipPathProps = Pick<ReactCompareSliderRootProps, 'portrait'> & {
+  item: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
+};
+
+const getClipPath = ({ item, portrait }: GetClipPathProps): CSSProperties['clipPath'] => {
+  if (item === ReactCompareSliderClipOption.itemOne) {
+    return portrait
+      ? 'inset(0px 0px calc(100% - var(--rcs-pos)) 0px)'
+      : 'inset(0px calc(100% - var(--rcs-pos)) 0px 0px)';
+  }
+
+  if (item === ReactCompareSliderClipOption.itemTwo) {
+    return portrait ? 'inset(var(--rcs-pos) 0px 0px 0px)' : 'inset(0px 0px 0px var(--rcs-pos))';
+  }
+
+  return 'none';
+};
 
 type ContainerItemProps = ComponentPropsWithoutRef<'div'> &
-  Pick<ReactCompareSliderCommonProps, 'transition'> & {
-    shouldOverlap?: boolean;
-    order?: number;
+  Pick<ReactCompareSliderRootProps, 'clip' | 'portrait' | 'transition'> & {
+    item: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
   };
 
 /** Container for clipped item. */
 export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
-  ({ shouldOverlap, order, style, transition, ...props }, ref): ReactElement => {
+  ({ clip, item, portrait, style, transition, ...props }, ref): ReactElement => {
     const appliedStyle: CSSProperties = {
       gridArea: '1 / 1',
-      order,
       maxWidth: '100%',
       overflow: 'hidden',
+      clipPath: getClipPath({ item, portrait }),
       boxSizing: 'border-box',
       transition: transition ? `clip-path ${transition}` : undefined,
       userSelect: 'none',
       willChange: 'clip-path, transition',
-      zIndex: shouldOverlap ? 1 : undefined,
+      zIndex: clip === ReactCompareSliderClipOption.itemOne ? 1 : undefined,
       KhtmlUserSelect: 'none',
       MozUserSelect: 'none',
       WebkitUserSelect: 'none',
@@ -43,7 +65,8 @@ export const ContainerHandle = forwardRef<HTMLButtonElement, ContainerHandleProp
 
     const style: CSSProperties = {
       position: 'absolute',
-      top: 0,
+      top: portrait ? 'var(--rcs-pos)' : '0',
+      left: portrait ? '0' : `var(--rcs-pos)`,
       width: portrait ? '100%' : undefined,
       height: portrait ? undefined : '100%',
       background: 'none',
