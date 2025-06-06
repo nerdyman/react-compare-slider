@@ -115,16 +115,11 @@ export const ReactCompareSlider = forwardRef<
           100,
         );
 
-        const zoomScale = portrait
-          ? height / (rootElement.offsetHeight || 1)
-          : width / (rootElement.offsetWidth || 1);
-
-        const boundsPaddingPercentage =
-          ((boundsPadding * zoomScale) / (portrait ? height : width)) * 100;
+        const boundsPaddingPercentage = (boundsPadding / (portrait ? height : width)) * 100;
 
         const nextPositionWithBoundsPadding = Math.min(
-          Math.max(nextPosition, boundsPaddingPercentage * zoomScale),
-          100 - boundsPaddingPercentage * zoomScale,
+          Math.max(nextPosition, boundsPaddingPercentage),
+          100 - boundsPaddingPercentage,
         );
 
         internalPosition.current = nextPosition;
