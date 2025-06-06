@@ -37,7 +37,6 @@ export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
     const appliedStyle: CSSProperties = {
       gridArea: '1 / 1',
       maxWidth: '100%',
-      overflow: 'hidden',
       clipPath: getClipPath({ item, portrait }),
       boxSizing: 'border-box',
       transition: transition ? `clip-path ${transition}` : undefined,
