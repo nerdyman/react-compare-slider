@@ -13,7 +13,7 @@ type ContainerItemProps = ComponentPropsWithoutRef<'div'> &
 export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
   ({ shouldOverlap, order, style, transition, ...props }, ref): ReactElement => {
     const appliedStyle: CSSProperties = {
-      gridArea: '1 / 1 / 2 / 2',
+      gridArea: '1 / 1',
       order,
       maxWidth: '100%',
       overflow: 'hidden',
