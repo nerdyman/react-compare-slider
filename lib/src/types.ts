@@ -4,7 +4,7 @@ import type { HtmlHTMLAttributes, ReactNode, RefAttributes } from 'react';
 export type ReactCompareSliderPropPosition = number;
 
 /** Common props shared between components. */
-export interface ReactCompareSliderCommonProps {
+export type ReactCompareSliderCommonProps = {
   /**
    * Whether to disable slider movement (items are still interactable).
    * @default false
@@ -29,7 +29,7 @@ export interface ReactCompareSliderCommonProps {
    * @example '.5s ease-in-out'
    */
   transition?: string;
-}
+};
 
 export const ReactCompareSliderClipOption = {
   both: 'both',
@@ -41,7 +41,7 @@ export type ReactCompareSliderClip =
   (typeof ReactCompareSliderClipOption)[keyof typeof ReactCompareSliderClipOption];
 
 /** Slider component props *without* ref return props. */
-export interface ReactCompareSliderRootProps extends Partial<ReactCompareSliderCommonProps> {
+export type ReactCompareSliderRootProps = Partial<ReactCompareSliderCommonProps> & {
   /**
    * Padding in pixels to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).
    * @default 0
@@ -87,7 +87,7 @@ export interface ReactCompareSliderRootProps extends Partial<ReactCompareSliderC
 
   /** Callback on position change with position as percentage. */
   onPositionChange?: (position: ReactCompareSliderPropPosition) => void;
-}
+};
 
 /** Properties returned by the `useReactCompareSliderRef` hook. */
 export type UseReactCompareSliderRefReturn = {

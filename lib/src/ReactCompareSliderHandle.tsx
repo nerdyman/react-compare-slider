@@ -1,4 +1,3 @@
-import React from 'react';
 import type { CSSProperties, FC, HtmlHTMLAttributes, ReactElement } from 'react';
 
 import type { ReactCompareSliderCommonProps } from './types';

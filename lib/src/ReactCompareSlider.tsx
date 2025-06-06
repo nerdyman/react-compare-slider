@@ -1,11 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import type { CSSProperties, ReactElement } from 'react';
 
 import { ContainerHandle, ContainerItem } from './Container';
@@ -68,10 +61,6 @@ export const ReactCompareSlider = forwardRef<
   ): ReactElement => {
     /** DOM node of the root element. */
     const rootContainerRef = useRef<HTMLDivElement>(null);
-    /** DOM node `itemOne` container. */
-    const clipContainerOneRef = useRef<HTMLDivElement>(null);
-    /** DOM node of `itemTwo`. */
-    const clipContainerTwoRef = useRef<HTMLDivElement>(null);
     /** DOM node of the handle container. */
     const handleContainerRef = useRef<HTMLButtonElement>(null);
     /** Current position as a percentage value (initially negative to sync bounds on mount). */
@@ -92,8 +81,6 @@ export const ReactCompareSlider = forwardRef<
       function updateInternal({ x, y, isOffset }: UpdateInternalPositionProps) {
         const rootElement = rootContainerRef.current as HTMLDivElement;
         const handleElement = handleContainerRef.current as HTMLButtonElement;
-        const clipElementOne = clipContainerOneRef.current as HTMLDivElement;
-        const clipElementTwo = clipContainerTwoRef.current as HTMLDivElement;
         const { width, height, left, top } = rootElement.getBoundingClientRect();
 
         // Early out when component has zero bounds.
@@ -123,33 +110,15 @@ export const ReactCompareSlider = forwardRef<
         );
 
         internalPosition.current = nextPosition;
+
+        rootElement.style.setProperty('--rcs-pos', `${nextPositionWithBoundsPadding}%`);
         handleElement.setAttribute('aria-valuenow', `${Math.round(internalPosition.current)}`);
-        handleElement.style.top = portrait ? `${nextPositionWithBoundsPadding}%` : '0';
-        handleElement.style.left = portrait ? '0' : `${nextPositionWithBoundsPadding}%`;
-
-        const clipBoth = clip === ReactCompareSliderClipOption.both;
-
-        if (clipBoth || clip === ReactCompareSliderClipOption.itemOne) {
-          clipElementOne.style.clipPath = portrait
-            ? `inset(0 0 ${100 - nextPositionWithBoundsPadding}% 0)`
-            : `inset(0 ${100 - nextPositionWithBoundsPadding}% 0 0)`;
-        } else {
-          clipElementOne.style.clipPath = 'none';
-        }
-
-        if (clipBoth || clip === ReactCompareSliderClipOption.itemTwo) {
-          clipElementTwo.style.clipPath = portrait
-            ? `inset(${nextPositionWithBoundsPadding}% 0 0 0)`
-            : `inset(0 0 0 ${nextPositionWithBoundsPadding}%)`;
-        } else {
-          clipElementTwo.style.clipPath = 'none';
-        }
 
         if (onPositionChange) {
           onPositionChange(internalPosition.current);
         }
       },
-      [browsingContext, boundsPadding, clip, onPositionChange, portrait],
+      [browsingContext, boundsPadding, onPositionChange, portrait],
     );
 
     // Update internal position when other user controllable props change.
@@ -381,14 +350,20 @@ export const ReactCompareSlider = forwardRef<
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs="root">
         <ContainerItem
-          ref={clipContainerOneRef}
+          clip={clip}
+          item={ReactCompareSliderClipOption.itemOne}
+          portrait={portrait}
           transition={appliedTransition}
-          shouldOverlap={clip === ReactCompareSliderClipOption.itemOne}
         >
           {itemOne}
         </ContainerItem>
 
-        <ContainerItem ref={clipContainerTwoRef} transition={appliedTransition}>
+        <ContainerItem
+          clip={clip}
+          item={ReactCompareSliderClipOption.itemTwo}
+          portrait={portrait}
+          transition={appliedTransition}
+        >
           {itemTwo}
         </ContainerItem>
 
