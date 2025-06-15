@@ -116,5 +116,4 @@ export type ReactCompareSliderProps = ReactCompareSliderRootProps &
   RefAttributes<UseReactCompareSliderRefReturn>;
 
 /** `ReactCompareSliderProps` and all valid `div` element props. */
-export type ReactCompareSliderDetailedProps = ReactCompareSliderProps &
-  HtmlHTMLAttributes<HTMLDivElement>;
+export type ReactCompareSliderDetailedProps = ReactCompareSliderProps & HtmlHTMLAttributes<HTMLDivElement>;
