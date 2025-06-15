@@ -2,7 +2,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "editor.rulers": [100],
+  "editor.rulers": [110],
   "editor.formatOnSave": true,
   "search.exclude": {
     "**/node_modules": true,

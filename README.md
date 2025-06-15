@@ -11,12 +11,15 @@
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
 <a href="https://codeclimate.com/github/nerdyman/react-compare-slider/code?q=lib"><img src="https://img.shields.io/codeclimate/coverage/nerdyman/react-compare-slider" alt="Coverage" /></a>
 <a href="https://react-compare-slider.vercel.app"><img  alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>
+<a href="https://pkg.pr.new/~/nerdyman/react-compare-slider">
+<img alt="Open in pkg.pr.new" src="https://pkg.pr.new/badge/nerdyman/react-compare-slider?style=flat&color=000&logoSize=auto">
+</a>
 
 </div>
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > This readme is for the [v4 release](https://github.com/nerdyman/react-compare-slider/releases) which is currently in beta (`react-compare-slider@beta`).
-> 
+>
 > See [Version 3](https://github.com/nerdyman/react-compare-slider/tree/v3.1.0) for the latest stable release (`react-compare-slider`).
 
 ---
