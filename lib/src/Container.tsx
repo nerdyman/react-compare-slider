@@ -37,6 +37,7 @@ export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
     const appliedStyle: CSSProperties = {
       gridArea: '1 / 1',
       maxWidth: '100%',
+      overflow: 'hidden',
       clipPath: getClipPath({ item, portrait }),
       boxSizing: 'border-box',
       transition: transition ? `clip-path ${transition}` : undefined,
@@ -55,11 +56,12 @@ export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
 
 ContainerItem.displayName = 'ContainerItem';
 
-type ContainerHandleProps = ComponentPropsWithoutRef<'button'> & ReactCompareSliderCommonProps;
+type ContainerHandleProps = ComponentPropsWithoutRef<'button'> &
+  Omit<ReactCompareSliderCommonProps, 'position'>;
 
 /** Container to control the handle's position. */
 export const ContainerHandle = forwardRef<HTMLButtonElement, ContainerHandleProps>(
-  ({ children, disabled, portrait, position, transition }, ref): ReactElement => {
+  ({ children, disabled, portrait, transition }, ref): ReactElement => {
     const targetAxis = portrait ? 'top' : 'left';
 
     const style: CSSProperties = {
@@ -88,7 +90,6 @@ export const ContainerHandle = forwardRef<HTMLButtonElement, ContainerHandleProp
         aria-orientation={portrait ? 'vertical' : 'horizontal'}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-valuenow={position}
         data-rcs="handle-container"
         disabled={disabled}
         role="slider"

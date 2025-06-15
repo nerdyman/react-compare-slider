@@ -1,5 +1,4 @@
-import type { CSSProperties, RefObject } from 'react';
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 
 /** Keyboard `key` events to trigger slider movement. */
 export enum KeyboardEventKeys {
@@ -29,8 +28,8 @@ export const styleFitContainer = ({
 });
 
 /** Store the previous supplied value. */
-export const usePrevious = <T>(value: T): T => {
-  const ref = useRef<T>(value);
+export const usePrevious = <T>(value: T): T | undefined => {
+  const ref = useRef<T | undefined>();
 
   useEffect(() => {
     ref.current = value;
@@ -49,7 +48,7 @@ export const usePrevious = <T>(value: T): T => {
 export const useEventListener = (
   eventName: EventListener['name'],
   handler: EventListener['caller'],
-  element: EventTarget,
+  element: EventTarget | undefined | null,
   handlerOptions: AddEventListenerOptions,
 ): void => {
   const savedHandler = useRef<EventListener['caller']>();
@@ -60,11 +59,10 @@ export const useEventListener = (
 
   useEffect(() => {
     // Make sure element supports addEventListener.
-    if (!(element && element.addEventListener)) return;
+    if (!element?.addEventListener) return;
 
     // Create event listener that calls handler function stored in ref.
-    const eventListener: EventListener = (event) =>
-      savedHandler.current && savedHandler.current(event);
+    const eventListener: EventListener = (event) => savedHandler.current && savedHandler.current(event);
 
     element.addEventListener(eventName, eventListener, handlerOptions);
 
@@ -72,44 +70,4 @@ export const useEventListener = (
       element.removeEventListener(eventName, eventListener, handlerOptions);
     };
   }, [eventName, element, handlerOptions]);
-};
-
-/**
- * Conditionally use `useLayoutEffect` for client *or* `useEffect` for SSR.
- * @see https://github.com/reduxjs/react-redux/blob/89a86805f2fcf9e8fbd2d1dae345ec791de4a71f/src/utils/useIsomorphicLayoutEffect.ts
- */
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' &&
-  typeof window.document !== 'undefined' &&
-  typeof window.document.createElement !== 'undefined'
-    ? useLayoutEffect
-    : useEffect;
-
-/** Params passed to `useResizeObserver` `handler` function. */
-export type UseResizeObserverHandlerProps = DOMRect;
-
-/**
- * Bind resize observer callback to element.
- * @param ref       - Element to bind to.
- * @param handler   - Callback for handling entry's bounding rect.
- */
-export const useResizeObserver = (
-  ref: RefObject<Element>,
-  handler: (entry: UseResizeObserverHandlerProps) => void,
-): void => {
-  const observer = useRef<ResizeObserver>();
-
-  const observe = useCallback(() => {
-    if (ref.current && observer.current) observer.current.observe(ref.current);
-  }, [ref]);
-
-  // Bind/rebind observer when `handler` changes.
-  useIsomorphicLayoutEffect(() => {
-    observer.current = new ResizeObserver(([entry]) => handler(entry!.contentRect));
-    observe();
-
-    return (): void => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [handler, observe]);
 };

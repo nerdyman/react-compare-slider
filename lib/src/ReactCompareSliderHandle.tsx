@@ -2,10 +2,10 @@ import type { CSSProperties, FC, HtmlHTMLAttributes, ReactElement } from 'react'
 
 import type { ReactCompareSliderCommonProps } from './types';
 
-interface ThisArrowProps {
+type ThisArrowProps = {
   /** Whether to flip the arrow direction. */
   flip?: boolean;
-}
+};
 
 const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
   const style: CSSProperties = {
@@ -21,15 +21,14 @@ const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
 };
 
 /** Props for `ReactCompareSliderHandle`. */
-export interface ReactCompareSliderHandleProps
-  extends Pick<ReactCompareSliderCommonProps, 'disabled' | 'portrait'> {
+export type ReactCompareSliderHandleProps = Pick<ReactCompareSliderCommonProps, 'disabled' | 'portrait'> & {
   /** Optional styles for handle the button. */
   buttonStyle?: CSSProperties;
   /** Optional styles for lines either side of the handle button. */
   linesStyle?: CSSProperties;
   /** Optional styles for the handle root. */
   style?: CSSProperties;
-}
+};
 
 /** Default `handle`. */
 export const ReactCompareSliderHandle: FC<

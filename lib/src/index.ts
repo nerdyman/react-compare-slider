@@ -1,3 +1,4 @@
+export { ReactCompareSliderCssVars } from './consts';
 export { ReactCompareSlider } from './ReactCompareSlider';
 
 export { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
