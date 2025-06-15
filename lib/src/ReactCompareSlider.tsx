@@ -24,8 +24,6 @@ type SetPositionFromBoundsProps = {
   x: number;
   /** Y coordinate to update to (portrait). */
   y: number;
-  /** Whether to calculate using page X and Y offsets (required for pointer events). */
-  isOffset?: boolean;
 };
 
 const EVENT_PASSIVE_PARAMS = { capture: false, passive: true };
@@ -98,26 +96,19 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
 
     /** Sync the internal position and trigger position change callback if defined. */
     const setPositionFromBounds = useCallback(
-      function updateInternal({ x, y, isOffset }: SetPositionFromBoundsProps) {
+      function updateInternal({ x, y }: SetPositionFromBoundsProps) {
         const rootElement = rootContainerRef.current as HTMLDivElement;
-        const { width, height, left, top } = rootElement.getBoundingClientRect();
+        const { width, height } = rootElement.getBoundingClientRect();
 
         // Early out when component has zero bounds.
         if (width === 0 || height === 0) return;
 
-        const pixelPosition = portrait
-          ? isOffset
-            ? y - top - browsingContext.scrollY
-            : y
-          : isOffset
-          ? x - left - browsingContext.scrollX
-          : x;
-
+        const pixelPosition = portrait ? y : x;
         const nextPosition = (pixelPosition / (portrait ? height : width)) * 100;
 
         setPosition(nextPosition);
       },
-      [browsingContext, portrait, setPosition],
+      [portrait, setPosition],
     );
 
     // Update internal position on change.
@@ -143,7 +134,7 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
         // Only handle left mouse button (touch events also use 0).
         if (disabled || ev.button !== 0) return;
 
-        setPositionFromBounds({ isOffset: false, x: ev.pageX, y: ev.pageY });
+        setPositionFromBounds({ x: ev.pageX, y: ev.pageY });
         setIsDragging(true);
         setCanTransition(true);
       },
@@ -153,7 +144,7 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
     /** Handle mouse/touch move. */
     const handlePointerMove = useCallback(
       function moveCall(ev: PointerEvent) {
-        setPositionFromBounds({ isOffset: false, x: ev.pageX, y: ev.pageY });
+        setPositionFromBounds({ x: ev.pageX, y: ev.pageY });
         setCanTransition(false);
       },
       [setPositionFromBounds],
