@@ -1,11 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import React, { useState } from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-  useReactCompareSliderRef,
-} from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSliderRef } from 'react-compare-slider';
 import { createPortal } from 'react-dom';
 
 import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils.test';
@@ -54,10 +50,7 @@ Images.args = {
   },
 };
 
-export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({
-  boundsPadding = 80,
-  ...props
-}) => {
+export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({ boundsPadding = 80, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -236,8 +229,7 @@ export const KeyboardIncrement: StoryFn<ReactCompareSliderDetailedProps> = (prop
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <div className="sb-custom-note">
-        <em>Info:</em> Click the slider handle then use the keyboard arrows to change the slider
-        position.
+        <em>Info:</em> Click the slider handle then use the keyboard arrows to change the slider position.
       </div>
 
       <ReactCompareSlider
@@ -299,8 +291,8 @@ export const OnPositionChange: StoryFn<ReactCompareSliderDetailedProps> = (props
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: 16 }}>
       <div className="sb-custom-note">
-        <em>Note:</em> This demo will be slightly laggy when viewing the action logging output in
-        Storybook Actions tab.
+        <em>Note:</em> This demo will be slightly laggy when viewing the action logging output in Storybook
+        Actions tab.
       </div>
 
       <ReactCompareSlider
@@ -326,10 +318,7 @@ export const OnPositionChange: StoryFn<ReactCompareSliderDetailedProps> = (props
 
 OnPositionChange.args = {};
 
-export const Portrait: StoryFn<ReactCompareSliderDetailedProps> = ({
-  portrait = true,
-  ...props
-}) => (
+export const Portrait: StoryFn<ReactCompareSliderDetailedProps> = ({ portrait = true, ...props }) => (
   <ReactCompareSlider
     portrait={portrait}
     {...props}
@@ -547,3 +536,59 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> 
 };
 
 UseReactCompareSliderRef.args = {};
+
+export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem' }}>
+    <div style={{ display: 'flex', gap: '1rem', height: '50dvh' }}>
+      <ReactCompareSlider
+        {...props}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+            alt="Image two"
+          />
+        }
+      />
+      <ReactCompareSlider
+        {...props}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+            alt="Image two"
+          />
+        }
+      />
+    </div>
+    <ReactCompareSlider
+      {...props}
+      style={{ height: '50dvh' }}
+      portrait
+      itemOne={
+        <ReactCompareSliderImage
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+          alt="Image one"
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+          alt="Image two"
+        />
+      }
+    />
+  </div>
+);
+
+MultipleSliders.args = {};
