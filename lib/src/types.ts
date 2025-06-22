@@ -43,10 +43,11 @@ export type ReactCompareSliderClip =
 /** Slider component props *without* ref return props. */
 export type ReactCompareSliderRootProps = Partial<ReactCompareSliderCommonProps> & {
   /**
-   * Padding in pixels to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).
-   * @default 0
+   * CSS unit amount to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).
+   * @example '20rem'
+   * @default '0%'
    */
-  boundsPadding?: number;
+  boundsPadding?: string;
 
   /**
    * Custom browsing context to use instead of the global `window` object.
