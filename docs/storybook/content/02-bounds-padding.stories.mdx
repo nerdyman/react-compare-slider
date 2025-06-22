@@ -7,8 +7,8 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 # Using `boundsPadding`
 
 The `boundsPadding` prop allows you to limit the slideable area on the Y-axis
-in `portrait` mode or on the X-axis in the default landscape mode. Negative values are treated the
-same as `0` and the value **MUST** be supplied as a number in pixels.
+in `portrait` mode or on the X-axis in the default landscape mode. Both absolute
+and relative values are supported. E.g. `5%`, `10px`, `20rem`.
 
 Bounds padding is useful when the slider has other components overlaying it. E.g. in a full
 width or height carousel with overlaying navigation buttons.
@@ -18,7 +18,7 @@ within range of pixels of the left or right of the slider specified by the `boun
 The bounds are automatically applied to the top/bottom or right/left depending on the orientation of the slider.
 
 ```JSX
-boundsPadding={80}
+boundsPadding="5%"
 ```
 
 <Canvas>

@@ -50,7 +50,10 @@ Images.args = {
   },
 };
 
-export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({ boundsPadding = 80, ...props }) => {
+export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({
+  boundsPadding = '5%',
+  ...props
+}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <ReactCompareSlider
@@ -74,7 +77,7 @@ export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({ bounds
   );
 };
 
-BoundsPadding.args = { boundsPadding: 80 };
+BoundsPadding.args = { boundsPadding: '5%' };
 
 export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [browsingContext, setBrowsingContext] = useState<Window | null>(null);

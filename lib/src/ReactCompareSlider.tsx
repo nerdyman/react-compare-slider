@@ -43,7 +43,7 @@ const handleContainerClick = (ev: PointerEvent): void => {
 export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, ReactCompareSliderDetailedProps>(
   (
     {
-      boundsPadding = 0,
+      boundsPadding = '0%',
       browsingContext = globalThis,
       changePositionOnHover = false,
       clip = ReactCompareSliderClipOption.both,
@@ -128,10 +128,7 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
 
     // Update bounds padding on change.
     useEffect(() => {
-      rootContainerRef.current?.style.setProperty(
-        ReactCompareSliderCssVars.boundsPadding,
-        `${boundsPadding}px`,
-      );
+      rootContainerRef.current?.style.setProperty(ReactCompareSliderCssVars.boundsPadding, boundsPadding);
     }, [boundsPadding]);
 
     /** Handle mouse/touch down. */

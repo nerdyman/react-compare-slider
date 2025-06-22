@@ -75,7 +75,7 @@ export const Example = () => {
 
 | Prop | Type | Required | Default | Description |
 | ---- | ---- | :------: | ------- | ----------- |
-| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/demos--bounds-padding)                   | `number`                     |   | `0`           | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).
+| [`boundsPadding`](https://react-compare-slider.vercel.app/?path=/story/demos--bounds-padding)                   | `string`                     |   | `0%`           | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).
 | [`browsingContext`](https://react-compare-slider.vercel.app/?path=/story/demos--browsing-context)               | `globalThis`                 |   | `globalThis`  | Context to bind events to (useful for iframes).
 | [`clip`](https://react-compare-slider.vercel.app/?path=/docs/docs-clip--docs)           | `` both\|itemOne\|itemTwo ``   |   | `both`          | Whether to clip `itemOne`, `itemTwo` or `both` items.
 | [`changePositionOnHover`](https://react-compare-slider.vercel.app/?path=/story/demos--change-position-on-hover) | `boolean`                    |   | `false`       | Whether the slider should follow the pointer on hover.
