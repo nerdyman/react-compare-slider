@@ -3,9 +3,7 @@ import type { StoryFn } from '@storybook/react';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 
-export const Template: StoryFn<ReactCompareSliderDetailedProps> = (args) => (
-  <ReactCompareSlider {...args} />
-);
+export const Template: StoryFn<ReactCompareSliderDetailedProps> = (args) => <ReactCompareSlider {...args} />;
 
 export const SLIDER_ROOT_TEST_ID = 'rcs-root';
 

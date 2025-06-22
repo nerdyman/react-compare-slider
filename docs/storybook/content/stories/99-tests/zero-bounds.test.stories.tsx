@@ -73,9 +73,7 @@ export const ZeroBoundsWithLazyContent = () => {
         <button onClick={() => setProps((prev) => ({ ...prev, portrait: !prev.portrait }))}>
           Toggle portrait
         </button>
-        <button onClick={() => setDir((prev) => (prev === 'ltr' ? 'rtl' : 'ltr'))}>
-          Toggle direction
-        </button>
+        <button onClick={() => setDir((prev) => (prev === 'ltr' ? 'rtl' : 'ltr'))}>Toggle direction</button>
       </div>
       <ReactCompareSlider {...props} />
     </div>

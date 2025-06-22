@@ -25,9 +25,7 @@ ReactCompareSliderImage.args = {
 ReactCompareSliderImage.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() =>
-    expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!)).toBeInTheDocument(),
-  );
+  await waitFor(() => expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!)).toBeInTheDocument());
 
   // Ensure default styles have been applied to `ReactCompareSliderImage`.
   await waitFor(() =>
@@ -38,9 +36,7 @@ ReactCompareSliderImage.play = async ({ canvasElement }) => {
 };
 
 /** Default image. */
-export const ReactCompareSliderImageCustomStyle = (args) => (
-  <BaseReactCompareSliderImage {...args} />
-);
+export const ReactCompareSliderImageCustomStyle = (args) => <BaseReactCompareSliderImage {...args} />;
 
 ReactCompareSliderImageCustomStyle.args = {
   alt: 'testaroo',
@@ -51,9 +47,7 @@ ReactCompareSliderImageCustomStyle.args = {
 ReactCompareSliderImageCustomStyle.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitFor(() =>
-    expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!)).toBeInTheDocument(),
-  );
+  await waitFor(() => expect(canvas.getByAltText(ReactCompareSliderImage.args!.alt!)).toBeInTheDocument());
 
   // Ensure default styles have been applied to `ReactCompareSliderImage`.
   await waitFor(() =>
