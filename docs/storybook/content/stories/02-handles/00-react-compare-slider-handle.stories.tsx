@@ -169,20 +169,19 @@ export const OverrideHandleContainerClick: StoryFn<ReactCompareSliderProps> = (p
       <div style={{ padding: '1rem' }}>
         <button>Click me, then click the slider handle</button>
         <p>
-          The <code>useReactCompareSliderRef</code> hook exposes the <code>handleContainer</code>{' '}
-          property which points to the <code>button</code> element that contains the{' '}
-          <code>handle</code>. By default, when the <code>handleContainer</code> or any elements
-          within it are clicked, it focuses the <code>handleContainer</code> and moves the slider
-          into view. This is for accessibility but you can override the behaviour as needed. In this
-          example, instead of plainly focusing the slider, it focuses and smooth scrolls it into
-          view.
+          The <code>useReactCompareSliderRef</code> hook exposes the <code>handleContainer</code> property
+          which points to the <code>button</code> element that contains the <code>handle</code>. By default,
+          when the <code>handleContainer</code> or any elements within it are clicked, it focuses the{' '}
+          <code>handleContainer</code> and moves the slider into view. This is for accessibility but you can
+          override the behaviour as needed. In this example, instead of plainly focusing the slider, it
+          focuses and smooth scrolls it into view.
         </p>
 
         <p>
           Note that this only occurs when the&nbsp;
-          <code>handleContainer</code> or elements within the <code>handleContainer</code> are
-          clicked. This is to allow custom <code>itemOne|itemTwo</code> components to be interacted
-          with without the slider stealing focus.
+          <code>handleContainer</code> or elements within the <code>handleContainer</code> are clicked. This
+          is to allow custom <code>itemOne|itemTwo</code> components to be interacted with without the slider
+          stealing focus.
         </p>
       </div>
       <ReactCompareSlider

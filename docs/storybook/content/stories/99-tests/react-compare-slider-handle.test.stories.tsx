@@ -27,22 +27,21 @@ ReactCompareSliderHandle.play = async ({ canvasElement }) => {
   // Lines should inherit color.
   await waitFor(() =>
     expect(
-      window.getComputedStyle(handle?.querySelector('.__rcs-handle-line') as HTMLElement)
-        .backgroundColor,
+      window.getComputedStyle(handle?.querySelector('.__rcs-handle-line') as HTMLElement).backgroundColor,
     ).toBe('rgb(255, 0, 0)'),
   );
 
   // Button should inherit color.
   await waitFor(() =>
-    expect(
-      window.getComputedStyle(handle?.querySelector('.__rcs-handle-button') as HTMLElement).color,
-    ).toBe('rgb(255, 0, 0)'),
+    expect(window.getComputedStyle(handle?.querySelector('.__rcs-handle-button') as HTMLElement).color).toBe(
+      'rgb(255, 0, 0)',
+    ),
   );
 
   // Arrows should inherit color.
   await waitFor(() =>
-    expect(
-      window.getComputedStyle(handle?.querySelector('.__rcs-handle-arrow') as HTMLElement).color,
-    ).toBe('rgb(255, 0, 0)'),
+    expect(window.getComputedStyle(handle?.querySelector('.__rcs-handle-arrow') as HTMLElement).color).toBe(
+      'rgb(255, 0, 0)',
+    ),
   );
 };

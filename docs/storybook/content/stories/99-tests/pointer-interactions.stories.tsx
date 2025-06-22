@@ -32,9 +32,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('75'));
-  await waitFor(() =>
-    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75),
-  );
+  await waitFor(() => expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(75));
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -46,9 +44,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('100'));
-  await waitFor(() =>
-    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100),
-  );
+  await waitFor(() => expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(100));
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -60,9 +56,7 @@ PointerMovementWithinBounds.play = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('5'));
-  await waitFor(() =>
-    expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5),
-  );
+  await waitFor(() => expect(PointerMovementWithinBounds.args?.onPositionChange).toHaveBeenCalledWith(5));
 };
 
 /**
@@ -84,9 +78,7 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
   const slider = (await canvas.findByRole('slider')) as Element;
-  const sliderRoot = (await canvas.findByTestId(
-    ChangePositionOnHover.args?.['data-testid'],
-  )) as Element;
+  const sliderRoot = (await canvas.findByTestId(ChangePositionOnHover.args?.['data-testid'])) as Element;
 
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
@@ -125,9 +117,7 @@ ChangePositionOnHover.play = async ({ canvasElement }) => {
 /**
  * Ensure slider position continues to update when pointer is down and moved outside of the root.
  */
-export const ChangePositionOnHoverPointerDown: StoryFn<ReactCompareSliderDetailedProps> = (
-  props,
-) => {
+export const ChangePositionOnHoverPointerDown: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
       <ReactCompareSlider {...props} />
