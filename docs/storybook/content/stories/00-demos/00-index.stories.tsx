@@ -526,6 +526,7 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> 
             left: '50%',
             fontSize: '1.5rem',
             transform: 'translateX(-50%)',
+            zIndex: 1,
           }}
         >
           Reset sliders to <code>position</code> value ({props.position})
@@ -538,8 +539,17 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> 
 UseReactCompareSliderRef.args = {};
 
 export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem' }}>
-    <div style={{ display: 'flex', gap: '1rem', height: '50dvh' }}>
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem',
+      padding: '1rem',
+      overflowY: 'auto',
+      height: 'calc(100dvh - 2rem)',
+    }}
+  >
+    <div style={{ display: 'flex', gap: '1rem', flexShrink: 0, height: 'calc(75dvh - 2rem)' }}>
       <ReactCompareSlider
         {...props}
         itemOne={
@@ -573,7 +583,7 @@ export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props)
     </div>
     <ReactCompareSlider
       {...props}
-      style={{ height: '50dvh' }}
+      style={{ flexShrink: 0, height: 'calc(75dvh - 2rem)' }}
       portrait
       itemOne={
         <ReactCompareSliderImage

@@ -84,7 +84,7 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
         const appliedPosition = Math.min(Math.max(nextPosition, 0), 100);
 
         rootContainerRef.current?.style.setProperty(
-          ReactCompareSliderCssVars.position,
+          ReactCompareSliderCssVars.currentPosition,
           `clamp(var(${ReactCompareSliderCssVars.boundsPadding}), ${appliedPosition}% - var(${ReactCompareSliderCssVars.boundsPadding}) + var(${ReactCompareSliderCssVars.boundsPadding}), calc(100% - var(${ReactCompareSliderCssVars.boundsPadding})))`,
         );
 
@@ -191,11 +191,13 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
           ? ev.key === KeyboardEventKeys.ARROW_LEFT || ev.key === KeyboardEventKeys.ARROW_DOWN
           : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
 
+        const currentPosition = parseFloat(
+          handleContainerRef.current?.getAttribute?.('aria-valuenow') ?? '0',
+        );
+
         const nextPosition = Math.min(
           Math.max(
-            isIncrement
-              ? internalPosition.current + incrementPercentage
-              : internalPosition.current - incrementPercentage,
+            isIncrement ? currentPosition + incrementPercentage : currentPosition - incrementPercentage,
             0,
           ),
           100,

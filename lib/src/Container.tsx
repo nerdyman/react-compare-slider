@@ -16,14 +16,14 @@ type GetClipPathProps = Pick<ReactCompareSliderRootProps, 'portrait'> & {
 const getClipPath = ({ item, portrait }: GetClipPathProps): CSSProperties['clipPath'] => {
   if (item === ReactCompareSliderClipOption.itemOne) {
     return portrait
-      ? `inset(0px 0px calc(100% - var(${ReactCompareSliderCssVars.position})) 0px)`
-      : `inset(0px calc(100% - var(${ReactCompareSliderCssVars.position})) 0px 0px)`;
+      ? `inset(0px 0px calc(100% - var(${ReactCompareSliderCssVars.currentPosition})) 0px)`
+      : `inset(0px calc(100% - var(${ReactCompareSliderCssVars.currentPosition})) 0px 0px)`;
   }
 
   if (item === ReactCompareSliderClipOption.itemTwo) {
     return portrait
-      ? `inset(var(${ReactCompareSliderCssVars.position}) 0px 0px 0px)`
-      : `inset(0px 0px 0px var(${ReactCompareSliderCssVars.position}))`;
+      ? `inset(var(${ReactCompareSliderCssVars.currentPosition}) 0px 0px 0px)`
+      : `inset(0px 0px 0px var(${ReactCompareSliderCssVars.currentPosition}))`;
   }
 
   return 'none';
@@ -69,8 +69,8 @@ export const ContainerHandle = forwardRef<HTMLButtonElement, ContainerHandleProp
 
     const style: CSSProperties = {
       position: 'absolute',
-      top: portrait ? `var(${ReactCompareSliderCssVars.position})` : '0',
-      left: portrait ? '0' : `var(${ReactCompareSliderCssVars.position})`,
+      top: portrait ? `var(${ReactCompareSliderCssVars.currentPosition})` : '0',
+      left: portrait ? '0' : `var(${ReactCompareSliderCssVars.currentPosition})`,
       width: portrait ? '100%' : undefined,
       height: portrait ? undefined : '100%',
       background: 'none',
