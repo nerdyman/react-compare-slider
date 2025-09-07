@@ -43,7 +43,6 @@ jobs:
 
       - name: 🧪 Test
         run: |
-          pnpm exec playwright install --with-deps
           pnpm run test:ci
 
       - name: Upload Code Climate Test Coverage
