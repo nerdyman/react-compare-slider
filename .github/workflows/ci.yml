@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     name: Build, lint and test
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: 🛒 Checkout repo
@@ -43,7 +43,7 @@ jobs:
 
       - name: 🧪 Test
         run: |
-          pnpm dlx playwright@1.41.1 install --with-deps chromium
+          pnpm dlx playwright install --with-deps chromium
           pnpm run test:ci
 
       - name: Upload Code Climate Test Coverage
