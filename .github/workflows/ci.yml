@@ -43,8 +43,7 @@ jobs:
 
       - name: 🧪 Test
         run: |
-          pnpm dlx playwright install --with-deps chromium
-          pnpm exec playwright install
+          npx playwright install --with-deps chromium
           pnpm run test:ci
 
       - name: Upload Code Climate Test Coverage
