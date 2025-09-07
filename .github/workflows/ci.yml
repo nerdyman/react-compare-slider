@@ -43,7 +43,7 @@ jobs:
 
       - name: 🧪 Test
         run: |
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps
           pnpm run test:ci
 
       - name: Upload Code Climate Test Coverage
