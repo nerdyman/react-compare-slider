@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-import { argTypes, args } from '../config';
+import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Demos/Edge Cases',

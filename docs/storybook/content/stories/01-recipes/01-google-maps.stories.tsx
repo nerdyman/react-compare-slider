@@ -5,7 +5,7 @@ import React from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
 
-import { argTypes, args } from '../config';
+import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Recipes/Google Maps',

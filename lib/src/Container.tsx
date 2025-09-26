@@ -1,10 +1,10 @@
+import type { ComponentPropsWithoutRef, CSSProperties, ReactElement } from 'react';
 import { forwardRef } from 'react';
-import type { CSSProperties, ComponentPropsWithoutRef, ReactElement } from 'react';
 
 import { ReactCompareSliderCssVars } from './consts';
 import {
-  ReactCompareSliderClipOption,
   type ReactCompareSliderClip,
+  ReactCompareSliderClipOption,
   type ReactCompareSliderCommonProps,
   type ReactCompareSliderRootProps,
 } from './types';

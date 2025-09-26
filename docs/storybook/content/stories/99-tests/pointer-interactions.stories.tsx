@@ -4,7 +4,7 @@ import { fireEvent, userEvent, waitFor, within } from '@storybook/testing-librar
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
 
-import { Template, getArgs } from './test-utils.test';
+import { getArgs, Template } from './test-utils.test';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Interactions',

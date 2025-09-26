@@ -1,7 +1,7 @@
 import { jest } from '@storybook/jest';
 import type { StoryFn } from '@storybook/react';
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 export const Template: StoryFn<ReactCompareSliderDetailedProps> = (args) => <ReactCompareSlider {...args} />;
 

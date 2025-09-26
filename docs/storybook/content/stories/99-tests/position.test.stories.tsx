@@ -5,7 +5,7 @@ import { useState } from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-import { Template, getArgs } from './test-utils.test';
+import { getArgs, Template } from './test-utils.test';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Position',

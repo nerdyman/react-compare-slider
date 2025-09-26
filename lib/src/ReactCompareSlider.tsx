@@ -1,21 +1,17 @@
 import {
+  type CSSProperties,
   forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
-  type CSSProperties,
 } from 'react';
 
 import { ContainerHandle, ContainerItem } from './Container';
+import { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-import { ReactCompareSliderCssVars } from './consts';
-import {
-  ReactCompareSliderClipOption,
-  type ReactCompareSliderDetailedProps,
-  type UseReactCompareSliderRefReturn,
-} from './types';
+import { type ReactCompareSliderDetailedProps, type UseReactCompareSliderRefReturn } from './types';
 import { KeyboardEventKeys, useEventListener, usePrevious } from './utils';
 
 /** Properties for internal position setter callback. */
@@ -110,8 +106,9 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
             ? y - top - browsingContext.scrollY
             : y
           : isOffset
-          ? x - left - browsingContext.scrollX
-          : x;
+            ? x - left - browsingContext.scrollX
+            : x;
+
         const nextPosition = (pixelPosition / (portrait ? height : width)) * 100;
 
         setPosition(nextPosition);
@@ -250,24 +247,20 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
       };
     }, [handlePointerMove, handlePointerUp, isDragging, browsingContext]);
 
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          rootContainer: rootContainerRef.current,
-          handleContainer: handleContainerRef.current,
-          setPosition(nextPosition): void {
-            const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
+    useImperativeHandle(ref, () => {
+      return {
+        rootContainer: rootContainerRef.current,
+        handleContainer: handleContainerRef.current,
+        setPosition(nextPosition): void {
+          const { width, height } = (rootContainerRef.current as HTMLDivElement).getBoundingClientRect();
 
-            setPositionFromBounds({
-              x: (width / 100) * nextPosition,
-              y: (height / 100) * nextPosition,
-            });
-          },
-        };
-      },
-      [setPositionFromBounds],
-    );
+          setPositionFromBounds({
+            x: (width / 100) * nextPosition,
+            y: (height / 100) * nextPosition,
+          });
+        },
+      };
+    }, [setPositionFromBounds]);
 
     useEventListener('touchend', handleTouchEnd, interactiveTarget, EVENT_CAPTURE_PARAMS);
     useEventListener('keydown', handleKeydown, handleContainerRef.current, EVENT_CAPTURE_PARAMS);

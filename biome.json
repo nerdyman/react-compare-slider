@@ -1,4 +1,5 @@
 {
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
@@ -16,14 +17,15 @@
       "!**/*.md",
       "!**/*.mdx",
       "!**/*.log",
-      "!**/node_modules/",
-      "!**/dist/",
-      "!**/coverage/",
+      "!**/.next/",
       "!**/.nyc_output/",
       "!**/.pnpm-store/",
+      "!**/dist/**",
+      "!**/coverage",
+      "!**/lcov-report",
+      "!**/node_modules/",
       "!**/pnpm-lock.yaml",
       "!**/storybook-static/",
-      "!**/.next/",
       "!docs/storybook/src"
     ]
   },
