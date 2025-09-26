@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties } from 'react';
+import { type CSSProperties, useEffect, useRef } from 'react';
 
 /** Keyboard `key` events to trigger slider movement. */
 export enum KeyboardEventKeys {

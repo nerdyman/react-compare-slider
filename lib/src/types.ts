@@ -1,4 +1,5 @@
 import type { HtmlHTMLAttributes, ReactNode, RefAttributes } from 'react';
+import { type ReactCompareSliderClipOption } from './consts';
 
 /** Slider position property. */
 export type ReactCompareSliderPropPosition = number;
@@ -30,12 +31,6 @@ export type ReactCompareSliderCommonProps = {
    */
   transition?: string;
 };
-
-export const ReactCompareSliderClipOption = {
-  both: 'both',
-  itemOne: 'itemOne',
-  itemTwo: 'itemTwo',
-} as const;
 
 export type ReactCompareSliderClip =
   (typeof ReactCompareSliderClipOption)[keyof typeof ReactCompareSliderClipOption];

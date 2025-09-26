@@ -5,7 +5,7 @@ import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSliderRef }
 import { createPortal } from 'react-dom';
 
 import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils.test';
-import { argTypes, args } from '../config';
+import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Demos',

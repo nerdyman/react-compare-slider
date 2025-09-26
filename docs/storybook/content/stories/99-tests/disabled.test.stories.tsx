@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import type { ReactCompareSlider } from 'react-compare-slider';
 
-import { Template, getArgs } from './test-utils.test';
+import { getArgs, Template } from './test-utils.test';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Disabled',

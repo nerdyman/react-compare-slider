@@ -3,7 +3,7 @@ import React from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-import { argTypes, args } from '../config';
+import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Handles/Custom Component',
