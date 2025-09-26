@@ -11,6 +11,6 @@ export const useReactCompareSliderRef = (): MutableRefObject<UseReactCompareSlid
     rootContainer: null,
     handleContainer: null,
     setPosition: () =>
-      // biome-ignore lint/suspicious/noConsole: This intetionally warns users to help with debugging.
+      // biome-ignore lint/suspicious/noConsole: This intentionally warns users to help with debugging.
       console.warn('[react-compare-slider] `setPosition` cannot be used until the component has mounted.'),
   });
