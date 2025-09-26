@@ -1,4 +1,4 @@
-export { ReactCompareSliderCssVars } from './consts';
+export { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 export { ReactCompareSlider } from './ReactCompareSlider';
 export type { ReactCompareSliderHandleProps } from './ReactCompareSliderHandle';
 export { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
@@ -7,7 +7,6 @@ export { ReactCompareSliderImage } from './ReactCompareSliderImage';
 
 export {
   type ReactCompareSliderClip,
-  ReactCompareSliderClipOption,
   type ReactCompareSliderDetailedProps,
   type ReactCompareSliderPropPosition,
   type ReactCompareSliderProps,
