@@ -33,7 +33,7 @@ export const styleFitContainer = ({
 
 /** Store the previous supplied value. */
 export const usePrevious = <T>(value: T): T | undefined => {
-  const ref = useRef<T | undefined>();
+  const ref = useRef<T | undefined>(undefined);
 
   useEffect(() => {
     ref.current = value;
@@ -55,7 +55,7 @@ export const useEventListener = (
   element: EventTarget | undefined | null,
   handlerOptions: AddEventListenerOptions,
 ): void => {
-  const savedHandler = useRef<EventListener['caller']>();
+  const savedHandler = useRef<EventListener['caller']>(undefined);
 
   useEffect(() => {
     savedHandler.current = handler;

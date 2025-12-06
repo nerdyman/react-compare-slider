@@ -287,10 +287,24 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
       ...style,
     };
 
+    const clipBoth = clip === ReactCompareSliderClipOption.both;
+
+    const clipItemOne =
+      clipBoth || clip === ReactCompareSliderClipOption.itemOne
+        ? ReactCompareSliderClipOption.itemOne
+        : undefined;
+
+    const clipItemTwo =
+      clipBoth || clip === ReactCompareSliderClipOption.itemTwo
+        ? ReactCompareSliderClipOption.itemTwo
+        : undefined;
+
+    console.log('!!!', { clipBoth, clipItemOne, clipItemTwo });
+
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs-clip={clip} data-rcs="root">
         <ContainerItem
-          clip={clip}
+          clip={clipItemOne}
           item={ReactCompareSliderClipOption.itemOne}
           portrait={portrait}
           transition={appliedTransition}
@@ -299,7 +313,7 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
         </ContainerItem>
 
         <ContainerItem
-          clip={clip}
+          clip={clipItemTwo}
           item={ReactCompareSliderClipOption.itemTwo}
           portrait={portrait}
           transition={appliedTransition}

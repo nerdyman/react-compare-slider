@@ -48,7 +48,10 @@
       }
     }
   },
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
     "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
     "build": "pnpm run check:types && NODE_ENV=production tsup",
@@ -70,7 +73,11 @@
       "not ie > 0",
       "not op_mini all"
     ],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "peerDependencies": {
     "react": ">=16.8",
@@ -84,6 +91,8 @@
     "browserslist": "^4.23.3",
     "concurrently": "^9.2.1",
     "esbuild-plugin-browserslist": "^2.0.0",
+    "minimatch": "^10.1.1",
+    "parse-path": "^7.1.0",
     "publint": "^0.3.15",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",

@@ -52,7 +52,7 @@ export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
       ...style,
     };
 
-    return <div {...props} style={appliedStyle} data-rcs="clip-item" ref={ref} />;
+    return <div {...props} style={appliedStyle} data-rcs="clip-item" data-rcs-clip-item={clip} ref={ref} />;
   },
 );
 
