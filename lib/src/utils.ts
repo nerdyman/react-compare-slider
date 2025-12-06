@@ -12,15 +12,19 @@ export enum KeyboardEventKeys {
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their container.
  */
 export const styleFitContainer = ({
+  display = 'block',
+  width = '100%',
+  height = '100%',
+  maxWidth = '100%',
   boxSizing = 'border-box',
   objectFit = 'cover',
   objectPosition = 'center center',
   ...props
 }: CSSProperties = {}): CSSProperties => ({
-  display: 'block',
-  width: '100%',
-  height: '100%',
-  maxWidth: '100%',
+  display,
+  width,
+  height,
+  maxWidth,
   boxSizing,
   objectFit,
   objectPosition,
@@ -40,10 +44,10 @@ export const usePrevious = <T>(value: T): T | undefined => {
 
 /**
  * Event listener binding hook.
- * @param eventName      - Event to bind to.
- * @param handler        - Callback handler.
- * @param element        - Element to bind to.
- * @param handlerOptions - Event handler options.
+ * @param eventName        Event to bind to.
+ * @param handler          Callback handler.
+ * @param element          Element to bind to.
+ * @param handlerOptions  Event handler options.
  */
 export const useEventListener = (
   eventName: EventListener['name'],
