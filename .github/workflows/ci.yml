@@ -35,15 +35,10 @@ jobs:
           pnpm dlx playwright@1.41.1 install --with-deps chromium
           pnpm run test:ci
 
-      - name: 📝 Upload Code Climate Test Coverage
-        uses: paambaati/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: "${{ secrets.CC_TEST_REPORTER_ID }}"
+      - uses: qltysh/qlty-action/coverage@v2
         with:
-          debug: true
-          coverageLocations: |
-            ${{github.workspace}}/coverage/ssr-tests/*.info:lcov
-            ${{github.workspace}}/coverage/storybook/*.info:lcov
+          token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          files: coverage/storybook/*.info:lcov
 
       - uses: preactjs/compressed-size-action@v2
         with:
