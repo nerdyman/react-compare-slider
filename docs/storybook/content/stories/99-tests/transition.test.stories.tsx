@@ -1,9 +1,8 @@
-import { expect } from '@storybook/jest';
-import type { Meta } from '@storybook/react';
-import { fireEvent, waitFor, within } from '@storybook/testing-library';
+import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
+import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils.test';
+import { getArgs, SLIDER_ROOT_TEST_ID, Template } from './test-utils.test';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Transition',
@@ -19,7 +18,7 @@ Transition.args = getArgs({
 
 Transition.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(Transition.args?.['data-testid']) as Element;
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));

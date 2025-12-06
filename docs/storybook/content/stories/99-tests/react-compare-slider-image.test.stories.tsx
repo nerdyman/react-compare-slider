@@ -1,6 +1,5 @@
-import { expect } from '@storybook/jest';
-import type { Meta, StoryFn } from '@storybook/react';
-import { waitFor, within } from '@storybook/testing-library';
+import { expect, waitFor, within } from 'storybook/test';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSlider, ReactCompareSliderImageProps } from 'react-compare-slider';
 import {
   ReactCompareSliderImage as BaseReactCompareSliderImage,

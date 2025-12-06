@@ -1,14 +1,14 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { Images } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Images" component={ReactCompareSlider} />
 
 # Using Images
 
-<Canvas>
-  <Story id="demos--images" />
-</Canvas>
+<Canvas of={Images} />
 
 <br />
 
@@ -17,7 +17,7 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 Images can be rendered using the `ReactCompareSliderImage` component and/or
 by using a custom image component, e.g. `picture` or `img`.
 
-`ReactCompareSliderImage` is a standalone image (`img`) component which uses the 
+`ReactCompareSliderImage` is a standalone image (`img`) component which uses the
 `styleFitContainer` utility for positioning and fitting. The defaults from `styleFitContainer`
 are applied automatically but can be overridden using the `style` prop.
 

@@ -1,8 +1,7 @@
-import { expect, jest } from '@storybook/jest';
-import type { Meta, StoryFn } from '@storybook/react';
-import { fireEvent, waitFor, within } from '@storybook/testing-library';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { useReactCompareSliderRef } from 'react-compare-slider';
+import { expect, fireEvent, fn, waitFor, within } from 'storybook/test';
 
 import { UseReactCompareSliderRef as UseReactCompareSliderRefStory } from '../00-demos/00-index.stories';
 import { getArgs, SLIDER_ROOT_TEST_ID } from './test-utils.test';
@@ -46,7 +45,7 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
 };
 
 export const UseReactCompareSliderRefUninstantied: StoryFn = () => {
-  console.warn = jest.fn();
+  console.warn = fn();
   const ref = useReactCompareSliderRef();
 
   ref.current.setPosition(50);

@@ -1,6 +1,8 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { KeyboardIncrement } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Keyboard Increment" component={ReactCompareSlider} />
 
@@ -29,11 +31,9 @@ also set it to `'100%'` to flip between each side immediately.
 />
 ```
 
-<Canvas>
-  <Story id="demos--keyboard-increment" />
-</Canvas>
+<Canvas of={KeyboardIncrement} />
 
-<ArgsTable of={ReactCompareSlider} />
+<ArgTypes of={ReactCompareSlider} />
 
 <br />
 

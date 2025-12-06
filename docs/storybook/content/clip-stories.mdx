@@ -1,6 +1,8 @@
-import { ArgTypes, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { Images } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Clip" component={ReactCompareSlider} />
 
@@ -12,9 +14,7 @@ the bounds of the slider.
 This is useful in cases where you have transparent items and want to control which item takes
 precedence when the slider is moved.
 
-<Canvas>
-  <Story id="demos--images" />
-</Canvas>
+<Canvas of={Images} />
 
 <ArgTypes of={ReactCompareSlider} />
 

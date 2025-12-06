@@ -1,7 +1,6 @@
-import { expect } from '@storybook/jest';
-import type { Meta } from '@storybook/react';
-import { fireEvent, userEvent, waitFor, within } from '@storybook/testing-library';
+import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
+import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 import { getArgs, Template } from './test-utils.test';
 
@@ -17,7 +16,7 @@ KeyboardInteractionsLandscape.args = getArgs({ style: { width: 200, height: 200 
 KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(KeyboardInteractionsLandscape.args?.['data-testid']) as Element;
+  const sliderRoot = canvas.queryByTestId(KeyboardInteractionsLandscape.args?.['data-testid'] as string)!;
 
   // Should have elements on mount.
   await new Promise((resolve) => setTimeout(resolve, 500));

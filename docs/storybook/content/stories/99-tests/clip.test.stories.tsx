@@ -1,9 +1,8 @@
-import { expect } from '@storybook/jest';
-import type { Meta } from '@storybook/react';
-import { fireEvent, waitFor, within } from '@storybook/testing-library';
+import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
+import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils.test';
+import { getArgs, SLIDER_ROOT_TEST_ID, Template } from './test-utils.test';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Clip',
@@ -18,8 +17,8 @@ ClipBoth.args = getArgs({
 
 ClipBoth.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
-  const sliderRoot = (await canvas.findByTestId(ClipBoth.args?.['data-testid'])) as Element;
+  const slider = canvas.findByRole('slider');
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));
@@ -60,8 +59,8 @@ ClipItemOne.args = getArgs({
 
 ClipItemOne.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
-  const sliderRoot = (await canvas.findByTestId(ClipBoth.args?.['data-testid'])) as Element;
+  const slider = canvas.findByRole('slider');
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));
@@ -105,8 +104,8 @@ ClipItemTwo.args = getArgs({
 
 ClipItemTwo.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
-  const sliderRoot = (await canvas.findByTestId(ClipBoth.args?.['data-testid'])) as Element;
+  const slider = canvas.findByRole('slider');
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));

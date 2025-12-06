@@ -1,6 +1,8 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider } from 'react-compare-slider';
+
+import { UseReactCompareSliderRef } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/useReactCompareSliderRef" component={ReactCompareSlider} />
 
@@ -51,11 +53,9 @@ const Example = () => {
 
 There's no limitation to `setPosition` usage, you can even use it to link sliders together!
 
-<Canvas>
-  <Story id="demos--use-react-compare-slider-ref" />
-</Canvas>
+<Canvas of={UseReactCompareSliderRef} />
 
-<ArgsTable of={ReactCompareSlider} />
+<ArgTypes of={ReactCompareSlider} />
 
 <br />
 

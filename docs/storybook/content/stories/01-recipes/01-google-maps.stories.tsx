@@ -1,6 +1,6 @@
 import type { GoogleMapProps } from '@react-google-maps/api';
 import { GoogleMap as GoogleMapBase, useJsApiLoader } from '@react-google-maps/api';
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import React from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';

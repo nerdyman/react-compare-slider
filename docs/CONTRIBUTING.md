@@ -15,8 +15,6 @@ bootstrap the project:
 
 ```sh
 npm run bootstrap
-# Also useful but not required, install shell auto completion for pnpm.
-pnpm install-completion
 ```
 
 To start the library in watch mode, run the following command:
@@ -60,9 +58,8 @@ pnpm run test:ci
 - Commits use the [Conventional Commits](https://conventionalcommits.org/) standard
 - pnpm to manage dependencies
 - Use a tool (e.g. nvm or fnm) to use the correct Node.js version
-- Prettier & EditorConfig for code style
-- ESLint for quality
-- Husky for Git hooks
+- Biome for linting and code formatting
+- Lefthook for Git hooks
 
 ## VS Code
 
