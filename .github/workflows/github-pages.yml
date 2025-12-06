@@ -1,0 +1,25 @@
+name: 📖 Deploy docs
+
+on:
+  push:
+    branches:
+      - "main"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗️ Setup Environment
+        uses: ./.github/actions/bootstrap
+
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: "echo Skipping install"
+          build_command: pnpm --filter @this/storybook run build
+          path: docs/storybook/storybook-static
+          checkout: false
