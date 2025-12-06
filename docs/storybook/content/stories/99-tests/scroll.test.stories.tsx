@@ -1,6 +1,5 @@
-import { expect } from '@storybook/jest';
-import type { Meta, StoryFn } from '@storybook/react';
-import { fireEvent, waitFor, within } from '@storybook/testing-library';
+import { expect, fireEvent, waitFor, within } from 'storybook/test';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSlider, ReactCompareSliderProps } from 'react-compare-slider';
 
 import { getArgs, Template } from './test-utils.test';

@@ -1,25 +1,41 @@
-import type { Parameters } from '@storybook/react';
-
+import type { Preview } from '@storybook/react-vite';
+import { spyOn } from 'storybook/test';
 import { theme } from './theme';
 
-import '@storybook/addon-console';
+export const beforeEach = () => {
+  spyOn(console, 'log').mockName('console.log');
+  spyOn(console, 'warn').mockName('console.warn');
+};
 
-export const parameters: Parameters = {
-  layout: 'fullscreen',
-  controls: {
-    hideNoControlsWarning: true,
-  },
-  docs: {
-    /** @see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#docs-page */
-    docsPage: true,
-    defaultName: 'Docs',
-    story: {
-      inline: true,
+if (!global.window) (global as any).window = {};
+
+const preview: Preview = {
+  parameters: {
+    layout: 'fullscreen',
+    controls: {
+      hideNoControlsWarning: true,
     },
-    theme,
-  },
-  options: {
-    showRoots: true,
-    theme,
+    docs: {
+      /** @see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#docs-page */
+      docsPage: true,
+      defaultName: 'Docs',
+      story: {
+        inline: true,
+      },
+      theme,
+    },
+    options: {
+      showRoots: true,
+      theme,
+    },
+
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: 'todo',
+    },
   },
 };
+
+export default preview;

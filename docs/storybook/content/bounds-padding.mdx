@@ -1,6 +1,8 @@
-import { ArgTypes, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { BoundsPadding } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Bounds Padding" component={ReactCompareSlider} />
 
@@ -21,9 +23,7 @@ The bounds are automatically applied to the top/bottom or right/left depending o
 boundsPadding="5%"
 ```
 
-<Canvas>
-  <Story id="demos--bounds-padding" />
-</Canvas>
+<Canvas of={BoundsPadding} />
 
 <ArgTypes of={ReactCompareSlider} />
 

@@ -1,6 +1,8 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { Transition } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Transition" component={ReactCompareSlider} />
 
@@ -20,9 +22,7 @@ This means the transition will be cancelled if `pointerdown` is followed by a `p
 />
 ```
 
-<Canvas>
-  <Story id="demos--transition" />
-</Canvas>
+<Canvas of={Transition} />
 
 ## Live Examples
 

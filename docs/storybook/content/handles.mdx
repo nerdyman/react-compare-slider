@@ -1,6 +1,9 @@
-import { Canvas, ArgTypes, Meta, Story } from '@storybook/blocks';
+import { Canvas, ArgTypes, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSliderHandle } from 'react-compare-slider';
+
+import { InheritedColor } from './stories/02-handles/00-react-compare-slider-handle.stories'
+import { CustomComponent } from './stories/02-handles/01-custom.stories'
 
 <Meta title="Docs/Handles" component={ReactCompareSliderHandle} />
 
@@ -28,9 +31,13 @@ customize it to fit your requirements.
 
 ### CSS `className`
 
-- `.__rcs-handle-root`    - The root element.
-- `.__rcs-handle-button`  - The circular element shown in the middle.
-- `.__rcs-handle-line`    -  For each line either side of the button.
+
+| Class Name | Description |
+| :-- | :-- |
+| `.__rcs-handle-root` | The root element. |
+| `.__rcs-handle-button` | The circular element shown in the middle. |
+| `.__rcs-handle-line` | For each line either side of the button. |
+
 
 <br />
 
@@ -44,15 +51,11 @@ The colors used in `ReactCompareSliderHandle` are inherited from the root elemen
 property using the `currentColor` keyword (except for `boxShadow`).
 To set all colors in sync just change the `style` property or use the `.__rcs-handle-root` class.
 
-<Canvas>
-  <Story id="handles--inherited-color" />
-</Canvas>
+<Canvas of={InheritedColor} />
 
 ### Custom Standalone Handle Usage
 
-<Canvas>
-  <Story id="handles-custom-component--custom-component" />
-</Canvas>
+<Canvas of={CustomComponent} />
 
 ## Live Examples
 

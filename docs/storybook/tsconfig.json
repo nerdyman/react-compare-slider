@@ -1,13 +1,4 @@
 {
-  "extends": "../../lib/tsconfig.json",
-  "include": ["src", "dist", "content"],
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "baseUrl": ".",
-    "rootDir": ".",
-    "preserveSymlinks": true,
-    "noImplicitAny": false,
-    "types": ["node", "react", "react-dom", "@testing-library/jest-dom"]
-  }
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
 }

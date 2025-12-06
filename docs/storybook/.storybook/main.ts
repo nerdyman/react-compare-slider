@@ -3,7 +3,6 @@
 import { resolve } from 'node:path';
 
 import type { StorybookConfig } from '@storybook/react-vite';
-import remarkGfm from 'remark-gfm';
 import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
@@ -20,28 +19,23 @@ const config: StorybookConfig = {
   },
 
   addons: [
-    '@storybook/addon-essentials',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm],
-          },
-        },
-      },
-    },
-    '@storybook/addon-links',
-    '@storybook/addon-interactions',
-    '@storybook/jest',
-    '@storybook/addon-coverage',
-    '@storybook/addon-storysource',
+    '@chromatic-com/storybook',
+    '@storybook/addon-vitest',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+    '@storybook/addon-mdx-gfm',
+    // '@storybook/addon-storysource',
   ],
 
-  stories: ['../content/**/*.stories.@(mdx|tsx)'],
+  stories: ['../content/**/*.mdx', '../content/**/*.stories.@(ts|tsx)'],
 
   viteFinal: async (config) => {
+    const { dirname } = await import('node:path');
+    const { fileURLToPath } = await import('node:url');
+
+    const __dirname = dirname(fileURLToPath(import.meta.url));
     const libPath = resolve(__dirname, '..', 'src');
+
     console.info(`\n\n[SB CUSTOM] Using lib path: ${libPath}\n\n`);
 
     const finalConfig = mergeConfig(config, {

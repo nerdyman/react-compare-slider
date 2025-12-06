@@ -1,6 +1,8 @@
-import { ArgTypes, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { BrowsingContext } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Browsing Context" component={ReactCompareSlider} />
 
@@ -16,9 +18,7 @@ For example, if you wanted to render the slider in a popup you would use `create
 with the `document.body` property of the popup as the DOM node for `createPortal` and pass the popup
 window context as the `browsingContext` prop.
 
-<Canvas>
-  <Story id="demos--browsing-context" />
-</Canvas>
+<Canvas of={BrowsingContext} />
 
 <ArgTypes of={ReactCompareSlider} />
 

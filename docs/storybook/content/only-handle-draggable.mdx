@@ -1,6 +1,10 @@
-import { ArgTypes, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { OnlyHandleDraggable } from './stories/00-demos/00-index.stories'
+import { DetectTouchDevices } from './stories/01-recipes/00-index.stories'
+import { GoogleMaps } from './stories/01-recipes/01-google-maps.stories'
 
 <Meta title="Docs/Only Handle Draggable" component={ReactCompareSlider} />
 
@@ -27,17 +31,11 @@ const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
 ## Live Examples
 
-<Canvas>
-  <Story id="demos--only-handle-draggable" />
-</Canvas>
+<Canvas of={OnlyHandleDraggable} />
 
-<Canvas>
-  <Story id="recipes--detect-touch-devices" />
-</Canvas>
+<Canvas of={DetectTouchDevices} />
 
-<Canvas>
-  <Story id="recipes-google-maps--google-maps" />
-</Canvas>
+<Canvas of={GoogleMaps} />
 
 <ArgTypes of={ReactCompareSlider} />
 

@@ -1,6 +1,8 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
+import { ChangePositionOnHover } from './stories/00-demos/00-index.stories'
 
 <Meta title="Docs/Change Position on Hover" component={ReactCompareSlider} />
 
@@ -9,11 +11,9 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 The `changePositionOnHover` prop allows you to sync the slider position with the position
 of the mouse/pointer while the slider is being hovered over.
 
-<Canvas>
-  <Story id="demos--change-position-on-hover" />
-</Canvas>
+<Canvas of={ChangePositionOnHover} />
 
-<ArgsTable of={ReactCompareSlider} />
+<ArgTypes of={ReactCompareSlider} />
 
 <br />
 

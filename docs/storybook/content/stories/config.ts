@@ -1,4 +1,4 @@
-import type { ArgTypes } from '@storybook/react';
+import type { ArgTypes } from '@storybook/react-vite';
 import { ReactCompareSliderClipOption, type ReactCompareSliderProps } from 'react-compare-slider';
 
 /**
