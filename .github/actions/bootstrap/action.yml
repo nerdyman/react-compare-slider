@@ -2,10 +2,6 @@ name: "🏗️ Bootstrap repo"
 description: "Checkout repo, setup Node.js, and install dependencies"
 
 inputs:
-  fetch-depth:
-    description: "Number of commits to fetch (0 = all history)"
-    required: false
-    default: "1"
   node-version-file:
     description: "File containing Node.js version"
     required: false
@@ -18,11 +14,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: 🛒 Checkout repo
-      uses: actions/checkout@v6
-      with:
-        fetch-depth: ${{ inputs.fetch-depth }}
-
     - name: 📦 Setup pnpm
       uses: pnpm/action-setup@v4.2.0
 

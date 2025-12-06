@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 🛒 Checkout repo
+        uses: actions/checkout@v6
+
       - name: 🏗️ Setup Environment
         uses: ./.github/actions/bootstrap
 
