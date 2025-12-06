@@ -1,3 +1,6 @@
 packages:
-  - 'lib/**'
-  - 'docs/**'
+  - lib/**
+  - docs/**
+
+ignoredBuiltDependencies:
+  - lefthook
