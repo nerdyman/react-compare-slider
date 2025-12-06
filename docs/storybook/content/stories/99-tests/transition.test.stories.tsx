@@ -2,14 +2,14 @@ import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, SLIDER_ROOT_TEST_ID, Template } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Transition',
 };
 export default meta;
 
-export const Transition = Template.bind({});
+export const Transition = TestTemplate.bind({});
 Transition.args = getArgs({
   position: 0,
   transition: '0.2s ease',
@@ -19,10 +19,6 @@ Transition.args = getArgs({
 Transition.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
-
-  // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   await new Promise((resolve) =>
     setTimeout(() => {

@@ -4,41 +4,41 @@ import type { ReactCompareSliderProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Position',
 };
 export default meta;
 
-export const StartAt0 = Template.bind({});
+export const StartAt0 = TestTemplate.bind({});
 StartAt0.args = getArgs({ position: 0 });
 
 StartAt0.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
+  const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('0'));
   await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('0px'));
 };
 
-export const StartAt100 = Template.bind({});
+export const StartAt100 = TestTemplate.bind({});
 StartAt100.args = getArgs({ position: 100, style: { width: 256 } });
 
 StartAt100.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
+  const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
   await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('256px'));
 };
 
-export const PointSamePosition = Template.bind({});
+export const PointSamePosition = TestTemplate.bind({});
 PointSamePosition.args = getArgs({ position: 50, style: { width: 256 } });
 
 PointSamePosition.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
+  const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
   await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('128px'));
@@ -80,10 +80,14 @@ export const LazyImages: StoryFn<ReactCompareSliderProps> = (props) => {
 LazyImages.args = getArgs({ position: 100, style: { width: 'auto', height: 'auto' } });
 LazyImages.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as HTMLDivElement;
+  const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
-  await waitFor(() => expect(slider.style.left).toBe('100%'));
+  await waitFor(() =>
+    expect(getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+      'clamp(0%, 100% - 0% + 0%, calc(100% - 0%))',
+    ),
+  );
 };
 
 /**
@@ -116,9 +120,7 @@ ToggleOrientation.args = getArgs({ position: 25, style: { width: 200, height: 20
 ToggleOrientation.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(StartAt100.args?.['data-testid']) as Element;
-
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   await user.click(canvas.getByText('Toggle orientation'));
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('25'));
@@ -126,7 +128,7 @@ ToggleOrientation.play = async ({ canvasElement }) => {
   await user.click(canvas.getByText('Toggle orientation'));
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('25'));
 
-  fireEvent.pointerDown(sliderRoot, { clientX: 100, clientY: 100 });
+  await fireEvent.pointerDown(sliderRoot, { clientX: 100, clientY: 100 });
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 
   await user.click(canvas.getByText('Toggle orientation'));

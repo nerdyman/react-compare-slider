@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import { ReactCompareSlider } from 'react-compare-slider';
 import { expect, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Default',
@@ -11,7 +11,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 /** Test default props. */
-export const Default = Template.bind({});
+export const Default = TestTemplate.bind({});
 Default.args = getArgs();
 
 Default.play = async ({ canvasElement }) => {
@@ -34,11 +34,11 @@ Default.play = async ({ canvasElement }) => {
   await waitFor(() => expect(Default.args?.onPositionChange).toHaveBeenLastCalledWith(50));
 };
 
-export const Ssr = Template.bind({});
-Ssr.args = getArgs();
+export const SSR = TestTemplate.bind({});
+SSR.args = getArgs();
 
 // Same as Default but with but runs on server via `mount`.
-Ssr.play = async ({ mount, args }) => {
+SSR.play = async ({ mount, args }) => {
   const canvas = await mount(<ReactCompareSlider {...args} />);
   const sliderRoot = await canvas.findByRole('slider');
 
@@ -55,5 +55,5 @@ Ssr.play = async ({ mount, args }) => {
   );
 
   // Should have initial position on mount.
-  await waitFor(() => expect(Ssr.args?.onPositionChange).toHaveBeenLastCalledWith(50));
+  await waitFor(() => expect(SSR.args?.onPositionChange).toHaveBeenLastCalledWith(50));
 };

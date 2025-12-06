@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSlider, ReactCompareSliderProps } from 'react-compare-slider';
 import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestComponent } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Scroll',
@@ -32,7 +32,7 @@ export const Horizontal: StoryFn<ReactCompareSliderProps> = (props) => (
     >
       Scroll right
     </div>
-    <Template {...props} />
+    <TestComponent {...props} />
   </div>
 );
 Horizontal.args = getArgs({
@@ -41,12 +41,10 @@ Horizontal.args = getArgs({
 
 Horizontal.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(Horizontal.args?.['data-testid']) as HTMLDivElement;
-  const slider = canvas.queryByRole('slider') as HTMLDivElement;
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
+  const slider = await canvas.findByRole('slider');
 
   // Should have elements on mount.
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
-  await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
@@ -55,34 +53,29 @@ Horizontal.play = async ({ canvasElement }) => {
   sliderRoot.scrollIntoView();
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  await waitFor(() =>
-    fireEvent.pointerDown(sliderRoot, {
-      clientX: 166,
-      clientY: 100,
-    }),
-  );
-
-  // Should match new position.
-  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('75'));
+  await fireEvent.pointerDown(sliderRoot, {
+    clientX: 166,
+    clientY: 100,
+  }),
+    // Should match new position.
+    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('75'));
 };
 
 /** Vertical slider in portrait mode. */
 export const VerticalPortrait: StoryFn<ReactCompareSliderProps> = (props) => (
   <div style={{ width: 200, height: 200, overflowY: 'auto', padding: 8, background: 'red' }}>
     <div style={{ width: '100%', height: 150, background: 'red', color: 'white' }}>Scroll down</div>
-    <Template {...props} />
+    <TestComponent {...props} />
   </div>
 );
 VerticalPortrait.args = getArgs({ portrait: true, style: { width: '100%', height: 200 } });
 
 VerticalPortrait.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(VerticalPortrait.args?.['data-testid']) as HTMLDivElement;
-  const slider = canvas.queryByRole('slider') as HTMLDivElement;
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
+  const slider = await canvas.findByRole('slider');
 
   // Should have elements on mount.
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
-  await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
@@ -91,12 +84,10 @@ VerticalPortrait.play = async ({ canvasElement }) => {
   sliderRoot.scrollIntoView();
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  await waitFor(() =>
-    fireEvent.pointerDown(sliderRoot, {
-      clientX: 100,
-      clientY: 158,
-    }),
-  );
+  await fireEvent.pointerDown(sliderRoot, {
+    clientX: 100,
+    clientY: 158,
+  });
 
   // Should match new position.
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('75'));

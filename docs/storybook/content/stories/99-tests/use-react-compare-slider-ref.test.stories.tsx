@@ -12,6 +12,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 export const UseReactCompareSliderRef = UseReactCompareSliderRefStory;
+UseReactCompareSliderRef.args = { position: 50 };
 
 UseReactCompareSliderRef.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);

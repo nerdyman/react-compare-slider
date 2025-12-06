@@ -2,24 +2,22 @@ import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Keyboard Interactions',
 };
 export default meta;
 
-export const KeyboardInteractionsLandscape = Template.bind({});
+export const KeyboardInteractionsLandscape = TestTemplate.bind({});
 
 KeyboardInteractionsLandscape.args = getArgs({ style: { width: 200, height: 200 } });
 
 KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(KeyboardInteractionsLandscape.args?.['data-testid'] as string)!;
+  const sliderRoot = await canvas.queryByTestId(SLIDER_ROOT_TEST_ID);
 
-  // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Focus the handle with tab key.
@@ -33,7 +31,7 @@ KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
 
   // Focus the handle with mouse click.
   await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   await waitFor(() => expect(document.activeElement!.getAttribute('data-rcs')).toBe('handle-container'));
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
@@ -55,7 +53,7 @@ KeyboardInteractionsLandscape.play = async ({ canvasElement }) => {
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 };
 
-export const KeyboardInteractionsPortrait = Template.bind({});
+export const KeyboardInteractionsPortrait = TestTemplate.bind({});
 KeyboardInteractionsPortrait.args = getArgs({
   portrait: true,
   style: { width: 200, height: 200 },
@@ -64,10 +62,10 @@ KeyboardInteractionsPortrait.args = getArgs({
 KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(KeyboardInteractionsPortrait.args?.['data-testid']) as Element;
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 100));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Focus the handle with tab key.
@@ -82,7 +80,7 @@ KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
 
   // Focus the handle with mouse click.
   await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   await waitFor(() =>
     expect((document.activeElement as HTMLElement).getAttribute('data-rcs')).toBe('handle-container'),
@@ -106,7 +104,7 @@ KeyboardInteractionsPortrait.play = async ({ canvasElement }) => {
   await waitFor(() => expect(canvas.getByRole('slider').getAttribute('aria-valuenow')).toBe('50'));
 };
 
-export const KeyboardInteractionsPixel = Template.bind({});
+export const KeyboardInteractionsPixel = TestTemplate.bind({});
 KeyboardInteractionsPixel.args = getArgs({
   keyboardIncrement: 20,
   style: { width: 200, height: 200 },
@@ -115,10 +113,10 @@ KeyboardInteractionsPixel.args = getArgs({
 KeyboardInteractionsPixel.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(KeyboardInteractionsPortrait.args?.['data-testid']) as Element;
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 100));
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Focus the handle with tab key.
@@ -133,7 +131,7 @@ KeyboardInteractionsPixel.play = async ({ canvasElement }) => {
 
   // Focus the handle with mouse click.
   await fireEvent.click(canvas.getByRole('slider'), { clientX: 100, clientY: 100 });
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   await waitFor(() =>
     expect((document.activeElement as HTMLElement).getAttribute('data-rcs')).toBe('handle-container'),

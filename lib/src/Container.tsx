@@ -9,7 +9,7 @@ import {
 } from './types';
 
 type GetClipPathProps = Pick<ReactCompareSliderRootProps, 'portrait'> & {
-  item: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
+  item?: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
 };
 
 const getClipPath = ({ item, portrait }: GetClipPathProps): CSSProperties['clipPath'] => {
@@ -29,13 +29,13 @@ const getClipPath = ({ item, portrait }: GetClipPathProps): CSSProperties['clipP
 };
 
 type ContainerItemProps = ComponentPropsWithoutRef<'div'> &
-  Pick<ReactCompareSliderRootProps, 'clip' | 'portrait' | 'transition'> & {
-    item: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
+  Pick<ReactCompareSliderRootProps, 'portrait' | 'transition'> & {
+    item?: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
   };
 
 /** Container for clipped item. */
 export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
-  ({ clip, item, portrait, style, transition, ...props }, ref): ReactElement => {
+  ({ item, portrait, style, transition, ...props }, ref): ReactElement => {
     const appliedStyle: CSSProperties = {
       gridArea: '1 / 1',
       maxWidth: '100%',
@@ -45,14 +45,14 @@ export const ContainerItem = forwardRef<HTMLDivElement, ContainerItemProps>(
       transition: transition ? `clip-path ${transition}` : undefined,
       userSelect: 'none',
       willChange: 'clip-path, transition',
-      zIndex: clip === ReactCompareSliderClipOption.itemOne ? 1 : undefined,
+      zIndex: item === ReactCompareSliderClipOption.itemOne ? 1 : undefined,
       KhtmlUserSelect: 'none',
       MozUserSelect: 'none',
       WebkitUserSelect: 'none',
       ...style,
     };
 
-    return <div {...props} style={appliedStyle} data-rcs="clip-item" data-rcs-clip-item={clip} ref={ref} />;
+    return <div {...props} style={appliedStyle} data-rcs="clip-item" ref={ref} />;
   },
 );
 

@@ -2,19 +2,19 @@ import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestComponent, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Disabled',
 };
 export default meta;
 
-export const Disabled: typeof Template = (args) => (
+export const Disabled: typeof TestTemplate = (args) => (
   <div>
     <button type="button" data-testid="test-button">
       Button
     </button>
-    <Template {...args} />
+    <TestComponent {...args} />
   </div>
 );
 
@@ -23,11 +23,7 @@ Disabled.args = getArgs({ style: { width: 200, height: 200 }, disabled: true });
 Disabled.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const sliderRoot = canvas.queryByTestId(Disabled.args?.['data-testid']) as Element;
-
-  // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  await waitFor(() => expect(sliderRoot).toBeInTheDocument());
+  const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
   const testButton = canvas.queryByTestId('test-button') as HTMLElement;
 

@@ -3,13 +3,14 @@ import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { fn } from 'storybook/test';
 
-export const Template: StoryFn<ReactCompareSliderDetailedProps> = (args) => <ReactCompareSlider {...args} />;
+export const TestComponent = ReactCompareSlider;
+export const TestTemplate: StoryFn<ReactCompareSliderDetailedProps> = (args) => <TestComponent {...args} />;
 
 export const SLIDER_ROOT_TEST_ID = 'rcs-root';
 
 export const getArgs = (
   args: Partial<ReactCompareSliderDetailedProps> = {},
-): Partial<Record<string, unknown> & ReactCompareSliderDetailedProps & { 'data-testid': string }> => ({
+): Partial<Record<string, unknown> & ReactCompareSliderDetailedProps> => ({
   'data-testid': SLIDER_ROOT_TEST_ID,
   onPositionChange: fn(console.log),
   style: { width: '100%', height: '100vh' },

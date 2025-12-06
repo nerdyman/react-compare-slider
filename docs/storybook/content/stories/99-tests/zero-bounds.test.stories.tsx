@@ -1,10 +1,10 @@
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/ZeroBounds',
@@ -12,7 +12,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 /** Rendering items with no width or height. */
-export const ZeroBounds = Template.bind({});
+export const ZeroBounds = TestTemplate.bind({});
 ZeroBounds.args = getArgs({
   style: { width: 'auto', height: 'auto' },
   itemOne: <div data-testid="one" />,
@@ -21,7 +21,7 @@ ZeroBounds.args = getArgs({
 
 ZeroBounds.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const slider = canvas.getByRole('slider') as Element;
+  const slider = canvas.getByRole('slider');
 
   await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByTestId('one')).toBeInTheDocument());
@@ -32,7 +32,7 @@ ZeroBounds.play = async ({ canvasElement }) => {
 /**
  * Rendering items with no width or height the change them to images after rendering.
  */
-export const ZeroBoundsWithLazyContent = () => {
+export const ZeroBoundsWithLazyContent: StoryFn = () => {
   const [dir, setDir] = useState('ltr');
   const [props, setProps] = useState<ReactCompareSliderDetailedProps>({
     position: 0,
@@ -82,12 +82,11 @@ export const ZeroBoundsWithLazyContent = () => {
 ZeroBoundsWithLazyContent.play = async ({ canvasElement }) => {
   const user = userEvent.setup();
   const canvas = within(canvasElement);
-  const slider = (await canvas.findByRole('slider')) as Element;
+  const slider = await canvas.findByRole('slider');
   const loadImages = await canvas.findByText('Load content');
   const togglePortrait = await canvas.findByText('Toggle portrait');
   const toggleDirection = await canvas.findByText('Toggle direction');
 
-  await waitFor(() => expect(slider).toBeInTheDocument());
   await waitFor(() => expect(loadImages).toBeInTheDocument());
   await waitFor(() => expect(togglePortrait).toBeInTheDocument());
   await waitFor(() => expect(toggleDirection).toBeInTheDocument());

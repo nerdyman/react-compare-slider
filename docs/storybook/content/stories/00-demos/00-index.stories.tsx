@@ -474,69 +474,65 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> 
   );
 
   return (
-    <>
-      <div style={{ display: 'flex', flexGrow: 1 }}>
-        <ReactCompareSlider
-          {...props}
-          data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
-          ref={slider1Ref}
-          onFocus={() => setSliderInControl(1)}
-          onPointerDown={() => setSliderInControl(1)}
-          onPositionChange={handlePosition1Change}
-          itemOne={
-            <ReactCompareSliderImage
-              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-              alt="Image one"
-            />
-          }
-          itemTwo={
-            <ReactCompareSliderImage
-              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-              alt="Image two"
-            />
-          }
-          style={{ width: '50%' }}
-        />
-        <ReactCompareSlider
-          {...props}
-          data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
-          ref={slider2Ref}
-          onFocus={() => setSliderInControl(2)}
-          onPointerDown={() => setSliderInControl(2)}
-          onPositionChange={handlePosition2Change}
-          itemOne={
-            <ReactCompareSliderImage
-              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-              alt="Image one"
-            />
-          }
-          itemTwo={
-            <ReactCompareSliderImage
-              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-              alt="Image two"
-            />
-          }
-          style={{ width: '50%' }}
-        />
+    <div style={{ display: 'flex', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
+        ref={slider1Ref}
+        onPointerDownCapture={() => setSliderInControl(1)}
+        onPositionChange={handlePosition1Change}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+            alt="Image two"
+          />
+        }
+        style={{ width: '50%' }}
+      />
+      <ReactCompareSlider
+        {...props}
+        data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
+        ref={slider2Ref}
+        onPointerDownCapture={() => setSliderInControl(2)}
+        onPositionChange={handlePosition2Change}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+            alt="Image two"
+          />
+        }
+        style={{ width: '50%' }}
+      />
 
-        <button
-          type="button"
-          onClick={() => {
-            slider1Ref.current.setPosition(props.position!);
-            slider2Ref.current.setPosition(props.position!);
-          }}
-          style={{
-            position: 'absolute',
-            left: '50%',
-            fontSize: '1.5rem',
-            transform: 'translateX(-50%)',
-            zIndex: 1,
-          }}
-        >
-          Reset sliders to <code>position</code> value ({props.position})
-        </button>
-      </div>
-    </>
+      <button
+        type="button"
+        onClick={() => {
+          slider1Ref.current.setPosition(props.position!);
+          slider2Ref.current.setPosition(props.position!);
+        }}
+        style={{
+          position: 'absolute',
+          left: '50%',
+          fontSize: '1.5rem',
+          transform: 'translateX(-50%)',
+          zIndex: 1,
+        }}
+      >
+        Reset sliders to <code>position</code> value ({props.position})
+      </button>
+    </div>
   );
 };
 

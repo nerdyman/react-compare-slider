@@ -35,7 +35,9 @@ ReactCompareSliderImage.play = async ({ canvasElement }) => {
 };
 
 /** Default image. */
-export const ReactCompareSliderImageCustomStyle = (args) => <BaseReactCompareSliderImage {...args} />;
+export const ReactCompareSliderImageCustomStyle: StoryFn<ReactCompareSliderImageProps> = (args) => (
+  <BaseReactCompareSliderImage {...args} />
+);
 
 ReactCompareSliderImageCustomStyle.args = {
   alt: 'testaroo',
