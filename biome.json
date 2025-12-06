@@ -1,5 +1,23 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+  "root": true,
+  "files": {
+    "includes": [
+      "**",
+      "!**/*.md",
+      "!**/*.mdx",
+      "!**/*.log",
+      "!**/.next/",
+      "!**/.pnpm-store/",
+      "!**/dist/**",
+      "!**/coverage",
+      "!**/lcov-report",
+      "!**/node_modules/",
+      "!**/pnpm-lock.yaml",
+      "!**/storybook-static/",
+      "!docs/storybook/src"
+    ]
+  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
@@ -11,23 +29,7 @@
     "bracketSameLine": false,
     "bracketSpacing": true,
     "expand": "auto",
-    "useEditorconfig": true,
-    "includes": [
-      "**",
-      "!**/*.md",
-      "!**/*.mdx",
-      "!**/*.log",
-      "!**/.next/",
-      "!**/.nyc_output/",
-      "!**/.pnpm-store/",
-      "!**/dist/**",
-      "!**/coverage",
-      "!**/lcov-report",
-      "!**/node_modules/",
-      "!**/pnpm-lock.yaml",
-      "!**/storybook-static/",
-      "!docs/storybook/src"
-    ]
+    "useEditorconfig": true
   },
   "linter": {
     "enabled": true,
@@ -114,22 +116,7 @@
         "useAwait": "off",
         "useGetterReturn": "error"
       }
-    },
-    "includes": [
-      "**",
-      "**/*.log",
-      "**/*.md",
-      "**/*.mdx",
-      "**/node_modules/",
-      "**/dist/",
-      "**/coverage/",
-      "**/.nyc_output/",
-      "**/.pnpm-store/",
-      "**/pnpm-lock.yaml",
-      "**/storybook-static/",
-      "**/.next/",
-      "docs/storybook/src/"
-    ]
+    }
   },
   "javascript": {
     "formatter": {
@@ -200,6 +187,16 @@
             "noUnsafeNegation": "off",
             "noVar": "error",
             "useGetterReturn": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["docs/example/**/*.ts", "docs/example/**/*.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
           }
         }
       }
