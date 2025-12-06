@@ -28,7 +28,6 @@
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
     "@types/node": "^22.5.5",
-    "c8": "^10.1.3",
     "concurrently": "^9.2.1",
     "lefthook": "^2.0.8",
     "sirv-cli": "^3.0.1",
