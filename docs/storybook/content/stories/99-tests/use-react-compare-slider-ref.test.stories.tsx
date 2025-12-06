@@ -4,7 +4,7 @@ import { useReactCompareSliderRef } from 'react-compare-slider';
 import { expect, fireEvent, fn, waitFor, within } from 'storybook/test';
 
 import { UseReactCompareSliderRef as UseReactCompareSliderRefStory } from '../00-demos/00-index.stories';
-import { getArgs, SLIDER_ROOT_TEST_ID } from './test-utils.test';
+import { getArgs, SLIDER_ROOT_TEST_ID } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/UseReactCompareSliderRef',

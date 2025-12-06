@@ -4,7 +4,7 @@ import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSliderRef } from 'react-compare-slider';
 import { createPortal } from 'react-dom';
 
-import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils.test';
+import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils';
 import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
@@ -287,9 +287,10 @@ export const OnlyHandleDraggable: StoryFn<ReactCompareSliderDetailedProps> = ({
 OnlyHandleDraggable.args = { onlyHandleDraggable: true };
 
 export const OnPositionChange: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const onPositionChange = React.useCallback((position) => {
-    console.log('[OnPositionChange.onPositionChange]', position);
-  }, []);
+  const onPositionChange: NonNullable<ReactCompareSliderDetailedProps['onPositionChange']> =
+    React.useCallback((position) => {
+      console.log('[OnPositionChange.onPositionChange]', position);
+    }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: 16 }}>
