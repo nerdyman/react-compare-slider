@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, SLIDER_ROOT_TEST_ID, Template } from './test-utils.test';
+import { getArgs, SLIDER_ROOT_TEST_ID, Template } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Clip',

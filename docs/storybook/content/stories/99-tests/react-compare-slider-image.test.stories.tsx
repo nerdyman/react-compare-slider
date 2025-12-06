@@ -1,10 +1,10 @@
-import { expect, waitFor, within } from 'storybook/test';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSlider, ReactCompareSliderImageProps } from 'react-compare-slider';
 import {
   ReactCompareSliderImage as BaseReactCompareSliderImage,
   styleFitContainer,
 } from 'react-compare-slider';
+import { expect, waitFor, within } from 'storybook/test';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/ReactCompareSliderImage',

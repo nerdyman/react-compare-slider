@@ -9,8 +9,8 @@
     "dev": "pnpm run storybook",
     "storybook": "rm -rf ./node_modules/.cache && storybook dev -p 6006 --ci",
     "build": "storybook build",
-    "test": "rm -rf ./coverage && test-storybook",
-    "test:coverage": "rm -rf ./coverage && test-storybook --coverage && node ./.storybook/hack-coverage.js"
+    "test": "rm -rf ./coverage && vitest --project=storybook",
+    "test:coverage": "pnpm run test --coverage"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.19.3",

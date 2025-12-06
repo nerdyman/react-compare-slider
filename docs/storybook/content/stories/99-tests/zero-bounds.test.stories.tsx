@@ -1,10 +1,10 @@
-import { expect, userEvent, waitFor, within } from 'storybook/test';
 import type { Meta } from '@storybook/react-vite';
 import { useState } from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils.test';
+import { getArgs, Template } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/ZeroBounds',

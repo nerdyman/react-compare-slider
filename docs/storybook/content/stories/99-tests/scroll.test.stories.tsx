@@ -1,8 +1,8 @@
-import { expect, fireEvent, waitFor, within } from 'storybook/test';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSlider, ReactCompareSliderProps } from 'react-compare-slider';
+import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils.test';
+import { getArgs, Template } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Scroll',
