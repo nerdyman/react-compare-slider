@@ -23,7 +23,6 @@
     "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
     "test:storybook": "pnpm --filter @this/storybook run test:coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./coverage/storybook",
     "lint": "pnpm exec biome check",
-    "lint-staged": "lint-staged",
     "upgrade-interactive": "pnpm upgrade --interactive --latest --filter='*'"
   },
   "devDependencies": {
