@@ -3,7 +3,7 @@ import type { ReactCompareSlider } from 'react-compare-slider';
 import { ReactCompareSliderHandle as BaseReactCompareSliderHandle } from 'react-compare-slider';
 import { expect, waitFor, within } from 'storybook/test';
 
-import { getArgs, Template } from './test-utils';
+import { getArgs, TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/ReactCompareSliderHandle',
@@ -11,7 +11,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 /** Test `handle`. */
-export const ReactCompareSliderHandle = Template.bind({});
+export const ReactCompareSliderHandle = TestTemplate.bind({});
 
 ReactCompareSliderHandle.args = getArgs({
   handle: <BaseReactCompareSliderHandle data-testid="handlearoo" style={{ color: 'red' }} />,

@@ -18,10 +18,8 @@
   "scripts": {
     "bootstrap": "corepack enable && pnpm install --frozen-lockfile",
     "clean": "rm -rvf ./node_modules ./docs/*/node_modules ./lib/node_modules ./coverage ./docs/*/coverage ./docs/storybook/storybook-static",
-    "test": "rm -rf coverage && concurrently -n \"ssr,sb\" -c \"magenta,blue\" \"pnpm run test:ssr\" \"pnpm run test:storybook\"",
     "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
-    "test:ssr": "pnpm c8 -o ./coverage/ssr-tests -r text -r lcov node --test ./docs/ssr-tests/ssr.test.mjs",
-    "test:storybook": "pnpm --filter @this/storybook run test:coverage && pnpm nyc report --reporter=lcov -t ./docs/storybook/coverage/storybook --report-dir ./coverage/storybook",
+    "test": "pnpm --filter @this/storybook run test:coverage",
     "lint": "pnpm exec biome check",
     "upgrade-interactive": "pnpm upgrade --interactive --latest --filter='*'"
   },

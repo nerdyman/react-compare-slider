@@ -84,10 +84,10 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
           `clamp(var(${ReactCompareSliderCssVars.boundsPadding}), ${appliedPosition}% - var(${ReactCompareSliderCssVars.boundsPadding}) + var(${ReactCompareSliderCssVars.boundsPadding}), calc(100% - var(${ReactCompareSliderCssVars.boundsPadding})))`,
         );
 
-        handleContainerRef.current?.setAttribute('aria-valuenow', `${Math.round(nextPosition)}`);
+        handleContainerRef.current?.setAttribute('aria-valuenow', `${Math.round(appliedPosition)}`);
         internalPosition.current = appliedPosition;
 
-        onPositionChange?.(nextPosition);
+        onPositionChange?.(appliedPosition);
       },
       [onPositionChange],
     );
@@ -299,25 +299,13 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
         ? ReactCompareSliderClipOption.itemTwo
         : undefined;
 
-    console.log('!!!', { clipBoth, clipItemOne, clipItemTwo });
-
     return (
       <div {...props} ref={rootContainerRef} style={rootStyle} data-rcs-clip={clip} data-rcs="root">
-        <ContainerItem
-          clip={clipItemOne}
-          item={ReactCompareSliderClipOption.itemOne}
-          portrait={portrait}
-          transition={appliedTransition}
-        >
+        <ContainerItem item={clipItemOne} portrait={portrait} transition={appliedTransition}>
           {itemOne}
         </ContainerItem>
 
-        <ContainerItem
-          clip={clipItemTwo}
-          item={ReactCompareSliderClipOption.itemTwo}
-          portrait={portrait}
-          transition={appliedTransition}
-        >
+        <ContainerItem item={clipItemTwo} portrait={portrait} transition={appliedTransition}>
           {itemTwo}
         </ContainerItem>
 
