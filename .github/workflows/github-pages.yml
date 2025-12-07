@@ -28,7 +28,6 @@ jobs:
 
       - name: 📦 Install Dependencies
         run: npm run bootstrap
-        shell: bash
 
       - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:

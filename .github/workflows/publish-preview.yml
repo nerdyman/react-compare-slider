@@ -22,7 +22,6 @@ jobs:
 
       - name: 📦 Install Dependencies
         run: npm run bootstrap
-        shell: bash
 
       - name: 🔨 Build
         run: pnpm run --filter react-compare-slider build
