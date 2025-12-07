@@ -1,4 +1,4 @@
-import { Theme, themes } from '@storybook/theming';
+import { Theme, themes } from 'storybook/theming';
 
 export const theme: Partial<Theme> = {
   ...themes.dark,
