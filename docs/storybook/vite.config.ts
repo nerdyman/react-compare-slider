@@ -14,6 +14,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     coverage: {
+      reporter: ['text', 'json', 'html', 'lcov'],
       allowExternal: true,
       include: [path.resolve(dirname, '../../lib/dist/**/*.mjs')],
       exclude: ['./.storybook/**', './content/**/*'],

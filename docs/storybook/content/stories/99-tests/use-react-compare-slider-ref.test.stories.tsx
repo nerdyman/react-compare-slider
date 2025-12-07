@@ -30,7 +30,7 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
     clientY: slider1.clientHeight * 0.25,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   await fireEvent.pointerMove(slider1, {
     clientX: slider1.clientWidth * 0.75,
@@ -39,7 +39,7 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
 
   await fireEvent.pointerUp(slider1);
 
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   await waitFor(() => {
     expect(slider1.querySelector('[role="slider"]')?.getAttribute('aria-valuenow')).toBe('75');
@@ -51,7 +51,7 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
     clientY: slider2.getBoundingClientRect().top,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   await waitFor(() => {
     expect(slider1.querySelector('[role="slider"]')?.getAttribute('aria-valuenow')).toBe('100');

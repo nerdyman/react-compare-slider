@@ -29,7 +29,6 @@ jobs:
 
       - name: 📦 Install Dependencies
         run: npm run bootstrap
-        shell: bash
 
       - name: 🚦 Lint
         run: pnpm run lint
