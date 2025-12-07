@@ -51,7 +51,7 @@ jobs:
       - uses: qltysh/qlty-action/coverage@v2
         with:
           token: ${{secrets.QLTY_COVERAGE_TOKEN}}
-          files: docs/storybook/coverage
+          files: docs/storybook/coverage/lcov.info
 
       - uses: preactjs/compressed-size-action@v2
         with:
