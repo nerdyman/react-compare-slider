@@ -15,8 +15,8 @@ export default defineConfig({
   test: {
     coverage: {
       allowExternal: true,
-      include: [path.resolve(dirname, '../../lib/dist/**/*')],
-      exclude: ['./.storybook/**', './content/**/*', path.resolve(dirname, '../../lib/dist/*.cjs')],
+      include: [path.resolve(dirname, '../../lib/dist/**/*.mjs')],
+      exclude: ['./.storybook/**', './content/**/*'],
     },
     projects: [
       {
