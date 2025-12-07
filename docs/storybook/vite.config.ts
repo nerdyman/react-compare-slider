@@ -11,17 +11,12 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  resolve: {
-    alias: {
-      'react-compare-slider': path.join(dirname, '..', '..', 'lib', 'src'),
-    },
-  },
   plugins: [react()],
   test: {
     coverage: {
       allowExternal: true,
-      include: [path.resolve(dirname, '../../lib/src/**/*')],
-      exclude: ['./.storybook/**', './content/**/*'],
+      include: [path.resolve(dirname, '../../lib/dist/**/*')],
+      exclude: ['./.storybook/**', './content/**/*', path.resolve(dirname, '../../lib/dist/*.cjs')],
     },
     projects: [
       {
