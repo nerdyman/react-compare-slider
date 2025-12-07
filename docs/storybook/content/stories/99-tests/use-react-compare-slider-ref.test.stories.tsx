@@ -20,24 +20,38 @@ UseReactCompareSliderRef.play = async ({ canvasElement }) => {
   const slider2 = canvas.queryByTestId(`${SLIDER_ROOT_TEST_ID}-2`) as Element;
 
   // Should have elements on mount.
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   await waitFor(() => expect(slider1).toBeInTheDocument());
   await waitFor(() => expect(slider2).toBeInTheDocument());
 
-  fireEvent.pointerDown(slider1, {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  await fireEvent.pointerDown(slider1, {
+    clientX: slider1.clientWidth * 0.25,
+    clientY: slider1.clientHeight * 0.25,
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  await fireEvent.pointerMove(slider1, {
     clientX: slider1.clientWidth * 0.75,
     clientY: slider1.clientHeight * 0.75,
   });
+
+  await fireEvent.pointerUp(slider1);
+
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   await waitFor(() => {
     expect(slider1.querySelector('[role="slider"]')?.getAttribute('aria-valuenow')).toBe('75');
     expect(slider2.querySelector('[role="slider"]')?.getAttribute('aria-valuenow')).toBe('75');
   });
 
-  fireEvent.pointerDown(slider2, {
+  await fireEvent.pointerDown(slider2, {
     clientX: slider2.getBoundingClientRect().right,
     clientY: slider2.getBoundingClientRect().top,
   });
+
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   await waitFor(() => {
     expect(slider1.querySelector('[role="slider"]')?.getAttribute('aria-valuenow')).toBe('100');

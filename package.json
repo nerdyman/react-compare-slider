@@ -18,7 +18,7 @@
   "scripts": {
     "bootstrap": "corepack enable && pnpm install --frozen-lockfile",
     "clean": "rm -rvf ./node_modules ./docs/*/node_modules ./lib/node_modules ./coverage ./docs/*/coverage ./docs/storybook/storybook-static",
-    "test:ci": "concurrently -k -s first -n \"sb,test\" -c \"magenta,blue\" \"pnpm run --filter @this/storybook storybook:build --quiet && pnpm sirv ./docs/storybook/storybook-static --host 127.0.0.1 --port 6006\" \"pnpm wait-port 6006 && pnpm run test\"",
+    "test:ci": "pnpm run --filter @this/storybook test:coverage",
     "test": "pnpm --filter @this/storybook run test:coverage",
     "lint": "pnpm exec biome check",
     "upgrade-interactive": "pnpm upgrade --interactive --latest --filter='*'"
@@ -26,9 +26,6 @@
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
     "@types/node": "^22.5.5",
-    "concurrently": "^9.2.1",
-    "lefthook": "^2.0.8",
-    "sirv-cli": "^3.0.1",
-    "wait-port": "^1.1.0"
+    "lefthook": "^2.0.8"
   }
 }
