@@ -186,7 +186,7 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
           : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
 
         const currentPosition = parseFloat(
-          handleContainerRef.current?.getAttribute?.('aria-valuenow') ?? '0',
+          handleContainerRef.current?.getAttribute?.('aria-valuenow') as string,
         );
 
         const nextPosition = Math.min(

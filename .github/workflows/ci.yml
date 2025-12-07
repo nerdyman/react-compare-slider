@@ -34,9 +34,7 @@ jobs:
         run: pnpm run --filter react-compare-slider check:package
 
       - name: 🧪 Test
-        run: |
-          pnpm dlx playwright@1.41.1 install --with-deps chromium
-          pnpm run test:ci
+        run: pnpm run test:ci
 
       - uses: qltysh/qlty-action/coverage@v2
         with:

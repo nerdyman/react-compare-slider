@@ -1,5 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSliderRef } from 'react-compare-slider';
 import { createPortal } from 'react-dom';
@@ -450,27 +450,29 @@ export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ position = 
 Position.args = { position: 25 };
 
 export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  // We need to know which slider is in control to avoid infinite loops 🤯
-  const [sliderInControl, setSliderInControl] = React.useState(1);
   const slider1Ref = useReactCompareSliderRef();
   const slider2Ref = useReactCompareSliderRef();
 
-  const handlePosition1Change = React.useCallback(
+  const updatingRef = useRef(false);
+
+  const handleSlider1Change = useCallback(
     (position: number) => {
-      if (sliderInControl === 1) {
-        slider2Ref.current?.setPosition(position);
-      }
+      if (updatingRef.current) return;
+      updatingRef.current = true;
+      slider2Ref.current?.setPosition(position);
+      updatingRef.current = false;
     },
-    [slider2Ref, sliderInControl],
+    [slider2Ref],
   );
 
-  const handlePosition2Change = React.useCallback(
+  const handleSlider2Change = useCallback(
     (position: number) => {
-      if (sliderInControl === 2) {
-        slider1Ref.current?.setPosition(position);
-      }
+      if (updatingRef.current) return;
+      updatingRef.current = true;
+      slider1Ref.current?.setPosition(position);
+      updatingRef.current = false;
     },
-    [slider1Ref, sliderInControl],
+    [slider1Ref],
   );
 
   return (
@@ -479,8 +481,7 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> 
         {...props}
         data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
         ref={slider1Ref}
-        onPointerDownCapture={() => setSliderInControl(1)}
-        onPositionChange={handlePosition1Change}
+        onPositionChange={handleSlider1Change}
         itemOne={
           <ReactCompareSliderImage
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
@@ -495,12 +496,12 @@ export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> 
         }
         style={{ width: '50%' }}
       />
+
       <ReactCompareSlider
         {...props}
         data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
         ref={slider2Ref}
-        onPointerDownCapture={() => setSliderInControl(2)}
-        onPositionChange={handlePosition2Change}
+        onPositionChange={handleSlider2Change}
         itemOne={
           <ReactCompareSliderImage
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"

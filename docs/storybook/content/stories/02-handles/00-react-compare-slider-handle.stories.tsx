@@ -141,11 +141,6 @@ export const OverrideHandleContainerClick: StoryFn<ReactCompareSliderProps> = (p
   const reactCompareSliderRef = useReactCompareSliderRef();
 
   useEffect(() => {
-    /**
-     * @NOTE The `containerClick` function is defined within the component for simplicity. If you're
-     *       not using any internal state within it, you can move it outside of the component to
-     *       avoid it being redefined on every effect change.
-     */
     const containerClick = (ev: MouseEvent) => {
       const container = ev.currentTarget as HTMLButtonElement;
 
@@ -157,10 +152,10 @@ export const OverrideHandleContainerClick: StoryFn<ReactCompareSliderProps> = (p
 
     const handleContainer = reactCompareSliderRef.current.handleContainer!;
 
-    handleContainer.addEventListener('click', containerClick, { capture: true });
+    handleContainer?.addEventListener('click', containerClick, { capture: true });
 
     return () => {
-      handleContainer.removeEventListener('click', containerClick, { capture: true });
+      handleContainer?.removeEventListener('click', containerClick, { capture: true });
     };
   }, []);
 
