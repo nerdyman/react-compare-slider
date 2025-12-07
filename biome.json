@@ -113,7 +113,7 @@
         "noUnsafeNegation": "error",
         "noUselessRegexBackrefs": "error",
         "noWith": "error",
-        "useAwait": "off",
+        "useAwait": "error",
         "useGetterReturn": "error"
       }
     }
