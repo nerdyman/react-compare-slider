@@ -14,11 +14,10 @@ export default defineConfig({
   plugins: [react()],
   test: {
     coverage: {
-      provider: 'istanbul',
+      provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
       allowExternal: true,
       include: [path.resolve(dirname, '../../lib/dist/**/*.mjs')],
-      exclude: ['./.storybook/**', './content/**/*'],
     },
     projects: [
       {
