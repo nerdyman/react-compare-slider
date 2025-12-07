@@ -17,7 +17,11 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
       allowExternal: true,
-      include: [path.resolve(dirname, '../../lib/dist/**/*.mjs')],
+      include: [
+        path.resolve(dirname, '../../lib/dist/**/*.mjs'),
+        path.resolve(dirname, '../../lib/src/**/*.ts'),
+        path.resolve(dirname, '../../lib/src/**/*.tsx'),
+      ],
     },
     projects: [
       {
