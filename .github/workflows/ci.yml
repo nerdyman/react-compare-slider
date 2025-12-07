@@ -42,7 +42,7 @@ jobs:
       - uses: qltysh/qlty-action/coverage@v2
         with:
           token: ${{secrets.QLTY_COVERAGE_TOKEN}}
-          files: coverage/storybook/*.info:lcov
+          files: docs/storybook/coverage
 
       - uses: preactjs/compressed-size-action@v2
         with:
