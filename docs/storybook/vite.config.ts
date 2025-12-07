@@ -14,6 +14,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     coverage: {
+      provider: 'istanbul',
       reporter: ['text', 'json', 'html', 'lcov'],
       allowExternal: true,
       include: [path.resolve(dirname, '../../lib/dist/**/*.mjs')],
