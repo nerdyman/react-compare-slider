@@ -2,10 +2,6 @@ name: "🏗️ Bootstrap repo"
 description: "Checkout repo, setup Node.js, and install dependencies"
 
 inputs:
-  node-version-file:
-    description: "File containing Node.js version"
-    required: false
-    default: ".nvmrc"
   install-command:
     description: "Command to run for installing dependencies"
     required: false
@@ -20,7 +16,7 @@ runs:
     - name: ⚒️ Use Node.js
       uses: actions/setup-node@v6
       with:
-        node-version-file: ${{ inputs.node-version-file }}
+        node-version-file: '.nvmrc'
         cache: "pnpm"
 
     - name: 📦 Install Dependencies

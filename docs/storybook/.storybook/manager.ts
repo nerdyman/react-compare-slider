@@ -1,4 +1,4 @@
-import { addons } from '@storybook/manager-api';
+import { addons } from 'storybook/manager-api';
 import { ThemeVars } from 'storybook/theming';
 import { create } from 'storybook/theming/create';
 
