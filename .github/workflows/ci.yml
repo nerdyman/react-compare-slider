@@ -48,14 +48,19 @@ jobs:
       - name: 🧪 Test
         run: pnpm run test:ci
 
-      - uses: qltysh/qlty-action/coverage@v2
+      - name: 🧊 SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          token: ${{secrets.QLTY_COVERAGE_TOKEN}}
-          strip-prefix: "../../lib/src"
-          add-prefix: "./lib/src"
-          files: docs/storybook/coverage/lcov.info
+          # -Dsonar.organization=nerdyman
+          # -Dsonar.projectKey=react-compare-slider
+          args: >
+            -Dsonar.sources=lib/src
+            -Dsonar.javascript.lcov.reportPaths=docs/storybook/coverage/lcov.info
 
-      - uses: preactjs/compressed-size-action@v2
+      - name: 🤏 Compressed Size Action
+        uses: preactjs/compressed-size-action@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           install-script: "pnpm install --frozen-lockfile --filter react-compare-slider"
