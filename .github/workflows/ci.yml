@@ -59,7 +59,7 @@ jobs:
             -Dsonar.projectBaseDir=docs/storybook/coverage
             -Dsonar.sources=../../lib/src
             -Dsonar.inclusions=**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.yml,**/*.yaml
-            -Dsonar.javascript.lcov.reportPaths=docs/storybook/coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
       - name: 🤏 Compressed Size Action
         uses: preactjs/compressed-size-action@v2
