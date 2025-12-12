@@ -56,7 +56,8 @@ jobs:
           args: >
             -Dsonar.organization=nerdyman
             -Dsonar.projectKey=nerdyman_react-compare-slider
-            -Dsonar.sources=lib/src
+            -Dsonar.projectBaseDir=docs/storybook/coverage
+            -Dsonar.sources=../../lib/src
             -Dsonar.inclusions=**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.yml,**/*.yaml
             -Dsonar.javascript.lcov.reportPaths=docs/storybook/coverage/lcov.info
 
