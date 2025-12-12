@@ -53,11 +53,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
+          # -Dsonar.projectBaseDir=docs/storybook
           args: >
             -Dsonar.organization=nerdyman
             -Dsonar.projectKey=nerdyman_react-compare-slider
-            -Dsonar.projectBaseDir=docs/storybook
-            -Dsonar.sources=../../lib/src
+            -Dsonar.sources=lib/src,docs/storybook
             -Dsonar.inclusions=**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.yml,**/*.yaml
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
