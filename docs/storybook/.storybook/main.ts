@@ -1,6 +1,8 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
+  staticDirs: ['../../../lib/src'],
+
   core: {
     builder: '@storybook/builder-vite',
     disableWhatsNewNotifications: true,
