@@ -24,6 +24,7 @@ const preview: Preview = {
         inline: true,
       },
       theme,
+      toc: true,
     },
     options: {
       showRoots: true,
@@ -37,6 +38,7 @@ const preview: Preview = {
       test: 'todo',
     },
   },
+  // tags: ['autodocs'],
 };
 
 export default preview;
