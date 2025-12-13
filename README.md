@@ -9,7 +9,7 @@
 <a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>
 <br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
-<a href="https://sonarcloud.io/api/project_badges/measure?project=nerdyman_react-compare-slider&metric=coverage" alt="Coverage" /></a>
+<a href="https://sonarcloud.io/summary/overall?id=nerdyman_react-compare-slider&branch=main"><img href="https://sonarcloud.io/api/project_badges/measure?project=nerdyman_react-compare-slider&metric=coverage" alt="Coverage" /></a>
 <a href="https://react-compare-slider.vercel.app"><img  alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>
 <a href="https://pkg.pr.new/~/nerdyman/react-compare-slider">
 <img alt="Open in pkg.pr.new" src="https://pkg.pr.new/badge/nerdyman/react-compare-slider?style=flat&color=000&logoSize=auto">
