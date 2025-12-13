@@ -20,6 +20,7 @@ export default defineConfig((options) => ({
   target,
   sourcemap: true,
   splitting: true,
+  onSuccess: 'mkdir -p ../docs/storybook/lib && cp -r ./src ../docs/storybook/lib',
   esbuildOptions(esbuild) {
     esbuild.banner = {
       js: '"use client"',
