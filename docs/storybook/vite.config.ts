@@ -11,19 +11,11 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  // resolve: {
-  //   alias: {
-  //     'react-compare-slider': path.resolve(__dirname, '../../lib/src'),
-  //   },
-  // },
-  // resolve: {
-  //   alias: [
-  //     {
-  //       find: 'react-compare-slider',
-  //       replacement: path.resolve(dirname, '../../lib'),
-  //     },
-  //   ],
-  // },
+  resolve: {
+    alias: {
+      'react-compare-slider': path.resolve(dirname, './lib/src'),
+    },
+  },
   plugins: [react()],
   test: {
     coverage: {
@@ -31,13 +23,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html', 'lcov'],
       reportsDirectory: '../../coverage',
       allowExternal: true,
-      include: [
-        // path.resolve(dirname, './src/**/*.ts'),
-        // path.resolve(dirname, './src/**/*.tsx'),
-        path.resolve(dirname, '../../lib/dist/**/*.mjs'),
-        path.resolve(dirname, '../../lib/src/**/*.ts'),
-        // path.resolve(dirname, '../../lib/src/**/*.tsx'),
-      ],
+      include: [path.resolve(dirname, './lib/**/*.{ts,tsx}')],
     },
     projects: [
       {
@@ -56,11 +42,7 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright({}),
-            instances: [
-              {
-                browser: 'chromium',
-              },
-            ],
+            instances: [{ browser: 'chromium' }],
           },
           setupFiles: ['.storybook/vitest.setup.ts'],
         },

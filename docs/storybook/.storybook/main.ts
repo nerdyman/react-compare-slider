@@ -1,16 +1,8 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-  typescript: {
-    reactDocgen: 'react-docgen-typescript',
-    reactDocgenTypescriptOptions: {
-      tsconfigPath: './tsconfig.app.json',
-      include: ['content/**/*.{ts,tsx}', '../../lib/**/*.{ts,tsx}'],
-    },
-  },
-
-  staticDirs: ['../../../lib/src'],
-
   core: {
     builder: '@storybook/builder-vite',
     disableWhatsNewNotifications: true,

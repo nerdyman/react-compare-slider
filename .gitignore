@@ -9,6 +9,5 @@ coverage
 .env
 .pnpm-store/
 storybook-static
-docs/storybook/src
 lib/README.md
 lib/LICENSE
