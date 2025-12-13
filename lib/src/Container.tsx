@@ -95,6 +95,8 @@ export const ContainerHandle = forwardRef<HTMLButtonElement, ContainerHandleProp
         data-rcs="handle-container"
         disabled={disabled}
         role="slider"
+        // This is replaced dynamically
+        aria-valuenow={0}
         style={style}
       >
         {children}
