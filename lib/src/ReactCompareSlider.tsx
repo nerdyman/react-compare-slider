@@ -178,14 +178,14 @@ export const ReactCompareSlider = forwardRef<UseReactCompareSliderRefReturn, Rea
 
         const incrementPercentage =
           typeof keyboardIncrement === 'string'
-            ? parseFloat(keyboardIncrement)
+            ? Number.parseFloat(keyboardIncrement)
             : (keyboardIncrement / width) * 100;
 
         const isIncrement = portrait
           ? ev.key === KeyboardEventKeys.ARROW_LEFT || ev.key === KeyboardEventKeys.ARROW_DOWN
           : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
 
-        const currentPosition = parseFloat(
+        const currentPosition = Number.parseFloat(
           handleContainerRef.current?.getAttribute?.('aria-valuenow') as string,
         );
 
