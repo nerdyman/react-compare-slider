@@ -32,6 +32,6 @@ jobs:
       - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:
           install_command: "echo Skipping install"
-          build_command: pnpm --filter @this/storybook run build
+          build_command: pnpm --filter react-compare-slider --filter @this/storybook run build
           path: docs/storybook/storybook-static
           checkout: false
