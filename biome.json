@@ -118,6 +118,11 @@
       }
     }
   },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
   "javascript": {
     "formatter": {
       "jsxQuoteStyle": "double",
