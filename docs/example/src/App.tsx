@@ -2,7 +2,7 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 
 export default function App() {
   return (
-    <div style={{ width: '100%', height: '100%', flexGrow: 1 }}>
+    <div style={{ width: '100%', height: '100%', flexGrow: 1, padding: '1rem', gap: '1rem' }}>
       <ReactCompareSlider
         itemOne={
           <ReactCompareSliderImage
