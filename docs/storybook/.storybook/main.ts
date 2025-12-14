@@ -1,5 +1,9 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
+import { createIntroduction } from './create-introduction.ts';
+
+createIntroduction();
+
 const config: StorybookConfig = {
   core: {
     builder: '@storybook/builder-vite',
