@@ -74,11 +74,11 @@
     "esbuild-plugin-browserslist": "^2.0.0",
     "minimatch": "^10.1.1",
     "parse-path": "^7.1.0",
-    "publint": "^0.3.15",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "release-it": "^19.0.6",
-    "tslib": "~2.7.0",
+    "publint": "^0.3.16",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "release-it": "^19.1.0",
+    "tslib": "~2.8.1",
     "tsup": "^8.2.4",
     "typescript": "^5.6.2"
   }
