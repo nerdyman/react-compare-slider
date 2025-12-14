@@ -19,13 +19,13 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const [sliderPosition, setSliderPosition] = React.useState(0);
+  const [sliderPosition, setSliderPosition] = React.useState(50);
   const [isPlaying, setIsPlaying] = React.useState(true);
 
   React.useEffect(() => {
     if (!isPlaying) return;
 
-    setSliderPosition(100);
+    setSliderPosition((prev) => (prev === 0 ? 100 : 0));
 
     const interval = setInterval(() => {
       setSliderPosition((prev) => (prev === 0 ? 100 : 0));
@@ -35,26 +35,28 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   }, [isPlaying]);
 
   return (
-    <ReactCompareSlider
-      {...props}
-      disabled={isPlaying}
-      transition={isPlaying ? '3s ease-in-out' : undefined}
-      onPointerDown={() => setIsPlaying(false)}
-      onPointerLeave={() => setIsPlaying(true)}
-      itemOne={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-          alt="Image one"
-        />
-      }
-      itemTwo={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-          alt="Image two"
-        />
-      }
-      position={sliderPosition}
-    />
+    <div style={{ position: 'relative', width: '100%', padding: '4rem' }}>
+      <ReactCompareSlider
+        {...props}
+        position={sliderPosition}
+        transition={isPlaying ? '3s ease-in-out' : undefined}
+        onPointerDown={() => setIsPlaying(false)}
+        onPointerLeave={() => setIsPlaying(true)}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+            alt="Image one"
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+            alt="Image two"
+            style={{ filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)' }}
+          />
+        }
+      />
+    </div>
   );
 };
 
