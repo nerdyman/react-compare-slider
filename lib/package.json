@@ -7,7 +7,7 @@
     "url": "git+https://github.com/nerdyman/react-compare-slider.git",
     "directory": "lib"
   },
-  "homepage": "https://react-compare-slider.vercel.app",
+  "homepage": "https://react-compare-slider.js.org",
   "author": {
     "email": "averynerdyman@gmail.com",
     "name": "nerdyman",
