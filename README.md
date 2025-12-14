@@ -9,7 +9,7 @@
 <a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>
 <br/>
 <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
-<a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>
+<a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider&branch=main"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>
 <a href="https://react-compare-slider.js.org"><img alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>
 <a href="https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example">
 <img alt="Open in Stackblitz" src="https://developer.stackblitz.com/img/open_in_stackblitz_small.svg" />
