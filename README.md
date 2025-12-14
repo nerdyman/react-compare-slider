@@ -2,7 +2,7 @@
   <h1>React Compare Slider</h1>
   <p>Compare two components side-by-side or top-to-toe.</p>
 
-[![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
+[![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example)
 
 <a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>
 <a href="https://npmjs.com/package/react-compare-slider"><img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>
@@ -38,8 +38,7 @@
 ## Demos
 
 - Storybook: [docs](https://react-compare-slider.js.org/?path=/docs/docs-introduction--docs), [demos](https://react-compare-slider.js.org/?path=/story/demos), [custom recipes](https://react-compare-slider.js.org/?path=/story/recipes), [custom handles](https://react-compare-slider.js.org/?path=/story/handles), [`useReactCompareSliderRef`](https://react-compare-slider.js.org/?path=/docs/docs-usereactcomparesliderref--docs)
-- CodeSandbox: [basic demo](https://codesandbox.io/p/sandbox/github/nerdyman/react-compare-slider/tree/main/docs/example?file=/src/App.tsx:1,1)
-- [Local example](./docs/example)
+- [Standalone demo](./docs/example)
 
 ## Usage
 
