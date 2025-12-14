@@ -18,10 +18,56 @@ const meta: Meta<typeof ReactCompareSlider> = {
 };
 export default meta;
 
+export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+  const [sliderPosition, setSliderPosition] = React.useState(0);
+  const [isPlaying, setIsPlaying] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!isPlaying) return;
+
+    setSliderPosition(100);
+
+    const interval = setInterval(() => {
+      setSliderPosition((prev) => (prev === 0 ? 100 : 0));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  return (
+    <ReactCompareSlider
+      {...props}
+      disabled={isPlaying}
+      transition={isPlaying ? '3s ease-in-out' : undefined}
+      onPointerDown={() => setIsPlaying(false)}
+      onPointerLeave={() => setIsPlaying(true)}
+      itemOne={
+        <ReactCompareSliderImage
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+          alt="Image one"
+        />
+      }
+      itemTwo={
+        <ReactCompareSliderImage
+          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+          alt="Image two"
+        />
+      }
+      position={sliderPosition}
+    />
+  );
+};
+
+Autoplay.args = {
+  style: {
+    width: '100%',
+  },
+};
+
 export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [labelOpacity, setLabelOpacity] = React.useState(1);
 
-  const labelStyle = {
+  const labelStyle: React.CSSProperties = {
     fontSize: '1.25rem',
     position: 'absolute',
     padding: '1rem',
@@ -87,7 +133,7 @@ ItemLabels.args = {
 export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [labelOpacity, setLabelOpacity] = React.useState(1);
 
-  const labelStyle = {
+  const labelStyle: React.CSSProperties = {
     fontSize: '.75rem',
     position: 'absolute',
     padding: '.25rem',
