@@ -34,6 +34,8 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
     );
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   await step('Move slider to 100%', async () => {
     await fireEvent.pointerDown(sliderRoot, {
       clientX: sliderRoot.clientWidth,
