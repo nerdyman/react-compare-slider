@@ -27,6 +27,7 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       clientY: 0,
     });
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('0'));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     await waitFor(() =>
       expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
         'clamp(5%, 0% - 5% + 5%, calc(100% - 5%))',
@@ -41,6 +42,7 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       clientX: sliderRoot.clientWidth,
       clientY: sliderRoot.clientHeight,
     });
+    await new Promise((resolve) => setTimeout(resolve, 100));
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
     await waitFor(() =>
       expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
