@@ -59,19 +59,7 @@
     "check:package": "attw -P . && publint",
     "check:types": "tsc --noEmit"
   },
-  "browserslist": {
-    "production": [
-      "last 2 chrome versions",
-      "last 2 edge versions",
-      "last 2 firefox versions",
-      "safari >= 15.6",
-      "ios >= 15.6",
-      "not dead",
-      "not ie > 0",
-      "not op_mini all"
-    ],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
-  },
+  "browserslist": ["defaults and fully supports es6-module", "maintained node versions", "ios >= 16.6"],
   "peerDependencies": {
     "react": ">=16.8",
     "react-dom": ">=16.8"
