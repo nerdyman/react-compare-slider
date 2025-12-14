@@ -11,7 +11,11 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 export const BoundsPadding = BoundsPaddingStory;
-BoundsPadding.args = getArgs({ ...BoundsPaddingStory.args, style: { width: '400px', height: '200px' } });
+BoundsPadding.args = getArgs({
+  ...BoundsPaddingStory.args,
+  position: 0,
+  style: { width: '400px', height: '200px' },
+});
 
 BoundsPadding.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement);
@@ -19,7 +23,7 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
   const sliderRoot = canvas.getByTestId(SLIDER_ROOT_TEST_ID);
 
   await waitFor(() => expect(slider).toBeInTheDocument());
-  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('0'));
 
   await step('Move slider to 0%', async () => {
     await fireEvent.pointerDown(sliderRoot, {
@@ -34,7 +38,6 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       ),
     );
   });
-
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   await step('Move slider to 100%', async () => {
@@ -42,8 +45,8 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       clientX: sliderRoot.clientWidth,
       clientY: sliderRoot.clientHeight,
     });
-    await new Promise((resolve) => setTimeout(resolve, 100));
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     await waitFor(() =>
       expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
         'clamp(5%, 100% - 5% + 5%, calc(100% - 5%))',
