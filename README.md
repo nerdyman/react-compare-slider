@@ -90,14 +90,3 @@ export const Example = () => {
 | [`transition`](https://react-compare-slider.js.org/?path=/story/demos--transition)                          | `string`                     |          | `undefined`  | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`             |
 
 [API docs](https://react-compare-slider.js.org/?path=/docs/docs-api--docs) for more information.
-
-<br />
-
-## Real World Examples
-
-Checkout out the [Real World Examples page](https://react-compare-slider.js.org/?path=/docs/docs-real-world-examples--docs).
-
-## Requirements
-
-- React 16.8+
-- The latest two versions of each major browser are officially supported (at time of publishing)
