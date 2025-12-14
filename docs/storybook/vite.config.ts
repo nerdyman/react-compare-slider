@@ -10,21 +10,36 @@ import { defineConfig } from 'vite';
 
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
-const readmePath = path.join(dirname, '../../README.md');
-const mdxIntroPath = path.join(dirname, 'content/00-introduction.mdx');
+/**
+ * Copy the root readme and format it to be the Storybook introduction page.
+ */
+const createIntroduction = () => {
+  const readmePath = path.join(dirname, '../../README.md');
+  const introductionPath = path.join(dirname, 'content/00-introduction.mdx');
 
-console.info('\n[vite.config] Copying readme', {
-  from: `file://${readmePath}`,
-  to: `file://${mdxIntroPath}`,
-});
+  console.info('\n[vite.config] Copying readme', {
+    from: `file://${readmePath}`,
+    to: `file://${introductionPath}`,
+  });
 
-// Copy root readme to be Storybook landing page.
-fs.copyFile(readmePath, mdxIntroPath, (error) => {
-  if (error) {
-    console.error('[vite.config] Error copying README.md to Storybook introduction page:', error);
-    process.exit(1);
-  }
-});
+  const readmeContents = fs.readFileSync(readmePath, 'utf8');
+  const introductionContents = `
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Introduction" />
+
+${readmeContents}
+`;
+
+  fs.writeFile(introductionPath, introductionContents, (error) => {
+    if (error) {
+      console.error('[vite.config] Error copying README.md to Storybook introduction page:', error);
+      process.exit(1);
+    }
+  });
+};
+
+createIntroduction();
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
