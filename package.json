@@ -14,7 +14,7 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.25.0",
   "scripts": {
     "bootstrap": "corepack enable && pnpm install --frozen-lockfile",
     "clean": "rm -rvf ./node_modules ./docs/*/node_modules ./lib/node_modules ./coverage ./docs/*/coverage ./docs/storybook/storybook-static",
