@@ -1,5 +1,3 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
@@ -20,7 +18,7 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
     '@storybook/addon-mdx-gfm',
-    // '@storybook/addon-storysource',
+    '@storybook/addon-storysource',
   ],
 
   stories: ['../content/**/*.mdx', '../content/**/*.stories.@(ts|tsx)'],
