@@ -1,27 +1,12 @@
 'use client';
 
-import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { KeyboardEventKeys, ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 import type {
   SetPositionFromBoundsProps,
   UseReactCompareSliderProps,
-  UseReactCompareSliderRefReturn,
   UseReactCompareSliderReturn,
 } from './types';
-
-/**
- * Control the position and access or modify the DOM elements of the slider.
- * Do not use this hook if you using `useReactCompareSlider` - it already provides these properties and more in
- * its return value.
- */
-export const useReactCompareSliderRef = (): RefObject<UseReactCompareSliderRefReturn> =>
-  useRef<UseReactCompareSliderRefReturn>({
-    rootContainer: null,
-    handleContainer: null,
-    setPosition: () =>
-      // biome-ignore lint/suspicious/noConsole: This intentionally warns users to help with debugging.
-      console.warn('[react-compare-slider] `setPosition` cannot be used until the component has mounted.'),
-  });
 
 /**
  * Hook to completely control the slider including all event handlers and state.

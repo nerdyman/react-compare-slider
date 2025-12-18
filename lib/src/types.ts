@@ -35,28 +35,6 @@ export type ReactCompareSliderCommonProps = {
   transition?: string;
 };
 
-/** Properties returned by the `useReactCompareSliderRef` hook. */
-export type UseReactCompareSliderRefReturn = {
-  /**
-   * DOM node of the root container of the slider.
-   * @NOTE This value is only populated **after** the slider has mounted.
-   */
-  rootContainer: HTMLDivElement | null;
-
-  /**
-   * DOM node of the container of the `handle` component.
-   * @NOTE This value is only populated **after** the slider has mounted.
-   */
-  handleContainer: HTMLButtonElement | null;
-
-  /**
-   * Set the position of the slider as a percentage between `0` and `100`.
-   * Updates the slider position after render without triggering re-renders.
-   * @NOTE This function is only actionable **after** the slider has mounted.
-   */
-  setPosition: (position: ReactCompareSliderPosition) => void;
-};
-
 export type UseReactCompareSliderProps = Partial<ReactCompareSliderCommonProps> & {
   /**
    * CSS unit amount to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).

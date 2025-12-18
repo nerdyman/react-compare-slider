@@ -39,7 +39,7 @@ export default function App() {
         style={{ width: '100%', height: '50%' }}
       />
       <ReactCompareSlider
-        portrait={true}
+        portrait
         itemOne={
           <ReactCompareSliderImage
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"

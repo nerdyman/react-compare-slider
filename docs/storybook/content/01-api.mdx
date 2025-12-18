@@ -1,12 +1,11 @@
-import { Description, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import { Description, Meta, ArgTypes } from "@storybook/addon-docs/blocks";
 
 import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
   styleFitContainer,
-  useReactCompareSliderRef,
-} from 'react-compare-slider';
+} from "react-compare-slider";
 
 <Meta title="Docs/API" />
 
@@ -24,7 +23,6 @@ import {
 
 <ArgTypes of={ReactCompareSlider} />
 
-
 ## `ReactCompareSliderHandle`
 
 <Description of={ReactCompareSliderHandle} />
@@ -35,7 +33,6 @@ import {
 
 <ArgTypes of={ReactCompareSliderHandle} />
 
-
 ## `ReactCompareSliderImage`
 
 <Description of={ReactCompareSliderImage} />
@@ -45,7 +42,6 @@ import {
 ### Props
 
 `ReactCompareSliderImage` accepts any valid HTML `img` component props.
-
 
 ## `styleFitContainer`
 
@@ -64,27 +60,16 @@ defaults to `object-fit` to `cover`.
 Fill a full width/height container:
 
 ```jsx
-import { styleFitContainer } from 'react-compare-slider';
+import { styleFitContainer } from "react-compare-slider";
 
-<div style={{ width: '100vw', height: '100vh' }}>
-    <video
-        style={{
-            ...styleFitContainer({
-                objectFit: 'contain',
-                objectPosition: 'center',
-            })
-        }}
-    />
-</div>
+<div style={{ width: "100vw", height: "100vh" }}>
+  <video
+    style={{
+      ...styleFitContainer({
+        objectFit: "contain",
+        objectPosition: "center",
+      }),
+    }}
+  />
+</div>;
 ```
-
-## `useReactCompareSliderRef`
-
-<Description of={useReactCompareSliderRef} />
-
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/lib/src/useReactCompareSliderRef.ts)
-
-The `useReactCompareSliderRef` hook provides a ref to the root element of the slider and exposes the internal
-function used to control the position of the slider. It offers performant programmatic control of the slider.
-
-Check out the [`useReactCompareSliderRef` docs](/story/docs-usereactcomparesliderref--page) more information.
