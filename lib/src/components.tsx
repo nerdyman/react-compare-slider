@@ -211,7 +211,7 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
 
 export type ImageProps = ComponentPropsWithoutRef<'img'>;
 
-/** `Img` element with defaults from `styleFitContainer` applied. */
+/** `img` element with defaults from `styleFitContainer` applied. */
 export const Image = forwardRef<HTMLImageElement, ImageProps>(({ style, ...props }, ref) => {
   const rootStyle = styleFitContainer(style);
 
