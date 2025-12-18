@@ -84,7 +84,7 @@
     "release:preflight": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check",
     "release:publish": "release-it",
     "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
-    "check:package": "attw -P . && publint",
+    "check:package": "attw --profile node16 -P . && publint",
     "check:types": "tsc --noEmit"
   },
   "browserslist": ["defaults and fully supports es6-module", "maintained node versions", "ios >= 16.6"],
