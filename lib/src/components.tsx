@@ -161,6 +161,7 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
   const appliedStyle: CSSProperties = {
     WebkitAppearance: 'none',
     MozAppearance: 'none',
+    WebkitTapHighlightColor: 'transparent',
     position: 'absolute',
     contain: 'layout',
     top: portrait ? `var(${ReactCompareSliderCssVars.currentPosition})` : '0',
