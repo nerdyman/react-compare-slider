@@ -1,10 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSliderRef } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { createPortal } from 'react-dom';
 
-import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils';
 import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
@@ -81,7 +80,6 @@ BoundsPadding.args = { boundsPadding: '5%' };
 
 export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [browsingContext, setBrowsingContext] = useState<Window | null>(null);
-  const reactCompareSliderRef = useReactCompareSliderRef();
 
   return (
     <div>
@@ -104,7 +102,6 @@ export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props)
                 alt="Image two"
               />
             }
-            ref={reactCompareSliderRef}
             browsingContext={browsingContext}
           />,
           browsingContext.document.body,
@@ -360,77 +357,77 @@ Portrait.args = {
   },
 };
 
-export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const reactCompareSliderRef = useReactCompareSliderRef();
+// export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+//   const reactCompareSliderRef = useReactCompareSliderRef();
 
-  React.useEffect(() => {
-    const fireTransition = async () => {
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          reactCompareSliderRef.current?.setPosition(90);
-          resolve(true);
-        }, 750),
-      );
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          reactCompareSliderRef.current?.setPosition(10);
-          resolve(true);
-        }, 750),
-      );
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          reactCompareSliderRef.current?.setPosition(50);
-          resolve(true);
-        }, 750),
-      );
-    };
+//   React.useEffect(() => {
+//     const fireTransition = async () => {
+//       await new Promise((resolve) =>
+//         setTimeout(() => {
+//           reactCompareSliderRef.current?.setPosition(90);
+//           resolve(true);
+//         }, 750),
+//       );
+//       await new Promise((resolve) =>
+//         setTimeout(() => {
+//           reactCompareSliderRef.current?.setPosition(10);
+//           resolve(true);
+//         }, 750),
+//       );
+//       await new Promise((resolve) =>
+//         setTimeout(() => {
+//           reactCompareSliderRef.current?.setPosition(50);
+//           resolve(true);
+//         }, 750),
+//       );
+//     };
 
-    fireTransition();
-  }, []);
+//     fireTransition();
+//   }, []);
 
-  return (
-    <ReactCompareSlider
-      {...props}
-      ref={reactCompareSliderRef}
-      itemOne={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-          alt="Image one"
-        />
-      }
-      itemTwo={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-          alt="Image two"
-          style={{
-            filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
-          }}
-        />
-      }
-      style={{ width: '100%', height: '100vh' }}
-    />
-  );
-};
+//   return (
+//     <ReactCompareSlider
+//       {...props}
+//       ref={reactCompareSliderRef}
+//       itemOne={
+//         <ReactCompareSliderImage
+//           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+//           alt="Image one"
+//         />
+//       }
+//       itemTwo={
+//         <ReactCompareSliderImage
+//           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+//           alt="Image two"
+//           style={{
+//             filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
+//           }}
+//         />
+//       }
+//       style={{ width: '100%', height: '100vh' }}
+//     />
+//   );
+// };
 
-Transition.args = {
-  position: 50,
-  transition: '.75s ease-in-out',
-  style: {
-    backgroundColor: 'white',
-    backgroundImage: `
-              linear-gradient(45deg, #ccc 25%, transparent 25%),
-              linear-gradient(-45deg, #ccc 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #ccc 75%),
-              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
-    backgroundSize: `20px 20px`,
-    backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
-  },
-};
+// Transition.args = {
+//   position: 50,
+//   transition: '.75s ease-in-out',
+//   style: {
+//     backgroundColor: 'white',
+//     backgroundImage: `
+//               linear-gradient(45deg, #ccc 25%, transparent 25%),
+//               linear-gradient(-45deg, #ccc 25%, transparent 25%),
+//               linear-gradient(45deg, transparent 75%, #ccc 75%),
+//               linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+//     backgroundSize: `20px 20px`,
+//     backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+//   },
+// };
 
-export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ position = 25, ...props }) => (
+export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ defaultPosition = 25, ...props }) => (
   <ReactCompareSlider
     {...props}
-    position={position}
+    defaultPosition={defaultPosition}
     itemOne={
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
@@ -447,97 +444,97 @@ export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ position = 
   />
 );
 
-Position.args = { position: 25 };
+Position.args = { defaultPosition: 25 };
 
-export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const slider1Ref = useReactCompareSliderRef();
-  const slider2Ref = useReactCompareSliderRef();
+// export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+//   const slider1Ref = useReactCompareSliderRef();
+//   const slider2Ref = useReactCompareSliderRef();
 
-  const updatingRef = useRef(false);
+//   const updatingRef = useRef(false);
 
-  const handleSlider1Change = useCallback(
-    (position: number) => {
-      if (updatingRef.current) return;
-      updatingRef.current = true;
-      slider2Ref.current?.setPosition(position);
-      updatingRef.current = false;
-    },
-    [slider2Ref],
-  );
+//   const handleSlider1Change = useCallback(
+//     (position: number) => {
+//       if (updatingRef.current) return;
+//       updatingRef.current = true;
+//       slider2Ref.current?.setPosition(position);
+//       updatingRef.current = false;
+//     },
+//     [slider2Ref],
+//   );
 
-  const handleSlider2Change = useCallback(
-    (position: number) => {
-      if (updatingRef.current) return;
-      updatingRef.current = true;
-      slider1Ref.current?.setPosition(position);
-      updatingRef.current = false;
-    },
-    [slider1Ref],
-  );
+//   const handleSlider2Change = useCallback(
+//     (position: number) => {
+//       if (updatingRef.current) return;
+//       updatingRef.current = true;
+//       slider1Ref.current?.setPosition(position);
+//       updatingRef.current = false;
+//     },
+//     [slider1Ref],
+//   );
 
-  return (
-    <div style={{ display: 'flex', flexGrow: 1 }}>
-      <ReactCompareSlider
-        {...props}
-        data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
-        ref={slider1Ref}
-        onPositionChange={handleSlider1Change}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '50%' }}
-      />
+//   return (
+//     <div style={{ display: 'flex', flexGrow: 1 }}>
+//       <ReactCompareSlider
+//         {...props}
+//         data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
+//         ref={slider1Ref}
+//         onPositionChange={handleSlider1Change}
+//         itemOne={
+//           <ReactCompareSliderImage
+//             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+//             alt="Image one"
+//           />
+//         }
+//         itemTwo={
+//           <ReactCompareSliderImage
+//             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+//             alt="Image two"
+//           />
+//         }
+//         style={{ width: '50%' }}
+//       />
 
-      <ReactCompareSlider
-        {...props}
-        data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
-        ref={slider2Ref}
-        onPositionChange={handleSlider2Change}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '50%' }}
-      />
+//       <ReactCompareSlider
+//         {...props}
+//         data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
+//         ref={slider2Ref}
+//         onPositionChange={handleSlider2Change}
+//         itemOne={
+//           <ReactCompareSliderImage
+//             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+//             alt="Image one"
+//           />
+//         }
+//         itemTwo={
+//           <ReactCompareSliderImage
+//             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+//             alt="Image two"
+//           />
+//         }
+//         style={{ width: '50%' }}
+//       />
 
-      <button
-        type="button"
-        onClick={() => {
-          slider1Ref.current.setPosition(props.position!);
-          slider2Ref.current.setPosition(props.position!);
-        }}
-        style={{
-          position: 'absolute',
-          left: '50%',
-          fontSize: '1.5rem',
-          transform: 'translateX(-50%)',
-          zIndex: 1,
-        }}
-      >
-        Reset sliders to <code>position</code> value ({props.position})
-      </button>
-    </div>
-  );
-};
+//       <button
+//         type="button"
+//         onClick={() => {
+//           slider1Ref.current.setPosition(props.position!);
+//           slider2Ref.current.setPosition(props.position!);
+//         }}
+//         style={{
+//           position: 'absolute',
+//           left: '50%',
+//           fontSize: '1.5rem',
+//           transform: 'translateX(-50%)',
+//           zIndex: 1,
+//         }}
+//       >
+//         Reset sliders to <code>position</code> value ({props.position})
+//       </button>
+//     </div>
+//   );
+// };
 
-UseReactCompareSliderRef.args = {};
+// UseReactCompareSliderRef.args = {};
 
 export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props) => (
   <div

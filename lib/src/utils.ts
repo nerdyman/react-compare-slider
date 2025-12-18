@@ -1,13 +1,5 @@
 import { type CSSProperties, useEffect, useRef } from 'react';
 
-/** Keyboard `key` events to trigger slider movement. */
-export enum KeyboardEventKeys {
-  ARROW_LEFT = 'ArrowLeft',
-  ARROW_RIGHT = 'ArrowRight',
-  ARROW_UP = 'ArrowUp',
-  ARROW_DOWN = 'ArrowDown',
-}
-
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their container.
  */
@@ -30,17 +22,6 @@ export const styleFitContainer = ({
   objectPosition,
   ...props,
 });
-
-/** Store the previous supplied value. */
-export const usePrevious = <T>(value: T): T | undefined => {
-  const ref = useRef<T | undefined>(undefined);
-
-  useEffect(() => {
-    ref.current = value;
-  });
-
-  return ref.current;
-};
 
 /**
  * Event listener binding hook.

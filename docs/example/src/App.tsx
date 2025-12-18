@@ -1,9 +1,23 @@
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSlider } from 'react-compare-slider';
 
 export default function App() {
+  const slider1Props = useReactCompareSlider();
+  const slider2Props = useReactCompareSlider({ portrait: true });
+
   return (
-    <div style={{ width: '100%', height: '100%', flexGrow: 1, padding: '1rem', gap: '1rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        flexGrow: 1,
+        padding: '1rem',
+        gap: '1rem',
+      }}
+    >
       <ReactCompareSlider
+        {...slider1Props}
         itemOne={
           <ReactCompareSliderImage
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
@@ -29,7 +43,7 @@ export default function App() {
         style={{ width: '100%', height: '50%' }}
       />
       <ReactCompareSlider
-        portrait
+        {...slider2Props}
         itemOne={
           <ReactCompareSliderImage
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"

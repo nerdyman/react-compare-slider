@@ -46,6 +46,34 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./components": {
+      "import": {
+        "types": "./dist/components.d.ts",
+        "default": "./dist/components.mjs"
+      },
+      "require": {
+        "types": "./dist/components.d.cts",
+        "default": "./dist/components.cjs"
+      }
+    },
+    "./hooks": {
+      "import": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./dist/hooks.mjs"
+      },
+      "require": {
+        "types": "./dist/hooks.d.cts",
+        "default": "./dist/hooks.cjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types.d.ts"
+      },
+      "require": {
+        "types": "./dist/types.d.cts"
+      }
     }
   },
   "files": ["src", "dist"],

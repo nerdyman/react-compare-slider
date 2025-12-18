@@ -75,6 +75,7 @@
       "security": { "noDangerouslySetInnerHtmlWithChildren": "error" },
       "style": {
         "noNamespace": "error",
+        "useImportType": "info",
         "noNonNullAssertion": "warn",
         "useArrayLiterals": "error",
         "useAsConstAssertion": "error"

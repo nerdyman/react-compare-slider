@@ -1,12 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import React from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import {
-  ReactCompareSlider,
-  ReactCompareSliderHandle,
-  ReactCompareSliderImage,
-  useReactCompareSliderRef,
-} from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage } from 'react-compare-slider';
 
 import { args, argTypes } from '../config';
 
@@ -37,7 +32,7 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <ReactCompareSlider
       {...props}
-      position={sliderPosition}
+      defaultPosition={sliderPosition}
       transition={isPlaying ? '3s ease-in-out' : undefined}
       onPointerDown={() => setIsPlaying(false)}
       onPointerLeave={() => setIsPlaying(true)}
@@ -283,35 +278,35 @@ WaitForImageLoad.args = {
   },
 };
 
-export const ResetOnPointerLeave: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const reactCompareSliderRef = useReactCompareSliderRef();
+// export const ResetOnPointerLeave: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+//   const reactCompareSliderRef = useReactCompareSliderRef();
 
-  return (
-    <div style={{ display: 'flex', width: '100%', padding: '3rem' }}>
-      <ReactCompareSlider
-        {...props}
-        onPointerLeave={() => reactCompareSliderRef.current?.setPosition(props.position!)}
-        ref={reactCompareSliderRef}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-      />
-      <button style={{ position: 'absolute', top: 0, left: 0 }}>Touch device focus trap</button>
-    </div>
-  );
-};
+//   return (
+//     <div style={{ display: 'flex', width: '100%', padding: '3rem' }}>
+//       <ReactCompareSlider
+//         {...props}
+//         onPointerLeave={() => reactCompareSliderRef.current?.setPosition(props.position!)}
+//         ref={reactCompareSliderRef}
+//         itemOne={
+//           <ReactCompareSliderImage
+//             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+//             alt="Image one"
+//           />
+//         }
+//         itemTwo={
+//           <ReactCompareSliderImage
+//             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+//             alt="Image two"
+//           />
+//         }
+//       />
+//       <button style={{ position: 'absolute', top: 0, left: 0 }}>Touch device focus trap</button>
+//     </div>
+//   );
+// };
 
-ResetOnPointerLeave.args = {
-  style: {
-    width: '100%',
-  },
-};
+// ResetOnPointerLeave.args = {
+//   style: {
+//     width: '100%',
+//   },
+// };

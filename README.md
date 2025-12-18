@@ -32,6 +32,7 @@
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive & fluid with intrinsic sizing
+- Performant, ref-based with minimal re-renders
 - Teeny-tiny, zero dependencies
 - Type safe
 
@@ -58,13 +59,20 @@ You _may_ use `ReactCompareSliderImage` to render images or use your own custom
 components.
 
 ```jsx
-import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage,
+} from "react-compare-slider";
 
 export const Example = () => {
   return (
     <ReactCompareSlider
-      itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
-      itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
+      itemOne={
+        <ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />
+      }
+      itemTwo={
+        <ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />
+      }
     />
   );
 };

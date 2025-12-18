@@ -9,7 +9,7 @@ const target = resolveToEsbuildTarget(browserslist()) as Options['target'];
 export default defineConfig((options) => ({
   clean: !options.watch,
   dts: true,
-  entry: ['src/index.ts'],
+  entry: ['src/index.ts', './src/components.tsx', 'src/hooks.ts', 'src/types.ts'],
   format: ['esm', 'cjs'],
   outExtension: (context) => {
     return {

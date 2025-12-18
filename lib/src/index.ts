@@ -1,16 +1,17 @@
 export { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
-export { ReactCompareSlider } from './ReactCompareSlider';
+export { useReactCompareSlider, useReactCompareSliderRef } from './hooks';
 export type { ReactCompareSliderHandleProps } from './ReactCompareSliderHandle';
 export { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 export type { ReactCompareSliderImageProps } from './ReactCompareSliderImage';
 export { ReactCompareSliderImage } from './ReactCompareSliderImage';
-
-export {
-  type ReactCompareSliderClip,
-  type ReactCompareSliderDetailedProps,
-  type ReactCompareSliderPropPosition,
-  type ReactCompareSliderProps,
-  type UseReactCompareSliderRefReturn,
+export { ReactCompareSlider } from './react-compare-slider';
+export type {
+  ReactCompareSliderClip,
+  ReactCompareSliderDetailedProps,
+  ReactCompareSliderPosition,
+  ReactCompareSliderProps,
+  UseReactCompareSliderProps,
+  UseReactCompareSliderRefReturn,
+  UseReactCompareSliderReturn,
 } from './types';
-export { useReactCompareSliderRef } from './useReactCompareSliderRef';
 export { styleFitContainer } from './utils';
