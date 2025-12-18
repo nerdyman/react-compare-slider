@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
-import { useEffect } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 import {
   EVENT_CAPTURE_PARAMS,
@@ -11,7 +11,7 @@ import {
 } from './consts';
 import { useReactCompareSliderContext } from './context';
 import type { ReactCompareSliderClip, ReactCompareSliderProps } from './types';
-import { useEventListener } from './utils';
+import { styleFitContainer, useEventListener } from './utils';
 
 export type RootProps = ComponentPropsWithoutRef<'div'>;
 
@@ -208,3 +208,14 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     />
   );
 };
+
+export type ImageProps = ComponentPropsWithoutRef<'img'>;
+
+/** `Img` element with defaults from `styleFitContainer` applied. */
+export const Image = forwardRef<HTMLImageElement, ImageProps>(({ style, ...props }, ref) => {
+  const rootStyle = styleFitContainer(style);
+
+  return <img ref={ref} {...props} style={rootStyle} data-rcs="image" />;
+});
+
+Image.displayName = 'Image';

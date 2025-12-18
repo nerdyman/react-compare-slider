@@ -6,12 +6,7 @@ export default defineConfig((options) => ({
   clean: !options.watch,
   dts: true,
   entry: ['src/index.ts', './src/components.tsx', 'src/hooks.ts', 'src/types.ts'],
-  format: ['esm', 'cjs'],
-  outExtension: (context) => {
-    return {
-      js: context.format === 'esm' ? '.mjs' : '.cjs',
-    };
-  },
+  format: ['es', 'cjs'],
   minify: !options.watch,
   target: packageJson.browserslist,
   sourcemap: true,
