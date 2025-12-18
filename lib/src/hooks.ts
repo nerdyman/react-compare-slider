@@ -158,8 +158,8 @@ export const useReactCompareSlider = ({
     rootRef.current?.style.setProperty(ReactCompareSliderCssVars.boundsPadding, boundsPadding);
   }, [boundsPadding]);
 
-  // Set default position on mount. This intentionally does not include `defaultPosition` in the dependency
-  // to ensure it's only set once.
+  // Set default position on mount props on mount.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: This intentionally only runs on mount.
   useEffect(() => {
     rootRef.current?.style.setProperty(ReactCompareSliderCssVars.rawPosition, `${defaultPosition}%`);
     handleRootRef.current?.setAttribute?.('aria-valuenow', Math.round(defaultPosition).toString());
