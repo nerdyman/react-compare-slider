@@ -1,3 +1,5 @@
+'use client';
+
 import type { ComponentProps, CSSProperties, FC } from 'react';
 import { useReactCompareSliderContext } from './context';
 

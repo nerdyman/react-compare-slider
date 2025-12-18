@@ -1,3 +1,5 @@
+'use client';
+
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
 import { useEffect } from 'react';
 

@@ -1,10 +1,12 @@
-import type { ImgHTMLAttributes, ReactElement } from 'react';
+'use client';
+
+import type { ComponentProps, ReactElement } from 'react';
 import { forwardRef } from 'react';
 
 import { styleFitContainer } from './utils';
 
 /** Props for `ReactCompareSliderImage`. */
-export type ReactCompareSliderImageProps = ImgHTMLAttributes<HTMLImageElement>;
+export type ReactCompareSliderImageProps = ComponentProps<'img'>;
 
 /** `Img` element with defaults from `styleFitContainer` applied. */
 export const ReactCompareSliderImage = forwardRef<HTMLImageElement, ReactCompareSliderImageProps>(
