@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import {
   EVENT_CAPTURE_PARAMS,
@@ -23,13 +23,11 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
     isDragging,
     portrait,
     onTouchEnd,
-    onKeyDown,
     onPointerDown,
     onPointerMove,
     onPointerUp,
     interactiveTarget,
     rootRef,
-    handleRootRef,
     hasBrowsingContextBinding,
   } = useReactCompareSliderContext();
 
@@ -50,15 +48,7 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
     ...style,
   } as CSSProperties;
 
-  // TODO: Move this to context so it can be overridden?
-  const onHandleRootClick = useCallback((ev: PointerEvent) => {
-    ev.preventDefault();
-    (ev.currentTarget as HTMLButtonElement).focus();
-  }, []);
-
   useEventListener('touchend', onTouchEnd, interactiveTarget, EVENT_CAPTURE_PARAMS);
-  useEventListener('keydown', onKeyDown, handleRootRef.current, EVENT_CAPTURE_PARAMS);
-  useEventListener('click', onHandleRootClick, handleRootRef.current, EVENT_CAPTURE_PARAMS);
   useEventListener('pointerdown', onPointerDown, interactiveTarget, EVENT_CAPTURE_PARAMS);
 
   // Handle hover events on the container.
@@ -151,8 +141,8 @@ export const Item: FC<ContainerItemProps> = ({ item, style, ...props }) => {
     transform: 'translateZ(0)',
     transition: transition ? `clip-path ${transition}` : undefined,
     userSelect: 'none',
-    willChange: 'clip-path',
     zIndex: item === ReactCompareSliderClipOption.itemOne ? 1 : undefined,
+    willChange: 'clip-path',
     ...style,
   };
 
@@ -163,7 +153,8 @@ export type HandleRootProps = ComponentPropsWithoutRef<'button'>;
 
 /** Container to control the handle's position. */
 export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
-  const { disabled, portrait, transition, handleRootRef } = useReactCompareSliderContext();
+  const { disabled, portrait, transition, handleRootRef, onHandleRootClick, onKeyDown } =
+    useReactCompareSliderContext();
 
   const targetAxis = portrait ? 'top' : 'left';
 
@@ -171,6 +162,7 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     WebkitAppearance: 'none',
     MozAppearance: 'none',
     position: 'absolute',
+    contain: 'layout',
     top: portrait ? `var(${ReactCompareSliderCssVars.currentPosition})` : '0',
     left: portrait ? '0' : `var(${ReactCompareSliderCssVars.currentPosition})`,
     width: portrait ? '100%' : undefined,
@@ -180,14 +172,18 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     padding: 0,
     pointerEvents: 'all',
     appearance: 'none',
-    zIndex: 1,
     outline: 0,
-    transform: portrait ? `translate3d(0, -50% ,0)` : `translate3d(-50%, 0, 0)`,
+    zIndex: 1,
+    translate: portrait ? '0 -50% 0' : '-50% 0 0',
+    // transform: portrait ? `translate3d(0, -50% ,0)` : `translate3d(-50%, 0, 0)`,
     backfaceVisibility: 'hidden',
     transition: transition ? `${targetAxis} ${transition}` : undefined,
     willChange: portrait ? 'top' : 'left',
     ...style,
   };
+
+  useEventListener('keydown', onKeyDown, handleRootRef.current, EVENT_CAPTURE_PARAMS);
+  useEventListener('click', onHandleRootClick, handleRootRef.current, EVENT_CAPTURE_PARAMS);
 
   return (
     <button

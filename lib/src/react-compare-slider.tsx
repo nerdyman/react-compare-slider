@@ -4,6 +4,7 @@ import type { FC } from 'react';
 
 import { HandleRoot, Item, Root } from './components';
 import { Provider } from './context';
+import { useReactCompareSlider } from './hooks';
 import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps } from './types';
 
@@ -21,49 +22,20 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   onlyHandleDraggable,
   portrait,
   transition,
-  canTransition,
-  isDragging,
-  onKeyDown,
-  onPointerDown,
-  onPointerMove,
-  onPointerUp,
-  onTouchEnd,
-  handleRootRef,
-  hasBrowsingContextBinding,
-  rootRef,
-  setPosition,
-  interactiveTarget,
-  position,
-  setPositionFromBounds,
   ...props
 }) => {
+  const contextProps = useReactCompareSlider({
+    boundsPadding,
+    clip,
+    defaultPosition,
+    disabled,
+    keyboardIncrement,
+    portrait,
+    transition,
+  });
+
   return (
-    <Provider
-      boundsPadding={boundsPadding}
-      browsingContext={browsingContext}
-      changePositionOnHover={changePositionOnHover}
-      clip={clip}
-      defaultPosition={defaultPosition}
-      disabled={disabled}
-      keyboardIncrement={keyboardIncrement}
-      onlyHandleDraggable={onlyHandleDraggable}
-      portrait={portrait}
-      transition={transition}
-      canTransition={canTransition}
-      isDragging={isDragging}
-      onKeyDown={onKeyDown}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onTouchEnd={onTouchEnd}
-      handleRootRef={handleRootRef}
-      rootRef={rootRef}
-      interactiveTarget={interactiveTarget}
-      setPosition={setPosition}
-      position={position}
-      setPositionFromBounds={setPositionFromBounds}
-      hasBrowsingContextBinding={hasBrowsingContextBinding}
-    >
+    <Provider {...contextProps}>
       <Root {...props}>
         <Item item="itemOne">{itemOne}</Item>
         <Item item="itemTwo">{itemTwo}</Item>

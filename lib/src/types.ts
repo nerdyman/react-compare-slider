@@ -129,24 +129,31 @@ export type UseReactCompareSliderReturn = Required<
     onPointerMove: (event: PointerEvent) => void;
     onPointerUp: (event: PointerEvent) => void;
     onTouchEnd: (event: TouchEvent) => void;
+    onHandleRootClick: (event: PointerEvent) => void;
     // State
+    /** Whether the `transition` property should be applied. */
     canTransition: boolean;
     hasBrowsingContextBinding: RefObject<boolean>;
+    /** Whether the slider is currently moving. */
     isDragging: boolean;
+    /** Ref with the current position. */
     position: RefObject<ReactCompareSliderPosition>;
     // Setters
+    /** Set the position directly as a percentage. */
     setPosition: (nextPosition: number) => void;
-    // setInteractiveTarget: Dispatch<HTMLElement | null>;
+    /** Set the position from the coords of an event. */
     setPositionFromBounds: (props: SetPositionFromBoundsProps) => void;
     // Elements
+    /** Root element. */
     rootRef: RefObject<HTMLDivElement | null>;
+    /** The direct parent element of the `handle` component. */
     handleRootRef: RefObject<HTMLButtonElement | null>;
-    // TODO: See if this should be ref, also be either undefined or null, not both.
+    // TODO: See if this should be ref ??
     interactiveTarget: HTMLElement | null;
   };
 
 /** Props for the pre-built `ReactCompareSlider` component. */
-export type ReactCompareSliderProps = UseReactCompareSliderReturn & {
+export type ReactCompareSliderProps = UseReactCompareSliderProps & {
   /** Custom handle component. */
   handle?: ReactNode;
   /** First item to show. */

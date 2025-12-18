@@ -32,7 +32,6 @@
 - Simple API
 - Unopinionated & fully customizable &ndash; optionally use your own components and styles
 - Responsive & fluid with intrinsic sizing
-- Performant, ref-based with minimal re-renders
 - Teeny-tiny, zero dependencies
 - Type safe
 

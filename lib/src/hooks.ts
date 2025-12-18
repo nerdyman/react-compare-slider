@@ -1,3 +1,5 @@
+'use client';
+
 import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { KeyboardEventKeys, ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 import type {
@@ -24,10 +26,10 @@ export const useReactCompareSliderRef = (): RefObject<UseReactCompareSliderRefRe
 /**
  * Hook to completely control the slider including all event handlers and state.
  * This is automatically used by the `ReactCompareSlider` component.
- * Only use this if you are building your own slider from using the `react-compare-slider/components` module.
+ * Only use this if you are building your own slider using the `react-compare-slider/components` module.
  */
 export const useReactCompareSlider = ({
-  boundsPadding = '0%',
+  boundsPadding = '0px',
   browsingContext = globalThis,
   changePositionOnHover = false,
   clip = ReactCompareSliderClipOption.both,
@@ -126,6 +128,11 @@ export const useReactCompareSlider = ({
     setCanTransition(true);
   }, []);
 
+  const onHandleRootClick = useCallback((ev: PointerEvent) => {
+    ev.preventDefault();
+    (ev.currentTarget as HTMLButtonElement)?.focus();
+  }, []);
+
   /** Handle keyboard movment. */
   const onKeyDown = useCallback(
     (ev: KeyboardEvent) => {
@@ -202,6 +209,7 @@ export const useReactCompareSlider = ({
     onPointerMove,
     onPointerUp,
     onTouchEnd,
+    onHandleRootClick,
     // State
     canTransition,
     hasBrowsingContextBinding,
