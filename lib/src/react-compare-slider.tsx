@@ -19,6 +19,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
   itemOne,
   itemTwo,
   keyboardIncrement,
+  onPositionChange,
   onlyHandleDraggable,
   portrait,
   transition,
@@ -26,10 +27,14 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
 }) => {
   const contextProps = useReactCompareSlider({
     boundsPadding,
+    browsingContext,
+    changePositionOnHover,
     clip,
     defaultPosition,
     disabled,
     keyboardIncrement,
+    onPositionChange,
+    onlyHandleDraggable,
     portrait,
     transition,
   });
