@@ -1,3 +1,5 @@
+'use client';
+
 export { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 export { useReactCompareSlider } from './hooks';
 export type { ReactCompareSliderHandleProps } from './ReactCompareSliderHandle';

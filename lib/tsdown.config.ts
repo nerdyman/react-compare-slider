@@ -1,10 +1,6 @@
-/* eslint no-console: 0, @typescript-eslint/explicit-function-return-type: 0 */
-import browserslist from 'browserslist';
-import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
-import type { Options } from 'tsup';
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
-const target = resolveToEsbuildTarget(browserslist()) as Options['target'];
+const packageJson = await import('./package.json', { with: { type: 'json' } });
 
 export default defineConfig((options) => ({
   clean: !options.watch,
@@ -17,13 +13,16 @@ export default defineConfig((options) => ({
     };
   },
   minify: !options.watch,
-  target,
+  target: packageJson.browserslist,
   sourcemap: true,
   splitting: true,
   onSuccess: 'mkdir -p ../docs/storybook/lib && cp -r ./src ../docs/storybook/lib',
-  esbuildOptions(esbuild) {
-    esbuild.banner = {
-      js: '"use client"',
-    };
+  attw: {
+    enabled: !options.watch,
+    profile: 'node16',
+  },
+  publint: {
+    enabled: !options.watch,
+    level: 'suggestion',
   },
 }));

@@ -39,7 +39,7 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       },
       "require": {
@@ -49,7 +49,7 @@
     },
     "./components": {
       "import": {
-        "types": "./dist/components.d.ts",
+        "types": "./dist/components.d.mts",
         "default": "./dist/components.mjs"
       },
       "require": {
@@ -59,7 +59,7 @@
     },
     "./hooks": {
       "import": {
-        "types": "./dist/hooks.d.ts",
+        "types": "./dist/hooks.d.mts",
         "default": "./dist/hooks.mjs"
       },
       "require": {
@@ -69,23 +69,23 @@
     },
     "./types": {
       "import": {
-        "types": "./dist/types.d.ts"
+        "types": "./dist/types.d.mts",
+        "default": "./dist/types.d.mts"
       },
       "require": {
-        "types": "./dist/types.d.cts"
+        "types": "./dist/types.d.cts",
+        "default": "./dist/types.d.cts"
       }
     }
   },
   "files": ["src", "dist"],
   "scripts": {
-    "dev": "concurrently -k -s first -n \"tsup,ts\" -c \"blue,cyan\" \"tsup --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
-    "build": "pnpm run check:types && NODE_ENV=production tsup",
+    "dev": "concurrently -k -s first -n \"tsdown,ts\" -c \"blue,cyan\" \"tsdown --watch\" \"pnpm run check:types --watch --preserveWatchOutput\"",
+    "build": "NODE_ENV=production tsdown",
     "release": "pnpm run release:preflight && pnpm run release:publish",
     "release:preflight": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check",
     "release:publish": "release-it",
-    "check": "concurrently -n \"package,types\" -c \"blue,magenta\" \"pnpm run check:package\" \"pnpm run check:types\"",
-    "check:package": "attw --profile node16 -P . && publint",
-    "check:types": "tsc --noEmit"
+    "check": "tsc --noEmit"
   },
   "browserslist": ["defaults and fully supports es6-module", "maintained node versions", "ios >= 16.6"],
   "peerDependencies": {
@@ -93,21 +93,15 @@
     "react-dom": ">=16.8"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.18.2",
     "@types/node": "^22.5.5",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "browserslist": "^4.23.3",
     "concurrently": "^9.2.1",
-    "esbuild-plugin-browserslist": "^2.0.0",
-    "minimatch": "^10.1.1",
-    "parse-path": "^7.1.0",
-    "publint": "^0.3.16",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "release-it": "^19.1.0",
+    "tsdown": "^0.18.1",
     "tslib": "~2.8.1",
-    "tsup": "^8.2.4",
     "typescript": "^5.6.2"
   }
 }
