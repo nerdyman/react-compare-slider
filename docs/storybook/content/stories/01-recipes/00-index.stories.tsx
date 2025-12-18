@@ -46,7 +46,6 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
-          style={{ filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)' }}
         />
       }
     />

@@ -28,7 +28,6 @@ export const Images: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
-          style={{ filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)' }}
         />
       }
     />
@@ -79,7 +78,7 @@ export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({
 BoundsPadding.args = { boundsPadding: '5%' };
 
 export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const [browsingContext, setBrowsingContext] = useState<Window | null>(null);
+  const [browsingContext, setBrowsingContext] = useState<WindowProxy | null>(null);
 
   return (
     <div>
@@ -333,9 +332,6 @@ export const Portrait: StoryFn<ReactCompareSliderDetailedProps> = ({ portrait = 
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
         alt="Image two"
-        style={{
-          filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
-        }}
       />
     }
   />
@@ -399,9 +395,6 @@ Portrait.args = {
 //         <ReactCompareSliderImage
 //           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
 //           alt="Image two"
-//           style={{
-//             filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
-//           }}
 //         />
 //       }
 //       style={{ width: '100%', height: '100vh' }}
