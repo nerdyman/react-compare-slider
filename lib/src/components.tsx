@@ -15,6 +15,9 @@ export type RootProps = ComponentPropsWithoutRef<'div'>;
 
 const currentPositionCssValue = `clamp(var(${ReactCompareSliderCssVars.boundsPadding}), var(${ReactCompareSliderCssVars.rawPosition}), calc(100% - var(${ReactCompareSliderCssVars.boundsPadding})))`;
 
+/**
+ * The root container of the slider.
+ */
 export const Root: FC<RootProps> = ({ style, ...props }) => {
   const {
     browsingContext,
@@ -119,7 +122,9 @@ export type ContainerItemProps = ComponentPropsWithoutRef<'div'> & {
   item?: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
 };
 
-/** Container to clip children. */
+/**
+ * Container for `itemOne  and `itemTwo`.
+ */
 export const Item: FC<ContainerItemProps> = ({ item, style, ...props }) => {
   const { clip, portrait, transition } = useReactCompareSliderContext();
 
@@ -196,8 +201,6 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
       data-rcs="handle-container"
       disabled={disabled}
       role="slider"
-      // This is replaced dynamically
-      aria-valuenow={0}
       style={appliedStyle}
       {...props}
     />

@@ -104,8 +104,6 @@ export type SetPositionFromBoundsProps = {
   x: number;
   /** Y coordinate to update to (portrait). */
   y: number;
-  /** Whether to calculate using page X and Y offsets (required for pointer events). */
-  isOffset?: boolean;
 };
 
 export type UseReactCompareSliderReturn = Required<

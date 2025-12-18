@@ -71,23 +71,15 @@ export const useReactCompareSlider = ({
 
   /** Set position using pointer coords. */
   const setPositionFromBounds = useCallback(
-    function updateInternal({ x, y, isOffset }: SetPositionFromBoundsProps) {
+    function updateInternal({ x, y }: SetPositionFromBoundsProps) {
       const rootElement = rootRef.current as HTMLDivElement;
       const { width, height, top, left } = rootElement.getBoundingClientRect();
 
       // Early out when component has zero bounds.
       if (width === 0 || height === 0) return;
 
-      const pixelPosition = portrait
-        ? isOffset
-          ? y - top - browsingContext.scrollY
-          : y
-        : isOffset
-          ? x - left - browsingContext.scrollX
-          : x;
-
+      const pixelPosition = portrait ? y - top - browsingContext.scrollY : x - left - browsingContext.scrollX;
       const nextPosition = (pixelPosition / (portrait ? height : width)) * 100;
-
       setPosition(nextPosition);
     },
     [browsingContext, portrait, setPosition],
@@ -101,7 +93,7 @@ export const useReactCompareSlider = ({
       // Only handle left mouse button (touch events also use 0).
       if (disabled || ev.button !== 0) return;
 
-      setPositionFromBounds({ x: ev.pageX, y: ev.pageY, isOffset: true });
+      setPositionFromBounds({ x: ev.pageX, y: ev.pageY });
       setIsDragging(true);
       setCanTransition(true);
     },
@@ -111,7 +103,7 @@ export const useReactCompareSlider = ({
   /** Handle mouse/touch move. */
   const onPointerMove = useCallback(
     function moveCall(ev: PointerEvent) {
-      setPositionFromBounds({ x: ev.pageX, y: ev.pageY, isOffset: true });
+      setPositionFromBounds({ x: ev.pageX, y: ev.pageY });
       setCanTransition(false);
     },
     [setPositionFromBounds],
@@ -143,36 +135,22 @@ export const useReactCompareSlider = ({
       ev.preventDefault();
       setCanTransition(true);
 
-      const { top, left } = (handleRootRef.current as HTMLButtonElement).getBoundingClientRect();
-      const { width, height } = (rootRef.current as HTMLDivElement).getBoundingClientRect();
-
       const incrementPercentage =
         typeof keyboardIncrement === 'string'
           ? Number.parseFloat(keyboardIncrement)
-          : (keyboardIncrement / width) * 100;
+          : (keyboardIncrement / (rootRef.current?.getBoundingClientRect().width as number)) * 100;
 
       const isIncrement = portrait
         ? ev.key === KeyboardEventKeys.ARROW_LEFT || ev.key === KeyboardEventKeys.ARROW_DOWN
         : ev.key === KeyboardEventKeys.ARROW_RIGHT || ev.key === KeyboardEventKeys.ARROW_UP;
 
-      const currentPosition = Number.parseFloat(
-        handleRootRef.current?.getAttribute?.('aria-valuenow') as string,
-      );
+      const nextPosition = isIncrement
+        ? position.current + incrementPercentage
+        : position.current - incrementPercentage;
 
-      const nextPosition = Math.min(
-        Math.max(
-          isIncrement ? currentPosition + incrementPercentage : currentPosition - incrementPercentage,
-          0,
-        ),
-        100,
-      );
-
-      setPositionFromBounds({
-        x: portrait ? left : (width * nextPosition) / 100,
-        y: portrait ? (height * nextPosition) / 100 : top,
-      });
+      setPosition(nextPosition);
     },
-    [keyboardIncrement, portrait, setPositionFromBounds],
+    [keyboardIncrement, portrait, setPosition],
   );
 
   // Update bounds padding on change.
@@ -184,6 +162,7 @@ export const useReactCompareSlider = ({
   // to ensure it's only set once.
   useEffect(() => {
     rootRef.current?.style.setProperty(ReactCompareSliderCssVars.rawPosition, `${defaultPosition}%`);
+    handleRootRef.current?.setAttribute?.('aria-valuenow', Math.round(defaultPosition).toString());
   }, []);
 
   // Set target container for pointer events.
