@@ -39,7 +39,7 @@ export type UseReactCompareSliderProps = Partial<ReactCompareSliderCommonProps> 
   /**
    * CSS unit amount to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).
    * @example '20rem'
-   * @default '0%'
+   * @default '0px'
    */
   boundsPadding?: string;
 

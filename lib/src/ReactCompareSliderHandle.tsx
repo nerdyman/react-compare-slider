@@ -80,7 +80,7 @@ export const ReactCompareSliderHandle: FC<ReactCompareSliderDetailedHandleProps>
     WebkitBackdropFilter: 'blur(0.5rem)', // For Safari.
     backgroundColor: 'rgba(0, 0, 0, 0.125)',
     boxShadow: '0 0 4px rgba(0,0,0,.35)',
-    transform: `${portrait ? 'rotate(90deg), ' : ''}translateZ(0)`,
+    transform: `${portrait ? 'rotate(90deg) ' : ''}translateZ(0)`,
     backfaceVisibility: 'hidden',
     ...buttonStyle,
   };

@@ -5,7 +5,7 @@ import { ReactCompareSliderClipOption, type ReactCompareSliderProps } from 'reac
  * @NOTE These must reflect the default values defined in the `types.ts`.
  */
 export const args: ReactCompareSliderProps = {
-  boundsPadding: '0%',
+  boundsPadding: '0px',
   changePositionOnHover: false,
   clip: ReactCompareSliderClipOption.both,
   disabled: false,
