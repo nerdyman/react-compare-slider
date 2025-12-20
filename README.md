@@ -58,20 +58,13 @@ You _may_ use `ReactCompareSliderImage` to render images or use your own custom
 components.
 
 ```jsx
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-} from "react-compare-slider";
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 export const Example = () => {
   return (
     <ReactCompareSlider
-      itemOne={
-        <ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />
-      }
-      itemTwo={
-        <ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />
-      }
+      itemOne={<ReactCompareSliderImage src="..." srcSet="..." alt="Image one" />}
+      itemTwo={<ReactCompareSliderImage src="..." srcSet="..." alt="Image two" />}
     />
   );
 };
@@ -83,7 +76,7 @@ export const Example = () => {
 | ----------------------------------------------------------------------------------------------------------- | ---------------------------- | :------: | ------------ | --------------------------------------------------------------------------------------------------- |
 | [`boundsPadding`](https://react-compare-slider.js.org/?path=/story/demos--bounds-padding)                   | `string`                     |          | `0px`        | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).     |
 | [`browsingContext`](https://react-compare-slider.js.org/?path=/story/demos--browsing-context)               | `globalThis`                 |          | `globalThis` | Context to bind events to (useful for iframes).                                                     |
-| [`clip`](https://react-compare-slider.js.org/?path=/docs/docs-clip--docs)                                   | `both\|itemOne\|itemTwo`     |          | `both`       | Whether to clip `itemOne`, `itemTwo` or `both` items.                                               |
+| [`clip`](https://react-compare-slider.js.org/?path=/docs/docs-clip--docs)                                   | `all\|itemOne\|itemTwo`     |          | `all`       | Whether to clip `itemOne`, `itemTwo` or `all` items.                                               |
 | [`changePositionOnHover`](https://react-compare-slider.js.org/?path=/story/demos--change-position-on-hover) | `boolean`                    |          | `false`      | Whether the slider should follow the pointer on hover.                                              |
 | [`disabled`](https://react-compare-slider.js.org/?path=/story/demos--disabled)                              | `boolean`                    |          | `false`      | Whether to disable slider movement (items are still interactable).                                  |
 | [`handle`](https://react-compare-slider.js.org/?path=/story/demos--handle)                                  | `ReactNode`                  |          | `undefined`  | Custom handle component.                                                                            |

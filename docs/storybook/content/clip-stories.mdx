@@ -8,11 +8,7 @@ import { Images } from './stories/00-demos/00-index.stories'
 
 # Using `clip`
 
-The `clip` prop allows you to control whether `itemOne`, `itemTwo`, or both items are clipped to
-the bounds of the slider.
-
-This is useful in cases where you have transparent items and want to control which item takes
-precedence when the slider is moved.
+The `clip` prop allows you to control whether `itemOne`, `itemTwo`, or both use a clip mask to hide their content. This allows you to overlay `itemOne` on top of `itemTwo` or vice versa. This can be useful when items have transparent areas.
 
 <Canvas of={Images} />
 
