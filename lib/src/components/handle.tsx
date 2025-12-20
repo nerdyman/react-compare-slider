@@ -1,6 +1,7 @@
 'use client';
 
 import type { ComponentProps, CSSProperties, FC } from 'react';
+
 import { useReactCompareSliderContext } from './context';
 
 type ThisArrowProps = {
@@ -22,7 +23,7 @@ const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
 };
 
 /** Props for `ReactCompareSliderHandle`. */
-export type ReactCompareSliderHandleProps = {
+export type HandleProps = {
   /** Optional styles for handle the button. */
   buttonStyle?: CSSProperties;
   /** Optional styles for lines either side of the handle button. */
@@ -31,10 +32,10 @@ export type ReactCompareSliderHandleProps = {
   style?: CSSProperties;
 };
 
-export type ReactCompareSliderDetailedHandleProps = ComponentProps<'div'> & ReactCompareSliderHandleProps;
+export type HandleDetailedProps = ComponentProps<'div'> & HandleProps;
 
 /** Default `handle`. */
-export const ReactCompareSliderHandle: FC<ReactCompareSliderDetailedHandleProps> = ({
+export const Handle: FC<HandleDetailedProps> = ({
   className = '__rcs-handle-root',
   buttonStyle,
   linesStyle,

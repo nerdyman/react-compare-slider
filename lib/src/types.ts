@@ -1,4 +1,5 @@
-import type { ComponentProps, Dispatch, ReactNode, RefObject } from 'react';
+import type { ComponentProps, ReactNode, RefObject } from 'react';
+
 import type { ReactCompareSliderClipOption } from './consts';
 
 /** Slider position property. */
@@ -35,7 +36,7 @@ export type ReactCompareSliderCommonProps = {
   transition?: string;
 };
 
-export type UseReactCompareSliderProps = Partial<ReactCompareSliderCommonProps> & {
+export type UseReactCompareSliderProps = ReactCompareSliderCommonProps & {
   /**
    * CSS unit amount to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).
    * @example '20rem'

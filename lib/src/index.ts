@@ -1,13 +1,11 @@
 'use client';
 
-export type { ImageProps as ReactCompareImageProps } from './components';
-// Image is aliased for backwards compatbility.
-export { Image as ReactCompareSliderImage } from './components';
+export type { HandleProps as ReactCompareSliderHandleProps } from './components/handle';
+export { Handle as ReactCompareSliderHandle } from './components/handle';
+export type { ImageProps as ReactCompareImageProps } from './components/image';
+export { Image as ReactCompareSliderImage } from './components/image';
 export { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 export { useReactCompareSlider } from './hooks';
-export type { ReactCompareSliderHandleProps } from './ReactCompareSliderHandle';
-export { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-
 export { ReactCompareSlider } from './react-compare-slider';
 export type {
   ReactCompareSliderClip,

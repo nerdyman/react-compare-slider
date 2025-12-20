@@ -2,10 +2,12 @@
 
 import type { FC } from 'react';
 
-import { HandleRoot, Item, Root } from './components';
-import { Provider } from './context';
+import { Provider } from './components/context';
+import { Handle } from './components/handle';
+import { HandleRoot } from './components/handle-root';
+import { Item } from './components/item';
+import { Root } from './components/root';
 import { useReactCompareSlider } from './hooks';
-import { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
 import type { ReactCompareSliderDetailedProps } from './types';
 
 export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
@@ -44,7 +46,7 @@ export const ReactCompareSlider: FC<ReactCompareSliderDetailedProps> = ({
       <Root {...props}>
         <Item item="itemOne">{itemOne}</Item>
         <Item item="itemTwo">{itemTwo}</Item>
-        <HandleRoot>{handle || <ReactCompareSliderHandle />}</HandleRoot>
+        <HandleRoot>{handle || <Handle />}</HandleRoot>
       </Root>
     </Provider>
   );

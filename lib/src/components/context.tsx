@@ -1,7 +1,8 @@
 'use client';
 
 import { createContext, type PropsWithChildren, useContext } from 'react';
-import type { UseReactCompareSliderReturn } from './types';
+
+import type { UseReactCompareSliderReturn } from '../types';
 
 export type ContextProps = UseReactCompareSliderReturn;
 

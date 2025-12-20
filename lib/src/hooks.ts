@@ -1,7 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { KeyboardEventKeys, ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
+
+import { KeyboardEventKeys } from './components/internal-hooks';
+import { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
 import type {
   SetPositionFromBoundsProps,
   UseReactCompareSliderProps,
