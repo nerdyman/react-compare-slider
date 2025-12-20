@@ -18,6 +18,27 @@
       "!docs/storybook/src"
     ]
   },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":NODE:",
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              ["./**"]
+            ]
+          }
+        }
+      }
+    }
+  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
