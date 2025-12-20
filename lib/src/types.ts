@@ -1,12 +1,9 @@
 import type { ComponentProps, ReactNode, RefObject } from 'react';
 
-import type { ReactCompareSliderClipOption } from './consts';
+import type { ReactCompareSliderClipValue } from './consts';
 
 /** Slider position property. */
 export type ReactCompareSliderPosition = number;
-
-export type ReactCompareSliderClip =
-  (typeof ReactCompareSliderClipOption)[keyof typeof ReactCompareSliderClipOption];
 
 /** Common props shared between components. */
 export type ReactCompareSliderCommonProps = {
@@ -60,7 +57,7 @@ export type UseReactCompareSliderProps = ReactCompareSliderCommonProps & {
    * Whether to clip `itemOne`, `itemTwo` or `both` items.
    * @default both
    */
-  clip?: ReactCompareSliderClip;
+  clip?: ReactCompareSliderClipValue;
 
   /**
    * Percentage or pixel amount to move when the slider handle is focused and keyboard arrow is pressed.

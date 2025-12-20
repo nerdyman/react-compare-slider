@@ -3,21 +3,25 @@
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
 
 import { useReactCompareSliderContext } from './context';
-import { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from '../consts';
-import type { ReactCompareSliderClip, ReactCompareSliderProps } from '../types';
+import {
+  ReactCompareSliderClip,
+  type ReactCompareSliderClipValue,
+  ReactCompareSliderCssVars,
+} from '../consts';
+import type { ReactCompareSliderProps } from '../types';
 
 type GetClipPathProps = Pick<ReactCompareSliderProps, 'portrait'> & {
-  itemClip?: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
+  itemClip?: Extract<ReactCompareSliderClipValue, 'itemOne' | 'itemTwo'>;
 };
 
 const getClipPath = ({ itemClip, portrait }: GetClipPathProps): CSSProperties['clipPath'] => {
-  if (itemClip === ReactCompareSliderClipOption.itemOne) {
+  if (itemClip === ReactCompareSliderClip.itemOne) {
     return portrait
       ? `inset(0px 0px calc(100% - var(${ReactCompareSliderCssVars.currentPosition})) 0px)`
       : `inset(0px calc(100% - var(${ReactCompareSliderCssVars.currentPosition})) 0px 0px)`;
   }
 
-  if (itemClip === ReactCompareSliderClipOption.itemTwo) {
+  if (itemClip === ReactCompareSliderClip.itemTwo) {
     return portrait
       ? `inset(var(${ReactCompareSliderCssVars.currentPosition}) 0px 0px 0px)`
       : `inset(0px 0px 0px var(${ReactCompareSliderCssVars.currentPosition}))`;
@@ -27,7 +31,7 @@ const getClipPath = ({ itemClip, portrait }: GetClipPathProps): CSSProperties['c
 };
 
 export type ContainerItemProps = ComponentPropsWithoutRef<'div'> & {
-  item?: Extract<ReactCompareSliderClip, 'itemOne' | 'itemTwo'>;
+  item?: Extract<ReactCompareSliderClipValue, 'itemOne' | 'itemTwo'>;
 };
 
 /**
@@ -36,7 +40,7 @@ export type ContainerItemProps = ComponentPropsWithoutRef<'div'> & {
 export const Item: FC<ContainerItemProps> = ({ item, style, ...props }) => {
   const { clip, portrait, transition } = useReactCompareSliderContext();
 
-  const shouldClip = clip === ReactCompareSliderClipOption.both || clip === item;
+  const shouldClip = clip === ReactCompareSliderClip.all || clip === item;
   const itemClip = shouldClip ? item : undefined;
 
   const appliedStyle: CSSProperties = {
@@ -54,7 +58,7 @@ export const Item: FC<ContainerItemProps> = ({ item, style, ...props }) => {
     transform: 'translateZ(0)',
     transition: transition ? `clip-path ${transition}` : undefined,
     userSelect: 'none',
-    zIndex: item === ReactCompareSliderClipOption.itemOne ? 1 : undefined,
+    zIndex: item === ReactCompareSliderClip.itemOne ? 1 : undefined,
     willChange: 'clip-path',
     ...style,
   };

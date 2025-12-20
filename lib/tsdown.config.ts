@@ -13,6 +13,8 @@ export default defineConfig((options) => ({
   sourcemap: true,
   splitting: true,
   onSuccess: 'cp -r ./dist ../docs/storybook/lib',
+  failOnWarn: true,
+
   attw: {
     enabled: true,
     profile: 'node16',

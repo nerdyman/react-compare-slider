@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { KeyboardEventKeys } from './components/internal-hooks';
-import { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
+import { ReactCompareSliderClip, ReactCompareSliderCssVars } from './consts';
 import type {
   SetPositionFromBoundsProps,
   UseReactCompareSliderProps,
@@ -19,7 +19,7 @@ export const useReactCompareSlider = ({
   boundsPadding = '0px',
   browsingContext = globalThis,
   changePositionOnHover = false,
-  clip = ReactCompareSliderClipOption.both,
+  clip = ReactCompareSliderClip.all,
   defaultPosition = 50,
   disabled = false,
   keyboardIncrement = '5%',

@@ -4,15 +4,8 @@ export type { HandleProps as ReactCompareSliderHandleProps } from './components/
 export { Handle as ReactCompareSliderHandle } from './components/handle';
 export type { ImageProps as ReactCompareImageProps } from './components/image';
 export { Image as ReactCompareSliderImage } from './components/image';
-export { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
+export { ReactCompareSliderClip, ReactCompareSliderCssVars } from './consts';
 export { useReactCompareSlider } from './hooks';
 export { ReactCompareSlider } from './react-compare-slider';
-export type {
-  ReactCompareSliderClip,
-  ReactCompareSliderDetailedProps,
-  ReactCompareSliderPosition,
-  ReactCompareSliderProps,
-  UseReactCompareSliderProps,
-  UseReactCompareSliderReturn,
-} from './types';
+export type { ReactCompareSliderDetailedProps, ReactCompareSliderProps } from './types';
 export { styleFitContainer } from './utils';

@@ -1,8 +1,11 @@
-export const ReactCompareSliderClipOption = {
-  both: 'both',
+export const ReactCompareSliderClip = {
+  all: 'all',
   itemOne: 'itemOne',
   itemTwo: 'itemTwo',
 } as const;
+
+export type ReactCompareSliderClipValue =
+  (typeof ReactCompareSliderClip)[keyof typeof ReactCompareSliderClip];
 
 export const ReactCompareSliderCssVars = {
   /** The unclamped position of the slider as a percentage. */
