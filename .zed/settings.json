@@ -5,6 +5,7 @@
     "source.organizeImports.biome": true
   },
   "languages": {
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
     "JavaScript": {
       "formatter": { "language_server": { "name": "biome" } }
     },
@@ -12,6 +13,15 @@
       "formatter": { "language_server": { "name": "biome" } }
     },
     "JSONC": {
+      "formatter": { "language_server": { "name": "biome" } }
+    },
+    "Markdown": {
+      "formatter": { "language_server": { "name": "biome" } }
+    },
+    "Markdown-Inline": {
+      "formatter": { "language_server": { "name": "biome" } }
+    },
+    "MDX": {
       "formatter": { "language_server": { "name": "biome" } }
     },
     "TypeScript": {
