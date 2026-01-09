@@ -4,8 +4,6 @@
   "files": {
     "includes": [
       "**",
-      "!**/*.md",
-      "!**/*.mdx",
       "!**/*.log",
       "!**/.next/",
       "!**/.pnpm-store/",
