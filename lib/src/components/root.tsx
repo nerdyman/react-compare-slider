@@ -32,6 +32,7 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
 
   const appliedStyle = {
     position: 'relative',
+    boxSizing: 'border-box',
     display: 'grid',
     maxWidth: '100%',
     maxHeight: '100%',

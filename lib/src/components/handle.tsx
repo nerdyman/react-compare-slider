@@ -45,6 +45,7 @@ export const Handle: FC<HandleDetailedProps> = ({
   const { disabled, portrait } = useReactCompareSliderContext();
 
   const appliedStyle: CSSProperties = {
+    boxSizing: 'border-box',
     display: 'flex',
     flexDirection: portrait ? 'row' : 'column',
     placeItems: 'center',
