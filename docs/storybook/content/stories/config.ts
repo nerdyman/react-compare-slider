@@ -1,5 +1,5 @@
 import type { ArgTypes } from '@storybook/react-vite';
-import { ReactCompareSliderClipOption, type ReactCompareSliderProps } from 'react-compare-slider';
+import { ReactCompareSliderClip, type ReactCompareSliderProps } from 'react-compare-slider';
 
 /**
  * @NOTE These must reflect the default values defined in the `types.ts`.
@@ -7,7 +7,7 @@ import { ReactCompareSliderClipOption, type ReactCompareSliderProps } from 'reac
 export const args: ReactCompareSliderProps = {
   boundsPadding: '0px',
   changePositionOnHover: false,
-  clip: ReactCompareSliderClipOption.both,
+  clip: ReactCompareSliderClip.all,
   disabled: false,
   handle: undefined,
   keyboardIncrement: '5%',
@@ -16,14 +16,17 @@ export const args: ReactCompareSliderProps = {
   onlyHandleDraggable: false,
   onPositionChange: undefined,
   portrait: false,
-  position: 50,
+  defaultPosition: 50,
   transition: undefined,
+  browsingContext: undefined,
 };
 
 export const argTypes: ArgTypes<Partial<ReactCompareSliderProps>> = {
-  handle: { control: { type: 'function' } },
-  itemOne: { control: { type: 'function' } },
-  itemTwo: { control: { type: 'function' } },
-  onPositionChange: { control: { type: 'function' } },
-  position: { control: { type: 'range', min: 0, max: 100 } },
+  browsingContext: { control: { type: 'object', disable: true } },
+  handle: { control: { type: 'object', disable: true } },
+  itemOne: { control: { type: 'object', disable: true } },
+  itemTwo: { control: { type: 'object', disable: true } },
+  onPositionChange: { control: { type: 'object', disable: true } },
+  defaultPosition: { control: { type: 'range', min: 0, max: 100 } },
+  transition: { control: { type: 'text' } },
 };

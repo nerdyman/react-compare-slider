@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react-vite';
-import { type ReactCompareSlider, ReactCompareSliderClipOption } from 'react-compare-slider';
+import { type ReactCompareSlider, ReactCompareSliderClip } from 'react-compare-slider';
 import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
 import { getArgs, SLIDER_ROOT_TEST_ID, TestTemplate } from './test-utils';
@@ -11,7 +11,7 @@ export default meta;
 
 export const ClipBoth = TestTemplate.bind({});
 ClipBoth.args = getArgs({
-  clip: 'both',
+  clip: 'all',
   style: { width: 256, height: 256 },
 });
 
@@ -44,7 +44,7 @@ ClipBoth.play = async ({ canvasElement }) => {
   await waitFor(() => {
     const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
 
-    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClipOption.both);
+    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.all);
     expect(window.getComputedStyle(itemOne).clipPath).toBe('inset(0px 25% 0px 0px)');
     expect(window.getComputedStyle(itemTwo).clipPath).toBe('inset(0px 0px 0px 75%)');
   });
@@ -65,7 +65,7 @@ ClipItemOne.play = async ({ canvasElement }) => {
   await waitFor(() => {
     const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
 
-    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClipOption.itemOne);
+    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.itemOne);
     expect(window.getComputedStyle(itemOne).clipPath).toBe('inset(0px 50% 0px 0px)');
     expect(window.getComputedStyle(itemTwo).clipPath).toBe('none');
   });
@@ -86,7 +86,7 @@ ClipItemTwo.play = async ({ canvasElement }) => {
   await waitFor(() => {
     const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
 
-    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClipOption.itemTwo);
+    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.itemTwo);
     expect(window.getComputedStyle(itemOne).clipPath).toBe('none');
     expect(window.getComputedStyle(itemTwo).clipPath).toBe('inset(0px 0px 0px 50%)');
   });
