@@ -1,5 +1,4 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-
 import remarkGfm from 'remark-gfm';
 
 import { createIntroduction } from './create-introduction.ts';

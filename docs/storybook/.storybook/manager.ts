@@ -1,5 +1,5 @@
 import { addons } from 'storybook/manager-api';
-import { ThemeVars } from 'storybook/theming';
+import type { ThemeVars } from 'storybook/theming';
 import { create } from 'storybook/theming/create';
 
 import { theme } from './theme';

@@ -1,5 +1,6 @@
-import type { Parameters, Preview } from '@storybook/react-vite';
+import type { Preview } from '@storybook/react-vite';
 import { spyOn } from 'storybook/test';
+
 import { theme } from './theme';
 
 export const beforeEach = () => {
