@@ -6,7 +6,7 @@ import { useReactCompareSliderContext } from './context';
 import { EVENT_CAPTURE_PARAMS, useEventListener } from './internal-hooks';
 import { ReactCompareSliderCssVars } from '../consts';
 
-export type HandleRootProps = ComponentPropsWithoutRef<'button'>;
+export type HandleRootProps = ComponentPropsWithoutRef<'div'>;
 
 /** Container to control the handle's position. */
 export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
@@ -17,7 +17,11 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     WebkitAppearance: 'none',
     MozAppearance: 'none',
     WebkitTapHighlightColor: 'transparent',
+    boxSizing: 'border-box',
     position: 'absolute',
+    display: 'flex',
+    flexDirection: portrait ? 'row' : 'column',
+    placeItems: 'center',
     contain: 'layout',
     top: portrait ? '-50%' : undefined,
     left: portrait ? undefined : `-50%`,
@@ -43,14 +47,15 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
   useEventListener('click', onHandleRootClick, handleRootRef.current, EVENT_CAPTURE_PARAMS);
 
   return (
-    <button
+    <div
       ref={handleRootRef}
-      aria-label="Drag to move or focus and use arrow keys"
+      tabIndex={0}
+      aria-label="Click and drag or focus and use arrow keys to change the position of the slider"
       aria-orientation={portrait ? 'vertical' : 'horizontal'}
       aria-valuemin={0}
       aria-valuemax={100}
       data-rcs="handle-container"
-      disabled={disabled}
+      aria-disabled={disabled}
       role="slider"
       style={appliedStyle}
       {...props}

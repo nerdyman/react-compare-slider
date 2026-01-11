@@ -121,7 +121,7 @@ export type UseReactCompareSliderReturn = Required<
     /** Root element. */
     rootRef: RefObject<HTMLDivElement | null>;
     /** The direct parent element of the `handle` component. */
-    handleRootRef: RefObject<HTMLButtonElement | null>;
+    handleRootRef: RefObject<HTMLDivElement | null>;
     // TODO: See if this should be ref ??
     interactiveTarget: HTMLElement | null;
   };

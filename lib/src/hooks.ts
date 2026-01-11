@@ -31,7 +31,7 @@ export const useReactCompareSlider = ({
   /** DOM node of the root element. */
   const rootRef = useRef<HTMLDivElement>(null);
   /** DOM node of the handle container. */
-  const handleRootRef = useRef<HTMLButtonElement>(null);
+  const handleRootRef = useRef<HTMLDivElement>(null);
   /** Current position as a percentage value. */
   const position = useRef(defaultPosition);
   /** Whether user is currently dragging. */
@@ -109,7 +109,7 @@ export const useReactCompareSlider = ({
 
   const onHandleRootClick = useCallback((ev: PointerEvent) => {
     ev.preventDefault();
-    (ev.currentTarget as HTMLButtonElement)?.focus();
+    (ev.currentTarget as HTMLDivElement)?.focus();
   }, []);
 
   /** Handle keyboard movment. */
