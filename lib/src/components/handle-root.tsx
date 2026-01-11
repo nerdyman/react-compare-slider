@@ -10,10 +10,8 @@ export type HandleRootProps = ComponentPropsWithoutRef<'button'>;
 
 /** Container to control the handle's position. */
 export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
-  const { disabled, portrait, transition, handleRootRef, onHandleRootClick, onKeyDown } =
+  const { disabled, portrait, canTransition, transition, handleRootRef, onHandleRootClick, onKeyDown } =
     useReactCompareSliderContext();
-
-  const targetAxis = portrait ? 'top' : 'left';
 
   const appliedStyle: CSSProperties = {
     WebkitAppearance: 'none',
@@ -21,22 +19,23 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     WebkitTapHighlightColor: 'transparent',
     position: 'absolute',
     contain: 'layout',
-    top: portrait ? `var(${ReactCompareSliderCssVars.currentPosition})` : '0',
-    left: portrait ? '0' : `var(${ReactCompareSliderCssVars.currentPosition})`,
-    width: portrait ? '100%' : undefined,
-    height: portrait ? undefined : '100%',
+    top: portrait ? '-50%' : undefined,
+    left: portrait ? undefined : `-50%`,
+    width: '100%',
+    height: '100%',
     background: 'none',
     border: 0,
     padding: 0,
-    pointerEvents: 'all',
+    pointerEvents: 'none',
     appearance: 'none',
     outline: 0,
     zIndex: 1,
-    translate: portrait ? '0 -50% 0' : '-50% 0 0',
-    // transform: portrait ? `translate3d(0, -50% ,0)` : `translate3d(-50%, 0, 0)`,
+    translate: portrait
+      ? `0 var(${ReactCompareSliderCssVars.rawPosition}) 0`
+      : `var(${ReactCompareSliderCssVars.rawPosition}) 0 0`,
     backfaceVisibility: 'hidden',
-    transition: transition ? `${targetAxis} ${transition}` : undefined,
-    willChange: portrait ? 'top' : 'left',
+    transition: canTransition && transition ? `translate ${transition}` : undefined,
+    willChange: 'translate',
     ...style,
   };
 

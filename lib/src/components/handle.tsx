@@ -46,12 +46,13 @@ export const Handle: FC<HandleDetailedProps> = ({
 
   const appliedStyle: CSSProperties = {
     boxSizing: 'border-box',
-    display: 'flex',
+    position: 'relative',
+    display: 'inline-flex',
     flexDirection: portrait ? 'row' : 'column',
     placeItems: 'center',
     height: '100%',
     cursor: disabled ? 'not-allowed' : portrait ? 'ns-resize' : 'ew-resize',
-    pointerEvents: 'none',
+    pointerEvents: 'auto',
     color: '#fff',
     ...style,
   };

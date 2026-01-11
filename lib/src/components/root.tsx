@@ -17,10 +17,12 @@ const currentPositionCssValue = `clamp(var(${ReactCompareSliderCssVars.boundsPad
 export const Root: FC<RootProps> = ({ style, ...props }) => {
   const {
     browsingContext,
+    boundsPadding,
     changePositionOnHover,
     clip,
     isDragging,
     portrait,
+    position,
     onTouchEnd,
     onPointerDown,
     onPointerMove,
@@ -44,6 +46,8 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
     msUserSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+    [ReactCompareSliderCssVars.rawPosition]: `${position.current}%`,
+    [ReactCompareSliderCssVars.boundsPadding]: boundsPadding,
     [ReactCompareSliderCssVars.currentPosition]: currentPositionCssValue,
     ...style,
   } as CSSProperties;
