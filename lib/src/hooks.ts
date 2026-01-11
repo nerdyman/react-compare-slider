@@ -145,6 +145,11 @@ export const useReactCompareSlider = ({
     setInteractiveTarget(onlyHandleDraggable ? handleRootRef.current : rootRef.current);
   }, [onlyHandleDraggable]);
 
+  // Resync position when defaultPosition changes.
+  useEffect(() => {
+    setPosition(defaultPosition);
+  }, [defaultPosition, setPosition]);
+
   return {
     // Direct props
     boundsPadding,

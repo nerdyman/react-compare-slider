@@ -1,4 +1,4 @@
-import { type CSSProperties, useEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
 
 /**
  * Stand-alone CSS utility to make replaced elements (`img`, `video`, etc.) fit their container.

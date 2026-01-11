@@ -45,7 +45,7 @@ export type UseReactCompareSliderProps = ReactCompareSliderCommonProps & {
    * Custom browsing context to use instead of the global `window` object.
    * @default globalThis
    */
-  browsingContext?: typeof globalThis;
+  browsingContext?: typeof globalThis | Window | WindowProxy;
 
   /**
    * Whether the slider should follow the pointer on hover.
