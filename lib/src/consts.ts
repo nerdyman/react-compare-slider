@@ -14,4 +14,6 @@ export const ReactCompareSliderCssVars = {
   currentPosition: '--rcs-current-position',
   /** The `boundsPadding` prop value. */
   boundsPadding: '--rcs-bounds-padding',
+  /** The color of the handle border and arrows. */
+  handleColor: '--rcs-handle-color',
 } as const;

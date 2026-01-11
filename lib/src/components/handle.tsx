@@ -3,6 +3,7 @@
 import type { ComponentProps, CSSProperties, FC } from 'react';
 
 import { useReactCompareSliderContext } from './context';
+import { ReactCompareSliderCssVars } from '../consts';
 
 type ThisArrowProps = {
   /** Whether to flip the arrow direction. */
@@ -11,15 +12,16 @@ type ThisArrowProps = {
 
 const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
   const style: CSSProperties = {
-    width: 0,
-    height: 0,
-    borderTop: '0.5rem solid transparent',
-    borderRight: '0.625rem solid',
-    borderBottom: '0.5rem solid transparent',
-    transform: flip ? 'rotate(180deg)' : undefined,
+    width: '1rem',
+    height: '1rem',
+    clipPath: 'polygon(100% 0%, 100% 100%, 20% 50%)',
+    rotate: flip ? '180deg' : '0deg',
+    // We use `outline` instead of `border` to ensure that all line colours match in high contrast mode.
+    outline: `0.5rem solid var(${ReactCompareSliderCssVars.handleColor})`,
+    outlineOffset: '-0.5rem',
   };
 
-  return <div className="__rcs-handle-arrow" style={style} />;
+  return <div aria-hidden="true" className="__rcs-handle-arrow" style={style} />;
 };
 
 /** Props for `ReactCompareSliderHandle`. */
@@ -44,7 +46,7 @@ export const Handle: FC<HandleDetailedProps> = ({
 }) => {
   const { disabled, portrait } = useReactCompareSliderContext();
 
-  const appliedStyle: CSSProperties = {
+  const appliedStyle = {
     boxSizing: 'border-box',
     position: 'relative',
     display: 'inline-flex',
@@ -53,16 +55,18 @@ export const Handle: FC<HandleDetailedProps> = ({
     width: portrait ? '100%' : undefined,
     height: portrait ? undefined : '100%',
     cursor: disabled ? 'not-allowed' : portrait ? 'ns-resize' : 'ew-resize',
-    pointerEvents: 'auto',
-    color: '#fff',
+    pointerEvents: 'none',
+    [ReactCompareSliderCssVars.handleColor]: 'rgba(255, 255, 255, 1)',
     ...style,
-  };
+  } as CSSProperties;
 
   const appliedLinesStyle: CSSProperties = {
     flexGrow: 1,
     height: portrait ? 2 : '100%',
     width: portrait ? '100%' : 2,
-    backgroundColor: 'currentColor',
+    // We use `outline` instead of `border` to ensure that all line colours match in high contrast mode.
+    outline: `1px solid var(${ReactCompareSliderCssVars.handleColor})`,
+    outlineOffset: -1,
     pointerEvents: 'auto',
     boxShadow: '0 0 4px rgba(0,0,0,.5)',
     ...linesStyle,
@@ -77,8 +81,8 @@ export const Handle: FC<HandleDetailedProps> = ({
     width: '3.5rem',
     height: '3.5rem',
     borderRadius: '50%',
-    borderStyle: 'solid',
-    borderWidth: 2,
+    border: `2px solid var(${ReactCompareSliderCssVars.handleColor})`,
+    color: 'inherit',
     pointerEvents: 'auto',
     backdropFilter: 'blur(0.5rem)',
     WebkitBackdropFilter: 'blur(0.5rem)', // For Safari.
