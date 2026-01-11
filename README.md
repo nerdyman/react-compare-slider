@@ -4,13 +4,13 @@
 
 [![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example)
 
-<a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>
-<a href="https://npmjs.com/package/react-compare-slider"><img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>
-<a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>
+<a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>&nbsp;
+<a href="https://npmjs.com/package/react-compare-slider"><img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>&nbsp;
+<a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>&nbsp;
 <br/>
-<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
-<a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider&branch=main"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>
-<a href="https://react-compare-slider.js.org"><img alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>
+<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>&nbsp;
+<a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider&branch=main"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>&nbsp;
+<a href="https://react-compare-slider.js.org"><img alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>&nbsp;
 <a href="https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example">
 <img alt="Open in Stackblitz" src="https://developer.stackblitz.com/img/open_in_stackblitz_small.svg" />
 </a>
@@ -73,7 +73,7 @@ export const Example = () => {
 ## Props
 
 | Prop                                                                                                        | Type                         | Required | Default      | Description                                                                                         |
-| ----------------------------------------------------------------------------------------------------------- | ---------------------------- | :------: | ------------ | --------------------------------------------------------------------------------------------------- |
+| :---------------------------------------------------------------------------------------------------------- | :--------------------------- | :------: | ------------ | --------------------------------------------------------------------------------------------------- |
 | [`boundsPadding`](https://react-compare-slider.js.org/?path=/story/demos--bounds-padding)                   | `string`                     |          | `0px`        | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).     |
 | [`browsingContext`](https://react-compare-slider.js.org/?path=/story/demos--browsing-context)               | `globalThis`                 |          | `globalThis` | Context to bind events to (useful for iframes).                                                     |
 | [`clip`](https://react-compare-slider.js.org/?path=/docs/docs-clip--docs)                                   | `all\|itemOne\|itemTwo`     |          | `all`       | Whether to clip `itemOne`, `itemTwo` or `all` items.                                               |

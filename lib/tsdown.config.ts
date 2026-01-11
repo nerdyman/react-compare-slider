@@ -12,7 +12,7 @@ export default defineConfig((options) => ({
   minify: !options.watch,
   sourcemap: true,
   splitting: true,
-  onSuccess: 'cp -r ./dist ../docs/storybook/lib',
+  onSuccess: 'cp -r ./src ../docs/storybook/lib',
   failOnWarn: true,
 
   attw: {

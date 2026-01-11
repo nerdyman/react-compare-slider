@@ -6,7 +6,7 @@
   "keywords": [],
   "license": "MIT",
   "scripts": {
-    "dev": "pnpm run storybook",
+    "dev": "rm -rf ./node_modules/.{cache,vite} && pnpm run storybook",
     "storybook": "rm -rf ./node_modules/.cache && storybook dev -p 6006 --ci",
     "build": "storybook build",
     "test": "rm -rf ./coverage && vitest --project=storybook",

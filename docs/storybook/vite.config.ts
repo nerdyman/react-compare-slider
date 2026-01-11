@@ -2,6 +2,7 @@
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
@@ -13,7 +14,7 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 export default defineConfig({
   resolve: {
     alias: {
-      'react-compare-slider': path.resolve(dirname, './lib/src'),
+      'react-compare-slider': path.resolve(dirname, './lib'),
     },
   },
   plugins: [react()],
