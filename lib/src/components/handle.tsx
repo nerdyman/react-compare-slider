@@ -12,9 +12,9 @@ type ThisArrowProps = {
 
 const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
   const style: CSSProperties = {
-    width: '1rem',
-    height: '1rem',
-    clipPath: 'polygon(100% 0%, 100% 100%, 20% 50%)',
+    width: '0.85rem',
+    height: '0.85rem',
+    clipPath: 'polygon(100% 0%, 100% 100%, 30% 50%)',
     rotate: flip ? '180deg' : '0deg',
     // We use `outline` instead of `border` to ensure that all line colours match in high contrast mode.
     outline: `0.5rem solid var(${ReactCompareSliderCssVars.handleColor})`,
