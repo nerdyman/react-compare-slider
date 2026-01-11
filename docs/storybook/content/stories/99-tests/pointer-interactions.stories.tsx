@@ -64,7 +64,7 @@ export const ChangePositionOnHover: StoryFn<ReactCompareSliderDetailedProps> = (
   );
 };
 ChangePositionOnHover.args = getArgs({
-  position: 0,
+  defaultPosition: 0,
   changePositionOnHover: true,
   style: { width: 200, height: 200 },
 });

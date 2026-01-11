@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, SLIDER_ROOT_TEST_ID, TestComponent, TestTemplate } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestComponent, type TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/Disabled',

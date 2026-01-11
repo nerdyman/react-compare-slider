@@ -35,7 +35,7 @@ ZeroBounds.play = async ({ canvasElement }) => {
 export const ZeroBoundsWithLazyContent: StoryFn = () => {
   const [dir, setDir] = useState('ltr');
   const [props, setProps] = useState<ReactCompareSliderDetailedProps>({
-    position: 0,
+    defaultPosition: 0,
     portrait: true,
     itemOne: <div data-testid="one" />,
     itemTwo: <div data-testid="two" />,

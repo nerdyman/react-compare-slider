@@ -12,7 +12,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 export const StartAt0 = TestTemplate.bind({});
-StartAt0.args = getArgs({ position: 0 });
+StartAt0.args = getArgs({ defaultPosition: 0 });
 
 StartAt0.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -23,7 +23,7 @@ StartAt0.play = async ({ canvasElement }) => {
 };
 
 export const StartAt100 = TestTemplate.bind({});
-StartAt100.args = getArgs({ position: 100, style: { width: 256 } });
+StartAt100.args = getArgs({ defaultPosition: 100, style: { width: 256 } });
 
 StartAt100.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -34,7 +34,7 @@ StartAt100.play = async ({ canvasElement }) => {
 };
 
 export const PointSamePosition = TestTemplate.bind({});
-PointSamePosition.args = getArgs({ position: 50, style: { width: 256 } });
+PointSamePosition.args = getArgs({ defaultPosition: 50, style: { width: 256 } });
 
 PointSamePosition.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -77,7 +77,7 @@ export const LazyImages: StoryFn<ReactCompareSliderProps> = (props) => {
     />
   );
 };
-LazyImages.args = getArgs({ position: 100, style: { width: 'auto', height: 'auto' } });
+LazyImages.args = getArgs({ defaultPosition: 100, style: { width: 'auto', height: 'auto' } });
 LazyImages.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const slider = await canvas.findByRole('slider');
@@ -115,7 +115,7 @@ export const ToggleOrientation: StoryFn<ReactCompareSliderProps> = (args) => {
     </div>
   );
 };
-ToggleOrientation.args = getArgs({ position: 25, style: { width: 200, height: 200 } });
+ToggleOrientation.args = getArgs({ defaultPosition: 25, style: { width: 200, height: 200 } });
 
 ToggleOrientation.play = async ({ canvasElement }) => {
   const user = userEvent.setup();

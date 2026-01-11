@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/react-vite';
-import { ReactCompareSlider } from 'react-compare-slider';
+import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { BoundsPadding as BoundsPaddingStory } from '../00-demos/00-index.stories';
 import { getArgs, SLIDER_ROOT_TEST_ID } from './test-utils';
+import { BoundsPadding as BoundsPaddingStory } from '../00-demos/00-index.stories';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/BoundsPadding',
@@ -13,7 +13,7 @@ export default meta;
 export const BoundsPadding = BoundsPaddingStory;
 BoundsPadding.args = getArgs({
   ...BoundsPaddingStory.args,
-  position: 0,
+  defaultPosition: 0,
   style: { width: '400px', height: '200px' },
 });
 
