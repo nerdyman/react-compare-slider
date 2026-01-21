@@ -14,46 +14,61 @@ export default meta;
 export const Default = TestTemplate.bind({});
 Default.args = getArgs();
 
-Default.play = async ({ canvasElement }) => {
+Default.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement);
   const sliderRoot = await canvas.findByRole('slider');
 
-  // Should have elements on mount.
-  await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
-  await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
+  await step('Should have elements on mount', async () => {
+    await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
+  });
 
-  // Should have a11y attributes on mount.
-  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemin', '0'));
-  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemax', '100'));
-  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuenow', '50'));
-  await waitFor(() =>
-    expect(canvas.queryByLabelText('Drag to move or focus and use arrow keys')).toBeInTheDocument(),
-  );
+  await step('Should have a11y attributes on mount', async () => {
+    await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemin', '0'));
+    await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemax', '100'));
+    await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuenow', '50'));
+    await waitFor(() =>
+      expect(
+        canvas.queryByLabelText(
+          'Click and drag or focus and use arrow keys to change the position of the slider',
+        ),
+      ).toBeInTheDocument(),
+    );
+  });
 
-  // Should have initial position on mount.
-  await waitFor(() => expect(Default.args?.onPositionChange).toHaveBeenLastCalledWith(50));
+  await step('Should have initial position on mount', async () => {
+    await waitFor(() => expect(Default.args?.onPositionChange).toHaveBeenLastCalledWith(50));
+  });
 };
 
 export const SSR = TestTemplate.bind({});
 SSR.args = getArgs();
 
 // Same as Default but with but runs on server via `mount`.
-SSR.play = async ({ mount, args }) => {
+SSR.play = async ({ mount, args, step }) => {
   const canvas = await mount(<ReactCompareSlider {...args} />);
   const sliderRoot = await canvas.findByRole('slider');
 
-  // Should have elements on mount.
-  await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
-  await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
+  await step('Should have elements on mount', async () => {
+    await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
+  });
 
-  // Should have a11y attributes on mount.
-  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemin', '0'));
-  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemax', '100'));
-  await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuenow', '50'));
-  await waitFor(() =>
-    expect(canvas.queryByLabelText('Drag to move or focus and use arrow keys')).toBeInTheDocument(),
-  );
+  await step('Should have a11y attributes on mount', async () => {
+    await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemin', '0'));
+    await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuemax', '100'));
+    await waitFor(() => expect(sliderRoot).toHaveAttribute('aria-valuenow', '50'));
+    await waitFor(() =>
+      expect(
+        canvas.queryByLabelText(
+          'Click and drag or focus and use arrow keys to change the position of the slider',
+        ),
+      ).toBeInTheDocument(),
+    );
+  });
 
   // Should have initial position on mount.
-  await waitFor(() => expect(SSR.args?.onPositionChange).toHaveBeenLastCalledWith(50));
+  await step('Should have initial position on mount', async () => {
+    await waitFor(() => expect(SSR.args?.onPositionChange).toHaveBeenLastCalledWith(50));
+  });
 };

@@ -9,3 +9,7 @@ import * as projectAnnotations from './preview';
 const annotations = setProjectAnnotations([projectAnnotations, a11yAddonAnnotations]);
 
 beforeAll(annotations.beforeAll);
+
+if (!globalThis.window) {
+  (globalThis as any).window = {} as Window;
+}

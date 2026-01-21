@@ -1,12 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
-// import { useEffect } from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
-import {
-  ReactCompareSlider,
-  ReactCompareSliderHandle,
-  ReactCompareSliderImage,
-  // useReactCompareSliderRef,
-} from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage } from 'react-compare-slider';
 
 import { args, argTypes } from '../config';
 
@@ -22,7 +16,7 @@ export const InheritedColor: StoryFn<ReactCompareSliderProps> = ({ portrait, ...
   <ReactCompareSlider
     {...props}
     portrait={portrait}
-    handle={<ReactCompareSliderHandle portrait={portrait} style={{ color: 'yellow' }} />}
+    handle={<ReactCompareSliderHandle style={{ '--rcs-handle-color': 'yellow' } as React.CSSProperties} />}
     itemOne={
       <ReactCompareSliderImage
         src="https://images.unsplash.com/photo-1580458148391-8c4951dc1465?auto=format&fit=crop&w=1280&q=80"
@@ -36,7 +30,7 @@ export const InheritedColor: StoryFn<ReactCompareSliderProps> = ({ portrait, ...
         alt="two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
+    style={{ width: '100%', height: '100%' }}
   />
 );
 
@@ -46,7 +40,6 @@ export const IndividualStyles: StoryFn<ReactCompareSliderProps> = ({ portrait, .
     portrait={portrait}
     handle={
       <ReactCompareSliderHandle
-        portrait={portrait}
         buttonStyle={{
           backdropFilter: undefined,
           WebkitBackdropFilter: undefined,
@@ -81,7 +74,6 @@ export const HideButton: StoryFn<ReactCompareSliderProps> = ({ portrait, ...prop
     portrait={portrait}
     handle={
       <ReactCompareSliderHandle
-        portrait={portrait}
         buttonStyle={{ display: 'none' }}
         // Make lines thicker so they're easier to grab.
         linesStyle={{ width: portrait ? '100%' : 4, height: portrait ? 4 : '100%' }}
@@ -110,7 +102,6 @@ export const HideLines: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props
     portrait={portrait}
     handle={
       <ReactCompareSliderHandle
-        portrait={portrait}
         buttonStyle={{
           border: 0,
           backdropFilter: 'none',

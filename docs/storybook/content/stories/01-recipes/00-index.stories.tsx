@@ -40,12 +40,14 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
+          style={{ objectPosition: 'top center' }}
         />
       }
       itemTwo={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
+          style={{ objectPosition: 'top center' }}
         />
       }
     />
@@ -128,7 +130,7 @@ export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 ItemLabels.args = {
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
   },
 };
 
@@ -180,7 +182,7 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
 HandleLabels.args = {
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
   },
 };
 
@@ -204,7 +206,7 @@ export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (pro
             alt="Image two"
           />
         }
-        style={{ width: '100%', height: '100vh' }}
+        style={{ width: '100%', height: '100%' }}
       />
       <span
         style={{
@@ -271,7 +273,7 @@ export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props
 WaitForImageLoad.args = {
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
     backgroundColor: 'black',
     backgroundImage: 'radial-gradient(rgba(200, 109, 252, .5), rgba(39, 37, 39, .5))',
   },

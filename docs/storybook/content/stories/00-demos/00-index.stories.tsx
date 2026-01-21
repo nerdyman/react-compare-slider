@@ -22,12 +22,14 @@ export const Images: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
+          style={{ objectPosition: 'top center' }}
         />
       }
       itemTwo={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
+          style={{ objectPosition: 'top center' }}
         />
       }
     />
@@ -78,7 +80,7 @@ export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({
 BoundsPadding.args = { boundsPadding: '5%' };
 
 export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const [browsingContext, setBrowsingContext] = useState<Window | null>(null);
+  const [browsingContext, setBrowsingContext] = useState<WindowProxy | null>(null);
 
   return (
     <div>
@@ -101,7 +103,7 @@ export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props)
                 alt="Image two"
               />
             }
-            browsingContext={browsingContext}
+            browsingContext={browsingContext || undefined}
           />,
           browsingContext.document.body,
         )}
@@ -140,6 +142,34 @@ export const ChangePositionOnHover: StoryFn<ReactCompareSliderDetailedProps> = (
 };
 
 ChangePositionOnHover.args = { changePositionOnHover: true };
+
+export const Clip: StoryFn<ReactCompareSliderDetailedProps> = ({ disabled, ...props }) => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <ReactCompareSlider
+        {...props}
+        disabled={disabled}
+        itemOne={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/kilroy-1.svg"
+            alt="Image one"
+            style={{ objectPosition: 'bottom left' }}
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/kilroy-2.svg"
+            alt="Image two"
+            style={{ objectPosition: 'bottom right' }}
+          />
+        }
+        style={{ width: '100%', flexGrow: 1 }}
+      />
+    </div>
+  );
+};
+
+Clip.args = { clip: 'itemTwo' };
 
 export const Disabled: StoryFn<ReactCompareSliderDetailedProps> = ({ disabled, ...props }) => {
   return (
@@ -217,7 +247,7 @@ export const Handle: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
           alt="Image two"
         />
       }
-      style={{ width: '100%', height: '100vh' }}
+      style={{ width: '100%', height: '100%' }}
     />
   );
 };
@@ -326,12 +356,14 @@ export const Portrait: StoryFn<ReactCompareSliderDetailedProps> = ({ portrait = 
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
         alt="Image one"
+        style={{ objectPosition: 'top center' }}
       />
     }
     itemTwo={
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
         alt="Image two"
+        style={{ objectPosition: 'top center' }}
       />
     }
   />
@@ -341,7 +373,7 @@ Portrait.args = {
   portrait: true,
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
     backgroundColor: 'white',
     backgroundImage: `
     linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -386,12 +418,14 @@ export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
+          style={{ objectPosition: 'top center' }}
         />
       }
       itemTwo={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
+          style={{ objectPosition: 'top center' }}
         />
       }
     />
@@ -403,7 +437,7 @@ Transition.args = {
   transition: '0.35s ease-in-out',
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
     backgroundColor: 'white',
     backgroundImage: `
       linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -434,73 +468,8 @@ export const DefaultPosition: StoryFn<ReactCompareSliderDetailedProps> = ({
         alt="Image two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
+    style={{ width: '100%', height: '100%' }}
   />
 );
 
 DefaultPosition.args = { defaultPosition: 25 };
-
-export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props) => (
-  <div
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-      padding: '1rem',
-      overflowY: 'auto',
-      height: 'calc(100dvh - 2rem)',
-    }}
-  >
-    <div style={{ display: 'flex', gap: '1rem', flexShrink: 0, height: 'calc(75dvh - 2rem)' }}>
-      <ReactCompareSlider
-        {...props}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-            alt="Image two"
-          />
-        }
-      />
-      <ReactCompareSlider
-        {...props}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-            alt="Image two"
-          />
-        }
-      />
-    </div>
-    <ReactCompareSlider
-      {...props}
-      style={{ flexShrink: 0, height: 'calc(75dvh - 2rem)' }}
-      portrait
-      itemOne={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-          alt="Image one"
-        />
-      }
-      itemTwo={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-          alt="Image two"
-        />
-      }
-    />
-  </div>
-);
-
-MultipleSliders.args = {};

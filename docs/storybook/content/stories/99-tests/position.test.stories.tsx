@@ -19,7 +19,14 @@ StartAt0.play = async ({ canvasElement }) => {
   const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('0'));
-  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('0px'));
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-raw-position')).toBe('0%'),
+  );
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+      'clamp(0px, 0% - 0px + 0px, calc(100% - 0px))',
+    ),
+  );
 };
 
 export const StartAt100 = TestTemplate.bind({});
@@ -30,7 +37,14 @@ StartAt100.play = async ({ canvasElement }) => {
   const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
-  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('256px'));
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-raw-position')).toBe('100%'),
+  );
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+      'clamp(0px, 100% - 0px + 0px, calc(100% - 0px))',
+    ),
+  );
 };
 
 export const PointSamePosition = TestTemplate.bind({});
@@ -41,11 +55,25 @@ PointSamePosition.play = async ({ canvasElement }) => {
   const slider = await canvas.findByRole('slider');
 
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
-  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('128px'));
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-raw-position')).toBe('50%'),
+  );
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+      'clamp(0px, 50% - 0px + 0px, calc(100% - 0px))',
+    ),
+  );
 
   await fireEvent.pointerDown(slider, { clientX: 128, clientY: 128 });
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
-  await waitFor(() => expect(window.getComputedStyle(slider).left).toBe('128px'));
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-raw-position')).toBe('50%'),
+  );
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+      'clamp(0px, 50% - 0px + 0px, calc(100% - 0px))',
+    ),
+  );
 };
 
 /**
@@ -77,15 +105,18 @@ export const LazyImages: StoryFn<ReactCompareSliderProps> = (props) => {
     />
   );
 };
-LazyImages.args = getArgs({ defaultPosition: 100, style: { width: 'auto', height: 'auto' } });
+LazyImages.args = getArgs({ defaultPosition: 50, style: { width: 'auto', height: 'auto' } });
 LazyImages.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const slider = await canvas.findByRole('slider');
 
-  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
   await waitFor(() =>
-    expect(getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
-      'clamp(0%, 100% - 0% + 0%, calc(100% - 0%))',
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-raw-position')).toBe('50%'),
+  );
+  await waitFor(() =>
+    expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+      'clamp(0px, 50% - 0px + 0px, calc(100% - 0px))',
     ),
   );
 };

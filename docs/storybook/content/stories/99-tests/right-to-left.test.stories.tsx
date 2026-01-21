@@ -27,6 +27,6 @@ RightToLeft.play = async ({ canvasElement }) => {
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Should position slider at 25%.
-  await waitFor(() => expect(slider).toHaveStyle({ left: '50px' }));
+  await waitFor(() => expect(slider).toHaveStyle({ translate: 'clamp(0px, 25% + 0px, 100% + 0px)' }));
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('25'));
 };

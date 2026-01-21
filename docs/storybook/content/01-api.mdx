@@ -5,7 +5,9 @@ import {
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
   styleFitContainer,
+  useReactCompareSliderContext,
 } from "react-compare-slider";
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
 <Meta title="Docs/API" />
 
@@ -65,3 +67,21 @@ import { styleFitContainer } from "react-compare-slider";
   />
 </div>;
 ```
+
+## `useReactCompareSliderContext`
+
+<Description of={useReactCompareSliderContext} />
+<ArgTypes of={useReactCompareSliderContext} />
+
+### Example
+
+```jsx
+import { useReactCompareSliderContext } from "react-compare-slider";
+
+const { position } = useReactCompareSliderContext();
+```
+
+### useReactCompareSliderContext Props
+
+<Description of={useReactCompareSliderContext} />
+<ArgTypes of={useReactCompareSliderContext} />

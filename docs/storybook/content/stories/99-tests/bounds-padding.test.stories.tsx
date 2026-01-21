@@ -38,6 +38,7 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       ),
     );
   });
+
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   await step('Move slider to 100%', async () => {
@@ -52,5 +53,6 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
         'clamp(5%, 100% - 5% + 5%, calc(100% - 5%))',
       ),
     );
+    await fireEvent.pointerUp(sliderRoot);
   });
 };

@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
 import { ReactCompareSlider } from 'react-compare-slider';
-import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
+import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
 import { getArgs, SLIDER_ROOT_TEST_ID, TestTemplate } from './test-utils';
 
@@ -69,12 +69,11 @@ ChangePositionOnHover.args = getArgs({
   style: { width: 200, height: 200 },
 });
 ChangePositionOnHover.play = async ({ canvasElement }) => {
-  const user = userEvent.setup();
   const canvas = within(canvasElement);
   const slider = await canvas.findByRole('slider');
   const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
-  await user.click(slider);
+  await fireEvent.click(slider);
 
   await fireEvent.pointerMove(sliderRoot, {
     clientX: sliderRoot.clientWidth * 0.5,

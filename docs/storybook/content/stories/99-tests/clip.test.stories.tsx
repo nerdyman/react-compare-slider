@@ -15,38 +15,54 @@ ClipBoth.args = getArgs({
   style: { width: 256, height: 256 },
 });
 
-ClipBoth.play = async ({ canvasElement }) => {
+ClipBoth.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement);
   const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
+  const slider = await canvas.findByRole('slider');
 
-  await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));
-  await waitFor(() => {
-    expect(window.getComputedStyle(sliderRoot).getPropertyValue('--rcs-current-position')).toBe(
-      'clamp(0%, 50% - 0% + 0%, calc(100% - 0%))',
+  await step('should have initial clip styles', async () => {
+    await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));
+    await waitFor(() =>
+      expect(window.getComputedStyle(slider).getPropertyValue('--rcs-raw-position')).toBe('50%'),
+    );
+    await waitFor(() =>
+      expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+        'clamp(0px, 50% - 0px + 0px, calc(100% - 0px))',
+      ),
     );
   });
 
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  await fireEvent.pointerDown(sliderRoot, {
-    clientX: sliderRoot.clientWidth * 0.75,
-    clientY: sliderRoot.clientHeight * 0.75,
+  await step('set position to 75%', async () => {
+    await fireEvent.pointerDown(sliderRoot, {
+      clientX: sliderRoot.clientWidth * 0.75,
+      clientY: sliderRoot.clientHeight * 0.75,
+    });
+
+    await fireEvent.pointerUp(sliderRoot);
   });
 
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  await waitFor(() => {
-    expect(window.getComputedStyle(sliderRoot).getPropertyValue('--rcs-current-position')).toBe(
-      'clamp(0%, 75% - 0% + 0%, calc(100% - 0%))',
-    );
-  });
+  await step('should have updated clip styles on both items', async () => {
+    await waitFor(() => {
+      expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
+        'clamp(0px, 75% - 0px + 0px, calc(100% - 0px))',
+      );
+    });
 
-  await waitFor(() => {
-    const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
+    await waitFor(() => {
+      const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
 
-    expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.all);
-    expect(window.getComputedStyle(itemOne).clipPath).toBe('inset(0px 25% 0px 0px)');
-    expect(window.getComputedStyle(itemTwo).clipPath).toBe('inset(0px 0px 0px 75%)');
+      expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.all);
+      expect(window.getComputedStyle(itemOne).clipPath).toBe(
+        'inset(0px calc(100% - clamp(0px, 75% + 0px, 100% + 0px)) 0px 0px)',
+      );
+      expect(window.getComputedStyle(itemTwo).clipPath).toBe(
+        'inset(0px 0px 0px clamp(0px, 75% + 0px, 100% + 0px))',
+      );
+    });
   });
 };
 
@@ -60,13 +76,15 @@ ClipItemOne.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const sliderRoot = await canvas.findByTestId(SLIDER_ROOT_TEST_ID);
 
-  await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));
+  expect(await canvas.findAllByRole('img')).toHaveLength(2);
 
   await waitFor(() => {
     const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
 
     expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.itemOne);
-    expect(window.getComputedStyle(itemOne).clipPath).toBe('inset(0px 50% 0px 0px)');
+    expect(window.getComputedStyle(itemOne).clipPath).toBe(
+      'inset(0px calc(100% - clamp(0px, 50% + 0px, 100% + 0px)) 0px 0px)',
+    );
     expect(window.getComputedStyle(itemTwo).clipPath).toBe('none');
   });
 };
@@ -88,6 +106,9 @@ ClipItemTwo.play = async ({ canvasElement }) => {
 
     expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.itemTwo);
     expect(window.getComputedStyle(itemOne).clipPath).toBe('none');
-    expect(window.getComputedStyle(itemTwo).clipPath).toBe('inset(0px 0px 0px 50%)');
+    // expect(window.getComputedStyle(itemTwo).clipPath).toBe('inset(0px 0px 0px 50%)');
+    expect(window.getComputedStyle(itemTwo).clipPath).toBe(
+      'inset(0px 0px 0px clamp(0px, 50% + 0px, 100% + 0px))',
+    );
   });
 };

@@ -1,5 +1,4 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import React from 'react';
 import type { ReactCompareSliderProps } from 'react-compare-slider';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
@@ -63,7 +62,7 @@ export const CustomComponent: StoryFn<ReactCompareSliderProps> = (props) => {
           alt="Image two"
         />
       }
-      style={{ width: '100%', height: '100vh' }}
+      style={{ width: '100%', height: '100%' }}
     />
   );
 };
