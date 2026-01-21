@@ -5,15 +5,15 @@
     "includes": [
       "**",
       "!**/*.log",
-      "!**/.next/",
-      "!**/.pnpm-store/",
+      "!**/.next/**",
+      "!**/.pnpm-store/**",
       "!**/dist/**",
-      "!**/coverage",
-      "!**/lcov-report",
-      "!**/node_modules/",
+      "!**/coverage/**",
+      "!**/lcov-report/**",
+      "!**/node_modules/**",
       "!**/pnpm-lock.yaml",
-      "!**/storybook-static/",
-      "!docs/storybook/src"
+      "!**/storybook-static/**",
+      "!docs/storybook/lib/**"
     ]
   },
   "assist": {
