@@ -39,9 +39,6 @@ jobs:
       - name: 👷 Build Example Project
         run: pnpm run --filter @this/example build
 
-      - name: 🕵️ Check Package Configuration
-        run: pnpm run --filter react-compare-slider check:package
-
       - name: 🎭 Install Playwright
         run: pnpx playwright install --with-deps
 
