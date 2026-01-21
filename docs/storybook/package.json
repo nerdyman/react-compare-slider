@@ -19,23 +19,24 @@
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^10.1.11",
-    "@storybook/addon-docs": "^10.1.11",
-    "@storybook/addon-vitest": "^10.1.11",
-    "@storybook/react-vite": "^10.1.11",
+    "@mdx-js/language-service": "^0.7.3",
+    "@storybook/addon-a11y": "^10.2.0",
+    "@storybook/addon-docs": "^10.2.0",
+    "@storybook/addon-vitest": "^10.2.0",
+    "@storybook/react-vite": "^10.2.0",
     "@types/node": "^24.1.0",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
-    "@vitest/browser-playwright": "^4.0.16",
-    "@vitest/coverage-v8": "^4.0.16",
+    "@vitest/browser-playwright": "^4.0.17",
+    "@vitest/coverage-v8": "^4.0.17",
     "globals": "^17.0.0",
     "playwright": "^1.57.0",
     "remark-gfm": "^4.0.1",
-    "storybook": "^10.1.11",
+    "storybook": "^10.2.0",
     "tslib": "~2.8.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.17"
   }
 }

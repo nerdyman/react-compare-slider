@@ -28,11 +28,13 @@
     "overrides": {
       "react-compare-slider": "workspace:*"
     },
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.11",
     "@types/node": "^24.1.0",
-    "lefthook": "^2.0.13"
+    "lefthook": "^2.0.15"
   }
 }
