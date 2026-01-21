@@ -14,6 +14,7 @@ export default defineConfig((options) => ({
   splitting: true,
   onSuccess: 'rm -rf ../docs/storybook/lib && cp -r ./src ../docs/storybook/lib',
   failOnWarn: true,
+  fixedExtension: true,
 
   attw: {
     enabled: true,

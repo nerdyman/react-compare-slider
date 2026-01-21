@@ -34,14 +34,14 @@
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
@@ -50,8 +50,8 @@
     },
     "./components": {
       "import": {
-        "types": "./dist/components/index.d.ts",
-        "default": "./dist/components/index.js"
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
       },
       "require": {
         "types": "./dist/components/index.d.cts",
@@ -60,8 +60,8 @@
     },
     "./hooks": {
       "import": {
-        "types": "./dist/hooks.d.ts",
-        "default": "./dist/hooks.js"
+        "types": "./dist/hooks.d.mts",
+        "default": "./dist/hooks.mjs"
       },
       "require": {
         "types": "./dist/hooks.d.cts",
@@ -70,12 +70,12 @@
     },
     "./types": {
       "import": {
-        "types": "./dist/types.d.ts",
-        "default": "./dist/types.d.ts"
+        "types": "./dist/types.d.mts",
+        "default": "./dist/types.mjs"
       },
       "require": {
         "types": "./dist/types.d.cts",
-        "default": "./dist/types.d.cts"
+        "default": "./dist/types.cjs"
       }
     }
   },
