@@ -1,5 +1,3 @@
-export type * from './context';
-export * from './context';
 export type * from './handle';
 export * from './handle';
 export type * from './handle-root';
@@ -8,5 +6,7 @@ export type * from './image';
 export * from './image';
 export type * from './item';
 export * from './item';
+export type * from './provider';
+export * from './provider';
 export type * from './root';
 export * from './root';

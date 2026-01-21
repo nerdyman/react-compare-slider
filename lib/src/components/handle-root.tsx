@@ -2,8 +2,8 @@
 
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
 
-import { useReactCompareSliderContext } from './context';
 import { EVENT_CAPTURE_PARAMS, useEventListener } from './internal-hooks';
+import { useReactCompareSliderContext } from './provider';
 import { ReactCompareSliderCssVars } from '../consts';
 
 export type HandleRootProps = ComponentPropsWithoutRef<'div'>;
@@ -35,8 +35,8 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     outline: 0,
     zIndex: 1,
     translate: portrait
-      ? `0 var(${ReactCompareSliderCssVars.rawPosition}) 0`
-      : `var(${ReactCompareSliderCssVars.rawPosition}) 0 0`,
+      ? `0 var(${ReactCompareSliderCssVars.currentPosition}) 0`
+      : `var(${ReactCompareSliderCssVars.currentPosition}) 0 0`,
     backfaceVisibility: 'hidden',
     transition: canTransition && transition ? `translate ${transition}` : undefined,
     willChange: 'translate',

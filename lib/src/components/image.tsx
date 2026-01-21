@@ -6,7 +6,7 @@ import { styleFitContainer } from '../utils';
 
 export type ImageProps = ComponentPropsWithoutRef<'img'>;
 
-/** `img` element with defaults from `styleFitContainer` applied. */
+/** `img` element with default styles applied by `styleFitContainer`. */
 export const Image = forwardRef<HTMLImageElement, ImageProps>(({ style, ...props }, ref) => {
   const appliedStyle = styleFitContainer(style);
 

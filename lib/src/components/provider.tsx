@@ -10,10 +10,20 @@ const Context = createContext<ContextProps>({} as ContextProps);
 
 export type ProviderProps = PropsWithChildren<ContextProps>;
 
+/**
+ * The root component of the slider - provides the state and event handlers for the slider components.
+ */
 export const Provider: React.FC<ProviderProps> = ({ children, ...value }) => {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
+/**
+ * Access the state and event handlers of the slider - must be used within the `Provider` component.
+ * @example
+ * ```tsx
+ * const { position, setPosition } = useReactCompareSliderContext();
+ * ```
+ */
 export const useReactCompareSliderContext = () => {
   const context = useContext(Context);
 

@@ -140,4 +140,18 @@
   .sbdocs table:not(.docblock-argstable) td:last-of-type {
     border-right: 0 !important;
   }
+
+  .custom-lib-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    max-width: 30rem;
+
+    /* MDX automatically adds p tags to children. */
+    & p {
+      margin: 0;
+    }
+  }
 </style>

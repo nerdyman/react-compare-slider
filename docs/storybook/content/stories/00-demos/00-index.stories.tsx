@@ -415,7 +415,10 @@ Transition.args = {
   },
 };
 
-export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ defaultPosition = 25, ...props }) => (
+export const DefaultPosition: StoryFn<ReactCompareSliderDetailedProps> = ({
+  defaultPosition = 25,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
     defaultPosition={defaultPosition}
@@ -435,7 +438,7 @@ export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ defaultPosi
   />
 );
 
-Position.args = { defaultPosition: 25 };
+DefaultPosition.args = { defaultPosition: 25 };
 
 export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props) => (
   <div

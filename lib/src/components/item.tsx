@@ -2,7 +2,7 @@
 
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
 
-import { useReactCompareSliderContext } from './context';
+import { useReactCompareSliderContext } from './provider';
 import {
   ReactCompareSliderClip,
   type ReactCompareSliderClipValue,
@@ -35,7 +35,7 @@ export type ContainerItemProps = ComponentPropsWithoutRef<'div'> & {
 };
 
 /**
- * Container for `itemOne  and `itemTwo`.
+ * Container for `itemOne` and `itemTwo`.
  */
 export const Item: FC<ContainerItemProps> = ({ item, style, ...props }) => {
   const { clip, portrait, canTransition, transition } = useReactCompareSliderContext();

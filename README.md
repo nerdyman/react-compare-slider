@@ -4,16 +4,18 @@
 
 [![Example](https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/docs/hero.gif)](https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example)
 
-<a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>&nbsp;
-<a href="https://npmjs.com/package/react-compare-slider"><img  alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>&nbsp;
-<a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>&nbsp;
-<br/>
-<a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>&nbsp;
-<a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider&branch=main"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>&nbsp;
-<a href="https://react-compare-slider.js.org"><img alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>&nbsp;
-<a href="https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example">
-<img alt="Open in Stackblitz" src="https://developer.stackblitz.com/img/open_in_stackblitz_small.svg" />
-</a>
+<div class="custom-lib-tags">
+  <a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>
+  <a href="https://npmjs.com/package/react-compare-slider"><img alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>
+  <a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>
+
+  <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider&branch=main"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>
+  <a href="https://react-compare-slider.js.org"><img alt="Demos" src="https://raw.githubusercontent.com/storybookjs/brand/8d28584c89959d7075c237e9345955c895048977/badge/badge-storybook.svg" /></a>
+  <a href="https://stackblitz.com/github/nerdyman/react-compare-slider/tree/main/docs/example">
+  <img alt="Open in Stackblitz" src="https://developer.stackblitz.com/img/open_in_stackblitz_small.svg" />
+  </a>
+</div>
 
 </div>
 
@@ -74,10 +76,11 @@ export const Example = () => {
 
 | Prop                                                                                                        | Type                         | Required | Default      | Description                                                                                         |
 | :---------------------------------------------------------------------------------------------------------- | :--------------------------- | :------: | ------------ | --------------------------------------------------------------------------------------------------- |
-| [`boundsPadding`](https://react-compare-slider.js.org/?path=/story/demos--bounds-padding)                   | `string`                     |          | `0px`        | Padding to limit the slideable bounds in pixels on the X-axis (landscape) or Y-axis (portrait).     |
+| [`boundsPadding`](https://react-compare-slider.js.org/?path=/story/demos--bounds-padding)                   | `string`                     |          | `0px`        | Padding to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).     |
 | [`browsingContext`](https://react-compare-slider.js.org/?path=/story/demos--browsing-context)               | `globalThis`                 |          | `globalThis` | Context to bind events to (useful for iframes).                                                     |
 | [`clip`](https://react-compare-slider.js.org/?path=/docs/docs-clip--docs)                                   | `all\|itemOne\|itemTwo`     |          | `all`       | Whether to clip `itemOne`, `itemTwo` or `all` items.                                               |
 | [`changePositionOnHover`](https://react-compare-slider.js.org/?path=/story/demos--change-position-on-hover) | `boolean`                    |          | `false`      | Whether the slider should follow the pointer on hover.                                              |
+| [`defaultPosition`](https://react-compare-slider.js.org/?path=/story/demos--defaultPosition)                              | `number`                     |          | `50`         | Initial percentage position of divide (`0-100`).                                                    |
 | [`disabled`](https://react-compare-slider.js.org/?path=/story/demos--disabled)                              | `boolean`                    |          | `false`      | Whether to disable slider movement (items are still interactable).                                  |
 | [`handle`](https://react-compare-slider.js.org/?path=/story/demos--handle)                                  | `ReactNode`                  |          | `undefined`  | Custom handle component.                                                                            |
 | `itemOne`                                                                                                   | `ReactNode`                  |    ✓     | `undefined`  | First component to show in slider.                                                                  |
@@ -86,7 +89,6 @@ export const Example = () => {
 | [`onlyHandleDraggable`](https://react-compare-slider.js.org/?path=/story/demos--only-handle-draggable)      | `boolean`                    |          | `false`      | Whether to only change position when handle is interacted with (useful for touch devices).          |
 | [`onPositionChange`](https://react-compare-slider.js.org/?path=/story/demos--on-position-change)            | `(position: number) => void` |          | `undefined`  | Callback on position change, returns current position percentage as argument.                       |
 | [`portrait`](https://react-compare-slider.js.org/?path=/story/demos--portrait)                              | `boolean`                    |          | `false`      | Whether to use portrait orientation.                                                                |
-| [`position`](https://react-compare-slider.js.org/?path=/story/demos--position)                              | `number`                     |          | `50`         | Initial percentage position of divide (`0-100`).                                                    |
 | [`transition`](https://react-compare-slider.js.org/?path=/story/demos--transition)                          | `string`                     |          | `undefined`  | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`             |
 
 [API docs](https://react-compare-slider.js.org/?path=/docs/docs-api--docs) for more information.

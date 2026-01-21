@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { KeyboardEventKeys } from './components/internal-hooks';
 import { ReactCompareSliderClip, ReactCompareSliderCssVars } from './consts';
@@ -141,7 +141,7 @@ export const useReactCompareSlider = ({
   );
 
   // Set target container for pointer events.
-  useEffect(() => {
+  useLayoutEffect(() => {
     setInteractiveTarget(onlyHandleDraggable ? handleRootRef.current : rootRef.current);
   }, [onlyHandleDraggable]);
 

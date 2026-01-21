@@ -2,10 +2,10 @@
 
 import type { FC } from 'react';
 
-import { Provider } from './components/context';
 import { Handle } from './components/handle';
 import { HandleRoot } from './components/handle-root';
 import { Item } from './components/item';
+import { Provider } from './components/provider';
 import { Root } from './components/root';
 import { useReactCompareSlider } from './hooks';
 import type { ReactCompareSliderDetailedProps } from './types';

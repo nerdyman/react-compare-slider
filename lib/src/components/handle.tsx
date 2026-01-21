@@ -2,7 +2,7 @@
 
 import type { ComponentProps, CSSProperties, FC } from 'react';
 
-import { useReactCompareSliderContext } from './context';
+import { useReactCompareSliderContext } from './provider';
 import { ReactCompareSliderCssVars } from '../consts';
 
 type ThisArrowProps = {
@@ -36,7 +36,10 @@ export type HandleProps = {
 
 export type HandleDetailedProps = ComponentProps<'div'> & HandleProps;
 
-/** Default `handle`. */
+/**
+ * Default `handle` of the `ReactCompareSlider` component. This should be placed within the `HandleRoot`
+ * component when building your own slider.
+ */
 export const Handle: FC<HandleDetailedProps> = ({
   className = '__rcs-handle-root',
   buttonStyle,
@@ -73,6 +76,8 @@ export const Handle: FC<HandleDetailedProps> = ({
   };
 
   const appliedButtonStyle: CSSProperties = {
+    // Prevents the arrows from pointing at each other in RTL.
+    direction: 'ltr',
     display: 'grid',
     gridAutoFlow: 'column',
     gap: '0.5rem',

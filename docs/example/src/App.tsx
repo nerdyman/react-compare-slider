@@ -15,6 +15,7 @@ const CustomSlider = () => {
           <Slider.Image
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
             alt="Image one"
+            style={{ objectPosition: 'top center' }}
           />
         </Slider.Item>
         <Slider.Item item="itemTwo">
@@ -22,6 +23,7 @@ const CustomSlider = () => {
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
             alt="Image two"
             style={{
+              objectPosition: 'top center',
               backgroundColor: 'white',
               backgroundImage: `
                 linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -61,6 +63,7 @@ export default function App() {
           <ReactCompareSliderImage
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
             alt="Image one"
+            style={{ objectPosition: 'top center' }}
           />
         }
         itemTwo={
@@ -68,6 +71,7 @@ export default function App() {
             src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
             alt="Image two"
             style={{
+              objectPosition: 'top center',
               backgroundColor: 'white',
               backgroundImage: `
                 linear-gradient(45deg, #ccc 25%, transparent 25%),

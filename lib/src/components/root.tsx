@@ -3,13 +3,13 @@
 import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
 import { useEffect } from 'react';
 
-import { useReactCompareSliderContext } from './context';
 import { EVENT_CAPTURE_PARAMS, EVENT_PASSIVE_PARAMS, useEventListener } from './internal-hooks';
+import { useReactCompareSliderContext } from './provider';
 import { ReactCompareSliderCssVars } from '../consts';
 
 export type RootProps = ComponentPropsWithoutRef<'div'>;
 
-const currentPositionCssValue = `clamp(var(${ReactCompareSliderCssVars.boundsPadding}), var(${ReactCompareSliderCssVars.rawPosition}), calc(100% - var(${ReactCompareSliderCssVars.boundsPadding})))`;
+const currentPositionCssValue = `clamp(var(${ReactCompareSliderCssVars.boundsPadding}), var(${ReactCompareSliderCssVars.rawPosition}) - var(${ReactCompareSliderCssVars.boundsPadding}) + var(${ReactCompareSliderCssVars.boundsPadding}), calc(100% - var(${ReactCompareSliderCssVars.boundsPadding})))`;
 
 /**
  * The root container of the slider.
