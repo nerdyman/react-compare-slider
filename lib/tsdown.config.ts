@@ -12,7 +12,11 @@ export default defineConfig((options) => ({
   minify: !options.watch,
   sourcemap: true,
   splitting: true,
-  onSuccess: 'rm -rf ../docs/storybook/lib && cp -r ./src ../docs/storybook/lib',
+  onSuccess:
+    // Storybook codegen and coverage only works if the source is alongside the `.storybook` directory so
+    // we copy it on build. We also match the `lib/src` dir since we want Sonar to check the actual source,
+    // not the copied one.
+    'rm -rf ../docs/storybook/lib && mkdir -p ../docs/storybook/lib && cp -r ./src ../docs/storybook/lib',
   failOnWarn: true,
   fixedExtension: true,
 

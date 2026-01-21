@@ -14,7 +14,7 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 export default defineConfig({
   resolve: {
     alias: {
-      'react-compare-slider': path.resolve(dirname, './lib'),
+      'react-compare-slider': path.resolve(dirname, './lib/src'),
     },
   },
   plugins: [react()],
