@@ -57,9 +57,7 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
 
   // Handle hover events on the container.
   useEffect(() => {
-    const containerRef = rootRef.current;
-
-    if (!containerRef) return;
+    const containerRef = rootRef.current as HTMLDivElement;
 
     const handlePointerLeave = (ev: PointerEvent): void => {
       if (isDragging) return;
