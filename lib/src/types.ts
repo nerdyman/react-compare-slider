@@ -33,7 +33,8 @@ export type ReactCompareSliderCommonProps = {
   transition?: string;
 };
 
-export type UseReactCompareSliderProps = ReactCompareSliderCommonProps & {
+/** Props for the pre-built `ReactCompareSlider` component. */
+export type ReactCompareSliderProps = ReactCompareSliderCommonProps & {
   /**
    * CSS unit amount to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).
    * @example '20rem'
@@ -59,6 +60,15 @@ export type UseReactCompareSliderProps = ReactCompareSliderCommonProps & {
    */
   clip?: ReactCompareSliderClipValue;
 
+  /** Custom handle component. */
+  handle?: ReactNode;
+
+  /** First item to show. */
+  itemOne: ReactNode;
+
+  /** Second item to show. */
+  itemTwo: ReactNode;
+
   /**
    * Percentage or pixel amount to move when the slider handle is focused and keyboard arrow is pressed.
    * @default '5%'
@@ -75,6 +85,12 @@ export type UseReactCompareSliderProps = ReactCompareSliderCommonProps & {
   onPositionChange?: (position: ReactCompareSliderPosition) => void;
 };
 
+/** `ReactCompareSliderProps` and all valid `div` element props. */
+export type ReactCompareSliderDetailedProps = ReactCompareSliderProps &
+  Omit<ComponentProps<'div'>, 'children'>;
+
+export type UseReactCompareSliderProps = Omit<ReactCompareSliderProps, 'handle' | 'itemOne' | 'itemTwo'>;
+
 export type SetPositionFromBoundsProps = {
   /** X coordinate to update to (landscape). */
   x: number;
@@ -84,7 +100,7 @@ export type SetPositionFromBoundsProps = {
 
 export type UseReactCompareSliderReturn = Required<
   Pick<
-    UseReactCompareSliderProps,
+    ReactCompareSliderProps,
     | 'boundsPadding'
     | 'browsingContext'
     | 'changePositionOnHover'
@@ -96,7 +112,7 @@ export type UseReactCompareSliderReturn = Required<
     | 'portrait'
   >
 > &
-  Pick<ReactCompareSliderCommonProps, 'transition'> & {
+  Pick<ReactCompareSliderProps, 'transition'> & {
     // Events
     onKeyDown: (event: KeyboardEvent) => void;
     onPointerDown: (event: PointerEvent) => void;
@@ -125,19 +141,3 @@ export type UseReactCompareSliderReturn = Required<
     // TODO: See if this should be ref ??
     interactiveTarget: HTMLElement | null;
   };
-
-/** Props for the pre-built `ReactCompareSlider` component. */
-export type ReactCompareSliderProps = UseReactCompareSliderProps & {
-  /** Custom handle component. */
-  handle?: ReactNode;
-  /** First item to show. */
-  itemOne: ReactNode;
-  /** Second item to show. */
-  itemTwo: ReactNode;
-};
-
-/** `ReactCompareSliderProps` and all valid `div` element props. */
-export type ReactCompareSliderDetailedProps = Omit<
-  ReactCompareSliderProps & ComponentProps<'div'>,
-  'children'
->;
