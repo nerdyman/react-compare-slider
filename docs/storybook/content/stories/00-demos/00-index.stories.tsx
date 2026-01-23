@@ -1,7 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import React, { useState } from 'react';
-import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import {
+  ReactCompareSlider,
+  type ReactCompareSliderDetailedProps,
+  ReactCompareSliderImage,
+} from 'react-compare-slider';
+import * as Slider from 'react-compare-slider/components';
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
 import { createPortal } from 'react-dom';
 
 import { args, argTypes } from '../config';
@@ -11,6 +16,9 @@ const meta: Meta<typeof ReactCompareSlider> = {
   component: ReactCompareSlider,
   args,
   argTypes,
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 export default meta;
 
@@ -473,3 +481,146 @@ export const DefaultPosition: StoryFn<ReactCompareSliderDetailedProps> = ({
 );
 
 DefaultPosition.args = { defaultPosition: 25 };
+
+export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSProperties }> = ({
+  style,
+  ...props
+}) => {
+  const [pointerDownActive, setPointerDownActive] = React.useState<string>('not fired');
+
+  // Destructure the props you want to manipulate.
+  const {
+    isDragging,
+    canTransition,
+    onPointerDown,
+    onPointerUp,
+    setPosition,
+    setPositionFromBounds,
+    ...sliderProps
+  } = useReactCompareSlider(props);
+
+  /**
+   * Override the default pointerdown event handler.
+   */
+  const customPointerDown: typeof onPointerDown = React.useCallback(
+    (ev) => {
+      console.log('customPointerDown', ev);
+      setPointerDownActive('true');
+
+      // Always call the original event handler, you can do this wherever you want in your custom handler.
+      onPointerDown(ev);
+    },
+    [onPointerDown],
+  );
+
+  /**
+   * Override the default pointerup event handler.
+   */
+  const customPointerUp: typeof onPointerUp = React.useCallback(
+    (ev) => {
+      console.log('customPointerUp', ev);
+      setPointerDownActive('false');
+
+      // Always call the original event handler, you can do this wherever you want in your custom handler.
+      onPointerUp(ev);
+    },
+    [onPointerUp],
+  );
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.5rem',
+        width: '100%',
+        height: '100%',
+        maxHeight: '100dvh',
+        paddingTop: '0.5rem',
+        overflow: 'hidden',
+        backgroundColor: 'white',
+        color: 'black',
+        ...style,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0 0.5rem',
+        }}
+      >
+        <ul
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            listStyle: 'none',
+            padding: '0 0.5rem',
+            margin: 0,
+          }}
+        >
+          <li>Pointer down: {pointerDownActive}</li>
+          <li>Is dragging: {isDragging ? 'true' : 'false'}</li>
+          <li>Can transition: {canTransition ? 'true' : 'false'}</li>
+        </ul>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <button onClick={() => setPosition(sliderProps.defaultPosition)}>Reset position</button>
+          <button onClick={() => setPosition(75)}>Set position to 75%</button>
+          <button onClick={() => setPositionFromBounds({ x: 100, y: 100 })}>
+            Set position by bounds (100px)
+          </button>
+        </div>
+      </div>
+
+      <Slider.Provider
+        {...sliderProps}
+        isDragging={isDragging}
+        canTransition={canTransition}
+        onPointerDown={customPointerDown}
+        onPointerUp={customPointerUp}
+        setPosition={setPosition}
+        setPositionFromBounds={setPositionFromBounds}
+      >
+        <Slider.Root
+          style={{
+            flexGrow: 1,
+            flexShrink: 1,
+            minHeight: 0,
+            backgroundImage: `
+              linear-gradient(45deg, #ccc 25%, transparent 25%),
+              linear-gradient(-45deg, #ccc 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, #ccc 75%),
+              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+            backgroundSize: `20px 20px`,
+            backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+          }}
+        >
+          <Slider.Item item="itemOne">
+            <Slider.Image
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+              alt="Image one"
+            />
+          </Slider.Item>
+          <Slider.Item item="itemTwo">
+            <Slider.Image
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+              alt="Image two"
+            />
+          </Slider.Item>
+          <Slider.HandleRoot>
+            <Slider.Handle />
+          </Slider.HandleRoot>
+        </Slider.Root>
+      </Slider.Provider>
+    </div>
+  );
+};
+
+CustomSlider.args = {
+  transition: '0.15s linear',
+};

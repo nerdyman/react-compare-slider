@@ -34,6 +34,16 @@ const config: StorybookConfig = {
   ],
 
   stories: ['../content/**/*.mdx', '../content/**/*.stories.@(ts|tsx)'],
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractValuesFromUnion: false,
+      shouldIncludeExpression: true,
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
+    },
+  },
 };
 
 export default config;

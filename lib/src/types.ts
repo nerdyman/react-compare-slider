@@ -114,17 +114,23 @@ export type UseReactCompareSliderReturn = Required<
 > &
   Pick<ReactCompareSliderProps, 'transition'> & {
     // Events
-    onKeyDown: (event: KeyboardEvent) => void;
+    /** Handler fired on the `interactiveTarget` `pointerdown` event. */
     onPointerDown: (event: PointerEvent) => void;
+    /** Handler fired on the `rootRef` `pointermove` event when the user `isDragging`. */
     onPointerMove: (event: PointerEvent) => void;
+    /** Handler fired on the `interactiveTarget` `pointerup` event. */
     onPointerUp: (event: PointerEvent) => void;
+    /** Handler fired on the `interactiveTarget` `touchend` event. */
     onTouchEnd: (event: TouchEvent) => void;
+    /** Handler fired on the `handleRootRef` `click` event. */
     onHandleRootClick: (event: PointerEvent) => void;
+    /** Handler fired on the `handleRootRef` `keydown` event when the element is focused. */
+    onHandleRootKeyDown: (event: KeyboardEvent) => void;
     // State
     /** Whether the `transition` property should be applied. */
     canTransition: boolean;
     hasBrowsingContextBinding: RefObject<boolean>;
-    /** Whether the slider is currently moving. */
+    /** Whether the user is currently dragging the slider. */
     isDragging: boolean;
     /** Ref with the current position. */
     position: RefObject<ReactCompareSliderPosition>;
@@ -139,5 +145,9 @@ export type UseReactCompareSliderReturn = Required<
     /** The direct parent element of the `handle` component. */
     handleRootRef: RefObject<HTMLDivElement | null>;
     // TODO: See if this should be ref ??
+    /**
+     * The target element for pointer events.
+     * This defaults to the `rootRef` element and switches to the `handleRootRef` element when `onlyHandleDraggable` is `true`.
+     */
     interactiveTarget: HTMLElement | null;
   };

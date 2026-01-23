@@ -10,8 +10,15 @@ export type HandleRootProps = ComponentPropsWithoutRef<'div'>;
 
 /** Container to control the handle's position. */
 export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
-  const { disabled, portrait, canTransition, transition, handleRootRef, onHandleRootClick, onKeyDown } =
-    useReactCompareSliderContext();
+  const {
+    disabled,
+    portrait,
+    canTransition,
+    transition,
+    handleRootRef,
+    onHandleRootClick,
+    onHandleRootKeyDown,
+  } = useReactCompareSliderContext();
 
   const appliedStyle: CSSProperties = {
     WebkitAppearance: 'none',
@@ -43,7 +50,7 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
     ...style,
   };
 
-  useEventListener('keydown', onKeyDown, handleRootRef.current, EVENT_CAPTURE_PARAMS);
+  useEventListener('keydown', onHandleRootKeyDown, handleRootRef.current, EVENT_CAPTURE_PARAMS);
   useEventListener('click', onHandleRootClick, handleRootRef.current, EVENT_CAPTURE_PARAMS);
 
   return (

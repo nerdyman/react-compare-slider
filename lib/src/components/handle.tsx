@@ -30,8 +30,6 @@ export type HandleProps = {
   buttonStyle?: CSSProperties;
   /** Optional styles for lines either side of the handle button. */
   linesStyle?: CSSProperties;
-  /** Optional styles for the handle root. */
-  style?: CSSProperties;
 };
 
 export type HandleDetailedProps = ComponentProps<'div'> & HandleProps;

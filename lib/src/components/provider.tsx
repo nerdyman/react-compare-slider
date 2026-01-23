@@ -6,7 +6,7 @@ import type { UseReactCompareSliderReturn } from '../types';
 
 export type ContextProps = UseReactCompareSliderReturn;
 
-const Context = createContext<ContextProps>({} as ContextProps);
+const Context = createContext<ContextProps | null>(null);
 
 export type ProviderProps = PropsWithChildren<ContextProps>;
 
@@ -24,7 +24,7 @@ export const Provider: React.FC<ProviderProps> = ({ children, ...value }) => {
  * const { position, setPosition } = useReactCompareSliderContext();
  * ```
  */
-export const useReactCompareSliderContext = () => {
+export const useReactCompareSliderContext = (): ContextProps => {
   const context = useContext(Context);
 
   if (!context) {

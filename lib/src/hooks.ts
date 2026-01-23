@@ -113,7 +113,7 @@ export const useReactCompareSlider = ({
   }, []);
 
   /** Handle keyboard movment. */
-  const onKeyDown = useCallback(
+  const onHandleRootKeyDown = useCallback(
     (ev: KeyboardEvent) => {
       if (!Object.values(KeyboardEventKeys).includes(ev.key as KeyboardEventKeys)) {
         return;
@@ -163,7 +163,7 @@ export const useReactCompareSlider = ({
     portrait,
     transition,
     // Events
-    onKeyDown,
+    onHandleRootKeyDown,
     onPointerDown,
     onPointerMove,
     onPointerUp,
