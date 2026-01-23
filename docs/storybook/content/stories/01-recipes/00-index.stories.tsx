@@ -59,6 +59,8 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 Autoplay.args = {
   style: {
     width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
       linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -133,7 +135,9 @@ ItemLabels.args = {
   style: {
     width: '100%',
     height: '100%',
+    maxHeight: '100dvh',
   },
+  transition: '0.15s linear',
 };
 
 export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
@@ -171,7 +175,7 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
         />
       }
       handle={
-        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', height: '100%' }}>
           <ReactCompareSliderHandle />
           <div style={{ ...labelStyle, translate: '-100% 0', left: 0 }}>Label 1</div>
           <div style={{ ...labelStyle, translate: '100% 0', right: 0 }}>Label 2</div>
@@ -185,10 +189,12 @@ HandleLabels.args = {
   style: {
     width: '100%',
     height: '100%',
+    maxHeight: '100dvh',
   },
+  transition: '0.15s linear',
 };
 
-export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = ({ style, ...props }) => {
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
   return (
@@ -208,7 +214,7 @@ export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (pro
             alt="Image two"
           />
         }
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', ...style }}
       />
       <span
         style={{
@@ -222,6 +228,7 @@ export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (pro
           color: 'white',
           pointerEvents: 'none',
           borderRadius: '0 0 0.25rem 0',
+          zIndex: 1,
         }}
       >
         Enable <code style={{ fontSize: '1rem' }}>onlyHandleDraggable</code> for touch devices only
@@ -240,7 +247,13 @@ DetectTouchDevices.argTypes = {
   },
 };
 
-DetectTouchDevices.args = {};
+DetectTouchDevices.args = {
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
 
 export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [loaded, setLoaded] = React.useState(0);
@@ -276,6 +289,7 @@ WaitForImageLoad.args = {
   style: {
     width: '100%',
     height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'black',
     backgroundImage: 'radial-gradient(rgba(200, 109, 252, .5), rgba(39, 37, 39, .5))',
   },

@@ -255,12 +255,17 @@ export const Handle: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
           alt="Image two"
         />
       }
-      style={{ width: '100%', height: '100%' }}
     />
   );
 };
 
-Handle.args = {};
+Handle.args = {
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
 
 export const KeyboardIncrement: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
@@ -382,6 +387,7 @@ Portrait.args = {
   style: {
     width: '100%',
     height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
     linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -442,10 +448,11 @@ export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 
 Transition.args = {
   defaultPosition: 50,
-  transition: '0.35s ease-in-out',
+  transition: '0.15s linear',
   style: {
     width: '100%',
     height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
       linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -476,11 +483,17 @@ export const DefaultPosition: StoryFn<ReactCompareSliderDetailedProps> = ({
         alt="Image two"
       />
     }
-    style={{ width: '100%', height: '100%' }}
   />
 );
 
-DefaultPosition.args = { defaultPosition: 25 };
+DefaultPosition.args = {
+  defaultPosition: 25,
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
 
 export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSProperties }> = ({
   style,
@@ -540,6 +553,7 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
         overflow: 'hidden',
         backgroundColor: 'white',
         color: 'black',
+        boxSizing: 'border-box',
         ...style,
       }}
     >
@@ -590,7 +604,6 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
           style={{
             flexGrow: 1,
             flexShrink: 1,
-            minHeight: 0,
             backgroundImage: `
               linear-gradient(45deg, #ccc 25%, transparent 25%),
               linear-gradient(-45deg, #ccc 25%, transparent 25%),
@@ -623,4 +636,9 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
 
 CustomSlider.args = {
   transition: '0.15s linear',
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
 };
