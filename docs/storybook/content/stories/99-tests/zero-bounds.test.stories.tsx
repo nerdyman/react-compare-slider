@@ -1,32 +1,62 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
-import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import { ReactCompareSlider } from 'react-compare-slider';
+import { ReactCompareSlider, type ReactCompareSliderProps } from 'react-compare-slider';
+import * as Slider from 'react-compare-slider/components';
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { getArgs, TestTemplate } from './test-utils';
-
-const meta: Meta<typeof ReactCompareSlider> = {
+const meta: Meta = {
   title: 'Tests/Browser/ZeroBounds',
 };
 export default meta;
 
 /** Rendering items with no width or height. */
-export const ZeroBounds = TestTemplate.bind({});
-ZeroBounds.args = getArgs({
-  style: { width: 'auto', height: 'auto' },
-  itemOne: <div data-testid="one" />,
-  itemTwo: <div data-testid="two" />,
-});
+export const ZeroBounds: StoryFn<ReturnType<typeof useReactCompareSlider>> = () => {
+  const sliderProps = useReactCompareSlider();
 
-ZeroBounds.play = async ({ canvasElement }) => {
+  return (
+    <div>
+      <button onClick={() => sliderProps.setPositionFromBounds({ x: 100, y: 100 })}>
+        Set position from bounds
+      </button>
+      <button onClick={() => sliderProps.setPosition(75)}>Set position</button>
+      <Slider.Provider {...sliderProps}>
+        <Slider.Root>
+          <Slider.Item item="itemOne">
+            <div data-testid="one" />
+          </Slider.Item>
+          <Slider.Item item="itemTwo">
+            <div data-testid="two" />
+          </Slider.Item>
+          <Slider.HandleRoot>
+            <Slider.Handle />
+          </Slider.HandleRoot>
+        </Slider.Root>
+      </Slider.Provider>
+    </div>
+  );
+};
+
+ZeroBounds.play = async ({ canvasElement, step, userEvent }) => {
   const canvas = within(canvasElement);
   const slider = canvas.getByRole('slider');
 
-  await waitFor(() => expect(slider).toBeInTheDocument());
-  await waitFor(() => expect(canvas.getByTestId('one')).toBeInTheDocument());
-  await waitFor(() => expect(canvas.getByTestId('two')).toBeInTheDocument());
-  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
+  await step('Should have elements on mount', async () => {
+    await waitFor(() => expect(slider).toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByTestId('one')).toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByTestId('two')).toBeInTheDocument());
+    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
+  });
+
+  await step('Set position from bounds', async () => {
+    await userEvent.click(await canvas.findByText('Set position from bounds'));
+    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
+  });
+
+  await step('Set position', async () => {
+    await userEvent.click(await canvas.findByText('Set position'));
+    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('75'));
+  });
 };
 
 /**
@@ -34,7 +64,7 @@ ZeroBounds.play = async ({ canvasElement }) => {
  */
 export const ZeroBoundsWithLazyContent: StoryFn = () => {
   const [dir, setDir] = useState('ltr');
-  const [props, setProps] = useState<ReactCompareSliderDetailedProps>({
+  const [props, setProps] = useState<ReactCompareSliderProps>({
     defaultPosition: 50,
     portrait: true,
     itemOne: <div data-testid="one" />,
