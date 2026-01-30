@@ -41,7 +41,7 @@ UseReactCompareSliderContextThrows.play = async ({ canvasElement }) => {
 
   await waitFor(() => {
     expect(canvas.getByTestId('error')).toHaveTextContent(
-      'useReactCompareSliderContext must be used within the Context component',
+      'useReactCompareSliderContext must be used within the Provider component',
     );
   });
 };

@@ -59,7 +59,7 @@ pnpm add react-compare-slider
 You _may_ use `ReactCompareSliderImage` to render images or use your own custom
 components.
 
-```jsx
+```tsx
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 export const Example = () => {
@@ -71,6 +71,42 @@ export const Example = () => {
   );
 };
 ```
+
+### Custom Slider
+
+You can also construct your own slider for more granular control.
+
+```tsx
+import * as Slider from 'react-compare-slider/components';
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
+
+export const Example = () => {
+  const sliderProps = useReactCompareSlider({ portrait: true });
+
+  return (
+    <Slider.Provider {...sliderProps}>
+      <Slider.Root>
+        <Slider.Item item="itemOne">
+          <Slider.Image
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+            alt="Image one"
+          />
+        </Slider.Item>
+        <Slider.Item item="itemTwo">
+          <Slider.Image
+            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+            alt="Image two"
+          />
+        </Slider.Item>
+        <Slider.HandleRoot>
+          <Slider.Handle />
+        </Slider.HandleRoot>
+      </Slider.Root>
+    </Slider.Provider>
+};
+```
+
+See the [Components API](https://react-compare-slider.js.org/?path=/docs/docs-components-api--docs) for more information.
 
 ## Props
 
