@@ -144,7 +144,6 @@ export type UseReactCompareSliderReturn = Required<
     rootRef: RefObject<HTMLDivElement | null>;
     /** The direct parent element of the `handle` component. */
     handleRootRef: RefObject<HTMLDivElement | null>;
-    // TODO: See if this should be ref ??
     /**
      * The target element for pointer events.
      * This defaults to the `rootRef` element and switches to the `handleRootRef` element when `onlyHandleDraggable` is `true`.
