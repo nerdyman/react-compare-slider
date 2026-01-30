@@ -8,5 +8,9 @@ export type { ContextProps } from './components/provider';
 export { useReactCompareSliderContext } from './components/provider';
 export { ReactCompareSliderClip, ReactCompareSliderCssVars } from './consts';
 export { ReactCompareSlider } from './react-compare-slider';
-export type { ReactCompareSliderDetailedProps, ReactCompareSliderProps } from './types';
+export type {
+  ReactCompareSliderDetailedProps,
+  ReactCompareSliderPosition,
+  ReactCompareSliderProps,
+} from './types';
 export { styleFitContainer } from './utils';

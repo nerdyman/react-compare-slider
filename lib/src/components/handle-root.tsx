@@ -1,12 +1,12 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
+import type { ComponentProps, CSSProperties, FC } from 'react';
 
 import { EVENT_CAPTURE_PARAMS, useEventListener } from './internal-hooks';
 import { useReactCompareSliderContext } from './provider';
 import { ReactCompareSliderCssVars } from '../consts';
 
-export type HandleRootProps = ComponentPropsWithoutRef<'div'>;
+export type HandleRootProps = ComponentProps<'div'>;
 
 /** Container to control the handle's position. */
 export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {

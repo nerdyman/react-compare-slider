@@ -26,7 +26,7 @@ const ThisArrow: FC<ThisArrowProps> = ({ flip }) => {
 
 /** Props for `ReactCompareSliderHandle`. */
 export type HandleProps = {
-  /** Optional styles for handle the button. */
+  /** Optional styles for the circular element in the middle of the handle. */
   buttonStyle?: CSSProperties;
   /** Optional styles for lines either side of the handle button. */
   linesStyle?: CSSProperties;

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
+import type { ComponentProps, CSSProperties, FC } from 'react';
 
 import { useReactCompareSliderContext } from './provider';
 import {
@@ -30,14 +30,14 @@ const getClipPath = ({ itemClip, portrait }: GetClipPathProps): CSSProperties['c
   return 'none';
 };
 
-export type ContainerItemProps = ComponentPropsWithoutRef<'div'> & {
+export type ItemsProps = ComponentProps<'div'> & {
   item?: Extract<ReactCompareSliderClipValue, 'itemOne' | 'itemTwo'>;
 };
 
 /**
  * Container for `itemOne` and `itemTwo`.
  */
-export const Item: FC<ContainerItemProps> = ({ item, style, ...props }) => {
+export const Item: FC<ItemsProps> = ({ item, style, ...props }) => {
   const { clip, portrait, canTransition, transition } = useReactCompareSliderContext();
 
   const shouldClip = clip === ReactCompareSliderClip.all || clip === item;

@@ -1,13 +1,13 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, CSSProperties, FC } from 'react';
+import type { ComponentProps, CSSProperties, FC } from 'react';
 import { useEffect } from 'react';
 
 import { EVENT_CAPTURE_PARAMS, EVENT_PASSIVE_PARAMS, useEventListener } from './internal-hooks';
 import { useReactCompareSliderContext } from './provider';
 import { ReactCompareSliderCssVars } from '../consts';
 
-export type RootProps = ComponentPropsWithoutRef<'div'>;
+export type RootProps = ComponentProps<'div'>;
 
 const currentPositionCssValue = `clamp(var(${ReactCompareSliderCssVars.boundsPadding}), var(${ReactCompareSliderCssVars.rawPosition}) - var(${ReactCompareSliderCssVars.boundsPadding}) + var(${ReactCompareSliderCssVars.boundsPadding}), calc(100% - var(${ReactCompareSliderCssVars.boundsPadding})))`;
 
@@ -85,8 +85,8 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
 
     return () => {
       if (hasBrowsingContextBinding.current) {
-        browsingContext.removeEventListener('pointermove', onPointerMove);
-        browsingContext.removeEventListener('pointerup', onPointerUp);
+        browsingContext?.removeEventListener('pointermove', onPointerMove);
+        browsingContext?.removeEventListener('pointerup', onPointerUp);
         hasBrowsingContextBinding.current = false;
       }
     };

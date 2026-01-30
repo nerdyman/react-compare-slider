@@ -28,7 +28,7 @@ export const useReactCompareSliderContext = (): ContextProps => {
   const context = useContext(Context);
 
   if (!context) {
-    throw new Error('useReactCompareSliderContext must be used within the Context component');
+    throw new Error('useReactCompareSliderContext must be used within the Provider component');
   }
 
   return context;
