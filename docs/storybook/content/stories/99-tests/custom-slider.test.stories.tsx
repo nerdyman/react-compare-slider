@@ -29,7 +29,7 @@ CustomSlider.play = async ({ canvasElement, step }) => {
   });
 
   await step('should set position by bounds (100px)', async () => {
-    await canvas.getByText('Set position by bounds (100px)').click();
+    await canvas.getByText('Set X position by bounds (100px)').click();
     const percentageFromPixels = (100 / 256) * 100;
     await waitFor(() =>
       expect(slider).toHaveAttribute(
