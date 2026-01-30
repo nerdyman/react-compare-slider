@@ -5,7 +5,7 @@ const packageJson = await import('./package.json', { with: { type: 'json' } });
 export default defineConfig((options) => ({
   clean: !options.watch,
   dts: true,
-  entry: ['src/index.ts', './src/components/index.ts', 'src/hooks.ts', 'src/types.ts'],
+  entry: ['src/index.ts', './src/consts.ts', './src/components/index.ts', 'src/hooks.ts', 'src/types.ts'],
   platform: 'neutral',
   format: ['esm', 'cjs'],
   target: packageJson.browserslist,
