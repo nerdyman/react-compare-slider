@@ -1,16 +1,16 @@
-export { ReactCompareSliderClipOption, ReactCompareSliderCssVars } from './consts';
-export { ReactCompareSlider } from './ReactCompareSlider';
-export type { ReactCompareSliderHandleProps } from './ReactCompareSliderHandle';
-export { ReactCompareSliderHandle } from './ReactCompareSliderHandle';
-export type { ReactCompareSliderImageProps } from './ReactCompareSliderImage';
-export { ReactCompareSliderImage } from './ReactCompareSliderImage';
+'use client';
 
-export {
-  type ReactCompareSliderClip,
-  type ReactCompareSliderDetailedProps,
-  type ReactCompareSliderPropPosition,
-  type ReactCompareSliderProps,
-  type UseReactCompareSliderRefReturn,
+export type { HandleProps as ReactCompareSliderHandleProps } from './components/handle';
+export { Handle as ReactCompareSliderHandle } from './components/handle';
+export type { ImageProps as ReactCompareSliderImageProps } from './components/image';
+export { Image as ReactCompareSliderImage } from './components/image';
+export type { ContextProps } from './components/provider';
+export { useReactCompareSliderContext } from './components/provider';
+export { ReactCompareSliderClip, ReactCompareSliderCssVars } from './consts';
+export { ReactCompareSlider } from './react-compare-slider';
+export type {
+  ReactCompareSliderDetailedProps,
+  ReactCompareSliderPosition,
+  ReactCompareSliderProps,
 } from './types';
-export { useReactCompareSliderRef } from './useReactCompareSliderRef';
 export { styleFitContainer } from './utils';

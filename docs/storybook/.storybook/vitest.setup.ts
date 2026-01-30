@@ -1,6 +1,7 @@
 import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview';
 import { setProjectAnnotations } from '@storybook/react-vite';
 import { beforeAll } from 'vitest';
+
 import * as projectAnnotations from './preview';
 
 // This is an important step to apply the right configuration when testing your stories.
@@ -8,3 +9,7 @@ import * as projectAnnotations from './preview';
 const annotations = setProjectAnnotations([projectAnnotations, a11yAddonAnnotations]);
 
 beforeAll(annotations.beforeAll);
+
+if (!globalThis.window) {
+  (globalThis as any).window = {} as Window;
+}

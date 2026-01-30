@@ -1,6 +1,6 @@
 import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { ReactCompareSlider } from 'react-compare-slider';
 
 import { Images } from './stories/00-demos/00-index.stories'
 
@@ -8,18 +8,20 @@ import { Images } from './stories/00-demos/00-index.stories'
 
 # Using `clip`
 
-The `clip` prop allows you to control whether `itemOne`, `itemTwo`, or both items are clipped to
-the bounds of the slider.
+The `clip` prop controls whether `itemOne`, `itemTwo`, or both use a clip mask to hide their content at the
+slider position. With `all` (default), both images are clipped - creating a clean left/right split at the
+slider position. With `clip: "itemOne"` or `clip: "itemTwo"`, only one image is clipped while the other extends
+across the entire width underneath, allowing you to overlay one item on top of the other.
 
-This is useful in cases where you have transparent items and want to control which item takes
-precedence when the slider is moved.
+`clip` is essential for comparing images with transparent backgrounds. Without `clip: "all"` (default),
+transparent areas would blend through to the image below, making it impossible to see the actual difference
+between the two images.
+
+In the story below, the checkerboard pattern is a background on the slider itself, the second image shown has
+a completely transparent background.
 
 <Canvas of={Images} />
 
-<ArgTypes of={ReactCompareSlider} />
-
-<br />
-
 ## Live Examples
 
-Checkout the [Images example](/story/demos--images).
+Checkout the [Images example](/story/demos--Images).

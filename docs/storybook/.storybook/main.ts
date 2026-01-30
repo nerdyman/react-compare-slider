@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import remarkGfm from 'remark-gfm';
 
 import { createIntroduction } from './create-introduction.ts';
 
@@ -20,12 +21,29 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-vitest',
     '@storybook/addon-a11y',
-    '@storybook/addon-docs',
-    '@storybook/addon-mdx-gfm',
-    '@storybook/addon-storysource',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
   ],
 
   stories: ['../content/**/*.mdx', '../content/**/*.stories.@(ts|tsx)'],
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractValuesFromUnion: false,
+      shouldIncludeExpression: true,
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
+    },
+  },
 };
 
 export default config;

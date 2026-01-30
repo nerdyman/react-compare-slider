@@ -1,22 +1,41 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
   "root": true,
   "files": {
     "includes": [
       "**",
-      "!**/*.md",
-      "!**/*.mdx",
       "!**/*.log",
-      "!**/.next/",
-      "!**/.pnpm-store/",
-      "!**/dist/**",
+      "!**/.next",
+      "!**/.pnpm-store",
+      "!**/dist",
       "!**/coverage",
       "!**/lcov-report",
-      "!**/node_modules/",
+      "!**/node_modules",
       "!**/pnpm-lock.yaml",
-      "!**/storybook-static/",
-      "!docs/storybook/src"
+      "!**/storybook-static",
+      "!docs/storybook/lib"
     ]
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":NODE:",
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              ["./**"]
+            ]
+          }
+        }
+      }
+    }
   },
   "formatter": {
     "enabled": true,
@@ -34,7 +53,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "recommended": true,
       "complexity": {
         "noAdjacentSpacesInRegex": "error",
         "noBannedTypes": "error",
@@ -75,9 +94,11 @@
       "security": { "noDangerouslySetInnerHtmlWithChildren": "error" },
       "style": {
         "noNamespace": "error",
+        "useImportType": "info",
         "noNonNullAssertion": "warn",
         "useArrayLiterals": "error",
-        "useAsConstAssertion": "error"
+        "useAsConstAssertion": "error",
+        "useConst": "error"
       },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",
@@ -113,6 +134,7 @@
         "noUnsafeNegation": "error",
         "noUselessRegexBackrefs": "error",
         "noWith": "error",
+        "noVar": "error",
         "useAwait": "error",
         "useGetterReturn": "error"
       }
@@ -136,72 +158,42 @@
       "bracketSpacing": true
     }
   },
-  "html": { "formatter": { "selfCloseVoidElements": "always" } },
+  "html": {
+    "formatter": { "selfCloseVoidElements": "always" }
+  },
   "overrides": [
-    {
-      "includes": ["*.ts", "*.tsx", "*.mts", "*.cts"],
-      "linter": {
-        "rules": {
-          "complexity": { "noArguments": "error" },
-          "correctness": {
-            "noConstAssign": "off",
-            "noGlobalObjectCalls": "off",
-            "noInvalidConstructorSuper": "off",
-            "noSetterReturn": "off",
-            "noUndeclaredVariables": "off",
-            "noUnreachable": "off",
-            "noUnreachableSuper": "off"
-          },
-          "style": { "useConst": "error" },
-          "suspicious": {
-            "noDuplicateClassMembers": "off",
-            "noDuplicateObjectKeys": "off",
-            "noDuplicateParameters": "off",
-            "noFunctionAssign": "off",
-            "noImportAssign": "off",
-            "noRedeclare": "off",
-            "noUnsafeNegation": "off",
-            "noVar": "error",
-            "useGetterReturn": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["*.ts", "*.tsx", "*.mts", "*.cts"],
-      "linter": {
-        "rules": {
-          "complexity": { "noArguments": "error" },
-          "correctness": {
-            "noConstAssign": "off",
-            "noGlobalObjectCalls": "off",
-            "noInvalidConstructorSuper": "off",
-            "noSetterReturn": "off",
-            "noUndeclaredVariables": "off",
-            "noUnreachable": "off",
-            "noUnreachableSuper": "off"
-          },
-          "style": { "useConst": "error" },
-          "suspicious": {
-            "noDuplicateClassMembers": "off",
-            "noDuplicateObjectKeys": "off",
-            "noDuplicateParameters": "off",
-            "noFunctionAssign": "off",
-            "noImportAssign": "off",
-            "noRedeclare": "off",
-            "noUnsafeNegation": "off",
-            "noVar": "error",
-            "useGetterReturn": "off"
-          }
-        }
-      }
-    },
     {
       "includes": ["docs/example/**/*.ts", "docs/example/**/*.tsx"],
       "linter": {
         "rules": {
           "suspicious": {
             "noConsole": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "docs/storybook/**/*.ts",
+        "docs/storybook/**/*.tsx",
+        "docs/storybook/**/*.css",
+        "docs/storybook/**/*.html"
+      ],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noImportantStyles": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "info"
+          },
+          "style": {
+            "noDescendingSpecificity": "off",
+            "noNonNullAssertion": "off"
+          },
+          "suspicious": {
+            "noConsole": "off",
+            "noExplicitAny": "off"
           }
         }
       }

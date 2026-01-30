@@ -90,6 +90,6 @@ export const GoogleMaps: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 };
 
 GoogleMaps.args = {
-  style: { width: '100%', height: '100vh' },
+  style: { width: '100%', height: '100%' },
   onlyHandleDraggable: true,
 };

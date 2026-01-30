@@ -1,10 +1,14 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import React, { useCallback, useRef, useState } from 'react';
-import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import { ReactCompareSlider, ReactCompareSliderImage, useReactCompareSliderRef } from 'react-compare-slider';
+import React, { useState } from 'react';
+import {
+  ReactCompareSlider,
+  type ReactCompareSliderDetailedProps,
+  ReactCompareSliderImage,
+} from 'react-compare-slider';
+import * as Slider from 'react-compare-slider/components';
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
 import { createPortal } from 'react-dom';
 
-import { SLIDER_ROOT_TEST_ID } from '../99-tests/test-utils';
 import { args, argTypes } from '../config';
 
 const meta: Meta<typeof ReactCompareSlider> = {
@@ -12,6 +16,9 @@ const meta: Meta<typeof ReactCompareSlider> = {
   component: ReactCompareSlider,
   args,
   argTypes,
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 export default meta;
 
@@ -23,13 +30,14 @@ export const Images: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
+          style={{ objectPosition: 'top center' }}
         />
       }
       itemTwo={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
-          style={{ filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)' }}
+          style={{ objectPosition: 'top center' }}
         />
       }
     />
@@ -80,12 +88,14 @@ export const BoundsPadding: StoryFn<ReactCompareSliderDetailedProps> = ({
 BoundsPadding.args = { boundsPadding: '5%' };
 
 export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const [browsingContext, setBrowsingContext] = useState<Window | null>(null);
-  const reactCompareSliderRef = useReactCompareSliderRef();
+  const [browsingContext, setBrowsingContext] = useState<WindowProxy | null>(null);
 
   return (
     <div>
-      <button onClick={() => setBrowsingContext(window.open('', '', 'popup,width=200,height=200'))}>
+      <button
+        type="button"
+        onClick={() => setBrowsingContext(window.open('', '', 'popup,width=200,height=200'))}
+      >
         Render in popup
       </button>
       {browsingContext &&
@@ -104,7 +114,6 @@ export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props)
                 alt="Image two"
               />
             }
-            ref={reactCompareSliderRef}
             browsingContext={browsingContext}
           />,
           browsingContext.document.body,
@@ -221,12 +230,17 @@ export const Handle: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
           alt="Image two"
         />
       }
-      style={{ width: '100%', height: '100vh' }}
     />
   );
 };
 
-Handle.args = {};
+Handle.args = {
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
 
 export const KeyboardIncrement: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
@@ -330,15 +344,14 @@ export const Portrait: StoryFn<ReactCompareSliderDetailedProps> = ({ portrait = 
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
         alt="Image one"
+        style={{ objectPosition: 'top center' }}
       />
     }
     itemTwo={
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
         alt="Image two"
-        style={{
-          filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
-        }}
+        style={{ objectPosition: 'top center' }}
       />
     }
   />
@@ -348,7 +361,8 @@ Portrait.args = {
   portrait: true,
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
     linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -361,76 +375,77 @@ Portrait.args = {
 };
 
 export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const reactCompareSliderRef = useReactCompareSliderRef();
+  const [position, setPosition] = React.useState(props.defaultPosition);
 
   React.useEffect(() => {
+    const transitionDuration = Number.parseInt(props.transition!.split(' ')[0]!, 10);
+    const delayMs = Number.isNaN(transitionDuration) ? 350 : transitionDuration * 1000;
+    const wait = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const positions = [90, 10, 50];
+
     const fireTransition = async () => {
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          reactCompareSliderRef.current?.setPosition(90);
-          resolve(true);
-        }, 750),
-      );
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          reactCompareSliderRef.current?.setPosition(10);
-          resolve(true);
-        }, 750),
-      );
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          reactCompareSliderRef.current?.setPosition(50);
-          resolve(true);
-        }, 750),
-      );
+      for (const pos of positions) {
+        setPosition(pos);
+        await wait(delayMs);
+      }
     };
 
     fireTransition();
-  }, []);
+  }, [props.transition]);
+
+  React.useEffect(() => {
+    return () => {
+      setPosition(props.defaultPosition);
+    };
+  }, [props.defaultPosition]);
 
   return (
     <ReactCompareSlider
       {...props}
-      ref={reactCompareSliderRef}
+      defaultPosition={position}
       itemOne={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
+          style={{ objectPosition: 'top center' }}
         />
       }
       itemTwo={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
-          style={{
-            filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)',
-          }}
+          style={{ objectPosition: 'top center' }}
         />
       }
-      style={{ width: '100%', height: '100vh' }}
     />
   );
 };
 
 Transition.args = {
-  position: 50,
-  transition: '.75s ease-in-out',
+  defaultPosition: 50,
+  transition: '0.15s linear',
   style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
-              linear-gradient(45deg, #ccc 25%, transparent 25%),
-              linear-gradient(-45deg, #ccc 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #ccc 75%),
-              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
     backgroundSize: `20px 20px`,
     backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
   },
 };
 
-export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ position = 25, ...props }) => (
+export const DefaultPosition: StoryFn<ReactCompareSliderDetailedProps> = ({
+  defaultPosition = 25,
+  ...props
+}) => (
   <ReactCompareSlider
     {...props}
-    position={position}
+    defaultPosition={defaultPosition}
     itemOne={
       <ReactCompareSliderImage
         src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-skyline-1.jpg"
@@ -443,163 +458,175 @@ export const Position: StoryFn<ReactCompareSliderDetailedProps> = ({ position = 
         alt="Image two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
   />
 );
 
-Position.args = { position: 25 };
+DefaultPosition.args = {
+  defaultPosition: 25,
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
 
-export const UseReactCompareSliderRef: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const slider1Ref = useReactCompareSliderRef();
-  const slider2Ref = useReactCompareSliderRef();
+export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSProperties }> = ({
+  style,
+  ...props
+}) => {
+  const [pointerDownActive, setPointerDownActive] = React.useState<string>('not fired');
 
-  const updatingRef = useRef(false);
+  // Destructure the props you want to manipulate.
+  const {
+    isDragging,
+    canTransition,
+    onPointerDown,
+    onPointerUp,
+    setPosition,
+    setPositionFromBounds,
+    rootRef,
+    ...sliderProps
+  } = useReactCompareSlider(props);
 
-  const handleSlider1Change = useCallback(
-    (position: number) => {
-      if (updatingRef.current) return;
-      updatingRef.current = true;
-      slider2Ref.current?.setPosition(position);
-      updatingRef.current = false;
+  /**
+   * Override the default pointerdown event handler.
+   */
+  const customPointerDown: typeof onPointerDown = React.useCallback(
+    (ev) => {
+      console.log('customPointerDown', ev);
+      setPointerDownActive('true');
+
+      // Always call the original event handler, you can do this wherever you want in your custom handler.
+      onPointerDown(ev);
     },
-    [slider2Ref],
+    [onPointerDown],
   );
 
-  const handleSlider2Change = useCallback(
-    (position: number) => {
-      if (updatingRef.current) return;
-      updatingRef.current = true;
-      slider1Ref.current?.setPosition(position);
-      updatingRef.current = false;
+  /**
+   * Override the default pointerup event handler.
+   */
+  const customPointerUp: typeof onPointerUp = React.useCallback(
+    (ev) => {
+      console.log('customPointerUp', ev);
+      setPointerDownActive('false');
+
+      // Always call the original event handler, you can do this wherever you want in your custom handler.
+      onPointerUp(ev);
     },
-    [slider1Ref],
+    [onPointerUp],
   );
 
   return (
-    <div style={{ display: 'flex', flexGrow: 1 }}>
-      <ReactCompareSlider
-        {...props}
-        data-testid={`${SLIDER_ROOT_TEST_ID}-1`}
-        ref={slider1Ref}
-        onPositionChange={handleSlider1Change}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '50%' }}
-      />
-
-      <ReactCompareSlider
-        {...props}
-        data-testid={`${SLIDER_ROOT_TEST_ID}-2`}
-        ref={slider2Ref}
-        onPositionChange={handleSlider2Change}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-        style={{ width: '50%' }}
-      />
-
-      <button
-        type="button"
-        onClick={() => {
-          slider1Ref.current.setPosition(props.position!);
-          slider2Ref.current.setPosition(props.position!);
-        }}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.5rem',
+        width: '100%',
+        height: '100%',
+        maxHeight: '100dvh',
+        paddingTop: '0.5rem',
+        overflow: 'hidden',
+        backgroundColor: 'white',
+        color: 'black',
+        boxSizing: 'border-box',
+        ...style,
+      }}
+    >
+      <div
         style={{
-          position: 'absolute',
-          left: '50%',
-          fontSize: '1.5rem',
-          transform: 'translateX(-50%)',
-          zIndex: 1,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0 0.5rem',
         }}
       >
-        Reset sliders to <code>position</code> value ({props.position})
-      </button>
+        <ul
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            listStyle: 'none',
+            padding: '0 0.5rem',
+            margin: 0,
+          }}
+        >
+          <li>Pointer down: {pointerDownActive}</li>
+          <li>Is dragging: {isDragging ? 'true' : 'false'}</li>
+          <li>Can transition: {canTransition ? 'true' : 'false'}</li>
+        </ul>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <button type="button" onClick={() => setPosition(sliderProps.defaultPosition)}>
+            Reset position
+          </button>
+          <button type="button" onClick={() => setPosition(75)}>
+            Set position to 75%
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const offset = rootRef.current?.getBoundingClientRect().left ?? 0;
+              setPositionFromBounds({ x: 100 + offset, y: 100 });
+            }}
+          >
+            Set X position by bounds (100px)
+          </button>
+        </div>
+      </div>
+
+      <Slider.Provider
+        {...sliderProps}
+        rootRef={rootRef}
+        isDragging={isDragging}
+        canTransition={canTransition}
+        onPointerDown={customPointerDown}
+        onPointerUp={customPointerUp}
+        setPosition={setPosition}
+        setPositionFromBounds={setPositionFromBounds}
+      >
+        <Slider.Root
+          style={{
+            flexGrow: 1,
+            flexShrink: 1,
+            backgroundImage: `
+              linear-gradient(45deg, #ccc 25%, transparent 25%),
+              linear-gradient(-45deg, #ccc 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, #ccc 75%),
+              linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+            backgroundSize: `20px 20px`,
+            backgroundPosition: `0 0, 0 10px, 10px -10px, -10px 0px`,
+          }}
+        >
+          <Slider.Item item="itemOne">
+            <Slider.Image
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
+              alt="Image one"
+              style={{ objectPosition: 'top center' }}
+            />
+          </Slider.Item>
+          <Slider.Item item="itemTwo">
+            <Slider.Image
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
+              alt="Image two"
+              style={{ objectPosition: 'top center' }}
+            />
+          </Slider.Item>
+          <Slider.HandleRoot>
+            <Slider.Handle />
+          </Slider.HandleRoot>
+        </Slider.Root>
+      </Slider.Provider>
     </div>
   );
 };
 
-UseReactCompareSliderRef.args = {};
-
-export const MultipleSliders: StoryFn<ReactCompareSliderDetailedProps> = (props) => (
-  <div
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-      padding: '1rem',
-      overflowY: 'auto',
-      height: 'calc(100dvh - 2rem)',
-    }}
-  >
-    <div style={{ display: 'flex', gap: '1rem', flexShrink: 0, height: 'calc(75dvh - 2rem)' }}>
-      <ReactCompareSlider
-        {...props}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-            alt="Image two"
-          />
-        }
-      />
-      <ReactCompareSlider
-        {...props}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-            alt="Image two"
-          />
-        }
-      />
-    </div>
-    <ReactCompareSlider
-      {...props}
-      style={{ flexShrink: 0, height: 'calc(75dvh - 2rem)' }}
-      portrait
-      itemOne={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-          alt="Image one"
-        />
-      }
-      itemTwo={
-        <ReactCompareSliderImage
-          src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-          alt="Image two"
-        />
-      }
-    />
-  </div>
-);
-
-MultipleSliders.args = {};
+CustomSlider.args = {
+  transition: '0.15s linear',
+  style: {
+    width: '100%',
+    flexGrow: 1,
+  },
+};

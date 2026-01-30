@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/react-vite';
-import { ReactCompareSlider } from 'react-compare-slider';
+import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
-import { BoundsPadding as BoundsPaddingStory } from '../00-demos/00-index.stories';
 import { getArgs, SLIDER_ROOT_TEST_ID } from './test-utils';
+import { BoundsPadding as BoundsPaddingStory } from '../00-demos/00-index.stories';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/BoundsPadding',
@@ -13,7 +13,7 @@ export default meta;
 export const BoundsPadding = BoundsPaddingStory;
 BoundsPadding.args = getArgs({
   ...BoundsPaddingStory.args,
-  position: 0,
+  defaultPosition: 0,
   style: { width: '400px', height: '200px' },
 });
 
@@ -38,6 +38,7 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       ),
     );
   });
+
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   await step('Move slider to 100%', async () => {
@@ -45,12 +46,13 @@ BoundsPadding.play = async ({ canvasElement, step }) => {
       clientX: sliderRoot.clientWidth,
       clientY: sliderRoot.clientHeight,
     });
-    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
     await new Promise((resolve) => setTimeout(resolve, 100));
+    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('100'));
     await waitFor(() =>
       expect(window.getComputedStyle(slider).getPropertyValue('--rcs-current-position')).toBe(
         'clamp(5%, 100% - 5% + 5%, calc(100% - 5%))',
       ),
     );
+    await fireEvent.pointerUp(sliderRoot);
   });
 };

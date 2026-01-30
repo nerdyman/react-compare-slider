@@ -11,7 +11,7 @@ export default meta;
 
 export const Transition = TestTemplate.bind({});
 Transition.args = getArgs({
-  position: 0,
+  defaultPosition: 0,
   transition: '0.2s ease',
   style: { width: 200, height: 200 },
 });

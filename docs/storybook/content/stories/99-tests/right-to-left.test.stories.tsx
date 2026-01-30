@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, waitFor, within } from 'storybook/test';
 
-import { getArgs, SLIDER_ROOT_TEST_ID, TestComponent, TestTemplate } from './test-utils';
+import { getArgs, SLIDER_ROOT_TEST_ID, TestComponent, type TestTemplate } from './test-utils';
 
 const meta: Meta<typeof ReactCompareSlider> = {
   title: 'Tests/Browser/RightToLeft',
@@ -16,7 +16,7 @@ export const RightToLeft: typeof TestTemplate = (args) => (
   </div>
 );
 
-RightToLeft.args = getArgs({ style: { width: 200, height: 200 }, position: 25 });
+RightToLeft.args = getArgs({ style: { width: 200, height: 200 }, defaultPosition: 25 });
 
 RightToLeft.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -27,6 +27,6 @@ RightToLeft.play = async ({ canvasElement }) => {
   await waitFor(() => expect(sliderRoot).toBeInTheDocument());
 
   // Should position slider at 25%.
-  await waitFor(() => expect(slider).toHaveStyle({ left: '50px' }));
+  await waitFor(() => expect(slider).toHaveStyle({ translate: 'clamp(0px, 25% + 0px, 100% + 0px)' }));
   await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('25'));
 };

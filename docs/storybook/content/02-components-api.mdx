@@ -1,0 +1,74 @@
+import { Canvas, Description, Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+
+import {
+  Provider,
+  Root,
+  Item,
+  Image,
+  HandleRoot,
+  Handle,
+} from "react-compare-slider/components";
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
+
+import { CustomSlider } from './stories/00-demos/00-index.stories';
+
+<Meta title="Docs/Components API" />
+
+# Components API
+
+<p class="sb-custom-info">
+
+**Note:** These components are automatically used by the pre-built `ReactCompareSlider` component. If you are
+using the `ReactCompareSlider` component you _should not_ use the components, other than `Handle`, should you
+want to customise the default handle.
+
+</p>
+
+You can build your own slider using the components exported from the `react-compare-slider/components` module.
+These components work similarly to libraries like Base UI and Radix. They give you full control over the components, state
+and event bindings and are used in conjunction with the `useReactCompareSlider` hook.
+
+## Custom Slider Example
+
+<Canvas of={CustomSlider} />
+
+## Components
+
+### `Provider`
+
+<Description of={Provider} />
+
+These props are returned by the `useReactCompareSlider` hook.
+
+<ArgTypes of={Provider} />
+
+### `Root`
+
+<Description of={Root} />
+
+Accepts all valid `div` component props.
+
+### `Item`
+
+<Description of={Item} />
+
+Accepts all valid `div` component props in addition to:
+
+<ArgTypes of={Item} />
+
+### `Image`
+
+<Description of={Image} />
+
+Accepts all valid `img` component props.
+
+### `HandleRoot`
+
+<Description of={HandleRoot} />
+
+Accepts all valid `div` component props.
+
+### `Handle`
+
+<Description of={Handle} />
+<ArgTypes of={Handle} />

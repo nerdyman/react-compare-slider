@@ -1,12 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import React from 'react';
 import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import {
-  ReactCompareSlider,
-  ReactCompareSliderHandle,
-  ReactCompareSliderImage,
-  useReactCompareSliderRef,
-} from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderHandle, ReactCompareSliderImage } from 'react-compare-slider';
+import * as Slider from 'react-compare-slider/components';
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
 import { args, argTypes } from '../config';
 
@@ -37,7 +34,7 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <ReactCompareSlider
       {...props}
-      position={sliderPosition}
+      defaultPosition={sliderPosition}
       transition={isPlaying ? '3s ease-in-out' : undefined}
       onPointerDown={() => setIsPlaying(false)}
       onPointerLeave={() => setIsPlaying(true)}
@@ -45,13 +42,14 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
           alt="Image one"
+          style={{ objectPosition: 'top center' }}
         />
       }
       itemTwo={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
           alt="Image two"
-          style={{ filter: 'saturate(1.25) contrast(1.1) drop-shadow(2px 4px 6px black)' }}
+          style={{ objectPosition: 'top center' }}
         />
       }
     />
@@ -61,6 +59,8 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 Autoplay.args = {
   style: {
     width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
       linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -134,8 +134,10 @@ export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 ItemLabels.args = {
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
+    maxHeight: '100dvh',
   },
+  transition: '0.15s linear',
 };
 
 export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
@@ -173,7 +175,7 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
         />
       }
       handle={
-        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', height: '100%' }}>
           <ReactCompareSliderHandle />
           <div style={{ ...labelStyle, translate: '-100% 0', left: 0 }}>Label 1</div>
           <div style={{ ...labelStyle, translate: '100% 0', right: 0 }}>Label 2</div>
@@ -186,11 +188,13 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
 HandleLabels.args = {
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
+    maxHeight: '100dvh',
   },
+  transition: '0.15s linear',
 };
 
-export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
+export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = ({ style, ...props }) => {
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
   return (
@@ -210,7 +214,7 @@ export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (pro
             alt="Image two"
           />
         }
-        style={{ width: '100%', height: '100vh' }}
+        style={{ width: '100%', height: '100%', ...style }}
       />
       <span
         style={{
@@ -224,6 +228,7 @@ export const DetectTouchDevices: StoryFn<ReactCompareSliderDetailedProps> = (pro
           color: 'white',
           pointerEvents: 'none',
           borderRadius: '0 0 0.25rem 0',
+          zIndex: 1,
         }}
       >
         Enable <code style={{ fontSize: '1rem' }}>onlyHandleDraggable</code> for touch devices only
@@ -242,7 +247,13 @@ DetectTouchDevices.argTypes = {
   },
 };
 
-DetectTouchDevices.args = {};
+DetectTouchDevices.args = {
+  style: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
 
 export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [loaded, setLoaded] = React.useState(0);
@@ -277,41 +288,51 @@ export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props
 WaitForImageLoad.args = {
   style: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'black',
     backgroundImage: 'radial-gradient(rgba(200, 109, 252, .5), rgba(39, 37, 39, .5))',
   },
 };
 
-export const ResetOnPointerLeave: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
-  const reactCompareSliderRef = useReactCompareSliderRef();
+export const ResetOnPointerLeave: StoryFn<React.ComponentProps<typeof Slider.Provider>> = ({
+  defaultPosition = 50,
+  ...props
+}) => {
+  const { setPosition, ...sliderProps } = useReactCompareSlider({ defaultPosition, ...props });
+
+  const handlePointerLeave = React.useCallback(() => {
+    setPosition(defaultPosition);
+  }, [setPosition, defaultPosition]);
 
   return (
     <div style={{ display: 'flex', width: '100%', padding: '3rem' }}>
-      <ReactCompareSlider
-        {...props}
-        onPointerLeave={() => reactCompareSliderRef.current?.setPosition(props.position!)}
-        ref={reactCompareSliderRef}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
-            alt="Image one"
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
-            alt="Image two"
-          />
-        }
-      />
-      <button style={{ position: 'absolute', top: 0, left: 0 }}>Touch device focus trap</button>
+      <Slider.Provider {...sliderProps} defaultPosition={defaultPosition} setPosition={setPosition}>
+        <Slider.Root style={{ width: '100%' }} onPointerLeave={handlePointerLeave}>
+          <Slider.Item item="itemOne">
+            <ReactCompareSliderImage
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
+              alt="Image one"
+            />
+          </Slider.Item>
+          <Slider.Item item="itemTwo">
+            <ReactCompareSliderImage
+              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-2.jpg"
+              alt="Image two"
+            />
+          </Slider.Item>
+          <Slider.HandleRoot>
+            <Slider.Handle />
+          </Slider.HandleRoot>
+        </Slider.Root>
+      </Slider.Provider>
+      <button type="button" style={{ position: 'absolute', top: '0.25rem', left: '0.25rem' }}>
+        Touch device focus trap
+      </button>
     </div>
   );
 };
 
 ResetOnPointerLeave.args = {
-  style: {
-    width: '100%',
-  },
+  transition: '0.15s linear',
 };

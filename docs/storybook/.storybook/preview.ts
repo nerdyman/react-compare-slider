@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import { spyOn } from 'storybook/test';
+
 import { theme } from './theme';
 
 export const beforeEach = () => {
@@ -19,6 +20,7 @@ const preview: Preview = {
     docs: {
       /** @see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#docs-page */
       docsPage: true,
+      codePanel: true,
       defaultName: 'Docs',
       story: {
         inline: true,
@@ -38,7 +40,6 @@ const preview: Preview = {
       test: 'todo',
     },
   },
-  // tags: ['autodocs'],
 };
 
 export default preview;

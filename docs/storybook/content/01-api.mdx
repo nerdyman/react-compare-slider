@@ -1,12 +1,14 @@
-import { Description, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Description, Meta, Markdown } from "@storybook/addon-docs/blocks";
 
 import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
   styleFitContainer,
-  useReactCompareSliderRef,
-} from 'react-compare-slider';
+  useReactCompareSliderContext,
+  ReactCompareSliderCssVars,
+} from "react-compare-slider";
+import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
 <Meta title="Docs/API" />
 
@@ -18,40 +20,48 @@ import {
 
 <Description of={ReactCompareSlider} />
 
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/lib/src/ReactCompareSlider.tsx)
-
-### Props
+### `ReactCompareSlider` Props
 
 <ArgTypes of={ReactCompareSlider} />
 
-
-## `ReactCompareSliderHandle`
+## Handle
 
 <Description of={ReactCompareSliderHandle} />
 
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/lib/src/ReactCompareSliderHandle.tsx)
-
-### Props
+### Handle Props
 
 <ArgTypes of={ReactCompareSliderHandle} />
 
-
-## `ReactCompareSliderImage`
+## Image
 
 <Description of={ReactCompareSliderImage} />
 
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/lib/src/ReactCompareSliderImage.tsx)
-
-### Props
+### Image Props
 
 `ReactCompareSliderImage` accepts any valid HTML `img` component props.
 
+## CSS Variables
+
+The library exports the `ReactCompareSliderCssVars` object to easily reference the CSS variables in code.
+
+```tsx
+import { ReactCompareSliderCssVars } from "react-compare-slider";
+```
+
+### CSS Variables Values
+
+<Markdown>
+{`\`\`\`json
+${JSON.stringify(ReactCompareSliderCssVars, null, 2)}
+\`\`\``}
+</Markdown>
+
+```tsx
+```
 
 ## `styleFitContainer`
 
 <Description of={styleFitContainer} />
-
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/lib/src/utils.ts#L16)
 
 The `styleFitContainer` utility makes any [replaced element](https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element)
 fill its parent while maintaining the correct aspect ratio.
@@ -59,32 +69,39 @@ fill its parent while maintaining the correct aspect ratio.
 It returns a React `style` object and accepts a CSS object as an argument and
 defaults to `object-fit` to `cover`.
 
-### Example
+### `styleFitContainer` Example
 
 Fill a full width/height container:
 
 ```jsx
-import { styleFitContainer } from 'react-compare-slider';
+import { styleFitContainer } from "react-compare-slider";
 
-<div style={{ width: '100vw', height: '100vh' }}>
-    <video
-        style={{
-            ...styleFitContainer({
-                objectFit: 'contain',
-                objectPosition: 'center',
-            })
-        }}
-    />
-</div>
+<div style={{ width: "100vw", height: "100vh" }}>
+  <video
+    style={{
+      ...styleFitContainer({
+        objectFit: "contain",
+        objectPosition: "center",
+      }),
+    }}
+  />
+</div>;
 ```
 
-## `useReactCompareSliderRef`
+## `useReactCompareSliderContext`
 
-<Description of={useReactCompareSliderRef} />
+<Description of={useReactCompareSliderContext} />
+<ArgTypes of={useReactCompareSliderContext} />
 
-[🔗 Source](https://github.com/nerdyman/react-compare-slider/blob/main/lib/src/useReactCompareSliderRef.ts)
+### `useReactCompareSliderContext` Example
 
-The `useReactCompareSliderRef` hook provides a ref to the root element of the slider and exposes the internal
-function used to control the position of the slider. It offers performant programmatic control of the slider.
+```jsx
+import { useReactCompareSliderContext } from "react-compare-slider";
 
-Check out the [`useReactCompareSliderRef` docs](/story/docs-usereactcomparesliderref--page) more information.
+const { position } = useReactCompareSliderContext();
+```
+
+### useReactCompareSliderContext Props
+
+<Description of={useReactCompareSliderContext} />
+<ArgTypes of={useReactCompareSliderContext} />

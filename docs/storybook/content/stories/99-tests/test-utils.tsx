@@ -16,13 +16,13 @@ export const getArgs = (
   style: { width: '100%', height: '100vh' },
   itemOne: (
     <ReactCompareSliderImage
-      src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/e2e-test-1.png"
+      src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/kilroy-1.svg"
       alt="one"
     />
   ),
   itemTwo: (
     <ReactCompareSliderImage
-      src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/e2e-test-2.png"
+      src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/kilroy-2.svg"
       alt="two"
     />
   ),

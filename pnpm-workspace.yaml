@@ -2,5 +2,6 @@ packages:
   - lib/**
   - docs/**
 
-ignoredBuiltDependencies:
-  - lefthook
+allowBuilds:
+  esbuild: true
+  lefthook: true

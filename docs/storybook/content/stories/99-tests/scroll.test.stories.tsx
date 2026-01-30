@@ -56,9 +56,10 @@ Horizontal.play = async ({ canvasElement }) => {
   await fireEvent.pointerDown(sliderRoot, {
     clientX: 166,
     clientY: 100,
-  }),
-    // Should match new position.
-    await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('75'));
+  });
+
+  // Should match new position.
+  await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('75'));
 };
 
 /** Vertical slider in portrait mode. */

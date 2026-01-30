@@ -1,9 +1,9 @@
-import { Canvas, ArgTypes, Meta } from '@storybook/addon-docs/blocks';
+import { Canvas, ArgTypes, Meta } from "@storybook/addon-docs/blocks";
 
-import { ReactCompareSliderHandle } from 'react-compare-slider';
+import { ReactCompareSliderHandle, ReactCompareSliderCssVars } from "react-compare-slider";
 
-import { InheritedColor } from './stories/02-handles/00-react-compare-slider-handle.stories'
-import { CustomComponent } from './stories/02-handles/01-custom.stories'
+import { InheritedColor } from "./stories/02-handles/00-react-compare-slider-handle.stories";
+import { CustomComponent } from "./stories/02-handles/01-custom.stories";
 
 <Meta title="Docs/Handles" component={ReactCompareSliderHandle} />
 
@@ -12,7 +12,7 @@ import { CustomComponent } from './stories/02-handles/01-custom.stories'
 <p class="sb-custom-info">
 
 **Note**: You should use a non-interactive elements (`div`, `span`, etc.) for custom `handle`
-components as handles are rendered within a `button` by the library.
+components as handles are announced as a slider control to screen readers.
 
 </p>
 
@@ -31,13 +31,11 @@ customize it to fit your requirements.
 
 ### CSS `className`
 
-
-| Class Name | Description |
-| :-- | :-- |
-| `.__rcs-handle-root` | The root element. |
+| Class Name             | Description                               |
+| :--------------------- | :---------------------------------------- |
+| `.__rcs-handle-root`   | The root element.                         |
 | `.__rcs-handle-button` | The circular element shown in the middle. |
-| `.__rcs-handle-line` | For each line either side of the button. |
-
+| `.__rcs-handle-line`   | For each line either side of the button.  |
 
 <br />
 
@@ -47,9 +45,8 @@ customize it to fit your requirements.
 
 ### Custom `ReactCompareSliderHandle` usage
 
-The colors used in `ReactCompareSliderHandle` are inherited from the root element's `color`
-property using the `currentColor` keyword (except for `boxShadow`).
-To set all colors in sync just change the `style` property or use the `.__rcs-handle-root` class.
+The colors used in `ReactCompareSliderHandle` are inherited from the <code>{ReactCompareSliderCssVars.handleColor}</code>
+CSS variable.
 
 <Canvas of={InheritedColor} />
 
