@@ -55,8 +55,8 @@ export type ReactCompareSliderProps = ReactCompareSliderCommonProps & {
   changePositionOnHover?: boolean;
 
   /**
-   * Whether to clip `itemOne`, `itemTwo` or `both` items.
-   * @default both
+   * Whether to clip `itemOne`, `itemTwo` or `all` items.
+   * @default all
    */
   clip?: ReactCompareSliderClipValue;
 
