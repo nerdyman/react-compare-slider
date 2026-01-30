@@ -151,34 +151,6 @@ export const ChangePositionOnHover: StoryFn<ReactCompareSliderDetailedProps> = (
 
 ChangePositionOnHover.args = { changePositionOnHover: true };
 
-export const Clip: StoryFn<ReactCompareSliderDetailedProps> = ({ disabled, ...props }) => {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      <ReactCompareSlider
-        {...props}
-        disabled={disabled}
-        itemOne={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/kilroy-1.svg"
-            alt="Image one"
-            style={{ objectPosition: 'bottom left' }}
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/kilroy-2.svg"
-            alt="Image two"
-            style={{ objectPosition: 'bottom right' }}
-          />
-        }
-        style={{ width: '100%', flexGrow: 1 }}
-      />
-    </div>
-  );
-};
-
-Clip.args = { clip: 'itemTwo' };
-
 export const Disabled: StoryFn<ReactCompareSliderDetailedProps> = ({ disabled, ...props }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -509,6 +481,7 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
     onPointerUp,
     setPosition,
     setPositionFromBounds,
+    rootRef,
     ...sliderProps
   } = useReactCompareSlider(props);
 
@@ -585,14 +558,20 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
           <button onClick={() => setPosition(sliderProps.defaultPosition)}>Reset position</button>
           <button onClick={() => setPosition(75)}>Set position to 75%</button>
-          <button onClick={() => setPositionFromBounds({ x: 100, y: 100 })}>
-            Set position by bounds (100px)
+          <button
+            onClick={() => {
+              const offset = rootRef.current?.getBoundingClientRect().left ?? 0;
+              setPositionFromBounds({ x: 100 + offset, y: 100 });
+            }}
+          >
+            Set X position by bounds (100px)
           </button>
         </div>
       </div>
 
       <Slider.Provider
         {...sliderProps}
+        rootRef={rootRef}
         isDragging={isDragging}
         canTransition={canTransition}
         onPointerDown={customPointerDown}
@@ -617,12 +596,14 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
             <Slider.Image
               src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
               alt="Image one"
+              style={{ objectPosition: 'top center' }}
             />
           </Slider.Item>
           <Slider.Item item="itemTwo">
             <Slider.Image
               src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
               alt="Image two"
+              style={{ objectPosition: 'top center' }}
             />
           </Slider.Item>
           <Slider.HandleRoot>
@@ -638,7 +619,6 @@ CustomSlider.args = {
   transition: '0.15s linear',
   style: {
     width: '100%',
-    height: '100%',
-    maxHeight: '100dvh',
+    flexGrow: 1,
   },
 };

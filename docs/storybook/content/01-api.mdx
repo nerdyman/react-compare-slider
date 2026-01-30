@@ -1,4 +1,4 @@
-import { Description, Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+import { ArgTypes, Description, Meta, Markdown } from "@storybook/addon-docs/blocks";
 
 import {
   ReactCompareSlider,
@@ -6,6 +6,7 @@ import {
   ReactCompareSliderImage,
   styleFitContainer,
   useReactCompareSliderContext,
+  ReactCompareSliderCssVars,
 } from "react-compare-slider";
 import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
@@ -19,7 +20,7 @@ import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
 <Description of={ReactCompareSlider} />
 
-### Props
+### `ReactCompareSlider` Props
 
 <ArgTypes of={ReactCompareSlider} />
 
@@ -39,6 +40,25 @@ import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
 `ReactCompareSliderImage` accepts any valid HTML `img` component props.
 
+## CSS Variables
+
+The library exports the `ReactCompareSliderCssVars` object to easily reference the CSS variables in code.
+
+```tsx
+import { ReactCompareSliderCssVars } from "react-compare-slider";
+```
+
+### CSS Variables Values
+
+<Markdown>
+{`\`\`\`json
+${JSON.stringify(ReactCompareSliderCssVars, null, 2)}
+\`\`\``}
+</Markdown>
+
+```tsx
+```
+
 ## `styleFitContainer`
 
 <Description of={styleFitContainer} />
@@ -49,7 +69,7 @@ fill its parent while maintaining the correct aspect ratio.
 It returns a React `style` object and accepts a CSS object as an argument and
 defaults to `object-fit` to `cover`.
 
-### Example
+### `styleFitContainer` Example
 
 Fill a full width/height container:
 
@@ -73,7 +93,7 @@ import { styleFitContainer } from "react-compare-slider";
 <Description of={useReactCompareSliderContext} />
 <ArgTypes of={useReactCompareSliderContext} />
 
-### Example
+### `useReactCompareSliderContext` Example
 
 ```jsx
 import { useReactCompareSliderContext } from "react-compare-slider";
