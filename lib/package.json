@@ -48,6 +48,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./consts": {
+      "import": {
+        "types": "./dist/consts.d.mts",
+        "default": "./dist/consts.mjs"
+      },
+      "require": {
+        "types": "./dist/consts.d.cts",
+        "default": "./dist/consts.cjs"
+      }
+    },
     "./components": {
       "import": {
         "types": "./dist/components/index.d.mts",
