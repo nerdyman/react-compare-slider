@@ -5,15 +5,15 @@
     "includes": [
       "**",
       "!**/*.log",
-      "!**/.next/**",
-      "!**/.pnpm-store/**",
-      "!**/dist/**",
-      "!**/coverage/**",
-      "!**/lcov-report/**",
-      "!**/node_modules/**",
+      "!**/.next",
+      "!**/.pnpm-store",
+      "!**/dist",
+      "!**/coverage",
+      "!**/lcov-report",
+      "!**/node_modules",
       "!**/pnpm-lock.yaml",
-      "!**/storybook-static/**",
-      "!docs/storybook/lib/**"
+      "!**/storybook-static",
+      "!docs/storybook/lib"
     ]
   },
   "assist": {
@@ -53,7 +53,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "recommended": true,
       "complexity": {
         "noAdjacentSpacesInRegex": "error",
         "noBannedTypes": "error",
@@ -168,6 +168,32 @@
         "rules": {
           "suspicious": {
             "noConsole": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "docs/storybook/**/*.ts",
+        "docs/storybook/**/*.tsx",
+        "docs/storybook/**/*.css",
+        "docs/storybook/**/*.html"
+      ],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noImportantStyles": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "info"
+          },
+          "style": {
+            "noDescendingSpecificity": "off",
+            "noNonNullAssertion": "off"
+          },
+          "suspicious": {
+            "noConsole": "off",
+            "noExplicitAny": "off"
           }
         }
       }

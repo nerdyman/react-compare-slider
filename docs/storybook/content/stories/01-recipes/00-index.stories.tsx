@@ -326,7 +326,7 @@ export const ResetOnPointerLeave: StoryFn<React.ComponentProps<typeof Slider.Pro
           </Slider.HandleRoot>
         </Slider.Root>
       </Slider.Provider>
-      <button style={{ position: 'absolute', top: '0.25rem', left: '0.25rem' }}>
+      <button type="button" style={{ position: 'absolute', top: '0.25rem', left: '0.25rem' }}>
         Touch device focus trap
       </button>
     </div>

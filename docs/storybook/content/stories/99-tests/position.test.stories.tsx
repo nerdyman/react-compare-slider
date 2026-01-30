@@ -141,7 +141,9 @@ export const ToggleOrientation: StoryFn<ReactCompareSliderProps> = (args) => {
           backgroundColor: 'rgba(0, 0, 0, .75)',
         }}
       >
-        <button onClick={() => setPortrait((prev) => !prev)}>Toggle orientation</button>
+        <button type="button" onClick={() => setPortrait((prev) => !prev)}>
+          Toggle orientation
+        </button>
       </div>
     </div>
   );

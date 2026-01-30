@@ -1,8 +1,7 @@
-import type { Meta, StoryFn } from '@storybook/react-vite';
-import { type ReactCompareSlider, useReactCompareSliderContext } from 'react-compare-slider';
+import type { Meta } from '@storybook/react-vite';
+import type { ReactCompareSlider } from 'react-compare-slider';
 import { expect, waitFor, within } from 'storybook/test';
 
-import { getArgs } from './test-utils';
 import { CustomSlider as CustomSliderStory } from '../00-demos/00-index.stories';
 
 const meta: Meta<typeof ReactCompareSlider> = {
@@ -12,7 +11,7 @@ const meta: Meta<typeof ReactCompareSlider> = {
 export default meta;
 
 export const CustomSlider = CustomSliderStory.bind({});
-CustomSlider.args = getArgs({ style: { width: 256, height: 256 } });
+CustomSlider.args = { style: { width: 256, height: 256 } };
 
 CustomSlider.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement);
@@ -34,7 +33,7 @@ CustomSlider.play = async ({ canvasElement, step }) => {
     await waitFor(() =>
       expect(slider).toHaveAttribute(
         'aria-valuenow',
-        Number.parseInt(percentageFromPixels.toString()).toString(),
+        Number.parseInt(percentageFromPixels.toString(), 10).toString(),
       ),
     );
     await waitFor(() =>

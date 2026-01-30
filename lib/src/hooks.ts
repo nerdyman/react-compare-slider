@@ -97,12 +97,12 @@ export const useReactCompareSlider = ({
   );
 
   /** Handle mouse/touch up. */
-  const onPointerUp = useCallback((ev: PointerEvent) => {
+  const onPointerUp = useCallback((_ev: PointerEvent) => {
     setIsDragging(false);
     setCanTransition(true);
   }, []);
 
-  const onTouchEnd = useCallback((ev: TouchEvent) => {
+  const onTouchEnd = useCallback((_ev: TouchEvent) => {
     setIsDragging(false);
     setCanTransition(true);
   }, []);

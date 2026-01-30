@@ -170,7 +170,7 @@ ChangePositionOnHoverPointerDown.play = async ({ canvasElement }) => {
 export const TouchEvents: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <div style={{ width: 400, height: 400, backgroundColor: 'red' }}>
-      <button>Clickaroo</button>
+      <button type="button">Clickaroo</button>
       <ReactCompareSlider {...props} />
     </div>
   );

@@ -16,10 +16,12 @@ export const ZeroBounds: StoryFn<ReturnType<typeof useReactCompareSlider>> = () 
 
   return (
     <div>
-      <button onClick={() => sliderProps.setPositionFromBounds({ x: 100, y: 100 })}>
+      <button type="button" onClick={() => sliderProps.setPositionFromBounds({ x: 100, y: 100 })}>
         Set position from bounds
       </button>
-      <button onClick={() => sliderProps.setPosition(75)}>Set position</button>
+      <button type="button" onClick={() => sliderProps.setPosition(75)}>
+        Set position
+      </button>
       <Slider.Provider {...sliderProps}>
         <Slider.Root>
           <Slider.Item item="itemOne">
@@ -98,11 +100,15 @@ export const ZeroBoundsWithLazyContent: StoryFn = () => {
   return (
     <div dir={dir} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
       <div style={{ display: 'flex', gap: 8, direction: 'ltr' }}>
-        <button onClick={loadContent}>Load content</button>
-        <button onClick={() => setProps((prev) => ({ ...prev, portrait: !prev.portrait }))}>
+        <button type="button" onClick={loadContent}>
+          Load content
+        </button>
+        <button type="button" onClick={() => setProps((prev) => ({ ...prev, portrait: !prev.portrait }))}>
           Toggle portrait
         </button>
-        <button onClick={() => setDir((prev) => (prev === 'ltr' ? 'rtl' : 'ltr'))}>Toggle direction</button>
+        <button type="button" onClick={() => setDir((prev) => (prev === 'ltr' ? 'rtl' : 'ltr'))}>
+          Toggle direction
+        </button>
       </div>
       <ReactCompareSlider {...props} />
     </div>
@@ -121,8 +127,8 @@ ZeroBoundsWithLazyContent.play = async ({ canvasElement, step }) => {
     await waitFor(() => expect(canvas.getByTestId('one')).toBeInTheDocument());
     await waitFor(() => expect(canvas.getByTestId('two')).toBeInTheDocument());
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).width)).toBe(0));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).height)).toBe(0));
+    await waitFor(() => expect(Number.parseInt(window.getComputedStyle(slider).width, 10)).toBe(0));
+    await waitFor(() => expect(Number.parseInt(window.getComputedStyle(slider).height, 10)).toBe(0));
   });
 
   step('Load images', async () => {
@@ -130,20 +136,26 @@ ZeroBoundsWithLazyContent.play = async ({ canvasElement, step }) => {
     await waitFor(() => expect(canvas.getByAltText('one')).toBeInTheDocument(), { timeout: 3000 });
     await waitFor(() => expect(canvas.getByAltText('two')).toBeInTheDocument());
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).translate)).toBe('0px 50%'));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).width)).toBe(128));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).height)).toBe(128));
+    await waitFor(() =>
+      expect(Number.parseInt(window.getComputedStyle(slider).translate, 10)).toBe('0px 50%'),
+    );
+    await waitFor(() => expect(Number.parseInt(window.getComputedStyle(slider).width, 10)).toBe(128));
+    await waitFor(() => expect(Number.parseInt(window.getComputedStyle(slider).height, 10)).toBe(128));
   });
 
   step('Toggle portrait', async () => {
     await user.click(togglePortrait);
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).translate)).toBe('50% 0px'));
+    await waitFor(() =>
+      expect(Number.parseInt(window.getComputedStyle(slider).translate, 10)).toBe('50% 0px'),
+    );
   });
 
   step('Toggle direction', async () => {
     await user.click(toggleDirection);
     await waitFor(() => expect(slider.getAttribute('aria-valuenow')).toBe('50'));
-    await waitFor(() => expect(parseInt(window.getComputedStyle(slider).translate)).toBe('50% 0px'));
+    await waitFor(() =>
+      expect(Number.parseInt(window.getComputedStyle(slider).translate, 10)).toBe('50% 0px'),
+    );
   });
 };

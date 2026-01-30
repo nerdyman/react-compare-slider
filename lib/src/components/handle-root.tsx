@@ -13,6 +13,7 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
   const {
     disabled,
     portrait,
+    position,
     canTransition,
     transition,
     handleRootRef,
@@ -61,6 +62,7 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
       aria-orientation={portrait ? 'vertical' : 'horizontal'}
       aria-valuemin={0}
       aria-valuemax={100}
+      aria-valuenow={position.current}
       data-rcs="handle-container"
       aria-disabled={disabled}
       role="slider"

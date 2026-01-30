@@ -92,7 +92,5 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
     };
   }, [onPointerMove, onPointerUp, isDragging, browsingContext, hasBrowsingContextBinding]);
 
-  return (
-    <div ref={rootRef} style={appliedStyle} data-rcs="root" data-rcs-clip={clip} data-testaroo {...props} />
-  );
+  return <div ref={rootRef} style={appliedStyle} data-rcs="root" data-rcs-clip={clip} {...props} />;
 };

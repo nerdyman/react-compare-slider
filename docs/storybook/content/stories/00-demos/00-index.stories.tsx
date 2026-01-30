@@ -92,7 +92,10 @@ export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props)
 
   return (
     <div>
-      <button onClick={() => setBrowsingContext(window.open('', '', 'popup,width=200,height=200'))}>
+      <button
+        type="button"
+        onClick={() => setBrowsingContext(window.open('', '', 'popup,width=200,height=200'))}
+      >
         Render in popup
       </button>
       {browsingContext &&
@@ -111,7 +114,7 @@ export const BrowsingContext: StoryFn<ReactCompareSliderDetailedProps> = (props)
                 alt="Image two"
               />
             }
-            browsingContext={browsingContext || undefined}
+            browsingContext={browsingContext}
           />,
           browsingContext.document.body,
         )}
@@ -375,7 +378,7 @@ export const Transition: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   const [position, setPosition] = React.useState(props.defaultPosition);
 
   React.useEffect(() => {
-    const transitionDuration = Number.parseInt(props.transition?.split(' ')[0]!);
+    const transitionDuration = Number.parseInt(props.transition!.split(' ')[0]!, 10);
     const delayMs = Number.isNaN(transitionDuration) ? 350 : transitionDuration * 1000;
     const wait = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     const positions = [90, 10, 50];
@@ -556,9 +559,14 @@ export const CustomSlider: StoryFn<Slider.ProviderProps & { style?: React.CSSPro
         </ul>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <button onClick={() => setPosition(sliderProps.defaultPosition)}>Reset position</button>
-          <button onClick={() => setPosition(75)}>Set position to 75%</button>
+          <button type="button" onClick={() => setPosition(sliderProps.defaultPosition)}>
+            Reset position
+          </button>
+          <button type="button" onClick={() => setPosition(75)}>
+            Set position to 75%
+          </button>
           <button
+            type="button"
             onClick={() => {
               const offset = rootRef.current?.getBoundingClientRect().left ?? 0;
               setPositionFromBounds({ x: 100 + offset, y: 100 });
