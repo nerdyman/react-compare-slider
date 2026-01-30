@@ -106,25 +106,25 @@ export const Example = () => {
 };
 ```
 
-See the [Components API](https://react-compare-slider.js.org/?path=/docs/docs-components-api--docs) for more information.
+See the [Components API docs](https://react-compare-slider.js.org/?path=/docs/docs-components-api--docs) for more information.
 
 ## Props
 
 | Prop                                                                                                        | Type                         | Required | Default      | Description                                                                                         |
 | :---------------------------------------------------------------------------------------------------------- | :--------------------------- | :------: | ------------ | --------------------------------------------------------------------------------------------------- |
-| [`boundsPadding`](https://react-compare-slider.js.org/?path=/story/demos--bounds-padding)                   | `string`                     |          | `0px`        | Padding to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).     |
-| [`browsingContext`](https://react-compare-slider.js.org/?path=/story/demos--browsing-context)               | `globalThis`                 |          | `globalThis` | Context to bind events to (useful for iframes).                                                     |
+| [`boundsPadding`](https://react-compare-slider.js.org/?path=/docs/docs-bounds-padding--docs)                   | `string`                     |          | `0px`        | Padding to limit the slideable bounds on the X-axis (landscape) or Y-axis (portrait).     |
+| [`browsingContext`](https://react-compare-slider.js.org/?path=/docs/docs-browsing-context--docs)               | `globalThis`                 |          | `globalThis` | Context to bind events to (useful for iframes).                                                     |
+| [`changePositionOnHover`](https://react-compare-slider.js.org/?path=/docs/docs-change-position-on-hover--docs) | `boolean`                    |          | `false`      | Whether the slider should follow the pointer on hover.                                              |
 | [`clip`](https://react-compare-slider.js.org/?path=/docs/docs-clip--docs)                                   | `all\|itemOne\|itemTwo`     |          | `all`       | Whether to clip `itemOne`, `itemTwo` or `all` items.                                               |
-| [`changePositionOnHover`](https://react-compare-slider.js.org/?path=/story/demos--change-position-on-hover) | `boolean`                    |          | `false`      | Whether the slider should follow the pointer on hover.                                              |
 | [`defaultPosition`](https://react-compare-slider.js.org/?path=/story/demos--default-position)                              | `number`                     |          | `50`         | Initial percentage position of divide (`0-100`).                                                    |
-| [`disabled`](https://react-compare-slider.js.org/?path=/story/demos--disabled)                              | `boolean`                    |          | `false`      | Whether to disable slider movement (items are still interactable).                                  |
-| [`handle`](https://react-compare-slider.js.org/?path=/story/demos--handle)                                  | `ReactNode`                  |          | `undefined`  | Custom handle component.                                                                            |
+| [`disabled`](https://react-compare-slider.js.org/?path=/docs/docs-disabled--docs)                              | `boolean`                    |          | `false`      | Whether to disable slider movement (items are still interactable).                                  |
+| [`handle`](https://react-compare-slider.js.org/?path=/docs/docs-handles--docs)                                  | `ReactNode`                  |          | `undefined`  | Custom handle component.                                                                            |
 | `itemOne`                                                                                                   | `ReactNode`                  |    ✓     | `undefined`  | First component to show in slider.                                                                  |
 | `itemTwo`                                                                                                   | `ReactNode`                  |    ✓     | `undefined`  | Second component to show in slider.                                                                 |
-| [`keyboardIncrement`](https://react-compare-slider.js.org/?path=/story/demos--keyboard-increment)           | `` number\|`${number}%` ``   |          | `5%`         | Percentage or pixel amount to move when the slider handle is focused and keyboard arrow is pressed. |
-| [`onlyHandleDraggable`](https://react-compare-slider.js.org/?path=/story/demos--only-handle-draggable)      | `boolean`                    |          | `false`      | Whether to only change position when handle is interacted with (useful for touch devices).          |
+| [`keyboardIncrement`](https://react-compare-slider.js.org/?path=/docs/docs-keyboard-increment--docs)           | `` number\|`${number}%` ``   |          | `5%`         | Percentage or pixel amount to move when the slider handle is focused and keyboard arrow is pressed. |
+| [`onlyHandleDraggable`](https://react-compare-slider.js.org/?path=/docs/docs-only-handle-draggable--docs)      | `boolean`                    |          | `false`      | Whether to only change position when handle is interacted with (useful for touch devices).          |
 | [`onPositionChange`](https://react-compare-slider.js.org/?path=/story/demos--on-position-change)            | `(position: number) => void` |          | `undefined`  | Callback on position change, returns current position percentage as argument.                       |
 | [`portrait`](https://react-compare-slider.js.org/?path=/story/demos--portrait)                              | `boolean`                    |          | `false`      | Whether to use portrait orientation.                                                                |
-| [`transition`](https://react-compare-slider.js.org/?path=/story/demos--transition)                          | `string`                     |          | `undefined`  | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`             |
+| [`transition`](https://react-compare-slider.js.org/?path=/docs/docs-transition--docs)                          | `string`                     |          | `undefined`  | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`             |
 
 [API docs](https://react-compare-slider.js.org/?path=/docs/docs-api--docs) for more information.
