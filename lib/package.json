@@ -84,7 +84,7 @@
     "dev": "concurrently -k -s first -n \"tsdown,ts\" -c \"blue,cyan\" \"tsdown --watch\" \"pnpm run check --watch --preserveWatchOutput\"",
     "build": "pnpm run check && NODE_ENV=production tsdown",
     "release": "pnpm run release:preflight && pnpm run release:publish",
-    "release:preflight": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test && pnpm run build && pnpm run check",
+    "release:preflight": "cp ../README.md ../LICENSE . && pnpm run -w lint && pnpm run -w test --run && pnpm run build && pnpm run check",
     "release:publish": "release-it",
     "check": "tsc --noEmit"
   },
