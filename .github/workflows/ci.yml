@@ -40,7 +40,7 @@ jobs:
         run: pnpm run --filter @this/example build
 
       - name: 🎭 Install Playwright
-        run: pnpx playwright@1.58.1 install --with-deps
+        run: pnpx playwright@1.58.2 install --with-deps
 
       - name: 🧪 Test
         run: pnpm run test:ci
