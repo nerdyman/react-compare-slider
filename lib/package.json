@@ -105,13 +105,13 @@
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
-    "@types/react": "^19.2.10",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "concurrently": "^9.2.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "release-it": "^19.2.4",
-    "tsdown": "^0.20.1",
+    "tsdown": "^0.20.3",
     "tslib": "~2.8.1",
     "typescript": "^5.6.2"
   }
