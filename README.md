@@ -72,7 +72,7 @@ export const Example = () => {
 };
 ```
 
-### Custom Slider
+### Advanced Usage
 
 You can also construct your own slider for more granular control.
 
@@ -81,6 +81,7 @@ import * as Slider from 'react-compare-slider/components';
 import { useReactCompareSlider } from 'react-compare-slider/hooks';
 
 export const Example = () => {
+  // Access to state and event bindings of the slider.
   const sliderProps = useReactCompareSlider({ portrait: true });
 
   return (
