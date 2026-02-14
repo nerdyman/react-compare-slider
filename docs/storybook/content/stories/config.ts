@@ -17,7 +17,7 @@ export const args: ReactCompareSliderProps = {
   onPositionChange: undefined,
   portrait: false,
   defaultPosition: 50,
-  transition: undefined,
+  transition: '0.15s ease-out',
   browsingContext: undefined,
 };
 

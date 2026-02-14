@@ -8,9 +8,6 @@ export const beforeEach = () => {
   spyOn(console, 'warn').mockName('console.warn');
 };
 
-// Needed for the browsing context tests.
-if (!globalThis.window) (globalThis as any).window = {};
-
 const preview: Preview = {
   parameters: {
     layout: 'fullscreen',

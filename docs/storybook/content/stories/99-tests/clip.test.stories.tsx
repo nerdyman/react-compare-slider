@@ -53,7 +53,7 @@ ClipBoth.play = async ({ canvasElement, step }) => {
     });
 
     await waitFor(() => {
-      const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
+      const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="item"]');
 
       expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.all);
       expect(window.getComputedStyle(itemOne).clipPath).toBe(
@@ -79,7 +79,7 @@ ClipItemOne.play = async ({ canvasElement }) => {
   expect(await canvas.findAllByRole('img')).toHaveLength(2);
 
   await waitFor(() => {
-    const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
+    const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="item"]');
 
     expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.itemOne);
     expect(window.getComputedStyle(itemOne).clipPath).toBe(
@@ -102,7 +102,7 @@ ClipItemTwo.play = async ({ canvasElement }) => {
   await waitFor(async () => expect(await canvas.findAllByRole('img')).toHaveLength(2));
 
   await waitFor(() => {
-    const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="clip-item"]');
+    const [itemOne, itemTwo] = sliderRoot.querySelectorAll('[data-rcs="item"]');
 
     expect(sliderRoot.getAttribute('data-rcs-clip')).toBe(ReactCompareSliderClip.itemTwo);
     expect(window.getComputedStyle(itemOne).clipPath).toBe('none');

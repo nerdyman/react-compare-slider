@@ -86,6 +86,7 @@ export const MultipleSlidersWithScrolling: StoryFn<ReactCompareSliderDetailedPro
     </div>
     <ReactCompareSlider
       {...props}
+      transition="0.25s ease-out"
       style={{ flexShrink: 0, height: 'calc(75dvh - 2rem)' }}
       portrait
       itemOne={
