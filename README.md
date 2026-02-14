@@ -126,7 +126,6 @@ See the [Components API docs](https://react-compare-slider.js.org/?path=/docs/do
 | [`onlyHandleDraggable`](https://react-compare-slider.js.org/?path=/docs/docs-only-handle-draggable--docs)      | `boolean`                    |          | `false`      | Whether to only change position when handle is interacted with (useful for touch devices).          |
 | [`onPositionChange`](https://react-compare-slider.js.org/?path=/story/demos--on-position-change)            | `(position: number) => void` |          | `undefined`  | Callback on position change, returns current position percentage as argument.                       |
 | [`portrait`](https://react-compare-slider.js.org/?path=/story/demos--portrait)                              | `boolean`                    |          | `false`      | Whether to use portrait orientation.                                                                |
-| [`transition`](https://react-compare-slider.js.org/?path=/docs/docs-transition--docs)                          | `string`                     |          | `'0.15s ease-out'\|'none'` | Shorthand CSS `transition` property to apply to handle movement. This is automatically `none` for users with the `prefers-reduced-motion
-: reduced` preference.  |
+| [`transition`](https://react-compare-slider.js.org/?path=/docs/docs-transition--docs)                          | `string`                     |          | `'0.15s ease-out'\|'none'` | Shorthand CSS `transition` property to apply to handle movement. This is automatically `none` for users with the `prefers-reduced-motion: reduced` preference.  |
 
 [API docs](https://react-compare-slider.js.org/?path=/docs/docs-api--docs) for more information.
