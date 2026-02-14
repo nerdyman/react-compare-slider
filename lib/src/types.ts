@@ -129,7 +129,6 @@ export type UseReactCompareSliderReturn = Required<
     // State
     /** Whether the `transition` property should be applied. */
     canTransition: boolean;
-    hasBrowsingContextBinding: RefObject<boolean>;
     /** Whether the user is currently dragging the slider. */
     isDragging: boolean;
     /** Ref with the current position. */

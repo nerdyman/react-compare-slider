@@ -46,8 +46,6 @@ export const useReactCompareSlider = ({
   const [isDragging, setIsDragging] = useState(false);
   /** Whether the `transition` property can be applied. */
   const [canTransition, setCanTransition] = useState(true);
-  /** Whether component has a `window` event binding. */
-  const hasBrowsingContextBinding = useRef(false);
   /** Target container for pointer events. */
   const [interactiveTarget, setInteractiveTarget] = useState<HTMLElement | null>(null);
 
@@ -179,7 +177,6 @@ export const useReactCompareSlider = ({
     onHandleRootClick,
     // State
     canTransition,
-    hasBrowsingContextBinding,
     isDragging,
     position,
     // Setters
