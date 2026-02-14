@@ -92,7 +92,6 @@ export const Handle: FC<HandleDetailedProps> = ({
     backgroundColor: 'rgba(0, 0, 0, 0.125)',
     boxShadow: '0 0 4px rgba(0,0,0,.35)',
     transform: portrait ? 'rotate(90deg)' : undefined,
-    // backfaceVisibility: 'hidden',
     ...buttonStyle,
   };
 
