@@ -14,9 +14,7 @@ import type {
 register();
 
 const getDefaultTransition = () =>
-  typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ? '0.15s ease-out'
-    : 'none';
+  globalThis.matchMedia?.('(prefers-reduced-motion: no-preference)')?.matches ? '0.15s ease-out' : 'none';
 
 /**
  * Hook to completely control the slider including all event handlers and state.
