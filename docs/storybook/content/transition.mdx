@@ -13,8 +13,9 @@ property syntax is used **without** the `transition-property` value. The library
 to apply the transition to internally.
 
 You may notice that the slider sometimes moves immediately to the new position, this is because the
-transition only applies to `pointerdown` events to ensure the dragging movement of the slider is smooth.
-This means the transition will be cancelled if `pointerdown` is followed by a `pointermove` event.
+transition only applies to `pointerdown` events to ensure the user doesn't have to wait for the transition to
+complete if they are dragging the slider. This means the transition will be cancelled if `pointerdown` is
+followed by a `pointermove` event.
 
 ```jsx
 <ReactCompareSlider

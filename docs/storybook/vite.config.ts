@@ -8,6 +8,8 @@ import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vite';
 
+import * as vitestCommands from './.storybook/vitest-node-commands';
+
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
@@ -19,14 +21,24 @@ export default defineConfig({
   },
   plugins: [react()],
   test: {
+    allowOnly: !process.env.CI,
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
+      reporter: ['text', 'json', 'html', 'lcov', 'text-summary'],
       reportsDirectory: '../../coverage',
       allowExternal: true,
       include: [path.resolve(dirname, './lib/**/*.{ts,tsx}')],
     },
     projects: [
+      {
+        extends: true,
+        test: {
+          name: 'node',
+          environment: 'node',
+          typecheck: { enabled: true },
+          include: ['content/**/*.node.test.tsx'],
+        },
+      },
       {
         extends: true,
         plugins: [
@@ -38,11 +50,12 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
-          allowOnly: !process.env.CI,
+          typecheck: { enabled: true },
           browser: {
             enabled: true,
             headless: true,
             provider: playwright({}),
+            commands: { ...vitestCommands },
             instances: [{ browser: 'chromium' }],
           },
           setupFiles: ['.storybook/vitest.setup.ts'],

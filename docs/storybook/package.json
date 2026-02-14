@@ -9,7 +9,7 @@
     "dev": "rm -rf ./node_modules/.{cache,vite} && pnpm run storybook",
     "storybook": "storybook dev -p 6006 --ci",
     "build": "storybook build",
-    "test": "rm -rf ./coverage && vitest --project=storybook",
+    "test": "rm -rf ./coverage && vitest",
     "test:coverage": "pnpm run test --coverage"
   },
   "dependencies": {

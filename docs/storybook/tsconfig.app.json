@@ -24,7 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "dist", "content"],
+  "include": ["vitest.d.ts", "src", "dist", "content"],
   "mdx": {
     "checkMdx": true
   }
