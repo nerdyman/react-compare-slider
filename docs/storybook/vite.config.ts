@@ -22,6 +22,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     allowOnly: !process.env.CI,
+    typecheck: { enabled: true },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov', 'text-summary'],
@@ -35,7 +36,6 @@ export default defineConfig({
         test: {
           name: 'node',
           environment: 'node',
-          typecheck: { enabled: true },
           include: ['content/**/*.node.test.tsx'],
         },
       },
@@ -50,7 +50,6 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
-          typecheck: { enabled: true },
           browser: {
             enabled: true,
             headless: true,
