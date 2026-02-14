@@ -38,7 +38,7 @@ export type ItemsProps = ComponentProps<'div'> & {
  * Container for `itemOne` and `itemTwo`.
  */
 export const Item: FC<ItemsProps> = ({ item, style, ...props }) => {
-  const { clip, portrait, canTransition, transition } = useReactCompareSliderContext();
+  const { clip, portrait } = useReactCompareSliderContext();
 
   const shouldClip = clip === ReactCompareSliderClip.all || clip === item;
   const itemClip = shouldClip ? item : undefined;
@@ -49,19 +49,17 @@ export const Item: FC<ItemsProps> = ({ item, style, ...props }) => {
     WebkitUserSelect: 'none',
     backfaceVisibility: 'hidden',
     WebkitBackfaceVisibility: 'hidden',
-    WebkitPerspective: 1000,
     gridArea: '1 / 1',
     maxWidth: '100%',
     overflow: 'hidden',
     clipPath: getClipPath({ itemClip, portrait }),
     boxSizing: 'border-box',
     transform: 'translateZ(0)',
-    transition: canTransition && transition ? `clip-path ${transition}` : undefined,
     userSelect: 'none',
     zIndex: item === ReactCompareSliderClip.itemOne ? 1 : undefined,
     willChange: 'clip-path',
     ...style,
   };
 
-  return <div {...props} style={appliedStyle} data-rcs="clip-item" data-rcs-item={item} />;
+  return <div data-rcs="item" data-rcs-item={item} {...props} style={appliedStyle} />;
 };

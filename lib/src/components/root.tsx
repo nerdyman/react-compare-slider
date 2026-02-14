@@ -46,6 +46,14 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
     msUserSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+    /**
+     * The transition is on the root because this is where `--rcs-raw-position` is set.
+     * With the `@property` registration in the hook, the browser interpolates the variable itself, so children
+     * that reference it via `var()` see smooth intermediate values without needing their own transitions.
+     * This improves performance and prevents Safari from desyncing independent transitions on separate elements.
+     */
+    transition:
+      canTransition && transition ? `${ReactCompareSliderCssVars.rawPosition} ${transition}` : 'none',
     [ReactCompareSliderCssVars.rawPosition]: `${position.current}%`,
     [ReactCompareSliderCssVars.boundsPadding]: boundsPadding,
     [ReactCompareSliderCssVars.currentPosition]: currentPositionCssValue,

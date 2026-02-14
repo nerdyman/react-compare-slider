@@ -7,7 +7,7 @@
 <div class="custom-lib-tags">
   <a href="https://github.com/nerdyman/react-compare-slider/blob/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/npm/l/react-compare-slider.svg" /></a>
   <a href="https://npmjs.com/package/react-compare-slider"><img alt="npm version" src="https://img.shields.io/npm/v/react-compare-slider.svg" /></a>
-  <a href="https://bundlephobia.com/result?p=react-compare-slider"><img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/react-compare-slider.svg?color=brightgreen" /></a>
+  <a href="https://npmtrends.com/react-compare-slider"><img alt="Downloads" src="https://img.shields.io/npm/dw/react-compare-slider" /></a>
 
   <a href="https://github.com/nerdyman/react-compare-slider/actions?query=workflow%3Abuild"><img alt="GitHub CI status" src="https://img.shields.io/github/actions/workflow/status/nerdyman/react-compare-slider/ci.yml" /></a>
   <a href="https://sonarcloud.io/summary/new_code?id=nerdyman_react-compare-slider&branch=main"><img src="https://img.shields.io/sonar/coverage/nerdyman_react-compare-slider?server=https%3A%2F%2Fsonarcloud.io" alt="Coverage" /></a>
@@ -28,19 +28,19 @@
 
 ## Features
 
-- Supports responsive images and any other React components (`picture`, `video`, `canvas`, `iframe` etc.)
+- Supports responsive images and any other React components (`picture`, `video`, `canvas`, `iframe`, etc.)
 - Supports landscape and portrait orientations
-- Accessible &ndash; screen reader and keyboard support out of the box
+- Accessible with screen reader and keyboard support out of the box
 - Simple API
-- Unopinionated & fully customizable &ndash; optionally use your own components and styles
-- Responsive & fluid with intrinsic sizing
-- Teeny-tiny, zero dependencies
+- Unopinionated and fully customizable, optionally use your own components and styles
+- Responsive and fluid with intrinsic sizing
+- Teeny-tiny, zero dependencies, tree-shakeable
 - Type safe
 
 ## Demos
 
-- Storybook: [docs](https://react-compare-slider.js.org/?path=/docs/docs-introduction--docs), [demos](https://react-compare-slider.js.org/?path=/story/demos), [custom recipes](https://react-compare-slider.js.org/?path=/story/recipes), [custom handles](https://react-compare-slider.js.org/?path=/story/handles), [`useReactCompareSliderRef`](https://react-compare-slider.js.org/?path=/docs/docs-usereactcomparesliderref--docs)
-- [Standalone demo](./docs/example)
+- Storybook: [docs](https://react-compare-slider.js.org/?path=/docs/docs-introduction--docs), [demos](https://react-compare-slider.js.org/?path=/story/demos), [custom recipes](https://react-compare-slider.js.org/?path=/story/recipes), [custom handles](https://react-compare-slider.js.org/?path=/story/handles)
+- [Standalone demo](https://github.com/nerdyman/react-compare-slider/tree/main/docs/example)
 
 ## Usage
 
@@ -126,6 +126,7 @@ See the [Components API docs](https://react-compare-slider.js.org/?path=/docs/do
 | [`onlyHandleDraggable`](https://react-compare-slider.js.org/?path=/docs/docs-only-handle-draggable--docs)      | `boolean`                    |          | `false`      | Whether to only change position when handle is interacted with (useful for touch devices).          |
 | [`onPositionChange`](https://react-compare-slider.js.org/?path=/story/demos--on-position-change)            | `(position: number) => void` |          | `undefined`  | Callback on position change, returns current position percentage as argument.                       |
 | [`portrait`](https://react-compare-slider.js.org/?path=/story/demos--portrait)                              | `boolean`                    |          | `false`      | Whether to use portrait orientation.                                                                |
-| [`transition`](https://react-compare-slider.js.org/?path=/docs/docs-transition--docs)                          | `string`                     |          | `undefined`  | Shorthand CSS `transition` property to apply to handle movement. E.g. `.5s ease-in-out`             |
+| [`transition`](https://react-compare-slider.js.org/?path=/docs/docs-transition--docs)                          | `string`                     |          | `'0.15s ease-out'\|'none'` | Shorthand CSS `transition` property to apply to handle movement. This is automatically `none` for users with the `prefers-reduced-motion
+: reduced` preference.  |
 
 [API docs](https://react-compare-slider.js.org/?path=/docs/docs-api--docs) for more information.

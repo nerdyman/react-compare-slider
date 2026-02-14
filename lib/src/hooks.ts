@@ -4,11 +4,19 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 
 import { KeyboardEventKeys } from './components/internal-hooks';
 import { ReactCompareSliderClip, ReactCompareSliderCssVars } from './consts';
+import { register } from './register';
 import type {
   SetPositionFromBoundsProps,
   UseReactCompareSliderProps,
   UseReactCompareSliderReturn,
 } from './types';
+
+register();
+
+const getDefaultTransition = () =>
+  typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? '0.15s ease-out'
+    : 'none';
 
 /**
  * Hook to completely control the slider including all event handlers and state.
@@ -26,7 +34,7 @@ export const useReactCompareSlider = ({
   onlyHandleDraggable = false,
   onPositionChange,
   portrait = false,
-  transition,
+  transition = getDefaultTransition(),
 }: UseReactCompareSliderProps = {}): UseReactCompareSliderReturn => {
   /** DOM node of the root element. */
   const rootRef = useRef<HTMLDivElement>(null);
@@ -90,8 +98,8 @@ export const useReactCompareSlider = ({
   /** Handle mouse/touch move. */
   const onPointerMove = useCallback(
     function moveCall(ev: PointerEvent) {
-      setPositionFromBounds({ x: ev.pageX, y: ev.pageY });
       setCanTransition(false);
+      setPositionFromBounds({ x: ev.pageX, y: ev.pageY });
     },
     [setPositionFromBounds],
   );

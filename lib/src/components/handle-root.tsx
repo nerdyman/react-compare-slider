@@ -10,16 +10,8 @@ export type HandleRootProps = ComponentProps<'div'>;
 
 /** Container to control the handle's position. */
 export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
-  const {
-    disabled,
-    portrait,
-    position,
-    canTransition,
-    transition,
-    handleRootRef,
-    onHandleRootClick,
-    onHandleRootKeyDown,
-  } = useReactCompareSliderContext();
+  const { disabled, portrait, position, handleRootRef, onHandleRootClick, onHandleRootKeyDown } =
+    useReactCompareSliderContext();
 
   const appliedStyle: CSSProperties = {
     WebkitAppearance: 'none',
@@ -46,7 +38,6 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
       ? `0 var(${ReactCompareSliderCssVars.currentPosition}) 0`
       : `var(${ReactCompareSliderCssVars.currentPosition}) 0 0`,
     backfaceVisibility: 'hidden',
-    transition: canTransition && transition ? `translate ${transition}` : undefined,
     willChange: 'translate',
     ...style,
   };
@@ -63,8 +54,8 @@ export const HandleRoot: FC<HandleRootProps> = ({ style, ...props }) => {
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={position.current}
-      data-rcs="handle-container"
       aria-disabled={disabled}
+      data-rcs="handle-root"
       role="slider"
       style={appliedStyle}
       {...props}

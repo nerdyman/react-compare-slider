@@ -91,13 +91,13 @@ export const Handle: FC<HandleDetailedProps> = ({
     WebkitBackdropFilter: 'blur(0.5rem)', // For Safari.
     backgroundColor: 'rgba(0, 0, 0, 0.125)',
     boxShadow: '0 0 4px rgba(0,0,0,.35)',
-    transform: `${portrait ? 'rotate(90deg) ' : ''}translateZ(0)`,
-    backfaceVisibility: 'hidden',
+    transform: portrait ? 'rotate(90deg)' : undefined,
+    // backfaceVisibility: 'hidden',
     ...buttonStyle,
   };
 
   return (
-    <div {...props} className={className} style={appliedStyle}>
+    <div data-rcs="handle" {...props} className={className} style={appliedStyle}>
       <div className="__rcs-handle-line" style={appliedLinesStyle} />
       <div className="__rcs-handle-button" style={appliedButtonStyle}>
         <ThisArrow />
