@@ -29,7 +29,8 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
     onPointerUp,
     interactiveTarget,
     rootRef,
-    hasBrowsingContextBinding,
+    transition,
+    canTransition,
   } = useReactCompareSliderContext();
 
   const appliedStyle = {
@@ -85,20 +86,16 @@ export const Root: FC<RootProps> = ({ style, ...props }) => {
 
   // Allow drag outside of container while pointer is still down.
   useEffect(() => {
-    if (isDragging && !hasBrowsingContextBinding.current) {
-      browsingContext.addEventListener('pointermove', onPointerMove, EVENT_PASSIVE_PARAMS);
-      browsingContext.addEventListener('pointerup', onPointerUp, EVENT_PASSIVE_PARAMS);
-      hasBrowsingContextBinding.current = true;
-    }
+    if (!isDragging) return;
+
+    browsingContext.addEventListener('pointermove', onPointerMove, EVENT_PASSIVE_PARAMS);
+    browsingContext.addEventListener('pointerup', onPointerUp, EVENT_PASSIVE_PARAMS);
 
     return () => {
-      if (hasBrowsingContextBinding.current) {
-        browsingContext?.removeEventListener('pointermove', onPointerMove);
-        browsingContext?.removeEventListener('pointerup', onPointerUp);
-        hasBrowsingContextBinding.current = false;
-      }
+      browsingContext?.removeEventListener('pointermove', onPointerMove);
+      browsingContext?.removeEventListener('pointerup', onPointerUp);
     };
-  }, [onPointerMove, onPointerUp, isDragging, browsingContext, hasBrowsingContextBinding]);
+  }, [onPointerMove, onPointerUp, isDragging, browsingContext]);
 
   return <div ref={rootRef} style={appliedStyle} data-rcs="root" data-rcs-clip={clip} {...props} />;
 };
