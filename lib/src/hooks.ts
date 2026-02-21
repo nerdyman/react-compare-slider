@@ -16,6 +16,8 @@ register();
 const getDefaultTransition = () =>
   globalThis.matchMedia?.('(prefers-reduced-motion: no-preference)')?.matches ? '0.15s ease-out' : 'none';
 
+const getDefaultOnlyHandleDraggable = () => !!globalThis.matchMedia?.('(pointer: coarse)')?.matches;
+
 /**
  * Hook to completely control the slider including all event handlers and state.
  * This is automatically used by the `ReactCompareSlider` component.
@@ -29,7 +31,7 @@ export const useReactCompareSlider = ({
   defaultPosition = 50,
   disabled = false,
   keyboardIncrement = '5%',
-  onlyHandleDraggable = false,
+  onlyHandleDraggable = getDefaultOnlyHandleDraggable(),
   onPositionChange,
   portrait = false,
   transition = getDefaultTransition(),

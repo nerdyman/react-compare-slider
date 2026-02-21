@@ -3,7 +3,6 @@ import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 import { OnlyHandleDraggable } from './stories/00-demos/00-index.stories'
-import { DetectTouchDevices } from './stories/01-recipes/00-index.stories'
 import { GoogleMaps } from './stories/01-recipes/01-google-maps.stories'
 
 <Meta title="Docs/Only Handle Draggable" component={ReactCompareSlider} />
@@ -18,26 +17,21 @@ where the user needs to touch the slider container to scroll past it without cha
 `onlyHandleDraggable` is also useful when comparing interactive components which
 have their own pointer events, such as canvas elements.
 
+It defaults to `true` on touch devices and `false` on non-touch devices.
+
 <br/>
 
 ## Detecting Touch Devices
 
-The library doesn't provide a method to detect touch devices as it's simple to
-do natively.
-
-```js
-const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-```
+The library automatically uses the `(pointer: coarse)` media query to determine if the device is a touch device.
+You can emulate this in the browser devtools by setting the dimensions to a mobile device, e.g. and iPhone SE
+in the Chrome Devtools.
 
 ## Live Examples
 
 <Canvas of={OnlyHandleDraggable} />
 
-<Canvas of={DetectTouchDevices} />
-
 <Canvas of={GoogleMaps} />
-
-<ArgTypes of={ReactCompareSlider} />
 
 Also checkout the
 [Only Handle Draggable](/story/demos--only-handle-draggable) and
