@@ -32,3 +32,4 @@ jobs:
         with:
           diff: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 24
