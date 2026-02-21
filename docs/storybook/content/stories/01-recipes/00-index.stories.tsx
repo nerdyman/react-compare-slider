@@ -58,6 +58,7 @@ export const Autoplay: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 
 Autoplay.args = {
   style: {
+    flexGrow: 1,
     width: '100%',
     height: '100%',
     maxHeight: '100dvh',
@@ -133,6 +134,7 @@ export const ItemLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 
 ItemLabels.args = {
   style: {
+    flexGrow: 1,
     width: '100%',
     height: '100%',
     maxHeight: '100dvh',
@@ -187,6 +189,7 @@ export const HandleLabels: StoryFn<ReactCompareSliderDetailedProps> = (props) =>
 
 HandleLabels.args = {
   style: {
+    flexGrow: 1,
     width: '100%',
     height: '100%',
     maxHeight: '100dvh',
@@ -249,6 +252,7 @@ DetectTouchDevices.argTypes = {
 
 DetectTouchDevices.args = {
   style: {
+    flexGrow: 1,
     width: '100%',
     height: '100%',
     maxHeight: '100dvh',
@@ -287,6 +291,7 @@ export const WaitForImageLoad: StoryFn<ReactCompareSliderDetailedProps> = (props
 
 WaitForImageLoad.args = {
   style: {
+    flexGrow: 1,
     width: '100%',
     height: '100%',
     maxHeight: '100dvh',
@@ -295,7 +300,7 @@ WaitForImageLoad.args = {
   },
 };
 
-export const ResetOnPointerLeave: StoryFn<React.ComponentProps<typeof Slider.Provider>> = ({
+export const ResetOnPointerLeave: StoryFn<ReactCompareSliderDetailedProps> = ({
   defaultPosition = 50,
   ...props
 }) => {
@@ -334,5 +339,11 @@ export const ResetOnPointerLeave: StoryFn<React.ComponentProps<typeof Slider.Pro
 };
 
 ResetOnPointerLeave.args = {
+  style: {
+    flexGrow: 1,
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
   transition: '0.15s linear',
 };

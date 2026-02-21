@@ -30,7 +30,7 @@ export const InheritedColor: StoryFn<ReactCompareSliderProps> = ({ portrait, ...
         alt="two"
       />
     }
-    style={{ width: '100%', height: '100%' }}
+    style={{ flexGrow: 1, width: '100%', height: '100%', maxHeight: '100dvh' }}
   />
 );
 
@@ -40,14 +40,16 @@ export const IndividualStyles: StoryFn<ReactCompareSliderProps> = ({ portrait, .
     portrait={portrait}
     handle={
       <ReactCompareSliderHandle
-        buttonStyle={{
-          backdropFilter: undefined,
-          WebkitBackdropFilter: undefined,
-          backgroundColor: 'white',
-          color: '#444',
-          boxShadow: undefined,
-          border: 0,
-        }}
+        buttonStyle={
+          {
+            '--rcs-handle-color': '#444',
+            backdropFilter: undefined,
+            WebkitBackdropFilter: undefined,
+            backgroundColor: 'white',
+            boxShadow: undefined,
+            border: 0,
+          } as React.CSSProperties
+        }
         linesStyle={{ opacity: 0.5 }}
       />
     }
@@ -64,7 +66,7 @@ export const IndividualStyles: StoryFn<ReactCompareSliderProps> = ({ portrait, .
         alt="two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
+    style={{ flexGrow: 1, width: '100%', height: '100%', maxHeight: '100dvh' }}
   />
 );
 
@@ -76,7 +78,13 @@ export const HideButton: StoryFn<ReactCompareSliderProps> = ({ portrait, ...prop
       <ReactCompareSliderHandle
         buttonStyle={{ display: 'none' }}
         // Make lines thicker so they're easier to grab.
-        linesStyle={{ width: portrait ? '100%' : 4, height: portrait ? 4 : '100%' }}
+        linesStyle={{
+          width: portrait ? '100%' : 8,
+          height: portrait ? 8 : '100%',
+          outlineWidth: 4,
+          outlineOffset: -4,
+          boxShadow: 'none',
+        }}
       />
     }
     itemOne={
@@ -92,7 +100,7 @@ export const HideButton: StoryFn<ReactCompareSliderProps> = ({ portrait, ...prop
         alt="two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
+    style={{ flexGrow: 1, width: '100%', height: '100%', maxHeight: '100dvh' }}
   />
 );
 
@@ -104,8 +112,6 @@ export const HideLines: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props
       <ReactCompareSliderHandle
         buttonStyle={{
           border: 0,
-          backdropFilter: 'none',
-          WebkitBackdropFilter: 'none',
           boxShadow: 'none',
         }}
         linesStyle={{ opacity: 0 }}
@@ -124,6 +130,6 @@ export const HideLines: StoryFn<ReactCompareSliderProps> = ({ portrait, ...props
         alt="two"
       />
     }
-    style={{ width: '100%', height: '100vh' }}
+    style={{ flexGrow: 1, width: '100%', height: '100%', maxHeight: '100dvh' }}
   />
 );

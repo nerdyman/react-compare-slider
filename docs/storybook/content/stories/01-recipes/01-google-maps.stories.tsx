@@ -1,9 +1,7 @@
-import type { GoogleMapProps } from '@react-google-maps/api';
-import { GoogleMap as GoogleMapBase, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap as GoogleMapBase, type GoogleMapProps, useJsApiLoader } from '@react-google-maps/api';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import React from 'react';
-import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
-import { ReactCompareSlider } from 'react-compare-slider';
+import { ReactCompareSlider, type ReactCompareSliderDetailedProps } from 'react-compare-slider';
 
 import { args, argTypes } from '../config';
 
@@ -18,7 +16,7 @@ export default meta;
 const useGoogleMap = () => {
   const [map, setMap] = React.useState<any>(null);
 
-  const onLoad = React.useCallback(function callback(nextMap) {
+  const onLoad: GoogleMapProps['onLoad'] = React.useCallback(function callback(nextMap) {
     setMap(nextMap);
   }, []);
 
@@ -90,6 +88,6 @@ export const GoogleMaps: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 };
 
 GoogleMaps.args = {
-  style: { width: '100%', height: '100%' },
+  style: { width: '100%', height: '100dvh' },
   onlyHandleDraggable: true,
 };
