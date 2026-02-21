@@ -1,6 +1,10 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import type { ReactCompareSliderProps } from 'react-compare-slider';
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import type { ReactCompareSliderDetailedProps } from 'react-compare-slider';
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage,
+  useReactCompareSliderContext,
+} from 'react-compare-slider';
 
 import { args, argTypes } from '../config';
 
@@ -12,45 +16,46 @@ const meta: Meta<typeof ReactCompareSlider> = {
 };
 export default meta;
 
-export const CustomComponent: StoryFn<ReactCompareSliderProps> = (props) => {
-  const CustomHandle: React.FC = () => {
-    return (
-      <div
-        style={{
-          width: props.portrait ? '100%' : 'calc(0.25rem + 28px)',
-          height: props.portrait ? 'calc(0.25rem + 28px)' : '100%',
-          cursor: 'pointer',
-          pointerEvents: 'auto',
-          backgroundImage: `linear-gradient(
-      ${props.portrait ? 'to left' : 'to bottom'},
-      rgba(255, 0, 0, 1) 0%,
-      rgba(255, 154, 0, 1) 10%,
-      rgba(208, 222, 33, 1) 20%,
-      rgba(79, 220, 74, 1) 30%,
-      rgba(63, 218, 216, 1) 40%,
-      rgba(47, 201, 226, 1) 50%,
-      rgba(28, 127, 238, 1) 60%,
-      rgba(95, 21, 242, 1) 70%,
-      rgba(186, 12, 248, 1) 80%,
-      rgba(251, 7, 217, 1) 90%,
-      rgba(255, 0, 0, 1) 100%
-    )`,
-          boxShadow: `inset 0 0 0 2px rgba(255,0,0,1),
-      inset 0 0 0 4px rgba(255,127,0,1),
-      inset 0 0 0 6px rgba(255,255,0,1),
-      inset 0 0 0 8px rgba(0,255,0,1),
-      inset 0 0 0 10px rgba(0,0,255,1),
-      inset 0 0 0 12px rgba(75,0,130,1),
-      inset 0 0 0 14px rgba(148,0,211,1)`,
-        }}
-      />
-    );
-  };
+const CustomHandle: React.FC = () => {
+  const { portrait } = useReactCompareSliderContext();
 
+  return (
+    <div
+      style={{
+        width: portrait ? '100%' : 'calc(0.25rem + 28px)',
+        height: portrait ? 'calc(0.25rem + 28px)' : '100%',
+        cursor: 'pointer',
+        pointerEvents: 'auto',
+        backgroundImage: `linear-gradient(
+    ${portrait ? 'to left' : 'to bottom'},
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  )`,
+        boxShadow: `inset 0 0 0 2px rgba(255,0,0,1),
+    inset 0 0 0 4px rgba(255,127,0,1),
+    inset 0 0 0 6px rgba(255,255,0,1),
+    inset 0 0 0 8px rgba(0,255,0,1),
+    inset 0 0 0 10px rgba(0,0,255,1),
+    inset 0 0 0 12px rgba(75,0,130,1),
+    inset 0 0 0 14px rgba(148,0,211,1)`,
+      }}
+    />
+  );
+};
+
+export const CustomComponent: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
   return (
     <ReactCompareSlider
       {...props}
-      handle={<CustomHandle />}
       itemOne={
         <ReactCompareSliderImage
           src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/seattle-space-needle-1.jpg"
@@ -68,4 +73,12 @@ export const CustomComponent: StoryFn<ReactCompareSliderProps> = (props) => {
   );
 };
 
-CustomComponent.args = {};
+CustomComponent.args = {
+  handle: <CustomHandle />,
+  style: {
+    flexGrow: 1,
+    width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
+  },
+};
