@@ -46,7 +46,10 @@ export const Images: StoryFn<ReactCompareSliderDetailedProps> = (props) => {
 
 Images.args = {
   style: {
+    flexGrow: 1,
     width: '100%',
+    height: '100%',
+    maxHeight: '100dvh',
     backgroundColor: 'white',
     backgroundImage: `
       linear-gradient(45deg, #ccc 25%, transparent 25%),
