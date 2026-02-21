@@ -13,7 +13,7 @@ export const args: ReactCompareSliderProps = {
   keyboardIncrement: '5%',
   itemOne: undefined,
   itemTwo: undefined,
-  onlyHandleDraggable: false,
+  onlyHandleDraggable: undefined,
   onPositionChange: undefined,
   portrait: false,
   defaultPosition: 50,
