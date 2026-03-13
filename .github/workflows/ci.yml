@@ -27,6 +27,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "pnpm"
 
+      # see https://github.com/actions/setup-node/issues/1137
+      - name: 📂 Create pnpm cache directory
+        shell: bash
+        run: mkdir -vp $(pnpm store path --silent)
+
       - name: 📦 Install Dependencies
         run: npm run bootstrap
 
