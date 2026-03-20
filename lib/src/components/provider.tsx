@@ -18,7 +18,7 @@ export const Provider: React.FC<ProviderProps> = ({ children, ...value }) => {
 };
 
 /**
- * Access the state and event handlers of the slider - must be used within the `Provider` component.
+ * Access the state and event handlers of the slider - must be used within the `Provider` or `ReactCompareSlider` component.
  * @example
  * ```tsx
  * const { position, setPosition } = useReactCompareSliderContext();
