@@ -91,17 +91,21 @@ import { styleFitContainer } from "react-compare-slider";
 ## `useReactCompareSliderContext`
 
 <Description of={useReactCompareSliderContext} />
-<ArgTypes of={useReactCompareSliderContext} />
 
 ### `useReactCompareSliderContext` Example
 
-```jsx
+```tsx
 import { useReactCompareSliderContext } from "react-compare-slider";
 
-const { position } = useReactCompareSliderContext();
+/** Custom component rendered within `Provider` or `ReactCompareSlider`. */
+const CustomItem = () => {  
+  const { setPosition, portrait } = useReactCompareSliderContext();
+
+  return (
+    <div>
+      <p>Is portrait: {portrait.toString()}</p>
+      <button onClick={() => setPosition(75)}>Set position to 75%</button>
+    </div>
+  );
+};
 ```
-
-### useReactCompareSliderContext Props
-
-<Description of={useReactCompareSliderContext} />
-<ArgTypes of={useReactCompareSliderContext} />
