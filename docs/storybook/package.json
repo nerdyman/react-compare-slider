@@ -22,7 +22,7 @@
     "@mdx-js/language-service": "^0.7.3",
     "@storybook/addon-a11y": "^10.3.1",
     "@storybook/addon-docs": "^10.3.1",
-    "@storybook/addon-vitest": "^10.3.1",
+    "@storybook/addon-vitest": "^10.6.2",
     "@storybook/react-vite": "^10.3.1",
     "@types/node": "^24.1.0",
     "@types/react": "^19.2.14",
